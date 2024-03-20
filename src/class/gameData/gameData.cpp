@@ -14,12 +14,12 @@ GameData::~GameData() {
 
 // Method
 void GameData::BacaConfigProduct() {
-    ifstream file("../../config/product.txt");
+    ifstream file("config/product.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
         string code, name, type, origin;
-        int id, price, weight, price;
+        int id, weight, price;
         ss >> id >> code >> name >> type >> origin >> weight >> price;
         ProductConfig.push_back(Product(id, code, name, price, type, origin, weight));
     }
@@ -27,32 +27,18 @@ void GameData::BacaConfigProduct() {
 }
 
 void GameData::BacaConfigBuilding() {
-    ifstream file("../../config/building.txt");
+    ifstream file("config/recipe.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
-        string code, name, recipe;
-        int id, price;
-        ss >> id >> code >> name >> price >> recipe;
-
         map<string, int> Recipe;
-        while (recipe.length() > 0) {
-            // find material
-            int pos1 = recipe.find(" ");
-            string material = recipe.substr(0, pos1);
-
-            // find quantity
-            string temp2 = recipe.substr(pos1+1, recipe.length());
-            int pos2 = temp2.find(" ");
-            string quantity = temp2.substr(pos1+1, pos2);
-            int qty = stoi(quantity);
-
-            // insert to map
-            Recipe.insert(pair<string, int>(material, qty));
-
-            // next iterate
-            recipe = recipe.substr(pos2 + 1, recipe.length());
+        string code, name, recipe;
+        int id, price, qty;
+        ss >> id >> code >> name >> price;
+        while (ss >> recipe >> qty) {
+            Recipe[recipe] = qty;
         }
+
 
         BuildingConfig.push_back(Building(id, code, name, price, Recipe));
     }
@@ -60,7 +46,7 @@ void GameData::BacaConfigBuilding() {
 }
 
 void GameData::BacaConfigAnimal() {
-    ifstream file("../../config/animal.txt");
+    ifstream file("config/animal.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -73,7 +59,7 @@ void GameData::BacaConfigAnimal() {
 }
 
 void GameData::BacaConfigPlant() {
-    ifstream file("../../config/plant.txt");
+    ifstream file("config/plant.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -98,7 +84,7 @@ void GameData::BacaConfigPlant() {
     * 7: besar peternakan m
 */
 void GameData::BacaConfigGame() {
-    ifstream file("../../config/game.txt");
+    ifstream file("config/misc.txt");
     string line;
     int temp, temp1;
     
