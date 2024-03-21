@@ -19,10 +19,11 @@ public:
     void setRow(int row);
     void setCol(int col);
     void setItem(int i, int j, Item& item);
+    void deleteItem(int i, int j);
 
     //Getter
-    [[nodiscard]] int getRow() const;
-    [[nodiscard]] int getCol() const;
+    int getRow() const;
+    int getCol() const;
     virtual Item* operator()(int i, int j);
 
     //Method
