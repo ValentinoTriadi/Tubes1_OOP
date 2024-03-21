@@ -3,7 +3,7 @@
 StatusKeuangan::StatusKeuangan(int uang) : money(uang){
 }
 
-int StatusKeuangan::hitungPajak(){
+int StatusKeuangan::hitungPajak() const{
     return NonUang;
 }
 

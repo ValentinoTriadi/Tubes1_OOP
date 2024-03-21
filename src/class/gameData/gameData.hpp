@@ -29,6 +29,7 @@ class GameData {
         /*Baca Config Plant ```src/config/plant.txt```*/
         void BacaConfigPlant();
         /*Baca Config Misc ```src/config/misc.txt```*/
+
         void BacaConfigGame();
 
         /*Tampilkan Config Product ```src/config/product.txt```*/
@@ -41,6 +42,21 @@ class GameData {
         void DisplayConfigPlant() const;
         /*Tampilkan Config Misc ```src/config/misc.txt```*/
         void DisplayConfigGame() const;
+
+        /*getter for game config*/
+        /*
+        Isi vector GameConfig:
+        <index>: <keterangan>
+        * 0: max uang
+        * 1: max berat
+        * 2: besar inventory n
+        * 3: besar inventory m 
+        * 4: besar lahan n
+        * 5: besar lahan m 
+        * 6: besar peternakan n
+        * 7: besar peternakan m
+        */
+        vector<int> GetGameConfig()const {return _gameConfig; }
         
 
     private:
