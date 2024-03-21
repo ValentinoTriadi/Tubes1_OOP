@@ -1,21 +1,22 @@
-#ifndef __ITEM_HPP__
-#define __ITEM_HPP__
+#ifndef ITEM_HPP_
+#define ITEM_HPP_
 
-#include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 class Item {
     public:
         Item();
         Item(int, string, string, int);
+
+    protected:
         ~Item();
 
-        int getId() const;
-        string getCode() const;
-        string getNama() const;
-        int getHarga() const;
+    public:
+        [[nodiscard]] int getId() const;
+        [[nodiscard]] string getCode() const;
+        [[nodiscard]] string getNama() const;
+        [[nodiscard]] int getHarga() const;
 
         virtual void print() const;
 

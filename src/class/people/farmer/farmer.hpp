@@ -1,12 +1,11 @@
 #ifndef FARMER_HPP
 #define FARMER_HPP
 #include "../people.hpp"
-#include "../../container/ladang/ladang.hpp"
-#include "../../container/penyimpanan/penyimpanan.hpp" 
+
 class Farmer : People{
     private:
-        Ladang Farm;
-        Penyimpanan Storage;
+        // container Farm;
+        // Penyimpanan Storage;
     public:
         Farmer();
         ~Farmer();

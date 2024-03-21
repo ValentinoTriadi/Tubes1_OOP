@@ -3,16 +3,16 @@
 
 #include "../farmEntity.hpp"
 
-class Plant : public FarmEntity {
+class Plant final : public FarmEntity {
     public:
         Plant();
         Plant(int, string, string, int, string, int, int);
-        ~Plant();
+        ~Plant() override;
 
-        int getAge() const;
+        [[nodiscard]] int getAge() const;
         void setAge(int);
 
-        void print() const;
+        void print() const override;
 
     private:
         int Age;

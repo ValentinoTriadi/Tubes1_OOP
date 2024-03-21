@@ -3,21 +3,21 @@
 
 #include "../farmEntity.hpp"
 
-class Animal : public FarmEntity {
+class Animal final : public FarmEntity {
     public:
         Animal();
-        Animal(int, string, string, int, string, int, int);
-        ~Animal();
+        Animal(int, const string &, const string &, int, const string &, int, int);
+        ~Animal() override;
 
-        int getWeight() const;
+        [[nodiscard]] int getWeight() const;
         
         void setWeight(int);
 
-        void print() const;
+        void print() const override;
 
     private:
         int Weight;
-
+        string code_;
 };
 
 

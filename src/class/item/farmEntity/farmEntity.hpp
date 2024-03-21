@@ -6,16 +6,17 @@
 class FarmEntity : public Item {
     public:
         FarmEntity();
-        FarmEntity(int, string, string, int, string, int);
-        ~FarmEntity();
+        FarmEntity(int, const string &, const string &, int, string , int);
 
-        string getType() const;
-        int getHarvestLimit() const;
+        virtual ~FarmEntity();
 
-        virtual void print() const;
+        [[nodiscard]] string getType() const;
+        [[nodiscard]] int getHarvestLimit() const;
+
+        void print() const override;
 
     private:
-        const string Type;
+        const string Type{};
         const int HarvestLimit;
 };
 
