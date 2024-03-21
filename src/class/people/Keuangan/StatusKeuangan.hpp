@@ -37,6 +37,9 @@ public:
      */
     void kurangUang(int);
 
+    // Getter for money
+    int GetMoney(){return money;}
+
 };
 
 #endif //STATUSKEUANGAN_H
