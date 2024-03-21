@@ -64,7 +64,9 @@
 				19,
 				21,
 				23,
-				25
+				25,
+				26,
+				27
 			]
 		}
 	],
@@ -113,7 +115,9 @@
 				19,
 				21,
 				23,
-				25
+				25,
+				26,
+				27
 			]
 		},
 		{
@@ -132,7 +136,8 @@
 				18,
 				20,
 				22,
-				24
+				24,
+				28
 			]
 		}
 	],
@@ -280,6 +285,23 @@
 			"compileGroupIndex" : 0,
 			"path" : "class/Manager/GameManager/GameManager.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "class/people/Keuangan/StatusKeuangan.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "class/container/container.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "class/container/container.hpp",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

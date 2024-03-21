@@ -3,7 +3,6 @@
 
 
 int main() {
-
     GameManager game;
 
     cout << "Mau new game apa baca config bang ? " << endl;
