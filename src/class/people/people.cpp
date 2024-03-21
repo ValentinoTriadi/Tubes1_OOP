@@ -1,24 +1,31 @@
 #include "people.hpp"
 
-People::People(): Keuangan(0){
-
+People::People() : Keuangan(50), Weight(40)
+{
 }
 
-People::~People(){
-
+People::People(int weight, int Keuangan, int type) : Keuangan(Keuangan), Weight(weight), Type(type), storage()
+{
 }
-void People::cetakPenyimpanan(){
+People::~People() = default;
 
-}
-
-void People::makan(){
-
+void People::cetakPenyimpanan()
+{
 }
 
-void People::membeli(){
-
+void People::makan()
+{
 }
 
-void People::menjual(){
-    
+void People::membeli()
+{
+}
+
+void People::menjual()
+{
+}
+
+void People::SetContainer(const Container &container)
+{
+    storage = container;
 }

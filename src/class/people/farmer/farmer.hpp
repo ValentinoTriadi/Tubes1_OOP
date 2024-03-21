@@ -3,6 +3,7 @@
 #include "../people.hpp"
 #include "../../container/container.hpp"
 
+
 class Farmer : public People {
     private:
         Container Ladang;

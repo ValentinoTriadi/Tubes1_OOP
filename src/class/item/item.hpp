@@ -27,8 +27,8 @@ class Item {
          * !```Don't call this function directly```!
         */
 
-        virtual ~Item();
 
+        virtual ~Item();
         //! GETTER !//
 
         /**
