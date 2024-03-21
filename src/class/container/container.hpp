@@ -22,8 +22,8 @@ public:
     void deleteItem(int i, int j);
 
     //Getter
-    int getRow() const;
-    int getCol() const;
+    [[nodiscard]] int getRow() const;
+    [[nodiscard]] int getCol() const;
     virtual Item* operator()(int i, int j);
 
     //Method
