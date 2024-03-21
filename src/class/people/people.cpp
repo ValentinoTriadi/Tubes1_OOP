@@ -1,6 +1,6 @@
 #include "people.hpp"
 
-People::People(){
+People::People(): Keuangan(0){
 
 }
 

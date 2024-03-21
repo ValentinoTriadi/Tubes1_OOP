@@ -5,7 +5,7 @@
 #ifndef STATUSKEUANGAN_H
 #define STATUSKEUANGAN_H
 
-class statusKeuangan {
+class StatusKeuangan {
 private:
     int money = 0;
     int NonUang = 0;
@@ -15,7 +15,7 @@ public:
      * Membuat class status keuangan baru dengan parameter uang
      * set 0 untuk nonUang
      */
-    explicit statusKeuangan(int uang);
+    explicit StatusKeuangan(int uang);
 
     /*
      * Fungsi untuk menghitung pajak yang harus dibayar.
