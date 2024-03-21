@@ -5,14 +5,50 @@
 
 class FarmEntity : public Item {
     public:
-        FarmEntity();
-        FarmEntity(int, const string &, const string &, int, string , int);
+        //! CTOR, DTOR !//
 
+        /**
+         * Default Constructor
+         * Usage: ```FarmEntity farmEntity;```
+        */
+        FarmEntity();
+        /**
+         * Constructor
+         * @param Id ID of FarmEntity
+         * @param Code Code of FarmEntity
+         * @param Name Name of FarmEntity
+         * @param Price Price of FarmEntity
+         * @param Type Type of FarmEntity
+         * @param HarvestLimit Harvest Limit of FarmEntity (Minimum Age or Weight to Harvest)
+        */
+        FarmEntity(int, const string &, const string &, int, string , int);
+        /**
+         * Destructor
+         *  !```Don't call this function directly```!
+        */
         virtual ~FarmEntity();
 
+
+
+        //! GETTER !//
+
+        /**
+         * Get Type of FarmEntity
+         * @return Type of FarmEntity
+        */
         [[nodiscard]] string getType() const;
+        /**
+         * Get Harvest Limit of FarmEntity
+         * @return Harvest Limit of FarmEntity
+        */
         [[nodiscard]] int getHarvestLimit() const;
 
+
+        //! Method !//
+
+        /**
+         * Print FarmEntity to the screen
+        */
         void print() const override;
 
     private:
