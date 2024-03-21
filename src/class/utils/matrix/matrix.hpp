@@ -6,6 +6,7 @@
 #include <string>
 using namespace std;
 
+template<class T>
 class Matrix {
     public:
         Matrix();
@@ -17,14 +18,14 @@ class Matrix {
         int getRow() const;
         int getCol() const;
 
-        string& operator()(int i, int j);
+        T& operator()(int i, int j);
 
         virtual void printMatrix() const;
 
     private:
         int row;
         int col;
-        vector<vector<string>> matrix;
+        vector<vector<T>> matrix;
         int cellKosong;
 };
 
