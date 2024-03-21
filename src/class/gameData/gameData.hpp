@@ -21,7 +21,7 @@ class GameData {
         ~GameData();
 
         /*Baca Config Product ```src/config/product.txt```*/
-        static void BacaConfigProduct();
+        void BacaConfigProduct();
         /*Baca Config Recipe ```src/config/recipe.txt```*/
         void BacaConfigBuilding();
         /*Baca Config Animal ```src/config/animal.txt```*/

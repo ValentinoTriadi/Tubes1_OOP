@@ -51,7 +51,6 @@ class Plant final : public FarmEntity {
          * Print Plant to the screen
         */
         void print() const override;
->>>>>>> valen
 
     private:
         int Age;

@@ -21,12 +21,12 @@ class FarmEntity : public Item {
          * @param Type Type of FarmEntity
          * @param HarvestLimit Harvest Limit of FarmEntity (Minimum Age or Weight to Harvest)
         */
-        FarmEntity(const int, const string&, const string&, const int, const string&, const int);
+        FarmEntity(int, const string &, const string &, int, string , int);
         /**
          * Destructor
          *  !```Don't call this function directly```!
         */
-        ~FarmEntity();
+        virtual ~FarmEntity();
 
 
 

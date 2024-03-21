@@ -2,6 +2,7 @@
 #define ITEM_HPP_
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Item {
@@ -25,10 +26,9 @@ class Item {
          * Destructor
          * !```Don't call this function directly```!
         */
+
     protected:
         ~Item();
-
-
 
         //! GETTER !//
 

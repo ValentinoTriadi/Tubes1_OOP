@@ -28,13 +28,21 @@ class Product final : public Item {
         */
         virtual ~Product();
 
-        Product(int Id, const string &Code, const string &Name, int Price, string Type, string Origin,
-                int AddedWeight);
 
-        virtual ~Product();
-
+        /**
+         * Get Type of Product
+         * @return Type of Product
+        */
         [[nodiscard]] string getType() const;
+        /**
+         * Get Origin of Product
+         * @return Origin of Product
+        */
         [[nodiscard]] string getOrigin() const;
+        /**
+         * Get Added Weight of Product
+         * @return Added Weight of Product
+        */
         [[nodiscard]] int getAddedWeight() const;
 
         void print() const override;
