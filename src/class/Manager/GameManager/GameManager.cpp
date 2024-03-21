@@ -62,7 +62,8 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
     else if (type == 3)
     {
         // TODO: assign stockman to the list player
-        Stockman temp_stockman;
+        vector<int> tempGameDate = _gameData.GetGameConfig();
+        Stockman temp_stockman(weight, Keuangan, type, tempGameDate[2], tempGameDate[3], tempGameDate[6], tempGameDate[7]);
         this->_listPlayer.push_back(&temp_stockman);
     }
     else
