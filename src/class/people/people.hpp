@@ -1,6 +1,7 @@
 #ifndef PEOPLE_HPP
 #define PEOPLE_HPP
 
+#include "../container/container.hpp"
 #include "Keuangan/StatusKeuangan.hpp"
 #include "../container/container.hpp"
 
@@ -35,9 +36,14 @@ class People{
     
         People();
 
+        /*
+         * Menghapus objek people
+         */
         ~People();
 
-        /**/
+        /*
+         *  Mencetak penyimpanan yang dimiliki oleh people
+         */
         void cetakPenyimpanan();
 
         void makan();
