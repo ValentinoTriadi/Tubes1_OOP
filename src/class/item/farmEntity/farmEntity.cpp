@@ -1,11 +1,14 @@
 #include "farmEntity.hpp"
 
+#include <iostream>
+#include <utility>
+
 // define the constructor
-FarmEntity::FarmEntity() : Item(), Type(""), HarvestLimit(0) {}
-FarmEntity::FarmEntity(int Id, string Code, string Name, int Price, string Type, int HarvestLimit) : Item(Id, Code, Name, Price), Type(Type), HarvestLimit(HarvestLimit) {}
+FarmEntity::FarmEntity() : HarvestLimit(0) {}
+FarmEntity::FarmEntity(const int Id, const string &Code, const string &Name, const int Price, string Type, const int HarvestLimit) : Item(Id, Code, Name, Price), Type(std::move(Type)), HarvestLimit(HarvestLimit) {}
 
 // define the destructor
-FarmEntity::~FarmEntity() {}
+FarmEntity::~FarmEntity() = default;
 
 // define the getter
 string FarmEntity::getType() const {

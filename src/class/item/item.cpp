@@ -1,11 +1,15 @@
 #include "item.hpp"
 
+#include <iostream>
+#include <ostream>
+#include <utility>
+
 // define the constructor
-Item::Item() : Id(0), Code(""), Name(""), Price(0) {}
-Item::Item(int Id, string Code, string Name, int Price) : Id(Id), Code(Code), Name(Name), Price(Price) {}
+Item::Item() : Id(0), Price(0) {}
+Item::Item(const int Id, string Code, string Name, const int Price) : Id(Id), Code(std::move(Code)), Name(std::move(Name)), Price(Price) {}
 
 // define the destructor
-Item::~Item() {}
+Item::~Item() = default;
 
 // define the getter
 int Item::getId() const {

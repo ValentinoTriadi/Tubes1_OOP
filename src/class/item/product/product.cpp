@@ -1,11 +1,16 @@
 #include "product.hpp"
 
+#include <iostream>
+#include <utility>
+
 // define the constructor
-Product::Product() : Item(), Type(""), Origin(""), AddedWeight(0) {}
-Product::Product(int Id, string Code, string Name, int Price, string Type, string Origin, int AddedWeight) : Item(Id, Code, Name, Price), Type(Type), Origin(Origin), AddedWeight(AddedWeight) {}
+Product::Product() : AddedWeight(0), price_(0) {}
+
+Product::Product(const int Id, const string &Code, const string &Name, const int Price, string Type, string Origin, const int AddedWeight) : Item(Id, Code, Name, Price), Type(std::move(Type)), Origin(std::move(Origin)), AddedWeight(AddedWeight),
+    price_(Price) {}
 
 // define the destructor
-Product::~Product() {}
+Product::~Product() = default;
 
 // define the getter
 string Product::getType() const {

@@ -1,7 +1,7 @@
 #ifndef PEOPLE_HPP
 #define PEOPLE_HPP
 
-#include "../statusKeuangan/statusKeuangan.hpp"
+#include "Keuangan/StatusKeuangan.hpp"
 
 class People{
     protected:
@@ -14,7 +14,10 @@ class People{
         People();
 
         ~People();
+
+        /**/
         void cetakPenyimpanan();
+
         void makan();
         void membeli();
         void menjual();        

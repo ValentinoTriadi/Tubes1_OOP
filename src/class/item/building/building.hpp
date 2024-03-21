@@ -1,18 +1,19 @@
-#ifndef __BUILDING_HPP__
-#define __BUILDING_HPP__
+#ifndef BUILDING_HPP_
+#define BUILDING_HPP_
 
 #include "../item.hpp"
 #include <map>
 
-class Building : public Item {
+class Building final : public Item {
     public:
         Building();
-        Building(int, string, string, int, map<string, int>);
-        ~Building();
+        Building(int, const string&, const string&, int, const map<string, int>&);
 
-        map<string, int> getRecipe() const;
+        virtual ~Building();
 
-        void print() const;
+        [[nodiscard]] map<string, int> getRecipe() const;
+
+        void print() const override;
 
     private:
         map<string, int> Recipe;

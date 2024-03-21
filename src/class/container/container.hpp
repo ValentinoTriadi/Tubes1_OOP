@@ -1,5 +1,5 @@
-#ifndef __CONTAINER_HPP__
-#define __CONTAINER_HPP__
+#ifndef CONTAINER_HPP_
+#define CONTAINER_HPP_
 
 #include <iostream>
 #include <vector>
@@ -21,8 +21,8 @@ public:
     void setItem(int i, int j, Item& item);
 
     //Getter
-    int getRow() const;
-    int getCol() const;
+    [[nodiscard]] int getRow() const;
+    [[nodiscard]] int getCol() const;
     virtual Item* operator()(int i, int j);
 
     //Method
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif // __CONTAINER_HPP__
+#endif // CONTAINER_HPP_

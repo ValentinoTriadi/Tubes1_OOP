@@ -1,0 +1,3 @@
+C:/Users/Ojan/Documents/GitHub/Tubes1_OOP/src/cmake-build-debug/CMakeFiles/Tubes1_OOP.dir
+C:/Users/Ojan/Documents/GitHub/Tubes1_OOP/src/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ojan/Documents/GitHub/Tubes1_OOP/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir

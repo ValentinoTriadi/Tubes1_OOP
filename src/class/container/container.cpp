@@ -2,7 +2,7 @@
 
 /**
  * \brief Default constructor for the Container class.
- * 
+ *
  * This constructor initializes a new instance of the Container class.
  */
 Container::Container() {
@@ -41,7 +41,7 @@ Container::Container(int row, int col) {
 
 /**
  * @brief Destructor for the Container class.
- * 
+ *
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
@@ -59,9 +59,9 @@ Container::~Container() {
 
 /**
  * @brief Sets the row value of the Container.
- * 
+ *
  * This function sets the row value of the Container object to the specified value.
- * 
+ *
  * @param row The new row value to be set.
  */
 void Container::setRow(int row) {
@@ -70,9 +70,9 @@ void Container::setRow(int row) {
 
 /**
  * @brief Sets the column value of the Container.
- * 
+ *
  * This function sets the column value of the Container object to the specified value.
- * 
+ *
  * @param col The new column value to be set.
  */
 void Container::setCol(int col) {
@@ -81,9 +81,9 @@ void Container::setCol(int col) {
 
 /**
  * @brief Returns the row value of the Container.
- * 
+ *
  * This function returns the row value of the Container object.
- * 
+ *
  * @return The row value of the Container.
  */
 int Container::getRow() const {
@@ -92,9 +92,9 @@ int Container::getRow() const {
 
 /**
  * @brief Returns the column value of the Container.
- * 
+ *
  * This function returns the column value of the Container object.
- * 
+ *
  * @return The column value of the Container.
  */
 int Container::getCol() const {
@@ -103,9 +103,9 @@ int Container::getCol() const {
 
 /**
  * @brief Sets the item at the specified row and column.
- * 
+ *
  * This function sets the item at the specified row and column to the specified item.
- * 
+ *
  * @param i The row index of the item.
  * @param j The column index of the item.
  * @param item The item to be set.
@@ -119,9 +119,9 @@ void Container::setItem(int i, int j, Item& item) {
 
 /**
  * @brief Returns the item at the specified row and column.
- * 
+ *
  * This function returns the item at the specified row and column.
- * 
+ *
  * @param i The row index of the item.
  * @param j The column index of the item.
  * @return The item at the specified row and column.
@@ -217,9 +217,9 @@ ostream& Container::printRow(ostream& os, int row) const {
 
 /**
  * @brief Overloaded stream insertion operator for the Container class.
- * 
+ *
  * This function overloads the stream insertion operator for the Container class.
- * 
+ *
  * @param os The output stream to write to.
  * @param container The Container object to write to the output stream.
  * @return The output stream.
