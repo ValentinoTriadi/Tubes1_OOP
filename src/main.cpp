@@ -3,7 +3,7 @@
 
 
 int main() {
-
     GameManager game;
+
     return 0;
 }
