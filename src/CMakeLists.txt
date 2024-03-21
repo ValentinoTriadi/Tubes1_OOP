@@ -30,4 +30,6 @@ add_executable(Tubes1_OOP main.cpp
         class/utils/matrix/matrix.hpp
         class/Manager/GameManager/GameManager.cpp
         class/people/Keuangan/StatusKeuangan.cpp
+        class/container/container.cpp
+        class/container/container.hpp
 )
