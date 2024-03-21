@@ -9,19 +9,37 @@
 
 class GameData {
     public:
+        /**
+         * Default Constructor
+         * Usage: ```GameData gameData;```
+        */
         GameData();
+        /**
+         * Destructor
+         * ```Don't call this function directly!```
+        */
         ~GameData();
 
+        /*Baca Config Product ```src/config/product.txt```*/
         static void BacaConfigProduct();
+        /*Baca Config Recipe ```src/config/recipe.txt```*/
         void BacaConfigBuilding();
+        /*Baca Config Animal ```src/config/animal.txt```*/
         void BacaConfigAnimal();
+        /*Baca Config Plant ```src/config/plant.txt```*/
         void BacaConfigPlant();
+        /*Baca Config Misc ```src/config/misc.txt```*/
         void BacaConfigGame();
 
+        /*Tampilkan Config Product ```src/config/product.txt```*/
         void DisplayConfigProduct() const;
+        /*Tampilkan Config Recipe ```src/config/recipe.txt```*/
         void DisplayConfigBuilding() const;
+        /*Tampilkan Config Animal ```src/config/animal.txt```*/
         void DisplayConfigAnimal() const;
+        /*Tampilkan Config Plant ```src/config/plant.txt```*/
         void DisplayConfigPlant() const;
+        /*Tampilkan Config Misc ```src/config/misc.txt```*/
         void DisplayConfigGame() const;
         
 
