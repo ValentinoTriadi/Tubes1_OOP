@@ -7,11 +7,11 @@
 
 #include "../../gameData/gameData.hpp"
 #include "../../people/people.hpp"
+#include "../StateManager/StateManager.hpp"
 #include <vector>
 
-class GameManager {
+class GameManager : public StateManager {
 private :
-    vector<People> _listPlayer;
     People _currentPlayer;
     int _moneyToWin = 0;
     int _weightToWin = 0;
