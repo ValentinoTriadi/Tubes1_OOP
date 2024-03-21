@@ -5,7 +5,20 @@
 
 class Mayor : People {
 private:
-    Storage _storage;
+    // Penyimpanan Storage;
+public:
+    /*
+     * Membuat objek mayor dengan storage kosong
+     * dan keuangan 0
+     */
+    Mayor();
+
+    /*
+     * Membangun bangunan baru menggunakan barang-barang yang ada di storage
+     * Jika barang tidak cukup, maka bangunan tidak akan terbangun
+     * Validasi bangunan melalui recipe yang ada di config
+     */
+    void bangun();
 };
 
 #endif
