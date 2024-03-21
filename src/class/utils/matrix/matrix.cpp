@@ -1,10 +1,12 @@
 #include "matrix.hpp"
 
-Matrix::Matrix() : row(0), col(0), cellKosong(0) {
+
+template <class T>
+Matrix<T>::Matrix() : row(0), col(0), cellKosong(0) {
     matrix.clear();
 }
-
-Matrix::Matrix(int row, int col) : row(row), col(col), cellKosong(row * col) {
+template <class T>
+Matrix<T>::Matrix(int row, int col) : row(row), col(col), cellKosong(row * col) {
     matrix.clear();
     for (int i = 0; i < row; i++) {
         vector<std::string> temp;
@@ -14,32 +16,33 @@ Matrix::Matrix(int row, int col) : row(row), col(col), cellKosong(row * col) {
         matrix.push_back(temp);
     }
 }
-
-Matrix::~Matrix() {
+template <class T>
+Matrix<T>::~Matrix() {
     matrix.clear();
 }
 
-string& Matrix::operator()(int i, int j) {
+template<class T>
+T& Matrix<T>::operator()(int i, int j) {
     return matrix[i][j];
 }
-
-void Matrix::setRow(int row) {
+template <class T>
+void Matrix<T>::setRow(int row) {
     this->row = row;
 }
-
-void Matrix::setCol(int col) {
+template <class T>
+void Matrix<T>::setCol(int col) {
     this->col = col;
 }
-
-int Matrix::getRow() const {
+template <class T>
+int Matrix<T>::getRow() const {
     return row;
 }
-
-int Matrix::getCol() const {
+template <class T>
+int Matrix<T>::getCol() const {
     return col;
 }
-
-void Matrix::printMatrix() const {
+template <class T>
+void Matrix<T>::printMatrix() const {
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < col; j++) {
             cout << matrix[i][j] << " ";
