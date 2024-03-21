@@ -9,6 +9,7 @@ class StatusKeuangan {
 private:
     int money = 0;
     int NonUang = 0;
+    static int ktkp;
 
 public:
     /*
@@ -23,17 +24,17 @@ public:
      * Jika nilai pajak berupa nilai desimal, bulatkan ke angka terdekat.
      * @return nilai pajak yang harus dibayar saat ini
      */
-    int hitungPajak();
+    [[nodiscard]] int hitungPajak() const;
 
     /*
-     *
+     * Menambahkan uang ke dalam status keuangan
      */
-    void tambahUang(int val);
+    void tambahUang(int val) ;
 
     /*
-     *
+     * Mengurangi uang dari status keuangan
      */
-    void kurangUang(int val);
+    void kurangUang(int val) ;
 
 };
 
