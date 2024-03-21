@@ -2,7 +2,7 @@
 
 // define the constructor
 Product::Product() : Item(), Type(""), Origin(""), AddedWeight(0) {}
-Product::Product(int Id, string Code, string Name, int Price, string Type, string Origin, int AddedWeight) : Item(Id, Code, Name, Price), Type(Type), Origin(Origin), AddedWeight(AddedWeight) {}
+Product::Product(const int Id, const string& Code, const string& Name, const int Price, const string& Type, const string& Origin, const int AddedWeight) : Item(Id, Code, Name, Price), Type(Type), Origin(Origin), AddedWeight(AddedWeight) {}
 
 // define the destructor
 Product::~Product() {}

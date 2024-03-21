@@ -5,8 +5,26 @@
 
 class Product : public Item {
     public:
+        /**
+         * Default Constructor
+         * Usage: ```Product product;```
+        */
         Product();
-        Product(int, string, string, int, string, string, int);
+        /**
+         * Constructor
+         * @param Id ID of Product
+         * @param Code Code of Product
+         * @param Name Name of Product
+         * @param Price Price of Product
+         * @param Type Type of Product
+         * @param Origin Origin of Product
+         * @param AddedWeight Added Weight of Product
+        */
+        Product(const int, const string&, const string&, const int, const string&, const string&, const int);
+        /**
+         * Destructor
+         * !```Don't call this function directly```!
+        */
         ~Product();
 
         string getType() const;

@@ -2,7 +2,7 @@
 
 // define the constructor
 Item::Item() : Id(0), Code(""), Name(""), Price(0) {}
-Item::Item(int Id, string Code, string Name, int Price) : Id(Id), Code(Code), Name(Name), Price(Price) {}
+Item::Item(const int Id, const string& Code, const string& Name, const int Price) : Id(Id), Code(Code), Name(Name), Price(Price) {}
 
 // define the destructor
 Item::~Item() {}

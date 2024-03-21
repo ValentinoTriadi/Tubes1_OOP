@@ -2,7 +2,7 @@
 
 // Constructor
 Plant::Plant() : FarmEntity(), Age(0) {}
-Plant::Plant(int Id, string Code, string Name, int Price, string Type, int HarvestLimit, int Age) : FarmEntity(Id, Code, Name, Price, Type, HarvestLimit), Age(Age) {}
+Plant::Plant(const int Id, const string& Code, const string& Name, const int Price, const string& Type, const int HarvestLimit, const int Age) : FarmEntity(Id, Code, Name, Price, Type, HarvestLimit), Age(Age) {}
 
 // Destructor
 Plant::~Plant() {}
