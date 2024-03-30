@@ -20,6 +20,8 @@ void GameManager::ReadConfig()
     this->_gameData.BacaConfigProduct();
     this->_gameData.BacaConfigGame();
 
+
+
     // Save local settings for win conditions
     vector<int> data = _gameData.GetGameConfig();
     this->_moneyToWin = data[0];
