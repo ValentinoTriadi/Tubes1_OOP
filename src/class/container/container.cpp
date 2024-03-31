@@ -117,6 +117,14 @@ void Container::setItem(int i, int j, Item& item) {
     }
 }
 
+void Container::deleteItem(int i, int j) {
+    if (items[i][j] != nullptr) {
+        delete items[i][j];
+        items[i][j] = nullptr;
+        cellKosong++;
+    }
+}
+
 /**
  * @brief Returns the item at the specified row and column.
  *
