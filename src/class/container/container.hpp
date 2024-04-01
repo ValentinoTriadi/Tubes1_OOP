@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "../item/item.hpp"
+#include "../gameData/gameData.hpp"
 
 
 class Container {
