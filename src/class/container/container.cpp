@@ -151,6 +151,17 @@ void Container::setItem(string slot, Item *item)
     setItem(i, j, item);
 }
 
+void Container::setItem(Item *item)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (items[i][j] == nullptr) setItem(i, j, item);
+        }
+    }
+}
+
 void Container::deleteItem(int i, int j)
 {
     if (items[i][j] != nullptr)
