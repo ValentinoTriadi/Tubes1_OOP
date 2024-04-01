@@ -119,6 +119,137 @@ void GameManager::StartTurn()
 
 void GameManager::MenuSelection(const int type)
 {
+
+    switch (type)
+    {
+    case (1):
+        MayorMenuSelection();
+        break;
+    case (2):
+        FarmerMenuSelection();
+        break;
+    case (3):
+        StockmanMenuSelection();
+        break;
+    default:
+        // Throw exception
+        break;
+    }
+}
+
+void GameManager::MayorMenuSelection()
+{
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Cetak Penyimpanan" << endl;
+    cout << "(2): "
+         << "Pungut Pajak" << endl;
+    cout << "(3): "
+         << "Bangun Bangunan" << endl;
+    cout << "(4): "
+         << "Makan" << endl;
+    cout << "(5): "
+         << "Beli" << endl;
+    cout << "(6): "
+         << "Jual" << endl;
+    cout << "(7): "
+         << "Muat" << endl;
+    cout << "(8): "
+         << "Simpan" << endl;
+    cout << "(9): "
+         << "Tambah Pemain" << endl;
+    cout << "(10): "
+         << "Next Turn" << endl;
+
+    try {
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+        cout << endl;
+
+        if (data < 1 || data > 9) {
+            // TODO: implement data input exception
+        }
+
+        // Jalankan fungsi sesuai dengan pilihan
+        RunMayorSelection(data);
+    }
+    catch (const exception &e) // TODO: replace with expection
+    {
+        // TODO: implement input exception
+        cout << e.what() << endl;
+    }
+}
+
+void GameManager::RunMayorSelection(int input) {
+    switch (input) {
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            pungutPajak();
+            break;
+        case 3:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->bangun();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+//           muat();
+            break;
+        case 8:
+//           simpan();
+            break;
+        case 9:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->tambahPemain();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 10:
+            nextTurn();
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::StockmanMenuSelection() {
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Cetak Peternakan" << endl;
+    cout << "(2): "
+         << "Ternak" << endl;
+    cout << "(3): "
+         << "Makan" << endl;
+    cout << "(4): "
+         << "Memberi Pangan" << endl;
+    cout << "(5): "
+         << "Membeli" << endl;
+    cout << "(6): "
+         << "Menjual" << endl;
+    cout << "(7): "
+         << "Memanen" << endl;
+    cout << "(8): "
+         << "Muat" << endl;
+    cout << "(9): "
+         << "Simpan" << endl;
+    cout << "(10): "
+         << "Next Turn" << endl;
+
     try
     {
         switch (type)
@@ -136,6 +267,41 @@ void GameManager::MenuSelection(const int type)
             // Throw exception
             cout << "Error Type occured" << endl;
             break;
+
+    }
+}
+
+void GameManager::FarmerMenuSelection()
+{
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Tanam" << endl;
+    cout << "(2): "
+         << "Cetak Ladang" << endl;
+    cout << "(3): "
+         << "Makan" << endl;
+    cout << "(4): "
+         << "Membeli" << endl;
+    cout << "(5): "
+         << "Menjual" << endl;
+    cout << "(6): "
+         << "Memanen" << endl;
+    cout << "(7): "
+         << "Muat" << endl;
+    cout << "(8): "
+         << "Simpan" << endl;
+    cout << "(9): "
+         << "Next Turn" << endl;
+
+    try
+    {
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+
+        if (data < 1 || data > 8)
+        {
+            // TODO: implement data input exception
         }
     }
     catch (MenuException e)
@@ -145,6 +311,51 @@ void GameManager::MenuSelection(const int type)
     }
 }
 
+void GameManager::RunFarmerSelection(int input){
+    switch (input) {
+        case 1:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->tanam();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 2:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 3:
+            _currentPlayer->makan();
+            break;
+        case 4:
+            _currentPlayer->membeli();
+            break;
+        case 5:
+            _currentPlayer->menjual();
+            break;
+        case 6:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->panen();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 7:
+            // muat();
+            break;
+        case 8:
+            // simpan();
+            break;
+        case 9:
+            nextTurn();
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::Run() {
+=======
 void GameManager::Run()
 {
     StartGameValidation();
