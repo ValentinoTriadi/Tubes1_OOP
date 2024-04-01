@@ -18,7 +18,7 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
-
+    
 }
 
 void People::membeli()
