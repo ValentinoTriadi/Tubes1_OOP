@@ -8,7 +8,7 @@ Farmer::Farmer() = default;
  *  Mencetak Ladang dari petani
  */
 void Farmer::cetakLadang() const {
-    cout << Ladang;
+    cout << ladang;
 }
 
 /**
@@ -28,7 +28,7 @@ void Farmer::tanam() {
 
     // Ubah input menjadi column dan row
     int row1 = slot[0] - 'A';
-    int column1 = slot[1] - '0';
+    int column1 = stoi(slot.substr(1, 2)) - 1;
 
     // Validasi
     // TODO: Exception handling
@@ -45,17 +45,18 @@ void Farmer::tanam() {
     // Ambil input dari user simpan dalam variable slot
     // Input berformat char int (B10)
     cout << "Petak tanah: ";
-    cin >> slot;
+    string petak;
+    cin >> petak;
     cout << endl << endl;
 
     // Ubah input menjadi column dan row
-    int row2 = slot[0] - 'A';
-    int column2 = slot[1] - '0';
+    int row2 = petak[0] - 'A';
+    int column2 = stoi(petak.substr(1, 2)) - 1;
 
     // Validasi
     // TODO : Exception handling
 
-    Ladang.setItem(row2,column2, *tanaman);
+    ladang.setItem(row2,column2, tanaman);
 
     cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
     cout << tanaman->getNama() << " berhasil ditanam!" << endl;
@@ -103,7 +104,7 @@ void Farmer::panen() {
         int row = slot[0] - 'A';
         int column = slot[1] - '0';
 
-        tanaman.push_back(Ladang(row,column));
+        tanaman.emplace_back(ladang[row][column]);
         petak.emplace_back(row,column);
     }
 
@@ -113,15 +114,24 @@ void Farmer::panen() {
         if (i != jumlah-1) {
             cout << ", ";
         }
+        ladang.deleteItem(petak[i].first,petak[i].second);
     }
     cout<<" telah dipanen!" << endl;
 }
 
 void Farmer::pungutPajak() {
-    // TODO : Implementasi pajak
+    // Hitung nilai pajak non uang
+    int pajak = 0;
+
 }
 
 
-Farmer::Farmer(int weight, int money, int type, int n_, int) : People(
+Farmer::Farmer(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
+    this->ladang = Ladang(n_ladang, m_ladang);
+}
+
+void Farmer::setLadang(const Ladang &ladang) {
+    this->ladang = ladang;
+}
 
 Farmer::~Farmer() = default;

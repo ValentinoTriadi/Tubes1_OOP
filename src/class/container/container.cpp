@@ -102,6 +102,17 @@ int Container::getCol() const {
 }
 
 /**
+ * @brief Returns the number of empty cells in the container.
+ *
+ * This function returns the number of empty cells in the container.
+ *
+ * @return The number of empty cells in the container.
+ */
+int Container::getCellKosong() const {
+    return cellKosong;
+}
+
+/**
  * @brief Sets the item at the specified row and column.
  *
  * This function sets the item at the specified row and column to the specified item.
@@ -110,11 +121,36 @@ int Container::getCol() const {
  * @param j The column index of the item.
  * @param item The item to be set.
  */
-void Container::setItem(int i, int j, Item& item) {
+void Container::setItem(int i, int j, Item* item) {
     if (items[i][j] == nullptr) {
-        items[i][j] = &item;
+        items[i][j] = item;
         cellKosong--;
     }
+}
+
+void Container::setItem(string slot, Item* item){
+    int i = slot[0] - 'A';
+    int j = stoi(slot.substr(1, 2)) - 1;
+
+    setItem(i, j, item);
+}
+
+void Container::deleteItem(int i, int j) {
+    if (items[i][j] != nullptr) {
+        delete items[i][j];
+        items[i][j] = nullptr;
+        cellKosong++;
+    } else {
+        // TODO: throw exception
+        cout << "Slot kosong" << endl;
+    }
+}
+
+void Container::deleteItem(string slot) {
+    int i = slot[0] - 'A';
+    int j = stoi(slot.substr(1, 2)) - 1;
+
+    deleteItem(i, j);
 }
 
 /**
@@ -238,16 +274,30 @@ ostream& operator<<(ostream& os, const Container& container) {
 }
 
 /**
- * @brief Deletes the item at the specified row and column.
+ * @brief Overloaded assignment operator for the Container class.
  *
- * @param i The row index of the item.
- * @param j The column index of the item.
- * @return The item at the specified row and column.
+ * This function overloads the assignment operator for the Container class.
+ *
+ * @param container The Container object to be copied.
+ * @return The copied Container object.
  */
-void Container::deleteItem(int i, int j) {
-    if (items[i][j] != nullptr) {
-        delete items[i][j];
-        items[i][j] = nullptr;
-        cellKosong++;
-    }
+Container& Container::operator=(Container& container) {
+    this->row = container.row;
+    this->col = container.col;
+    this->cellKosong = container.cellKosong;
+    this->items = container.items;
+    
+    return *this;
+}
+
+/**
+ * @brief Overloaded subscript operator for the Container class.
+ *
+ * This function overloads the subscript operator for the Container class.
+ *
+ * @param i The row index of the items to be accessed.
+ * @return A vector of items in the specified row.
+ */
+vector<Item *> Container::operator[](int i) {
+    return items[i];
 }

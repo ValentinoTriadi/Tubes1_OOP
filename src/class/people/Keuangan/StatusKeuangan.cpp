@@ -1,4 +1,5 @@
 #include "StatusKeuangan.hpp"
+#include "GameException.hpp"
 
 StatusKeuangan::StatusKeuangan(int uang) : money(uang){
 }
@@ -13,7 +14,7 @@ void StatusKeuangan::tambahUang(int val){
 
 void StatusKeuangan::kurangUang(int val){
     if(money < val){
-        //TODO: implement miskin exception
+        throw NotEnoughMoneyException();
     }
     money -= val;
 }

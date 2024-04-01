@@ -1,22 +1,22 @@
 #ifndef ROUND_ROBIN_HPP_
 #define ROUND_ROBIN_HPP_
 
-#include <queue>
+#include <vector>
 #include <iostream>
 
 template <class T>
 class roundRobin{
     private:
-        std::queue<T> buf;
+        std::vector<T> buf;
     public:
         /**
          * @brief Construct a new round Robin object
         */
         roundRobin(){
-            buf = std::queue<T>();
+            buf = std::vector<T>();
         }
         /**
-         * @brief Add a new element to the queue
+         * @brief Add a new element to the vector
          * 
          * @param elem 
          */
@@ -38,8 +38,8 @@ class roundRobin{
         */
         T next(){
             T temp = buf.front();
-            buf.pop();
-            buf.push(temp);
+            buf.push_back(temp);
+            buf.erase(buf.begin());
             return temp;
         }
 
@@ -49,14 +49,7 @@ class roundRobin{
          * @param elem 
         */
         void add(T elem){
-            buf.push(elem);
-        }
-
-        /**
-         * @brief Delete first element
-        */
-        void deleteFirst(){
-            buf.pop();
+            buf.push_back(elem);
         }
 
         /**
@@ -67,20 +60,20 @@ class roundRobin{
          * @return index of element if found, -1 if not found
         */
         int findIdx(T elem){
-            std::queue<T> temp = buf;
+            std::vector<T> temp = buf;
             int idx = 0;
             while(!temp.empty()){
                 if(temp.front() == elem){
                     return idx;
                 }
-                temp.pop();
+                temp.erase(temp.begin());
                 idx++;
             }
             return -1;
         }
 
         /**
-         * @brief Get the size of queue
+         * @brief Get the size of vector
          * 
          * @return int 
         */
@@ -89,7 +82,7 @@ class roundRobin{
         }
 
         /**
-         * @brief Check if queue is empty
+         * @brief Check if vector is empty
          * 
          * @return true if empty, false if not
         */
@@ -98,7 +91,7 @@ class roundRobin{
         }
 
         /**
-         * @brief Clear the queue
+         * @brief Clear the vector
         */
         void clear(){
             while(!buf.empty()){
@@ -107,7 +100,7 @@ class roundRobin{
         }
 
         /**
-         * @brief Print the queue
+         * @brief Print the vector
         */
         friend std::ostream& operator << (std::ostream& os, roundRobin<T>& r){
         int size = r.buf.size();

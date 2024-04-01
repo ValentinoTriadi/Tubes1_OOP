@@ -15,10 +15,6 @@ int main (){
     std::cout << rr;
     rr.add(7);
     std::cout << rr;
-    rr.deleteFirst();
-    std::cout << rr;
-    rr.deleteFirst();
-    std::cout << rr;
     
 
     return 0;

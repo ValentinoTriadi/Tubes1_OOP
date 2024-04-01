@@ -1,21 +1,24 @@
 #include "StateManager.hpp"
 
-StateManager::StateManager() = default;
+StateManager::StateManager(){
+    _listPlayer = vector<People*>();
+    _listItemToko = vector<Item*>();
+};
 
-//StateManager::~StateManager(){
-//    for (int i = 0; i < _listPlayer.size(); i++){
-//        delete _listPlayer[i];
-//    }
-//    for (int i = 0; i < _listToko.size(); i++){
-//        delete _listToko[i];
-//    }
-//};
+StateManager::~StateManager(){
+    for (auto & i : _listPlayer){
+        delete i;
+    }
+    for (auto & i : _listItemToko){
+        delete i;
+    }
+};
 
-//void StateManager::defaultState(){
-//
-//}
+void StateManager::defaultState(const vector<int>& gameConfig){
+    // Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
+}
 
-void StateManager::loadState(){
+void StateManager::loadState(const vector<int>& gameConfig){
     std::cout << "Apakah Anda ingin memuat state? (y/n) ";
 
     char answer;
@@ -26,15 +29,11 @@ void StateManager::loadState(){
         std::cin >> answer;
     }
 
-//    if ((char)tolower(answer) == 'y'){
+    if ((char)tolower(answer) == 'y'){
 //        loadFromFile();
-//    } else {
+    } else {
 //        defaultState();
-//    }
-}
-
-void StateManager::saveState() {
-
+    }
 }
 
 //void StateManager::defaultState(){

@@ -12,7 +12,7 @@ void GameManager::StartNewGame()
     // User default settings 40 gulden, 40 weight
     for (int i = 1; i <= 3; i++)
     {
-        this->AddUser(40, 40, i);
+        this->AddUser(i);
     }
 }
 
@@ -27,25 +27,15 @@ void GameManager::ReadConfig()
     // Save local settings for win conditions
     gameConfig = GameData::_gameConfig;
 
-    for (int i : gameConfig) {
-        cout << i << endl;
-    }
-
     this->_moneyToWin = gameConfig[0];
     this->_weightToWin = float(gameConfig[1]);
-
-    cout << "Money to win: " << this->_moneyToWin << endl;
-    cout << "Weight to win: " << this->_weightToWin << endl;
-
 }
 
 GameManager::GameManager() = default;
 
-GameManager::~GameManager() {
-    for (auto & i : _listPlayer)
-    {
-        delete i;
-    }
+GameManager::~GameManager()
+{
+    _listPlayer.clear();
 }
 
 void GameManager::ContinueGame()
@@ -55,20 +45,21 @@ void GameManager::ContinueGame()
     // TODO: create exception if the state is inavailable
 }
 
-void GameManager::AddUser(int weight, int Keuangan, int type)
+void GameManager::AddUser(int type)
 {
-    if (type == 1) {
+    if (type == 1)
+    {
         // TODO: Assign mayor to the list player
-        Mayor temp_mayor(weight, Keuangan, type ,gameConfig[2], gameConfig[3]);
-        this->_listPlayer.push_back(&temp_mayor);
+        auto* temp_mayor = new Mayor(40, 40, type , gameConfig[2], gameConfig[3]);
+        this->_listPlayer.push_back(temp_mayor);
     } else if (type == 2) {
         // TODO: assign farmer to the list player
-        Farmer temp_farmer(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-        this->_listPlayer.push_back(&temp_farmer);
+        auto* temp_farmer = new Farmer(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        this->_listPlayer.push_back(temp_farmer);
     } else if (type == 3) {
         // TODO: assign stockman to the list player
-        Stockman temp_stockman(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-        this->_listPlayer.push_back(&temp_stockman);
+        auto* temp_stockman = new Stockman(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        this->_listPlayer.push_back(temp_stockman);
     } else {
         // TODO: implement exception for add user
     }
@@ -76,13 +67,11 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
 
 void GameManager::StartGameValidation()
 {
-    cout << "Please enter a valid input" << endl;
-    cout << "1. input (1) jika ingin buat game baru" << endl;
-    cout << "2. input (2) jika ingin membaca berkas" << endl
-         << endl;
-    string data;
-    cin >> data;
-    if (data == "1") {
+    InputManager::NewGameInput();
+
+    string data = InputManager::_inputData;
+    if (data == "1")
+    {
         StartNewGame();
     }
     else if (data == "2")
@@ -91,50 +80,46 @@ void GameManager::StartGameValidation()
     }
     else
     {
-        // TODO: implement exception for invalid input
-        cout << "Invalid Input" << endl;
+        cout << "Input Invalid! Please enter either 1 or 2" << endl;
         StartGameValidation();
     }
 }
 
 void GameManager::WinCheck()
 {
-    vector<People *>::iterator itr;
-    for (itr = _listPlayer.begin(); itr != _listPlayer.end(); ++itr)
-    {
-        if (*itr)
-        {
-            float weight = float((*itr)->GetWeight());
-            int money = (*itr)->GetKeuangan();
+    float weight = float(_currentPlayer->GetWeight());
+    int money = _currentPlayer->GetKeuangan();
 
-            if (weight >= this->_weightToWin && money >= this->_moneyToWin)
-            {
-                cout << weight << " " << _weightToWin << endl;
-                cout << money << " " << _moneyToWin << endl;
-                // End the game
-                GameManager::EndGame();
-            }
-        }
+    if (weight >= this->_weightToWin && money >= this->_moneyToWin)
+    {
+        cout << weight << " " << _weightToWin << endl;
+        cout << money << " " << _moneyToWin << endl;
+        // End the game
+        GameManager::EndGame();
     }
 }
 
 void GameManager::EndGame()
 {
-    cout << endl << "Game Over" << endl;
+    cout << endl
+         << "Game Over" << endl;
     _isGameOver = true;
 }
 
 void GameManager::nextTurn()
 {
+    _listPlayer.next();
+    this->_currentPlayer = _listPlayer.top();
 }
 
 void GameManager::StartTurn()
 {
-    this->_currentPlayer = _listPlayer[0];
+    this->_currentPlayer = _listPlayer.top();
 }
 
 void GameManager::MenuSelection(const int type)
 {
+
     switch (type)
     {
     case (1):
@@ -154,19 +139,9 @@ void GameManager::MenuSelection(const int type)
 
 void GameManager::MayorMenuSelection()
 {
-    // cout << "Menu Selection: "<< endl;
-    // cout << "(1): "<<"Nyetak Simpenan"<<endl;
-    // cout << "(2): "<<"Mungut Pajak"<<endl;
-    // cout << "(3): "<<"Mangun Bangunan"<<endl;
-    // cout << "(4): "<<"Dhahar"<<endl;
-    // cout << "(5): "<<"Tumbas"<<endl;
-    // cout << "(6): "<<"Dodolan"<<endl;
-    // cout << "(7): "<<"Ngleboke"<<endl;
-    // cout << "(8): "<<"Nyimpen"<<endl;
-
     cout << "Menu Selection: " << endl;
     cout << "(1): "
-         << "Cetak Simpanan" << endl;
+         << "Cetak Penyimpanan" << endl;
     cout << "(2): "
          << "Pungut Pajak" << endl;
     cout << "(3): "
@@ -188,11 +163,14 @@ void GameManager::MayorMenuSelection()
         int data;
         cout << "Pilihan: ";
         cin >> data;
+        cout << endl;
 
         if (data < 1 || data > 9) {
             // TODO: implement data input exception
         }
 
+        // Jalankan fungsi sesuai dengan pilihan
+        RunMayorSelection(data);
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -201,8 +179,50 @@ void GameManager::MayorMenuSelection()
     }
 }
 
-void GameManager::StockmanMenuSelection()
-{
+void GameManager::RunMayorSelection(int input) {
+    switch (input) {
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            pungutPajak();
+            break;
+        case 3:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->bangun();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+//           muat();
+            break;
+        case 8:
+//           simpan();
+            break;
+        case 9:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->tambahPemain();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::StockmanMenuSelection() {
     cout << "Menu Selection: " << endl;
     cout << "(1): "
          << "Cetak Peternakan" << endl;
@@ -225,19 +245,77 @@ void GameManager::StockmanMenuSelection()
 
     try
     {
-        int data;
-        cout << "Pilihan: ";
-        cin >> data;
-
-        if (data < 1 || data > 9)
+        switch (type)
         {
-            // TODO: implement data input exception
+        case (1):
+            InputManager::MayorMenuInputValidation();
+            break;
+        case (2):
+            InputManager::FarmerMenuInputValidation();
+            break;
+        case (3):
+            InputManager::StockmanMenuInputValidation();
+            break;
+        default:
+            // Throw exception
+            cout << "Error Type occured" << endl;
+            break;
         }
+
+        // Jalankan fungsi sesuai dengan pilihan
+        RunStockmanSelection(data);
     }
-    catch (const exception &e) // TODO: replace with expection
+    catch (MenuException e)
     {
-        // TODO: implement input exception
         cout << e.what() << endl;
+        MenuSelection(type);
+    }
+}
+
+void GameManager::RunStockmanSelection(int input){
+    switch (input) {
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->ternak();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 3:
+            _currentPlayer->makan();
+            break;
+        case 4:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->memberiPangan();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->panen();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 8:
+            // muat();
+            break;
+        case 9:
+            // simpan();
+            break;
+        default:
+            // Exception
+            break;
     }
 }
 
@@ -271,6 +349,9 @@ void GameManager::FarmerMenuSelection()
         {
             // TODO: implement data input exception
         }
+
+        // Jalankan fungsi sesuai dengan pilihan
+        RunFarmerSelection(data);
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -279,13 +360,63 @@ void GameManager::FarmerMenuSelection()
     }
 }
 
-void GameManager::Run(){
+void GameManager::RunFarmerSelection(int input){
+    switch (input) {
+        case 1:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->tanam();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 2:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 3:
+            _currentPlayer->makan();
+            break;
+        case 4:
+            _currentPlayer->membeli();
+            break;
+        case 5:
+            _currentPlayer->menjual();
+            break;
+        case 6:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->panen();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 7:
+            // muat();
+            break;
+        case 8:
+            // simpan();
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::Run() {
     StartGameValidation();
     StartTurn();
-    while (!_isGameOver){
-        cout << _currentPlayer->GetType() << endl;
+    while (!_isGameOver)
+    {
         MenuSelection(_currentPlayer->GetType());
         WinCheck();
+    }
+}
+
+void GameManager::pungutPajak() {
+    int total = 0;
+    for (auto & i : _listPlayer)
+    {
+        if (i->GetType() != 1){
+
+        }
     }
 
 }

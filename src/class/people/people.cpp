@@ -8,9 +8,8 @@ People::People() : Keuangan(50), Weight(40), Type(0)
 
 }
 
-People::People(int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan), Weight(weight), Type(type)
+People::People(int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan)
 {
-    storage = Container(n_penyimpanan, m_penyimpanan);
 }
 People::~People() = default;
 
@@ -21,7 +20,6 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
-    // Perintah ini digunakan memakan makanan sesuai dengan ketentuan yang sudah dijelaskan di atas. Pertama, tampilkan terlebih dahulu penyimpanan sesuai dengan perintah CETAK_PENYIMPANAN. Setelah itu, program akan menerima input berupa slot dari penyimpanan yang akan digunakan sebagai makanan. Jika slot yang dipilih merupakanan makanan yang valid, slot tersebut	akan menjadi kosong. Ketika pemain memakan makanan, berat badan bertambah sesuai jenis makanan yang didefinisikan di berkas konfigurasi.Perintah tidak bisa dijalankan jika penyimpanan kosong.
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetakPenyimpanan();
 
@@ -36,8 +34,7 @@ void People::makan()
     Item* makanan = storage(row, col);
     if (makanan == nullptr) {
         throw FoodEmptyException();
-    // } else if (makanan->GetType() == "MATERIAL_PLANT") {     // INI MASI BINGUNG
-    //     throw InvalidFoodTypeException();
+    // TODO : else if (makanan->getType() != FOOD)
     }else{
         Product* product = dynamic_cast<Product*>(makanan);
         Weight += product->getAddedWeight();
@@ -67,36 +64,38 @@ void People::membeli()
     cin >> quantity;
     cout << endl;
 
-    // TODO : Validasi
-    // - klo storage full, kasih exception
-    // - klo uang ga cukup, kasih exception  --> if kuranguang(price)
-    
-    //ELSE
-    cout << "Selamat Anda berhasil membeli " << quantity << " ";
-    // cout << nama barang yang dibeli (pake .getName)
-    cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
 
-    cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
-    cetakPenyimpanan();
+    if(storage.getCellKosong() < quantity){
+        throw StorageFullException();
+    // TODO : else if Keuangan.GetMoney < ...getPrice() * quantity)
+    }else{
+        cout << "Selamat Anda berhasil membeli " << quantity << " ";
+        // TODO : cout << nama barang yang dibeli (pake .getName)
 
-    cout << "Petak Slot: ";
-    string slot;
-    for (int i = 0; i < quantity; i++) {
-        cin >> slot;
-        cout << endl;
-        int row = slot[0] - 'A';
-        int col = slot[1] - '0';
-        // TODO : storage.setItem(row, col, ITEM YANG DIBELI);
+        // TODO : Keuangan.kurangUang(quantity * ...getPrice())
+        cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
+
+        cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+        cetakPenyimpanan();
+
+        cout << "Petak Slot: ";
+        string slot;
+        for (int i = 0; i < quantity; i++) {
+            cin >> slot;
+            cout << endl;
+            int row = slot[0] - 'A';
+            int col = slot[1] - '0';
+            // TODO : storage.setItem(row, col, ITEM YANG DIBELI);
+        }
+        cout << "Barang berhasil disimpan!" << endl;
+
     }
-    cout << "Barang berhasil disimpan!" << endl;
+
 
 }
 
 void People::menjual()
 {
+    
 }
 
-void People::SetContainer(const Container &container)
-{
-    storage = container;
-}

@@ -16,6 +16,8 @@ public:
      * Validasi bangunan melalui recipe yang ada di config
      */
     void bangun();
+
+    void tambahPemain();
 };
 
 #endif
