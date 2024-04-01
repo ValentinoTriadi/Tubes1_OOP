@@ -102,6 +102,17 @@ int Container::getCol() const {
 }
 
 /**
+ * @brief Returns the number of empty cells in the container.
+ *
+ * This function returns the number of empty cells in the container.
+ *
+ * @return The number of empty cells in the container.
+ */
+int Container::getCellKosong() const {
+    return cellKosong;
+}
+
+/**
  * @brief Sets the item at the specified row and column.
  *
  * This function sets the item at the specified row and column to the specified item.

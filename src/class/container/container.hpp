@@ -70,6 +70,7 @@ public:
     //Getter
     [[nodiscard]] int getRow() const;
     [[nodiscard]] int getCol() const;
+    [[nodiscard]] int getCellKosong() const;
 
     /**
      * @brief Returns the item at the specified position in the container.
@@ -100,7 +101,12 @@ public:
      */
     Container& operator=(Container& container);
 
-    vector<Item*> operator[](int i);
+    /**
+     * @brief Prints the column name of the container.
+     * 
+     * @param os The output stream to print the column name to.
+     * @return The output stream after printing the column name.
+     */
     
 
 protected:
