@@ -281,4 +281,11 @@ ostream& operator<<(ostream& os, const Container& container) {
  * @param container The Container object to be copied.
  * @return The copied Container object.
  */
-Container& Container::operator=(Container& container) = default;
+Container& Container::operator=(const Container& container) {
+    this->row = container.row;
+    this->col = container.col;
+    this->cellKosong = container.cellKosong;
+    this->items = container.items;
+    
+    return *this;
+}

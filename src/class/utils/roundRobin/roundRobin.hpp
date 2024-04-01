@@ -37,10 +37,9 @@ class roundRobin{
          * @return first element
         */
         T next(){
-            T temp = buf.front();
-            buf.push_back(temp);
+            buf.push_back(buf.front());
             buf.erase(buf.begin());
-            return temp;
+            return buf.front();
         }
 
         /**
