@@ -1,6 +1,7 @@
 #include "people.hpp"
 #include "GameException.hpp"
 #include "product.hpp"
+#include "toko.hpp"
 
 
 People::People() : Keuangan(50), Weight(40), Type(0)
@@ -96,6 +97,26 @@ void People::membeli()
 
 void People::menjual()
 {
-    // TODO : nunggu yg class Toko jadi dulu
+    // Perintah untuk menjual barang yang dimiliki pada penyimpanan ke toko. Petani dan peternak tidak dapat menjual bangunan. Dalam sekali menjual, dapat dijual lebih dari satu barang. Proses menjual barang akan menambah kuantitas barang tersebut di Toko, kecuali untuk tanaman dan hewan yang berjumlah tak hingga. Apabila penyimpanan kosong, maka menjual tidak dapat dilakukan. Uang penjual akan langsung bertambah sesuai dengan harga jual. Perhatikan bahwa contoh di bawah ini hanya merupakan contoh saja, silahkan dikembangkan menurut kreativitas selama masih memenuhi spesifikasi yang diberikan.
+    cout << "Berikut merupakan penyimpanan Anda" << endl;
+    cetakPenyimpanan();
+
+    cout << "Kuantitas barang yang ingin dijual : ";
+    int quantity;
+    cin >> quantity;
+    cout << endl;
+
+    cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+    for(int i=0; i<quantity; i++){
+        cout << "Petak ke-" << i+1 << " : ";
+        string slot;
+        cin >> slot;
+        cout << endl;
+        int row = slot[0] - 'A';
+        int col = slot[1] - '0';
+        Item* item = storage(row, col);
+        storage.deleteItem(row, col);
+        Toko.addItems(item);
+    }
 }
 
