@@ -7,13 +7,16 @@
 #include "../../people/mayor/mayor.hpp"
 #include "../../people/stockman/stockman.hpp"
 #include "../../gameData/gameData.hpp"
+#include "../InputManager/InputManager.hpp"
+#include "../../Exception/GameException.hpp"
+#include "../../utils/roundRobin/roundRobin.hpp"
 using namespace std;
 
 class GameManager
 {
 private:
     // List of player
-    vector<People *> _listPlayer;
+    roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
 
     // Game Data
@@ -115,7 +118,6 @@ private:
      * Usage: ```RunFarmerSelection(input);```
      */
     void RunFarmerSelection(int input);
-
 
 
 public:

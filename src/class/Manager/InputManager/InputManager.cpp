@@ -1,17 +1,114 @@
 #include <iostream>
 #include "InputManager.hpp"
 
-
 InputManager::InputManager() = default;
 
 std::string InputManager::_inputData;
 
-void InputManager::receiveInput(){
+void InputManager::receiveInput()
+{
     std::getline(std::cin, _inputData);
 }
 
-void InputManager::NewGameInputValidation(const std::string& data){
-    if(data == "0"){
-        
+void InputManager::NewGameInput()
+{
+    std::cout << "Please enter a valid input" << std::endl;
+    std::cout << "1. input (1) jika ingin buat game baru" << std::endl;
+    std::cout << "2. input (2) jika ingin membaca berkas" << std::endl
+              << std::endl;
+    receiveInput();
+}
+
+void InputManager::MayorMenuInputValidation()
+{
+    std::cout << "Menu Selection: " << std::endl;
+    std::cout << "(1): "
+              << "Cetak Simpanan" << std::endl;
+    std::cout << "(2): "
+              << "Pungut Pajak" << std::endl;
+    std::cout << "(3): "
+              << "Bangun Bangunan" << std::endl;
+    std::cout << "(4): "
+              << "Makan" << std::endl;
+    std::cout << "(5): "
+              << "Beli" << std::endl;
+    std::cout << "(6): "
+              << "Jual" << std::endl;
+    std::cout << "(7): "
+              << "Muat" << std::endl;
+    std::cout << "(8): "
+              << "Simpan" << std::endl;
+    std::cout << "(9): "
+              << "Tambah Pemain" << std::endl;
+
+    std::cout << "Pilihan: ";
+    receiveInput();
+
+    int data = std::stoi(_inputData);
+    if (data < 1 || data > 9)
+    {
+        throw MenuException("Invalid Input: Please input between 1 and 9");
+    }
+}
+
+void InputManager::StockmanMenuInputValidation()
+{
+    std::cout << "Menu Selection: " << std::endl;
+    std::cout << "(1): "
+              << "Cetak Peternakan" << std::endl;
+    std::cout << "(2): "
+              << "Ternak" << std::endl;
+    std::cout << "(3): "
+              << "Makan" << std::endl;
+    std::cout << "(4): "
+              << "Memberi Pangan" << std::endl;
+    std::cout << "(5): "
+              << "Membeli" << std::endl;
+    std::cout << "(6): "
+              << "Menjual" << std::endl;
+    std::cout << "(7): "
+              << "Memanen" << std::endl;
+    std::cout << "(8): "
+              << "Muat" << std::endl;
+    std::cout << "(9): "
+              << "Simpan" << std::endl;
+
+    std::cout << "Pilihan: ";
+    receiveInput();
+    int data = std::stoi(_inputData);
+
+    if (data < 1 || data > 8)
+    {
+        throw MenuException("Invalid Input: Please input between 1 and 8");
+    }
+}
+
+void InputManager::FarmerMenuInputValidation()
+{
+    std::cout << "Menu Selection: " << std::endl;
+    std::cout << "(1): "
+              << "Tanam" << std::endl;
+    std::cout << "(2): "
+              << "Cetak Ladang" << std::endl;
+    std::cout << "(3): "
+              << "Makan" << std::endl;
+    std::cout << "(4): "
+              << "Membeli" << std::endl;
+    std::cout << "(5): "
+              << "Menjual" << std::endl;
+    std::cout << "(6): "
+              << "Memanen" << std::endl;
+    std::cout << "(7): "
+              << "Muat" << std::endl;
+    std::cout << "(8): "
+              << "Simpan" << std::endl;
+
+    std::cout << "Pilihan: ";
+    receiveInput();
+    int data = std::stoi(_inputData);
+
+    if (data < 1 || data > 8)
+    {
+        throw MenuException("Invalid Input: Please input between 1 and 8");
     }
 }

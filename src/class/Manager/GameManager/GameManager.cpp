@@ -33,11 +33,9 @@ void GameManager::ReadConfig()
 
 GameManager::GameManager() = default;
 
-GameManager::~GameManager() {
-    for (auto & i : _listPlayer)
-    {
-        delete i;
-    }
+GameManager::~GameManager()
+{
+    _listPlayer.clear();
 }
 
 void GameManager::ContinueGame()
@@ -49,7 +47,8 @@ void GameManager::ContinueGame()
 
 void GameManager::AddUser(int type)
 {
-    if (type == 1) {
+    if (type == 1)
+    {
         // TODO: Assign mayor to the list player
         auto* temp_mayor = new Mayor(40, 40, type , gameConfig[2], gameConfig[3]);
         this->_listPlayer.push_back(temp_mayor);
@@ -68,13 +67,11 @@ void GameManager::AddUser(int type)
 
 void GameManager::StartGameValidation()
 {
-    cout << "Please enter a valid input" << endl;
-    cout << "1. input (1) jika ingin buat game baru" << endl;
-    cout << "2. input (2) jika ingin membaca berkas" << endl
-         << endl;
-    string data;
-    cin >> data;
-    if (data == "1") {
+    InputManager::NewGameInput();
+
+    string data = InputManager::_inputData;
+    if (data == "1")
+    {
         StartNewGame();
     }
     else if (data == "2")
@@ -83,50 +80,46 @@ void GameManager::StartGameValidation()
     }
     else
     {
-        // TODO: implement exception for invalid input
-        cout << "Invalid Input" << endl;
+        cout << "Input Invalid! Please enter either 1 or 2" << endl;
         StartGameValidation();
     }
 }
 
 void GameManager::WinCheck()
 {
-    vector<People *>::iterator itr;
-    for (itr = _listPlayer.begin(); itr != _listPlayer.end(); ++itr)
-    {
-        if (*itr)
-        {
-            float weight = float((*itr)->GetWeight());
-            int money = (*itr)->GetKeuangan();
+    float weight = float(_currentPlayer->GetWeight());
+    int money = _currentPlayer->GetKeuangan();
 
-            if (weight >= this->_weightToWin && money >= this->_moneyToWin)
-            {
-                cout << weight << " " << _weightToWin << endl;
-                cout << money << " " << _moneyToWin << endl;
-                // End the game
-                GameManager::EndGame();
-            }
-        }
+    if (weight >= this->_weightToWin && money >= this->_moneyToWin)
+    {
+        cout << weight << " " << _weightToWin << endl;
+        cout << money << " " << _moneyToWin << endl;
+        // End the game
+        GameManager::EndGame();
     }
 }
 
 void GameManager::EndGame()
 {
-    cout << endl << "Game Over" << endl;
+    cout << endl
+         << "Game Over" << endl;
     _isGameOver = true;
 }
 
 void GameManager::nextTurn()
 {
+    _listPlayer.next();
+    this->_currentPlayer = _listPlayer.top();
 }
 
 void GameManager::StartTurn()
 {
-    this->_currentPlayer = _listPlayer[0];
+    this->_currentPlayer = _listPlayer.top();
 }
 
 void GameManager::MenuSelection(const int type)
 {
+
     switch (type)
     {
     case (1):
@@ -252,22 +245,30 @@ void GameManager::StockmanMenuSelection() {
 
     try
     {
-        int data;
-        cout << "Pilihan: ";
-        cin >> data;
-
-        if (data < 1 || data > 9)
+        switch (type)
         {
-            // TODO: implement data input exception
+        case (1):
+            InputManager::MayorMenuInputValidation();
+            break;
+        case (2):
+            InputManager::FarmerMenuInputValidation();
+            break;
+        case (3):
+            InputManager::StockmanMenuInputValidation();
+            break;
+        default:
+            // Throw exception
+            cout << "Error Type occured" << endl;
+            break;
         }
 
         // Jalankan fungsi sesuai dengan pilihan
         RunStockmanSelection(data);
     }
-    catch (const exception &e) // TODO: replace with expection
+    catch (MenuException e)
     {
-        // TODO: implement input exception
         cout << e.what() << endl;
+        MenuSelection(type);
     }
 }
 
@@ -402,7 +403,8 @@ void GameManager::RunFarmerSelection(int input){
 void GameManager::Run() {
     StartGameValidation();
     StartTurn();
-    while (!_isGameOver) {
+    while (!_isGameOver)
+    {
         MenuSelection(_currentPlayer->GetType());
         WinCheck();
     }
