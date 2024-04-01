@@ -110,11 +110,36 @@ int Container::getCol() const {
  * @param j The column index of the item.
  * @param item The item to be set.
  */
-void Container::setItem(int i, int j, Item& item) {
+void Container::setItem(int i, int j, Item* item) {
     if (items[i][j] == nullptr) {
-        items[i][j] = &item;
+        items[i][j] = item;
         cellKosong--;
     }
+}
+
+void Container::setItem(string slot, Item* item){
+    int i = slot[0] - 'A';
+    int j = stoi(slot.substr(1, 2)) - 1;
+
+    setItem(i, j, item);
+}
+
+void Container::deleteItem(int i, int j) {
+    if (items[i][j] != nullptr) {
+        delete items[i][j];
+        items[i][j] = nullptr;
+        cellKosong++;
+    } else {
+        // TODO: throw exception
+        cout << "Slot kosong" << endl;
+    }
+}
+
+void Container::deleteItem(string slot) {
+    int i = slot[0] - 'A';
+    int j = stoi(slot.substr(1, 2)) - 1;
+
+    deleteItem(i, j);
 }
 
 /**
@@ -237,6 +262,14 @@ ostream& operator<<(ostream& os, const Container& container) {
     return os;
 }
 
+Container& Container::operator=(Container& container) {
+    this->row = container.row;
+    this->col = container.col;
+    this->cellKosong = container.cellKosong;
+    this->items = container.items;
+    
+    return *this;
+}
 /**
  * @brief Deletes the item at the specified row and column.
  *
@@ -244,10 +277,3 @@ ostream& operator<<(ostream& os, const Container& container) {
  * @param j The column index of the item.
  * @return The item at the specified row and column.
  */
-void Container::deleteItem(int i, int j) {
-    if (items[i][j] != nullptr) {
-        delete items[i][j];
-        items[i][j] = nullptr;
-        cellKosong++;
-    }
-}

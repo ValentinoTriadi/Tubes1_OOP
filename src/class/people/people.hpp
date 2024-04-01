@@ -31,8 +31,10 @@ class People{
          * @param weight saved the weight of user
          * @param Keuangan saved the money of user
          * @param Type type of user
+         * @param n_penyimpanan
+         * @param m_penyimpanan
         */
-        People(int,int,int);
+        People(int,int,int,int,int);
     
         People();
 

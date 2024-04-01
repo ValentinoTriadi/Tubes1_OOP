@@ -16,6 +16,7 @@ private:
     int _moneyToWin;
     int _weightToWin;
     GameData _gameData;
+    string _inputChecker;
 
     /*Method*/
 
