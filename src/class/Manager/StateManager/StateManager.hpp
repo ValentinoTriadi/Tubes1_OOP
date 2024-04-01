@@ -1,5 +1,5 @@
-#ifndef __STATEMANAGER_HPP__
-#define __STATEMANAGER_HPP__
+#ifndef STATEMANAGER_HPP_
+#define STATEMANAGER_HPP_
 
 #include <iostream>
 #include <fstream>

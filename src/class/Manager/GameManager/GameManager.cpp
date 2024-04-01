@@ -1,5 +1,9 @@
 #include "GameManager.hpp"
 
+using namespace std;
+
+bool GameManager::_isGameOver = false;
+
 void GameManager::StartNewGame()
 {
     this->ReadConfig();
@@ -20,17 +24,21 @@ void GameManager::ReadConfig()
     this->_gameData.BacaConfigProduct();
     this->_gameData.BacaConfigGame();
 
-
-
     // Save local settings for win conditions
-    vector<int> data = _gameData.GetGameConfig();
-    this->_moneyToWin = data[0];
-    this->_weightToWin = data[1];
+    gameConfig = GameData::_gameConfig;
+
+    this->_moneyToWin = gameConfig[0];
+    this->_weightToWin = float(gameConfig[1]);
 }
 
 GameManager::GameManager() = default;
 
-GameManager::~GameManager() = default;
+GameManager::~GameManager() {
+    for (auto & i : _listPlayer)
+    {
+        delete i;
+    }
+}
 
 void GameManager::ContinueGame()
 {
@@ -41,25 +49,19 @@ void GameManager::ContinueGame()
 
 void GameManager::AddUser(int weight, int Keuangan, int type)
 {
-    if (type == 1)
-    {
+    if (type == 1) {
         // TODO: Assign mayor to the list player
-    }
-    else if (type == 2)
-    {
+        auto* temp_mayor = new Mayor(weight, Keuangan, type ,gameConfig[2], gameConfig[3]);
+        this->_listPlayer.push_back(temp_mayor);
+    } else if (type == 2) {
         // TODO: assign farmer to the list player
-        Farmer temp_farmer;
-        this->_listPlayer.push_back(&temp_farmer);
-    }
-    else if (type == 3)
-    {
+        auto* temp_farmer = new Farmer(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        this->_listPlayer.push_back(temp_farmer);
+    } else if (type == 3) {
         // TODO: assign stockman to the list player
-        vector<int> tempGameDate = _gameData.GetGameConfig();
-        Stockman temp_stockman(weight, Keuangan, type, tempGameDate[2], tempGameDate[3], tempGameDate[6], tempGameDate[7]);
-        this->_listPlayer.push_back(&temp_stockman);
-    }
-    else
-    {
+        auto* temp_stockman = new Stockman(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        this->_listPlayer.push_back(temp_stockman);
+    } else {
         // TODO: implement exception for add user
     }
 }
@@ -72,8 +74,7 @@ void GameManager::StartGameValidation()
          << endl;
     string data;
     cin >> data;
-    if (data == "1")
-    {
+    if (data == "1") {
         StartNewGame();
     }
     else if (data == "2")
@@ -82,6 +83,7 @@ void GameManager::StartGameValidation()
     }
     else
     {
+        // TODO: implement exception for invalid input
         cout << "Invalid Input" << endl;
         StartGameValidation();
     }
@@ -94,13 +96,15 @@ void GameManager::WinCheck()
     {
         if (*itr)
         {
-            float weight = (*itr)->GetWeight();
-            float money = (*itr)->GetKeuangan();
+            float weight = float((*itr)->GetWeight());
+            int money = (*itr)->GetKeuangan();
 
             if (weight >= this->_weightToWin && money >= this->_moneyToWin)
             {
+                cout << weight << " " << _weightToWin << endl;
+                cout << money << " " << _moneyToWin << endl;
                 // End the game
-                this->EndGame();
+                GameManager::EndGame();
             }
         }
     }
@@ -108,8 +112,8 @@ void GameManager::WinCheck()
 
 void GameManager::EndGame()
 {
-    cout << "Game Over" << endl;
-    // TODO: implement stop all of the loops logic
+    cout << endl << "Game Over" << endl;
+    _isGameOver = true;
 }
 
 void GameManager::nextTurn()
@@ -133,6 +137,9 @@ void GameManager::MenuSelection(const int type)
         break;
     case (3):
         StockmanMenuSelection();
+        break;
+    default:
+        // Throw exception
         break;
     }
 }
@@ -169,16 +176,15 @@ void GameManager::MayorMenuSelection()
     cout << "(9): "
          << "Tambah Pemain" << endl;
 
-    try
-    {
+    try {
         int data;
         cout << "Pilihan: ";
         cin >> data;
 
-        if (data < 1 && data > 9)
-        {
+        if (data < 1 || data > 9) {
             // TODO: implement data input exception
         }
+
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -215,7 +221,7 @@ void GameManager::StockmanMenuSelection()
         cout << "Pilihan: ";
         cin >> data;
 
-        if (data < 1 && data > 9)
+        if (data < 1 || data > 9)
         {
             // TODO: implement data input exception
         }
@@ -253,7 +259,7 @@ void GameManager::FarmerMenuSelection()
         cout << "Pilihan: ";
         cin >> data;
 
-        if (data < 1 && data > 8)
+        if (data < 1 || data > 8)
         {
             // TODO: implement data input exception
         }
@@ -262,5 +268,14 @@ void GameManager::FarmerMenuSelection()
     {
         // TODO: implement input exception
         cout << e.what() << endl;
+    }
+}
+
+void GameManager::Run(){
+    StartGameValidation();
+    StartTurn();
+    while (!_isGameOver) {
+        MenuSelection(_currentPlayer->GetType());
+        WinCheck();
     }
 }

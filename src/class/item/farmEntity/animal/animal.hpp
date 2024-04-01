@@ -1,5 +1,5 @@
-#ifndef __ANIMAL_HPP__
-#define __ANIMAL_HPP__
+#ifndef ANIMAL_HPP_
+#define ANIMAL_HPP_
 
 #include "../farmEntity.hpp"
 
@@ -23,7 +23,7 @@ class Animal final : public FarmEntity {
          * @param Weight Weight of Animal
          * @param HarvestLimit Harvest Limit of Animal (Minimum Age or Weight to Harvest)
          */
-        Animal(const int, const string&, const string&, const int, const string&, const int, const int);
+        Animal(int, const string&, const string&, int, const string&, int, int);
         /**
          * Destructor
          * !```Don't call this function directly```!

@@ -14,6 +14,11 @@
 class Stockman : public People{
     private:
         Container Peternakan;
+        /*
+        * @brief Check If there is an animal in the storage
+        * @return true if there is an animal in the storage, false if there is no animal in the storage
+        */
+        bool CheckHewan(const string&);
     public:
         /**
          * @brief Construct a new Stockman object
@@ -26,7 +31,7 @@ class Stockman : public People{
          * @param n_peternakan
          * @param m_peternakan
         */
-        Stockman(const int, const int, const int, const int, const int, const int, const int);
+        Stockman(int, int, int, int, int, int, int);
         /**
          * @brief Destroy the Stockman object
         */

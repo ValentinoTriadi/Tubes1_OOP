@@ -38,7 +38,7 @@ public:
     void kurangUang(int);
 
     // Getter for money
-    int GetMoney(){return money;}
+    [[nodiscard]] int GetMoney() const{return money;}
 
 };
 

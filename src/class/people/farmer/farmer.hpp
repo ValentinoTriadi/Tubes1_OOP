@@ -9,6 +9,7 @@ class Farmer : public People {
         Container Ladang;
     public:
         Farmer();
+        Farmer(int,int,int,int,int,int,int);
         ~Farmer();
         void cetakLadang() const;
         void tanam();

@@ -64,8 +64,8 @@ Container::~Container() {
  *
  * @param row The new row value to be set.
  */
-void Container::setRow(int row) {
-    this->row = row;
+void Container::setRow(int Setrow) {
+    this->row = Setrow;
 }
 
 /**
@@ -75,8 +75,8 @@ void Container::setRow(int row) {
  *
  * @param col The new column value to be set.
  */
-void Container::setCol(int col) {
-    this->col = col;
+void Container::setCol(int Setcol) {
+    this->col = Setcol;
 }
 
 /**

@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "../item/item.hpp"
+#include "../gameData/gameData.hpp"
 
 
 class Container {

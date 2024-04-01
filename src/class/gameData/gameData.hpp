@@ -43,28 +43,23 @@ class GameData {
         /*Tampilkan Config Misc ```src/config/misc.txt```*/
         void DisplayConfigGame() const;
 
-        /*getter for game config*/
+        static vector<Product> _productConfig;
+        static vector<Building> _buildingConfig;
+        static vector<Animal> _animalConfig;
+        static vector<Plant> _plantConfig;
         /*
         Isi vector GameConfig:
         <index>: <keterangan>
         * 0: max uang
         * 1: max berat
         * 2: besar inventory n
-        * 3: besar inventory m 
+        * 3: besar inventory m
         * 4: besar lahan n
-        * 5: besar lahan m 
+        * 5: besar lahan m
         * 6: besar peternakan n
         * 7: besar peternakan m
         */
-        vector<int> GetGameConfig()const {return _gameConfig; }
-        
-
-    private:
-        vector<Product> _productConfig{};
-        vector<Building> _buildingConfig{};
-        vector<Animal> _animalConfig{};
-        vector<Plant> _plantConfig{};
-        vector<int> _gameConfig{};
+        static vector<int> _gameConfig;
 };
 
 #endif

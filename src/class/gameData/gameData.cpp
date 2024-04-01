@@ -2,6 +2,15 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <filesystem>
+
+using namespace std;
+
+vector<Product> GameData::_productConfig;
+vector<Building> GameData::_buildingConfig;
+vector<Animal> GameData::_animalConfig;
+vector<Plant> GameData::_plantConfig;
+vector<int> GameData::_gameConfig;
 
 // Constructor
 GameData::GameData() = default;
@@ -11,20 +20,20 @@ GameData::~GameData() = default;
 
 // Method
 void GameData::BacaConfigProduct() {
-    ifstream file("config/product.txt");
+    ifstream file("../config/product.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
         string code, name, type, origin;
         int id, weight, price;
         ss >> id >> code >> name >> type >> origin >> weight >> price;
-        _productConfig.push_back(Product(id, code, name, price, type, origin, weight));
+        _productConfig.emplace_back(id, code, name, price, type, origin, weight);
     }
     file.close();
 }
 
 void GameData::BacaConfigBuilding() {
-    ifstream file("config/recipe.txt");
+    ifstream file("../config/recipe.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -41,7 +50,7 @@ void GameData::BacaConfigBuilding() {
 }
 
 void GameData::BacaConfigAnimal() {
-    ifstream file("config/animal.txt");
+    ifstream file("../config/animal.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -54,7 +63,7 @@ void GameData::BacaConfigAnimal() {
 }
 
 void GameData::BacaConfigPlant() {
-    ifstream file("config/plant.txt");
+    ifstream file("../config/plant.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -79,7 +88,8 @@ void GameData::BacaConfigPlant() {
     * 7: besar peternakan m
 */
 void GameData::BacaConfigGame() {
-    ifstream file("config/misc.txt");
+    cout << "path :" << std::filesystem::current_path() << endl;
+    ifstream file("../config/misc.txt");
     string line;
     int temp, temp1;
     
