@@ -18,12 +18,7 @@ private:
 
     // Game Data
     GameData _gameData;
-    int _moneyToWin{};
-    float _weightToWin{};
-    vector<int> gameConfig;
-
-    // Boolean
-    static bool _isGameOver;
+    string _inputChecker;
 
     /*Method*/
 
