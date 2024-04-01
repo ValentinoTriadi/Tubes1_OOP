@@ -1,5 +1,5 @@
-#ifndef __FARMENTITY_HPP__
-#define __FARMENTITY_HPP__
+#ifndef FARMENTITY_HPP_
+#define FARMENTITY_HPP_
 
 #include "../item.hpp"
 
@@ -26,7 +26,7 @@ class FarmEntity : public Item {
          * Destructor
          *  !```Don't call this function directly```!
         */
-        virtual ~FarmEntity();
+        ~FarmEntity() override;
 
 
 

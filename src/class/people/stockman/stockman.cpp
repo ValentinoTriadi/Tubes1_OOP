@@ -32,11 +32,8 @@ void Stockman::panen(){
     // TODO: Check yang siap di panen + tampilin
     // TODO: validasi input ( nomor hewan + jumlah + petak yg mana)
     // TODO: validasi inventory
-
     // SUCCESS
     // TODO: ilangin field + masukin inventory
-
-
 }
 
 void Stockman::pungutPajak(){

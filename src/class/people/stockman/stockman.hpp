@@ -26,7 +26,7 @@ class Stockman : public People{
          * @param n_peternakan
          * @param m_peternakan
         */
-        Stockman(const int, const int, const int, const int, const int, const int, const int);
+        Stockman(int, int, int, int, int, int, int);
         /**
          * @brief Destroy the Stockman object
         */

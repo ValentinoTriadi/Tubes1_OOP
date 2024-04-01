@@ -26,7 +26,7 @@ class Product final : public Item {
          * Destructor
          * !```Don't call this function directly```!
         */
-        virtual ~Product();
+        ~Product() override;
 
 
         /**
