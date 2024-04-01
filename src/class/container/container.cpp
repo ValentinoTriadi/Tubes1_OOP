@@ -262,6 +262,14 @@ ostream& operator<<(ostream& os, const Container& container) {
     return os;
 }
 
+/**
+ * @brief Overloaded assignment operator for the Container class.
+ *
+ * This function overloads the assignment operator for the Container class.
+ *
+ * @param container The Container object to be copied.
+ * @return The copied Container object.
+ */
 Container& Container::operator=(Container& container) {
     this->row = container.row;
     this->col = container.col;
@@ -270,10 +278,15 @@ Container& Container::operator=(Container& container) {
     
     return *this;
 }
+
 /**
- * @brief Deletes the item at the specified row and column.
+ * @brief Overloaded subscript operator for the Container class.
  *
- * @param i The row index of the item.
- * @param j The column index of the item.
- * @return The item at the specified row and column.
+ * This function overloads the subscript operator for the Container class.
+ *
+ * @param i The row index of the items to be accessed.
+ * @return A vector of items in the specified row.
  */
+vector<Item *> Container::operator[](int i) {
+    return items[i];
+}

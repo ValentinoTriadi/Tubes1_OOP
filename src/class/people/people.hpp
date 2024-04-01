@@ -83,7 +83,7 @@ class People{
          *  @brief Set container
          *  @param container container yang akan di set
          */
-        void SetStorage(const Container&);
+//        void SetStorage(const Container&);
 };
 
 

@@ -13,7 +13,7 @@
 */
 class Stockman : public People{
     private:
-        Peternakan Peternakan;
+         Peternakan peternakan;
         /*
         * @brief Check If there is an animal in the storage
         * @return true if there is an animal in the storage, false if there is no animal in the storage

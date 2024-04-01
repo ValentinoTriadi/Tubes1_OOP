@@ -1,7 +1,7 @@
 #include "stockman.hpp"
 
 Stockman::Stockman(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_peternakan, const int m_peternakan) : People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan){
-    this->Peternakan = Peternakan(n_peternakan, m_peternakan);
+    this->peternakan = Peternakan(n_peternakan, m_peternakan);
 };
 
 Stockman::~Stockman() = default;
@@ -18,7 +18,7 @@ bool Stockman::CheckHewan(const string& kode){
 }
 
 void Stockman::cetakPeternakan(){
-    cout << this->Peternakan;
+    cout << peternakan;
 }
 
 void Stockman::ternak(){
@@ -57,7 +57,7 @@ void Stockman::ternak(){
 
     cout << "Pilih petak tanah yang akan ditinggali" << endl;
 
-    cout << this->Peternakan;
+    cout << this->peternakan;
 
     cout << "Petak tanah: ";
     string petak;
@@ -65,12 +65,12 @@ void Stockman::ternak(){
     int petakIndexi = (int)(petak[0] - 'A');
     int petakIndexj = stoi(petak.substr(1, 2)) - 1;
 
-    if (this->Peternakan(petakIndexi, petakIndexj) != nullptr) {
+    if (this->peternakan(petakIndexi, petakIndexj) != nullptr) {
         // TODO : EXCEPTION
         throw "Petak sudah terisi";
     } else {
         // SUCCESS
-        this->Peternakan.setItem(petakIndexi, petakIndexj, storage(slotIndexi, slotIndexj));
+        this->peternakan.setItem(petakIndexi, petakIndexj, storage(slotIndexi, slotIndexj));
         this->storage.deleteItem(slot);
     }
 }

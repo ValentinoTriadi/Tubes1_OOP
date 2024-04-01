@@ -6,11 +6,11 @@ StateManager::StateManager(){
 };
 
 StateManager::~StateManager(){
-    for (int i = 0; i < _listPlayer.size(); i++){
-        delete _listPlayer[i];
+    for (auto & i : _listPlayer){
+        delete i;
     }
-    for (int i = 0; i < _listItemToko.size(); i++){
-        delete _listItemToko[i];
+    for (auto & i : _listItemToko){
+        delete i;
     }
 };
 
@@ -30,15 +30,12 @@ void StateManager::loadState(const vector<int>& gameConfig){
     }
 
     if ((char)tolower(answer) == 'y'){
-        loadFromFile();
+//        loadFromFile();
     } else {
-        defaultState();
+//        defaultState();
     }
 }
 
-
-StateManager::~StateManager() = default;
-
-void StateManager::defaultState(){
-    Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
-}
+//void StateManager::defaultState(){
+//    Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
+//}
