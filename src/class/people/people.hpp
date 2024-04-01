@@ -36,31 +36,54 @@ class People{
     
         People();
 
-        /*
-         * Menghapus objek people
+        /**
+         * @brief Menghapus objek people
          */
-        ~People();
+        virtual ~People();
 
-        /*
-         *  Mencetak penyimpanan yang dimiliki oleh people
+        /**
+         *  @brief Mencetak penyimpanan yang dimiliki oleh people
          */
         void cetakPenyimpanan();
 
+        /**
+         *  @brief Makan
+         */
         void makan();
+
+        /**
+         *  @brief Membeli
+         */
         void membeli();
+
+        /**
+         *  @brief Menjual
+         */
         void menjual();
 
-        // getter for weight
+        /**
+         *  @brief Set container
+         *  @param container container yang akan di set
+         */
         [[nodiscard]] int GetWeight() const {return Weight;}
 
-        // getter for Keuangan
-        int GetKeuangan() {return Keuangan.GetMoney();}
+        /**
+         *  @brief Get Keuangan
+         *  @return Keuangan
+         */
+        [[nodiscard]] int GetKeuangan() {return Keuangan.GetMoney();}
 
+        /**
+         *  @brief Get Type
+         *  @return Type
+         */
         [[nodiscard]] int GetType() const{return Type;}
 
-        void SetContainer(const Container&);
-
-
+        /**
+         *  @brief Set container
+         *  @param container container yang akan di set
+         */
+        void SetStorage(const Container&);
 };
 
 

@@ -36,6 +36,9 @@ void StateManager::loadState(const vector<int>& gameConfig){
     }
 }
 
+
+StateManager::~StateManager() = default;
+
 void StateManager::defaultState(){
     Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
 }
