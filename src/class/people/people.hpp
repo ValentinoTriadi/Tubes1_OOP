@@ -7,6 +7,11 @@
 
 class People{
     protected:
+        /**
+         * name of user
+        */
+        string name;
+
         Container storage;
         /**
          * Money monitor of user
@@ -32,7 +37,7 @@ class People{
          * @param Keuangan saved the money of user
          * @param Type type of user
         */
-        People(int,int,int,int,int);
+        People(const string&,int,int,int,int,int);
     
         People();
 
