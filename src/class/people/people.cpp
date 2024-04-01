@@ -96,6 +96,6 @@ void People::membeli()
 
 void People::menjual()
 {
-    
+    // TODO : nunggu yg class Toko jadi dulu
 }
 
