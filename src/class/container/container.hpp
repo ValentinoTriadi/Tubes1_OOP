@@ -100,6 +100,14 @@ public:
      */
     Container& operator=(Container& container);
 
+    /**
+     * @brief Overloads the [] operator to allow accessing the items in the container.
+     *
+     * This function returns a vector of items in the specified row of the container.
+     *
+     * @param i The row index of the items to be accessed.
+     * @return A vector of items in the specified row.
+     */
     vector<Item*> operator[](int i);
     
 
