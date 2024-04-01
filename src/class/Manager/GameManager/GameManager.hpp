@@ -79,45 +79,6 @@ private:
      */
     void MenuSelection(int);
 
-    /**
-     * Display the menu selection for mayor
-     * Usage: ```MayorMenuSelection();```
-     */
-    void MayorMenuSelection();
-
-    /**
-     * Run the mayor selection
-     * @param input the input from the user
-     * Usage: ```RunMayorSelection(input);```
-     */
-    void RunMayorSelection(int input);
-
-    /**
-     * Display the menu selection for farmer
-     * Usage: ```FarmerMenuSelection();```
-     */
-    void FarmerMenuSelection();
-
-    /**
-     * Display the menu selection for stockman
-     * Usage: ```StockmanMenuSelection();```
-     */
-    void StockmanMenuSelection();
-
-    /**
-     * Run the stockman selection
-     * @param input the input from the user
-     * Usage: ```RunStockmanSelection(input);```
-     */
-    void RunStockmanSelection(int input);
-
-    /**
-     * Run the farmer selection
-     * @param input the input from the user
-     * Usage: ```RunFarmerSelection(input);```
-     */
-    void RunFarmerSelection(int input);
-
 public:
     /*CTOR, DTOR*/
 

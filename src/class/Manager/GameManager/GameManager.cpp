@@ -121,21 +121,28 @@ void GameManager::MenuSelection(const int type)
 {
     try
     {
-        int data;
-        cout << "Pilihan: ";
-        cin >> data;
-
-        if (data < 1 || data > 8)
+        switch (type)
         {
-            // TODO: implement data input exception
+        case (1):
+            InputManager::MayorMenuInputValidation();
+            break;
+        case (2):
+            InputManager::FarmerMenuInputValidation();
+            break;
+        case (3):
+            InputManager::StockmanMenuInputValidation();
+            break;
+        default:
+            // Throw exception
+            cout << "Error Type occured" << endl;
+            break;
         }
     }
-    catch (const exception &e) // TODO: replace with expection
+    catch (MenuException e)
     {
-        // TODO: implement input exception
         cout << e.what() << endl;
+        MenuSelection(type);
     }
-
 }
 
 void GameManager::Run()
