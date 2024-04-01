@@ -93,9 +93,7 @@ class roundRobin{
          * @brief Clear the vector
         */
         void clear(){
-            while(!buf.empty()){
-                buf.pop();
-            }
+            buf.clear();
         }
 
         /**
