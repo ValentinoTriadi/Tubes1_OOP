@@ -50,16 +50,16 @@ void GameManager::AddUser(int type)
     if (type == 1)
     {
         // TODO: Assign mayor to the list player
-        auto* temp_mayor = new Mayor(40, 40, type , gameConfig[2], gameConfig[3]);
-        this->_listPlayer.push_back(temp_mayor);
+        auto* temp_mayor = new Mayor("Mayor",40, 40, type , gameConfig[2], gameConfig[3]);
+        this->_listPlayer.add(temp_mayor);
     } else if (type == 2) {
         // TODO: assign farmer to the list player
-        auto* temp_farmer = new Farmer(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-        this->_listPlayer.push_back(temp_farmer);
+        auto* temp_farmer = new Farmer("Petani1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        this->_listPlayer.add(temp_farmer);
     } else if (type == 3) {
         // TODO: assign stockman to the list player
-        auto* temp_stockman = new Stockman(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-        this->_listPlayer.push_back(temp_stockman);
+        auto* temp_stockman = new Stockman("Peternak1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        this->_listPlayer.add(temp_stockman);
     } else {
         // TODO: implement exception for add user
     }
@@ -245,31 +245,24 @@ void GameManager::StockmanMenuSelection() {
 
     try
     {
-        switch (type)
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+
+        if (data < 1 || data > 8)
         {
-        case (1):
-            InputManager::MayorMenuInputValidation();
-            break;
-        case (2):
-            InputManager::FarmerMenuInputValidation();
-            break;
-        case (3):
-            InputManager::StockmanMenuInputValidation();
-            break;
-        default:
-            // Throw exception
-            cout << "Error Type occured" << endl;
-            break;
+            // TODO: implement data input exception
         }
 
         // Jalankan fungsi sesuai dengan pilihan
         RunStockmanSelection(data);
     }
-    catch (MenuException e)
+    catch (const exception &e) // TODO: replace with expection
     {
+        // TODO: implement input exception
         cout << e.what() << endl;
-        MenuSelection(type);
     }
+
 }
 
 void GameManager::RunStockmanSelection(int input){
@@ -412,11 +405,5 @@ void GameManager::Run() {
 
 void GameManager::pungutPajak() {
     int total = 0;
-    for (auto & i : _listPlayer)
-    {
-        if (i->GetType() != 1){
-
-        }
-    }
 
 }
