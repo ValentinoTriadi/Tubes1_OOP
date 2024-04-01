@@ -14,6 +14,11 @@ protected:
      */
     static int people_counter;
 
+    /**
+     * Variable Name of user
+     */
+    string name;
+
     int id;
     /**
      * Id used to create a unique identifier for certain user
@@ -44,7 +49,7 @@ public:
      * @param Keuangan saved the money of user
      * @param Type type of user
      */
-    People(int, int, int, int, int);
+    People(const string &, int, int, int, int, int);
 
     People();
 

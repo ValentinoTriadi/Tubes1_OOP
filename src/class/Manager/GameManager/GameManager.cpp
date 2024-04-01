@@ -50,16 +50,16 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
     if (type == 1)
     {
         // TODO: Assign mayor to the list player
-        auto* temp_mayor = new Mayor(40, 40, type , gameConfig[2], gameConfig[3]);
-        this->_listPlayer.push_back(temp_mayor);
+        auto* temp_mayor = new Mayor("Mayor",40, 40, type , gameConfig[2], gameConfig[3]);
+        this->_listPlayer.add(temp_mayor);
     } else if (type == 2) {
         // TODO: assign farmer to the list player
-        auto* temp_farmer = new Farmer(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-        this->_listPlayer.push_back(temp_farmer);
+        auto* temp_farmer = new Farmer("Petani1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        this->_listPlayer.add(temp_farmer);
     } else if (type == 3) {
         // TODO: assign stockman to the list player
-        auto* temp_stockman = new Stockman(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-        this->_listPlayer.push_back(temp_stockman);
+        auto* temp_stockman = new Stockman("Peternak1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        this->_listPlayer.add(temp_stockman);
     } else {
         // TODO: implement exception for add user
     }
@@ -151,11 +151,5 @@ void GameManager::Run()
 
 void GameManager::pungutPajak() {
     int total = 0;
-    for (auto & i : _listPlayer)
-    {
-        if (i->GetType() != 1){
-
-        }
-    }
 
 }
