@@ -8,7 +8,7 @@ Farmer::Farmer() = default;
  *  Mencetak Ladang dari petani
  */
 void Farmer::cetakLadang() const {
-    cout << Ladang;
+    cout << ladang;
 }
 
 /**
@@ -55,7 +55,7 @@ void Farmer::tanam() {
     // Validasi
     // TODO : Exception handling
 
-    Ladang.setItem(row2,column2, *tanaman);
+    ladang.setItem(row2,column2, tanaman);
 
     cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
     cout << tanaman->getNama() << " berhasil ditanam!" << endl;
@@ -103,7 +103,7 @@ void Farmer::panen() {
         int row = slot[0] - 'A';
         int column = slot[1] - '0';
 
-        tanaman.push_back(Ladang(row,column));
+        tanaman.emplace_back(ladang[row][column]);
         petak.emplace_back(row,column);
     }
 
@@ -113,6 +113,7 @@ void Farmer::panen() {
         if (i != jumlah-1) {
             cout << ", ";
         }
+        ladang.deleteItem(petak[i].first,petak[i].second);
     }
     cout<<" telah dipanen!" << endl;
 }
@@ -125,11 +126,11 @@ void Farmer::pungutPajak() {
 
 
 Farmer::Farmer(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
-    Ladang = Container(n_ladang, m_ladang);
+    this->ladang = Ladang(n_ladang, m_ladang);
 }
 
-void Farmer::setLadang(const Container &ladang) {
-    this->Ladang = ladang;
+void Farmer::setLadang(const Ladang &ladang) {
+    this->ladang = ladang;
 }
 
 Farmer::~Farmer() = default;

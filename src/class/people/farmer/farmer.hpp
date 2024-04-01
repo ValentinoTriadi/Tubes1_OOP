@@ -1,12 +1,13 @@
 #ifndef FARMER_HPP
 #define FARMER_HPP
 #include "../people.hpp"
-#include "../../container/container.hpp"
+#include "../../container/ladang/ladang.hpp"
+
 
 
 class Farmer : public People {
     private:
-        Container Ladang;
+         Ladang ladang;
     public:
         /**
          * @brief Construct a new Farmer object
@@ -30,8 +31,6 @@ class Farmer : public People {
          */
         ~Farmer() override;
 
-        void setLadang(const Container& ladang);
-
         /**
          * @brief Cetak ladang yang dimiliki farmer
          */
@@ -51,6 +50,12 @@ class Farmer : public People {
          * @brief Pungut pajak dari petani
          */
         void pungutPajak();
+
+        /**
+         * @brief Set ladang yang dimiliki farmer
+         * @param ladang ladang yang dimiliki farmer
+         */
+        void setLadang(const Ladang &ladang);
 };
 
 #endif

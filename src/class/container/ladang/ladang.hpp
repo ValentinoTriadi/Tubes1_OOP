@@ -51,13 +51,6 @@ class Ladang : public Container {
             Ladang();
 
             /**
-             * @brief Constructs a new Ladang object with the specified number of rows and columns.
-             *
-             * @param row The number of rows in the Ladang.
-             * @param col The number of columns in the Ladang.
-             */
-            Ladang(int row, int col);
-            /**
              * @class Ladang
              * @brief Represents a ladang (field) object.
              * 

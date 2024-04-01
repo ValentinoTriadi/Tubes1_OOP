@@ -19,7 +19,24 @@ class Peternakan : public Container {
              * @param col The number of columns in the peternakan.
              */
             Peternakan(int row, int col);
+
+            /**
+             * @brief Destructor for the Peternakan class.
+             *
+             * This destructor is responsible for cleaning up any resources
+             * allocated by the Peternakan class.
+             */
             ~Peternakan();
+
+            /**
+             * @brief Copy constructor for the Peternakan class.
+             *
+             * This constructor initializes a new Peternakan object with the same
+             * attributes as the specified Peternakan object.
+             *
+             * @param peternakan The Peternakan object to be copied.
+             */
+            Peternakan(const Peternakan& peternakan);
 
             /**
              * @brief Show animal in the peternakan
