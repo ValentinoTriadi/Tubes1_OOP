@@ -20,8 +20,9 @@ class Item {
          * @param Code Code of Item
          * @param Name Name of Item
          * @param Price Price of Item
+         * @param ItemType Type of Item (0: Product, 1: Animal, 2: Plant)
         */
-        Item(int, string, string, int);
+        Item(int, string, string, int, int);
         /**
          * Destructor
          * !```Don't call this function directly```!
@@ -51,6 +52,13 @@ class Item {
          * @return Price of Item
         */
         [[nodiscard]] int getHarga() const;
+        /*
+        * 0 = Product
+        * 1 = Animal
+        * 2 = Plant
+        * 3 = Building
+        */
+        [[nodiscard]] int getItemType() const;
 
 
 
@@ -73,6 +81,14 @@ class Item {
         const string Code;
         const string Name;
         const int Price;
+
+        /*
+        * 0 = Product
+        * 1 = Animal
+        * 2 = Plant
+        * 3 = Building
+        */
+        const int ItemType;
 };
 
 #endif

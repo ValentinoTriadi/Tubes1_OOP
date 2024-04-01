@@ -102,9 +102,9 @@ void Farmer::panen() {
         // TODO : Validasi input
 
         int row = slot[0] - 'A';
-        int column = slot[1] - '0';
+        int column = stoi(slot.substr(1, 2)) - 1;
 
-        tanaman.emplace_back(ladang[row][column]);
+        tanaman.emplace_back(ladang(row,column));
         petak.emplace_back(row,column);
     }
 

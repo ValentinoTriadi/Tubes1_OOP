@@ -56,6 +56,10 @@ class Stockman : public People{
          * @brief Pungut Pajak
         */
         void pungutPajak();
+        /**
+         * @brief Set Peternakan
+        */
+        void setPeternakan(const Peternakan&);
 };
 
 
