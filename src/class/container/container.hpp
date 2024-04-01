@@ -49,6 +49,15 @@ public:
     void setItem(string slot, Item* item);
 
     /**
+     * @brief Sets the item in the container.
+     * 
+     * This function sets the specified item in the container.
+     * 
+     * @param item A pointer to the item to be set.
+     */
+    void setItem(Item* item);
+
+    /**
      * @brief Deletes an item at the specified position in the container.
      * 
      * This function removes the item at the specified position (i, j) in the container.
