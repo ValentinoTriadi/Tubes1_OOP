@@ -32,7 +32,7 @@ class People{
          * @param Keuangan saved the money of user
          * @param Type type of user
         */
-        People(int,int,int);
+        People(int,int,int,int,int);
     
         People();
 
@@ -51,12 +51,12 @@ class People{
         void menjual();
 
         // getter for weight
-        int GetWeight() {return Weight;}   
+        [[nodiscard]] int GetWeight() const {return Weight;}
 
         // getter for Keuangan
         int GetKeuangan() {return Keuangan.GetMoney();}
 
-        int GetType(){return Type;}
+        [[nodiscard]] int GetType() const{return Type;}
 
         void SetContainer(const Container&);
 

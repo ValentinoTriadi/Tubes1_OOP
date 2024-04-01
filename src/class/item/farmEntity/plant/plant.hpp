@@ -1,5 +1,5 @@
-#ifndef __PLANT_HPP__
-#define __PLANT_HPP__
+#ifndef PLANT_HPP_
+#define PLANT_HPP_
 
 #include "../farmEntity.hpp"
 
@@ -23,7 +23,7 @@ class Plant final : public FarmEntity {
          * @param HarvestLimit Harvest Limit of Plant (Minimum Age or Weight to Harvest)
          * @param Age Age of Plant
         */
-        Plant(int, string, string, int, string, int, int);
+        Plant(int Id, const string& Code, const string& Name, int Price, const string& Types, int HarvestLimit, int Age);
         /**
          * Destructor
          * !```Don't call this function directly```!

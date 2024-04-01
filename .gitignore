@@ -34,3 +34,6 @@
 # Idea
 .vscode
 .idea
+
+# CMake cache
+src/cmake-build-debug/*

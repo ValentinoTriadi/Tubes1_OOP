@@ -1,5 +1,6 @@
 #ifndef GAMEMANAGER_HPP
 #define GAMEMANAGER_HPP
+
 #include <vector>
 #include "../../people/people.hpp"
 #include "../../people/farmer/farmer.hpp"
@@ -11,11 +12,18 @@ using namespace std;
 class GameManager
 {
 private:
+    // List of player
     vector<People *> _listPlayer;
-    People *_currentPlayer;
-    int _moneyToWin;
-    int _weightToWin;
+    People *_currentPlayer{};
+
+    // Game Data
     GameData _gameData;
+    int _moneyToWin{};
+    float _weightToWin{};
+    vector<int> gameConfig;
+
+    // Boolean
+    static bool _isGameOver;
 
     /*Method*/
 
@@ -62,13 +70,27 @@ private:
      * (2) farmer
      * (3) stockman
      */
-    void MenuSelection(const int);
+    void MenuSelection(int);
 
+    /**
+     * Display the menu selection for mayor
+     * Usage: ```MayorMenuSelection();```
+     */
     void MayorMenuSelection();
 
+    /**
+     * Display the menu selection for farmer
+     * Usage: ```FarmerMenuSelection();```
+     */
     void FarmerMenuSelection();
 
+    /**
+     * Display the menu selection for stockman
+     * Usage: ```StockmanMenuSelection();```
+     */
     void StockmanMenuSelection();
+
+
 
 public:
     /*CTOR, DTOR*/
@@ -149,6 +171,7 @@ public:
      * Usage: ```menjual();```
      */
     void menjual();
+
     /**
      * Getter for _inputChecker
      * Usage: '''GetInputChecker();'''
@@ -160,6 +183,12 @@ public:
      * Implement the menu selection for the current user
      */
     void StartTurn();
+
+    /**
+     * Run the game
+     * Implement the game loop
+     */
+    void Run();
 };
 
 #endif

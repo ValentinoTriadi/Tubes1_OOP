@@ -15,8 +15,8 @@ int Animal::getWeight() const {
 }
 
 // Setter
-void Animal::setWeight(int Weight) {
-    this->Weight = Weight;
+void Animal::setWeight(int SetWeight) {
+    this->Weight = SetWeight;
 }
 
 // Method

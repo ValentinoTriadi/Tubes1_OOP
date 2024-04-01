@@ -9,7 +9,7 @@ class Building final : public Item {
         Building();
         Building(int, const string&, const string&, int, const map<string, int>&);
 
-        virtual ~Building();
+        ~Building() override;
 
         [[nodiscard]] map<string, int> getRecipe() const;
 

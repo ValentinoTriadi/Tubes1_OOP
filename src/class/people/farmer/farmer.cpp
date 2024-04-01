@@ -121,4 +121,7 @@ void Farmer::pungutPajak() {
     // TODO : Implementasi pajak
 }
 
+
+Farmer::Farmer(int weight, int money, int type, int n_, int) : People(
+
 Farmer::~Farmer() = default;
