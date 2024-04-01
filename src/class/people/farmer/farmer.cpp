@@ -28,7 +28,7 @@ void Farmer::tanam() {
 
     // Ubah input menjadi column dan row
     int row1 = slot[0] - 'A';
-    int column1 = slot[1] - '0';
+    int column1 = stoi(slot.substr(1, 2)) - 1;
 
     // Validasi
     // TODO: Exception handling
@@ -45,12 +45,13 @@ void Farmer::tanam() {
     // Ambil input dari user simpan dalam variable slot
     // Input berformat char int (B10)
     cout << "Petak tanah: ";
-    cin >> slot;
+    string petak;
+    cin >> petak;
     cout << endl << endl;
 
     // Ubah input menjadi column dan row
-    int row2 = slot[0] - 'A';
-    int column2 = slot[1] - '0';
+    int row2 = petak[0] - 'A';
+    int column2 = stoi(petak.substr(1, 2)) - 1;
 
     // Validasi
     // TODO : Exception handling
