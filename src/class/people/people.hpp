@@ -39,7 +39,7 @@ class People{
         /*
          * Menghapus objek people
          */
-        ~People();
+        virtual ~People();
 
         /*
          *  Mencetak penyimpanan yang dimiliki oleh people

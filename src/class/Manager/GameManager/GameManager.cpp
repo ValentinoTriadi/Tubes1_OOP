@@ -146,16 +146,6 @@ void GameManager::MenuSelection(const int type)
 
 void GameManager::MayorMenuSelection()
 {
-    // cout << "Menu Selection: "<< endl;
-    // cout << "(1): "<<"Nyetak Simpenan"<<endl;
-    // cout << "(2): "<<"Mungut Pajak"<<endl;
-    // cout << "(3): "<<"Mangun Bangunan"<<endl;
-    // cout << "(4): "<<"Dhahar"<<endl;
-    // cout << "(5): "<<"Tumbas"<<endl;
-    // cout << "(6): "<<"Dodolan"<<endl;
-    // cout << "(7): "<<"Ngleboke"<<endl;
-    // cout << "(8): "<<"Nyimpen"<<endl;
-
     cout << "Menu Selection: " << endl;
     cout << "(1): "
          << "Cetak Simpanan" << endl;
@@ -180,10 +170,13 @@ void GameManager::MayorMenuSelection()
         int data;
         cout << "Pilihan: ";
         cin >> data;
+        cout << endl;
 
         if (data < 1 || data > 9) {
             // TODO: implement data input exception
         }
+
+        // Jalankan fungsi sesuai dengan pilihan
 
     }
     catch (const exception &e) // TODO: replace with expection
@@ -193,8 +186,50 @@ void GameManager::MayorMenuSelection()
     }
 }
 
-void GameManager::StockmanMenuSelection()
-{
+void GameManager::RunMayorSelection(int input) {
+    switch (input) {
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            pungutPajak();
+            break;
+        case 3:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->bangun();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+//            muat();
+            break;
+        case 8:
+//            simpan();
+            break;
+        case 9:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
+                mayor->tambahPemain();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::StockmanMenuSelection() {
     cout << "Menu Selection: " << endl;
     cout << "(1): "
          << "Cetak Peternakan" << endl;
@@ -230,6 +265,53 @@ void GameManager::StockmanMenuSelection()
     {
         // TODO: implement input exception
         cout << e.what() << endl;
+    }
+}
+
+void GameManager::RunStockmanSelection(int input){
+    switch (input) {
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->ternak();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 3:
+            _currentPlayer->makan();
+            break;
+        case 4:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->memberiPangan();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
+                stockman->panen();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 8:
+            // muat();
+            break;
+        case 9:
+            // simpan();
+            break;
+        default:
+            // Exception
+            break;
     }
 }
 
@@ -271,7 +353,47 @@ void GameManager::FarmerMenuSelection()
     }
 }
 
-void GameManager::Run(){
+void GameManager::RunFarmerSelection(int input){
+    switch (input) {
+        case 1:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->tanam();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 2:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 3:
+            _currentPlayer->makan();
+            break;
+        case 4:
+            _currentPlayer->membeli();
+            break;
+        case 5:
+            _currentPlayer->menjual();
+            break;
+        case 6:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
+                farmer->panen();
+            } else {
+                // Exception for invalid type
+            }
+            break;
+        case 7:
+            // muat();
+            break;
+        case 8:
+            // simpan();
+            break;
+        default:
+            // Exception
+            break;
+    }
+}
+
+void GameManager::Run() {
     StartGameValidation();
     StartTurn();
     while (!_isGameOver) {
