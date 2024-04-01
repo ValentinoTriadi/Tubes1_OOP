@@ -37,6 +37,8 @@ void StateManager::saveState() {
 
 }
 
+StateManager::~StateManager() = default;
+
 //void StateManager::defaultState(){
 //    Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
 //}
