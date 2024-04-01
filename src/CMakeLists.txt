@@ -20,7 +20,7 @@ add_executable(Tubes1_OOP main.cpp
         class/item/product/product.hpp
         class/Manager/GameManager/GameManager.hpp
         class/people/people.hpp
-        class/people/farmer/farmer.cpp
+        class/people/people.cpp
         class/people/farmer/farmer.cpp
         class/people/farmer/farmer.hpp
         class/people/Keuangan/StatusKeuangan.hpp
@@ -34,8 +34,9 @@ add_executable(Tubes1_OOP main.cpp
         class/people/Keuangan/StatusKeuangan.cpp
         class/container/container.cpp
         class/container/container.hpp
-        class/people/people.cpp
         class/Manager/InputManager/InputManager.cpp
         class/Manager/StateManager/StateManager.cpp
         class/utils/roundRobin/roundRobin.hpp
+        class/container/ladang/ladang.cpp
+        class/container/peternakan/peternakan.cpp
 )

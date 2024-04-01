@@ -6,11 +6,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "../people/people.hpp"
-#include "../people/farmer/farmer.hpp"
-#include "../people/mayor/mayor.hpp"
-#include "../people/stockman/stockman.hpp"
-#include "../container/container.hpp"
+#include "../../people/people.hpp"
+#include "../../people/farmer/farmer.hpp"
+#include "../../people/mayor/mayor.hpp"
+#include "../../people/stockman/stockman.hpp"
+#include "../../container/container.hpp"
 
 
 class StateManager {
