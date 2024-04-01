@@ -27,16 +27,8 @@ void GameManager::ReadConfig()
     // Save local settings for win conditions
     gameConfig = GameData::_gameConfig;
 
-    for (int i : gameConfig) {
-        cout << i << endl;
-    }
-
     this->_moneyToWin = gameConfig[0];
     this->_weightToWin = float(gameConfig[1]);
-
-    cout << "Money to win: " << this->_moneyToWin << endl;
-    cout << "Weight to win: " << this->_weightToWin << endl;
-
 }
 
 GameManager::GameManager() = default;
@@ -59,16 +51,16 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
 {
     if (type == 1) {
         // TODO: Assign mayor to the list player
-        Mayor temp_mayor(weight, Keuangan, type ,gameConfig[2], gameConfig[3]);
-        this->_listPlayer.push_back(&temp_mayor);
+        auto* temp_mayor = new Mayor(weight, Keuangan, type ,gameConfig[2], gameConfig[3]);
+        this->_listPlayer.push_back(temp_mayor);
     } else if (type == 2) {
         // TODO: assign farmer to the list player
-        Farmer temp_farmer(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-        this->_listPlayer.push_back(&temp_farmer);
+        auto* temp_farmer = new Farmer(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        this->_listPlayer.push_back(temp_farmer);
     } else if (type == 3) {
         // TODO: assign stockman to the list player
-        Stockman temp_stockman(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-        this->_listPlayer.push_back(&temp_stockman);
+        auto* temp_stockman = new Stockman(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        this->_listPlayer.push_back(temp_stockman);
     } else {
         // TODO: implement exception for add user
     }
@@ -282,10 +274,8 @@ void GameManager::FarmerMenuSelection()
 void GameManager::Run(){
     StartGameValidation();
     StartTurn();
-    while (!_isGameOver){
-        cout << _currentPlayer->GetType() << endl;
+    while (!_isGameOver) {
         MenuSelection(_currentPlayer->GetType());
         WinCheck();
     }
-
 }
