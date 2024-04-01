@@ -40,3 +40,4 @@
 **/build/
 /build/
 /src/cmake-build-debug
+src/cmake-build-debug/CMakeFiles/rules.ninja

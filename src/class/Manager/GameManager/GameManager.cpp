@@ -12,7 +12,7 @@ void GameManager::StartNewGame()
     // User default settings 40 gulden, 40 weight
     for (int i = 1; i <= 3; i++)
     {
-        this->AddUser(40, 40, i);
+        this->AddUser(i);
     }
 }
 
@@ -47,19 +47,19 @@ void GameManager::ContinueGame()
     // TODO: create exception if the state is inavailable
 }
 
-void GameManager::AddUser(int weight, int Keuangan, int type)
+void GameManager::AddUser(int type)
 {
     if (type == 1) {
         // TODO: Assign mayor to the list player
-        auto* temp_mayor = new Mayor(weight, Keuangan, type ,gameConfig[2], gameConfig[3]);
+        auto* temp_mayor = new Mayor(40, 40, type , gameConfig[2], gameConfig[3]);
         this->_listPlayer.push_back(temp_mayor);
     } else if (type == 2) {
         // TODO: assign farmer to the list player
-        auto* temp_farmer = new Farmer(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        auto* temp_farmer = new Farmer(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
         this->_listPlayer.push_back(temp_farmer);
     } else if (type == 3) {
         // TODO: assign stockman to the list player
-        auto* temp_stockman = new Stockman(weight, Keuangan, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        auto* temp_stockman = new Stockman(40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
         this->_listPlayer.push_back(temp_stockman);
     } else {
         // TODO: implement exception for add user
@@ -148,7 +148,7 @@ void GameManager::MayorMenuSelection()
 {
     cout << "Menu Selection: " << endl;
     cout << "(1): "
-         << "Cetak Simpanan" << endl;
+         << "Cetak Penyimpanan" << endl;
     cout << "(2): "
          << "Pungut Pajak" << endl;
     cout << "(3): "
@@ -177,7 +177,7 @@ void GameManager::MayorMenuSelection()
         }
 
         // Jalankan fungsi sesuai dengan pilihan
-
+        RunMayorSelection(data);
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -211,10 +211,10 @@ void GameManager::RunMayorSelection(int input) {
             _currentPlayer->menjual();
             break;
         case 7:
-//            muat();
+//           muat();
             break;
         case 8:
-//            simpan();
+//           simpan();
             break;
         case 9:
             if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
@@ -260,6 +260,9 @@ void GameManager::StockmanMenuSelection() {
         {
             // TODO: implement data input exception
         }
+
+        // Jalankan fungsi sesuai dengan pilihan
+        RunStockmanSelection(data);
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -345,6 +348,9 @@ void GameManager::FarmerMenuSelection()
         {
             // TODO: implement data input exception
         }
+
+        // Jalankan fungsi sesuai dengan pilihan
+        RunFarmerSelection(data);
     }
     catch (const exception &e) // TODO: replace with expection
     {
@@ -400,4 +406,15 @@ void GameManager::Run() {
         MenuSelection(_currentPlayer->GetType());
         WinCheck();
     }
+}
+
+void GameManager::pungutPajak() {
+    int total = 0;
+    for (auto & i : _listPlayer)
+    {
+        if (i->GetType() != 1){
+
+        }
+    }
+
 }
