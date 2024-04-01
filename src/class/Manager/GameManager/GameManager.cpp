@@ -1,5 +1,6 @@
 #include "GameManager.hpp"
 
+
 using namespace std;
 
 bool GameManager::_isGameOver = false;
@@ -61,6 +62,8 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
         // TODO: implement exception for add user
     }
 }
+
+
 
 void GameManager::StartGameValidation()
 {
@@ -223,7 +226,7 @@ void GameManager::RunMayorSelection(int input) {
             break;
         case 9:
             if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
-                mayor->tambahPemain();
+                mayor->tambahPemain(&_listPlayer);
             } else {
                 // Exception for invalid type
             }

@@ -2,6 +2,10 @@
 #ifndef MAYOR_HPP_
 #define MAYOR_HPP_
 #include "../people.hpp"
+#include "../../gameData/gameData.hpp"
+#include "../farmer/farmer.hpp"
+#include "../stockman/stockman.hpp"
+#include "../../utils/roundRobin/roundRobin.hpp"
 
 class Mayor : public People {
 public:
@@ -20,7 +24,7 @@ public:
     /*
      * Menambahkan pemain baru
      */
-    void tambahPemain();
+    void tambahPemain(roundRobin<People *> *listPlayer);
 };
 
 #endif
