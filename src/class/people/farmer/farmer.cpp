@@ -126,7 +126,7 @@ void Farmer::pungutPajak() {
 }
 
 
-Farmer::Farmer(const string& name,const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(name,weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
+Farmer::Farmer(const string& name, int weight, int Keuangan , int n_penyimpanan, int m_penyimpanan, int n_ladang, int m_ladang): People(name,weight, Keuangan, 2, n_penyimpanan, m_penyimpanan) {
     this->ladang = Ladang(n_ladang, m_ladang);
 }
 

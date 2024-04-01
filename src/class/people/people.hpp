@@ -88,7 +88,7 @@ class People{
          *  @brief Get Type
          *  @return Type
          */
-        [[nodiscard]] int GetType() const{return Type;}
+        [[nodiscard]] int GetType() const {return Type;}
 
         /**
          *  @brief Get Name

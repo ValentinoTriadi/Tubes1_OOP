@@ -49,16 +49,13 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
 {
     if (type == 1)
     {
-        // TODO: Assign mayor to the list player
-        auto* temp_mayor = new Mayor("Mayor",40, 40, type , gameConfig[2], gameConfig[3]);
+        auto* temp_mayor = new Mayor("Mayor",40, 40 , gameConfig[2], gameConfig[3]);
         this->_listPlayer.add(temp_mayor);
     } else if (type == 2) {
-        // TODO: assign farmer to the list player
-        auto* temp_farmer = new Farmer("Petani1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        auto* temp_farmer = new Farmer("Petani1",40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
         this->_listPlayer.add(temp_farmer);
     } else if (type == 3) {
-        // TODO: assign stockman to the list player
-        auto* temp_stockman = new Stockman("Peternak1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        auto* temp_stockman = new Stockman("Peternak1",40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
         this->_listPlayer.add(temp_stockman);
     } else {
         // TODO: implement exception for add user
@@ -117,7 +114,7 @@ void GameManager::StartTurn()
     this->_currentPlayer = _listPlayer.top();
 }
 
-void GameManager::MenuSelection(const int type)
+void GameManager::MenuSelection(int type)
 {
     try {
         switch (type) {

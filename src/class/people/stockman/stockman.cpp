@@ -1,6 +1,6 @@
 #include "stockman.hpp"
 
-Stockman::Stockman(const string& name, int weight, int Keuangan, int Type ,int n_penyimpanan,int m_penyimpanan,int n_peternakan,int m_peternakan) : People(name,weight, Keuangan, Type, n_penyimpanan, m_penyimpanan){
+Stockman::Stockman(const string& name, int weight, int Keuangan,int n_penyimpanan,int m_penyimpanan,int n_peternakan,int m_peternakan) : People(name,weight, Keuangan, 3, n_penyimpanan, m_penyimpanan){
     this->peternakan = Peternakan(n_peternakan, m_peternakan);
 };
 
@@ -8,8 +8,8 @@ Stockman::~Stockman() = default;
 
 bool Stockman::CheckHewan(const string& kode){
     bool found = false;
-    for (int i = 0; i < GameData::_animalConfig.size(); i++) {
-        if (GameData::_animalConfig[i].getCode() == kode) {
+    for (auto & i : GameData::_animalConfig) {
+        if (i.getCode() == kode) {
             found = true;
             break;
         }

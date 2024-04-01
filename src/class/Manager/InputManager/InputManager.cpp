@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "InputManager.hpp"
 
 InputManager::InputManager() = default;
@@ -7,7 +8,8 @@ std::string InputManager::_inputData;
 
 void InputManager::receiveInput()
 {
-    std::getline(std::cin, _inputData);
+    _inputData.clear();
+    cin >> _inputData;
 }
 
 void InputManager::NewGameInput()
@@ -40,14 +42,17 @@ void InputManager::MayorMenuInputValidation()
               << "Simpan" << std::endl;
     std::cout << "(9): "
               << "Tambah Pemain" << std::endl;
+    std::cout << "(10): "
+              << "Next turn" << std::endl;
 
     std::cout << "Pilihan: ";
     receiveInput();
+    std::cout << std::endl;
 
     int data = std::stoi(_inputData);
-    if (data < 1 || data > 9)
+    if (data < 1 || data > 10)
     {
-        throw MenuException("Invalid Input: Please input between 1 and 9");
+        throw MenuException("Invalid Input: Please input between 1 and 10");
     }
 }
 
@@ -72,14 +77,17 @@ void InputManager::StockmanMenuInputValidation()
               << "Muat" << std::endl;
     std::cout << "(9): "
               << "Simpan" << std::endl;
+    std::cout << "(10): "
+              << "Next turn" << std::endl;
 
     std::cout << "Pilihan: ";
     receiveInput();
+    std::cout << std::endl;
     int data = std::stoi(_inputData);
 
-    if (data < 1 || data > 8)
+    if (data < 1 || data > 10)
     {
-        throw MenuException("Invalid Input: Please input between 1 and 8");
+        throw MenuException("Invalid Input: Please input between 1 and 10");
     }
 }
 
@@ -102,13 +110,16 @@ void InputManager::FarmerMenuInputValidation()
               << "Muat" << std::endl;
     std::cout << "(8): "
               << "Simpan" << std::endl;
+    std::cout << "(9): "
+              << "Next turn" << std::endl;
 
     std::cout << "Pilihan: ";
     receiveInput();
+    std::cout << std::endl;
     int data = std::stoi(_inputData);
 
-    if (data < 1 || data > 8)
+    if (data < 1 || data > 9)
     {
-        throw MenuException("Invalid Input: Please input between 1 and 8");
+        throw MenuException("Invalid Input: Please input between 1 and 9");
     }
 }

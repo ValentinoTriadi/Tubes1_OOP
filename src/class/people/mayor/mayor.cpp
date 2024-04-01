@@ -51,9 +51,12 @@ void Mayor::bangun() {
             return;
         }
     }
+
+    cout << "Anda tidak memiliki resep untuk bangunan tersebut." << endl;
+    return;
 }
 
-Mayor::Mayor(const string& nama, int weight, int keuangan, int type, int n_storage, int m_storage) : People(nama,weight,keuangan,type,n_storage,m_storage){}
+Mayor::Mayor(const string& nama, int weight, int keuangan, int n_storage, int m_storage) : People(nama,weight,keuangan,1,n_storage,m_storage){}
 
 void Mayor::tambahPemain() {
 
