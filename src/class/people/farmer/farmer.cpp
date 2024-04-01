@@ -65,6 +65,8 @@ void Farmer::tanam() {
 }
 
 void Farmer::panen() {
+    // TODO : Cek ada barang yang bisa dipanen atau ga, kalau ga langsung exception
+
     cetakLadang();
 
     // TODO : Cetak barang yang bisa diambil
