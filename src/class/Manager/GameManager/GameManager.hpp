@@ -32,7 +32,6 @@ private:
     static Mayor _mayor;
     string _inputChecker;
 
-
     /*Method*/
 
     /**
@@ -68,7 +67,7 @@ private:
      * @param Keuangan used for construct the keuangan of people
      * @param type used for construct tipe people
      */
-    void AddUser(int);
+    void AddUser(int, int, int);
 
     /**
      * Usage: ```StartTurn() and NextTurn()```
@@ -118,7 +117,6 @@ private:
      * Usage: ```RunFarmerSelection(input);```
      */
     void RunFarmerSelection(int input);
-
 
 public:
     /*CTOR, DTOR*/
