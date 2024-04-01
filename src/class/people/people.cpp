@@ -29,7 +29,7 @@ void People::menjual()
 {
 }
 
-void People::SetContainer(const Container &container)
-{
-    storage = container;
+void People::SetStorage(const Container &storage) {
+    this->storage = storage;
 }
+

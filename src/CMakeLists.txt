@@ -37,4 +37,5 @@ add_executable(Tubes1_OOP main.cpp
         class/people/people.cpp
         class/Manager/InputManager/InputManager.cpp
         class/Manager/StateManager/StateManager.cpp
+        class/utils/roundRobin/roundRobin.hpp
 )

@@ -18,7 +18,17 @@ private:
 
     // Game Data
     GameData _gameData;
+
+    int _moneyToWin{};
+    float _weightToWin{};
+    vector<int> gameConfig;
+
+    // Local Variable
+    static bool _isGameOver;
+    static int _currentTurn;
+    static Mayor _mayor;
     string _inputChecker;
+
 
     /*Method*/
 
@@ -55,7 +65,7 @@ private:
      * @param Keuangan used for construct the keuangan of people
      * @param type used for construct tipe people
      */
-    void AddUser(int, int, int);
+    void AddUser(int);
 
     /**
      * Usage: ```StartTurn() and NextTurn()```
@@ -74,6 +84,13 @@ private:
     void MayorMenuSelection();
 
     /**
+     * Run the mayor selection
+     * @param input the input from the user
+     * Usage: ```RunMayorSelection(input);```
+     */
+    void RunMayorSelection(int input);
+
+    /**
      * Display the menu selection for farmer
      * Usage: ```FarmerMenuSelection();```
      */
@@ -84,6 +101,20 @@ private:
      * Usage: ```StockmanMenuSelection();```
      */
     void StockmanMenuSelection();
+
+    /**
+     * Run the stockman selection
+     * @param input the input from the user
+     * Usage: ```RunStockmanSelection(input);```
+     */
+    void RunStockmanSelection(int input);
+
+    /**
+     * Run the farmer selection
+     * @param input the input from the user
+     * Usage: ```RunFarmerSelection(input);```
+     */
+    void RunFarmerSelection(int input);
 
 
 
@@ -106,66 +137,12 @@ public:
      * Usage: ```nextTurn();```
      */
     void nextTurn();
-    /**
-     * Show Inventory of current player
-     * Usage: ```cetakPenyimpanan;```
-     */
-    void cetakPenyimpanan();
+
     /**
      * Take tax from any player
      * Usage: ```pungutPajak();```
      */
     void pungutPajak();
-    /**
-     * Show Animal Field
-     * Usage: ```cetakLadang();```
-     */
-    void cetakLadang();
-    /**
-     * Show Plant Field
-     * Usage: ```cetakPertanian();```
-     */
-    void cetakPertanian();
-    /**
-     * Plant the plant
-     * Usage: ```tanam();```
-     */
-    void tanam();
-    /**
-     * Harvest the plant
-     * Usage: ```memanen();```
-     */
-    void memanen();
-    /**
-     * Give food to animal
-     * Usage: ```memberiPangan();```
-     */
-    void memberiPangan();
-    /**
-     * Harvest the animal
-     * Usage: ```ternak();```
-     */
-    void ternak();
-    /**
-     * Build a building
-     * Usage: ```ShowStatus();```
-     */
-    void bangunBangunan();
-    /**
-     * Eat a snack
-     * Usage: ```makan();```
-     */
-    void makan();
-    /**
-     * Buy an item
-     * Usage: ```membeli();```
-     */
-    void membeli();
-    /**
-     * Sell an item
-     * Usage: ```menjual();```
-     */
-    void menjual();
 
     /**
      * Getter for _inputChecker

@@ -9,12 +9,15 @@ class Peternakan : public Container {
     public:
             Peternakan();
             Peternakan(int row, int col);
+            Peternakan(const Peternakan& peternakan);
             ~Peternakan();
             void showAnimal();
 
             std::map<std::string, int> getHarvest();
 
             friend std::ostream& operator<<(std::ostream& os, const Peternakan& ladang);
+
+            Peternakan& operator=(const Peternakan& peternakan);
 
         private:
             std::ostream& printRow(std::ostream& os, int i) const;
