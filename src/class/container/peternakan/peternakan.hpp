@@ -19,13 +19,6 @@ class Peternakan : public Container {
              * @param col The number of columns in the peternakan.
              */
             Peternakan(int row, int col);
-
-            /**
-             * @brief Destructor for the Peternakan class.
-             *
-             * This destructor is responsible for cleaning up any resources
-             * allocated by the Peternakan class.
-             */
             ~Peternakan();
 
             /**
@@ -49,6 +42,8 @@ class Peternakan : public Container {
              * @param item A pointer to the item to be set.
              */
             friend std::ostream& operator<<(std::ostream& os, const Peternakan& ladang);
+
+            Peternakan& operator=(const Peternakan& peternakan);
 
         private:
             std::ostream& printRow(std::ostream& os, int i) const;

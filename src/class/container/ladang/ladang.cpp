@@ -18,7 +18,19 @@ Ladang::Ladang(int row, int col) : Container(row, col) {
     }
 }
 
+Ladang::Ladang(const Ladang& ladang) : Container(ladang) {
+}
+
 Ladang::~Ladang() {
+}
+
+Ladang& Ladang::operator=(const Ladang& ladang) {
+    for (int i = 0; i < row; i++){
+        for (int j = 0; j < col; j++){
+            items[i][j] = ladang.items[i][j];
+        }
+    }
+    return *this;
 }
 
 ostream& Ladang::printRow(ostream& os, int row) const {
