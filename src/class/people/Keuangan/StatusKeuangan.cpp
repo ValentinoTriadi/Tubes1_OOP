@@ -1,22 +1,19 @@
-//
-// Created by Ojan on 3/21/2024.
-//
-
 #include "StatusKeuangan.hpp"
 
-StatusKeuangan::StatusKeuangan(const int uang) {
-    money = uang;
-    NonUang = 0;
+StatusKeuangan::StatusKeuangan(int uang) : money(uang){
 }
 
-int StatusKeuangan::hitungPajak() const {
-    return (money + NonUang) - ktkp;
+int StatusKeuangan::hitungPajak() const{
+    return NonUang;
 }
 
-void StatusKeuangan::tambahUang(const int val) {
+void StatusKeuangan::tambahUang(int val){
     money += val;
 }
 
-void StatusKeuangan::kurangUang(const int val) {
+void StatusKeuangan::kurangUang(int val){
+    if(money < val){
+        //TODO: implement miskin exception
+    }
     money -= val;
 }

@@ -28,6 +28,8 @@ public:
 
     //Method
     friend ostream& operator<<(ostream& os, const Container& container);
+    Container& operator=(Container& container);
+    
 
 private:
     /* data */

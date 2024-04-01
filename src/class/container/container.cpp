@@ -244,3 +244,12 @@ ostream& operator<<(ostream& os, const Container& container) {
 
     return os;
 }
+
+Container& Container::operator=(Container& container) {
+    this->row = container.row;
+    this->col = container.col;
+    this->cellKosong = container.cellKosong;
+    this->items = container.items;
+    
+    return *this;
+}

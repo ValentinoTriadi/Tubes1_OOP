@@ -2,7 +2,7 @@
 #define FARMER_HPP
 #include "../people.hpp"
 
-class Farmer : People{
+class Farmer :public People{
     private:
         // container Farm;
         // Penyimpanan Storage;

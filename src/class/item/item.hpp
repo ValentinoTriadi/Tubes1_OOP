@@ -26,10 +26,8 @@ class Item {
          * Destructor
          * !```Don't call this function directly```!
         */
-
-    protected:
-        ~Item();
-
+        virtual ~Item();
+    
         //! GETTER !//
 
         /**

@@ -1,12 +1,11 @@
 #ifndef STOCKMAN_HPP
 #define STOCKMAN_HPP
 #include "../people.hpp"
-#include "../../container/penyimpanan/penyimpanan.hpp"
-#include "../../container/peternakan/peternakan.hpp"
+#include "../../container/container.hpp"
 class Stockman : public People{
     private:
-        Peternakan Barn;
-        Penyimpanan Storage;
+        Container Barn;
+        Container Storage;
     public:
         Stockman();
         ~Stockman();

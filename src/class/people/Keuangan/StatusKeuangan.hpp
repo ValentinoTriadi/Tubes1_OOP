@@ -15,8 +15,9 @@ public:
     /*
      * Membuat class status keuangan baru dengan parameter uang
      * set 0 untuk nonUang
+     * @param money amount
      */
-    explicit StatusKeuangan(int uang);
+    explicit StatusKeuangan(int);
 
     /*
      * Fungsi untuk menghitung pajak yang harus dibayar.
@@ -27,14 +28,17 @@ public:
     [[nodiscard]] int hitungPajak() const;
 
     /*
-     * Menambahkan uang ke dalam status keuangan
+     *@param val amount of uang added
      */
-    void tambahUang(int val) ;
+    void tambahUang(int);
 
     /*
-     * Mengurangi uang dari status keuangan
+     * @param val amount of uang negated
      */
-    void kurangUang(int val) ;
+    void kurangUang(int);
+
+    // Getter for money
+    int GetMoney(){return money;}
 
 };
 
