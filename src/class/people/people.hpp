@@ -96,7 +96,7 @@ public:
      *  @brief Set container
      *  @param container container yang akan di set
      */
-    // void SetStorage(const Container&);
+    void setStorage(const Container &);
 };
 
 #endif

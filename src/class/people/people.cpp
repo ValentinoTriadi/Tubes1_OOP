@@ -31,3 +31,8 @@ void People::membeli()
 void People::menjual()
 {
 }
+
+
+void People::setStorage(const Container &storage){
+    this->storage = storage;
+}

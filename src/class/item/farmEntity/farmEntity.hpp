@@ -20,8 +20,9 @@ class FarmEntity : public Item {
          * @param Price Price of FarmEntity
          * @param Type Type of FarmEntity
          * @param HarvestLimit Harvest Limit of FarmEntity (Minimum Age or Weight to Harvest)
+         * @param ItemType Type of Item (0: Product, 1: Animal, 2: Plant)
         */
-        FarmEntity(int, const string &, const string &, int, string , int);
+        FarmEntity(int, const string &, const string &, int, string , int, int);
         /**
          * Destructor
          *  !```Don't call this function directly```!

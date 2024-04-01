@@ -99,14 +99,8 @@ public:
      * @param container The Container object to be copied.
      * @return The copied Container object.
      */
-    Container& operator=(Container& container);
+    Container& operator=(const Container& container);
 
-    /**
-     * @brief Prints the column name of the container.
-     * 
-     * @param os The output stream to print the column name to.
-     * @return The output stream after printing the column name.
-     */
     
 
 protected:

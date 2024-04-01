@@ -314,24 +314,11 @@ ostream &operator<<(ostream &os, const Container &container)
  * @param container The Container object to be copied.
  * @return The copied Container object.
  */
-Container &Container::operator=(Container &container)
-{
+Container& Container::operator=(const Container& container) {
     this->row = container.row;
     this->col = container.col;
     this->cellKosong = container.cellKosong;
     this->items = container.items;
-
+    
     return *this;
 }
-
-// /**
-//  * @brief Overloaded subscript operator for the Container class.
-//  *
-//  * This function overloads the subscript operator for the Container class.
-//  *
-//  * @param i The row index of the items to be accessed.
-//  * @return A vector of items in the specified row.
-//  */
-// vector<Item *> Container::operator[](int i) {
-//     return items[i];
-// }
