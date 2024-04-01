@@ -122,6 +122,8 @@ void Farmer::pungutPajak() {
 }
 
 
-Farmer::Farmer(int weight, int money, int type, int n_, int) : People(
+Farmer::Farmer(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
+    Ladang = Container(n_ladang, m_ladang);
+}
 
 Farmer::~Farmer() = default;
