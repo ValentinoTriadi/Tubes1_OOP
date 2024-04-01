@@ -18,7 +18,19 @@ Peternakan::Peternakan(int row, int col) : Container(row, col) {
     }
 }
 
+Peternakan::Peternakan(const Peternakan& peternakan) : Container(peternakan) {
+}
+
 Peternakan::~Peternakan() {
+}
+
+Peternakan& Peternakan::operator=(const Peternakan& peternakan) {
+    for (int i = 0; i < row; i++){
+        for (int j = 0; j < col; j++){
+            items[i][j] = peternakan.items[i][j];
+        }
+    }
+    return *this;
 }
 
 ostream& Peternakan::printRow(ostream& os, int row) const {
