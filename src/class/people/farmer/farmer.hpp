@@ -56,6 +56,11 @@ class Farmer : public People {
          * @param ladang ladang yang dimiliki farmer
          */
         void setLadang(const Ladang &ladang);
+
+        /**
+         * Get Ladang yang dimiliki farmer
+         */
+        [[nodiscard]] Ladang getLadang() const;
 };
 
 #endif

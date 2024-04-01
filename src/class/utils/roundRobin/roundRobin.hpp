@@ -111,6 +111,56 @@ class roundRobin{
         return os;
     }
 
+    typename std::vector<T>::iterator begin() {
+        return buf.begin();
+    }
+
+    typename std::vector<T>::iterator end() {
+        return buf.end();
+    }
+
+    //iterator for roundRobin
+    class iterator{
+        private:
+            typename std::vector<T>::iterator it;
+            typename std::vector<T>::iterator begin;
+            typename std::vector<T>::iterator end;
+        public:
+            iterator(typename std::vector<T>::iterator it, typename std::vector<T>::iterator begin, typename std::vector<T>::iterator end){
+                this->it = it;
+                this->begin = begin;
+                this->end = end;
+            }
+
+            iterator& operator++(){
+                it++;
+                if (it == end){
+                    it = begin;
+                }
+                return *this;
+            }
+
+            iterator operator++(int){
+                iterator temp = *this;
+                it++;
+                if (it == end){
+                    it = begin;
+                }
+                return temp;
+            }
+
+            T& operator*(){
+                return *it;
+            }
+
+            bool operator==(const iterator& rhs){
+                return it == rhs.it;
+            }
+
+            bool operator!=(const iterator& rhs){
+                return it != rhs.it;
+            }
+    };
 };
 
 #endif // ROUND_ROBIN_HPP_

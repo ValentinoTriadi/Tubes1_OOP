@@ -17,6 +17,9 @@ public:
      */
     void bangun();
 
+    /*
+     * Menambahkan pemain baru
+     */
     void tambahPemain();
 };
 

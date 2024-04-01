@@ -32,7 +32,6 @@ private:
     static Mayor _mayor;
     string _inputChecker;
 
-
     /*Method*/
 
     /**
@@ -68,7 +67,7 @@ private:
      * @param Keuangan used for construct the keuangan of people
      * @param type used for construct tipe people
      */
-    void AddUser(int);
+    void AddUser(int, int, int);
 
     /**
      * Usage: ```StartTurn() and NextTurn()```
@@ -81,44 +80,22 @@ private:
     void MenuSelection(int);
 
     /**
-     * Display the menu selection for mayor
-     * Usage: ```MayorMenuSelection();```
-     */
-    void MayorMenuSelection();
-
-    /**
      * Run the mayor selection
-     * @param input the input from the user
-     * Usage: ```RunMayorSelection(input);```
+     * Usage: ```RunMayorSelection();```
      */
-    void RunMayorSelection(int input);
-
-    /**
-     * Display the menu selection for farmer
-     * Usage: ```FarmerMenuSelection();```
-     */
-    void FarmerMenuSelection();
-
-    /**
-     * Display the menu selection for stockman
-     * Usage: ```StockmanMenuSelection();```
-     */
-    void StockmanMenuSelection();
-
-    /**
-     * Run the stockman selection
-     * @param input the input from the user
-     * Usage: ```RunStockmanSelection(input);```
-     */
-    void RunStockmanSelection(int input);
+    void RunMayorSelection(int);
 
     /**
      * Run the farmer selection
-     * @param input the input from the user
-     * Usage: ```RunFarmerSelection(input);```
+     * Usage: ```RunFarmerSelection();```
      */
-    void RunFarmerSelection(int input);
+    void RunFarmerSelection(int);
 
+    /**
+     * Run the stockman selection
+     * Usage: ```RunStockmanSelection();```
+     */
+    void RunStockmanSelection(int);
 
 public:
     /*CTOR, DTOR*/

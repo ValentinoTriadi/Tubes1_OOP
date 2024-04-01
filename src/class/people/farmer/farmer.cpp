@@ -136,4 +136,8 @@ void Farmer::setLadang(const Ladang &ladang) {
     this->ladang = ladang;
 }
 
+Ladang Farmer::getLadang() const {
+    return ladang;
+}
+
 Farmer::~Farmer() = default;
