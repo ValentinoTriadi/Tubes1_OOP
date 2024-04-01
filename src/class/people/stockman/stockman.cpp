@@ -1,6 +1,6 @@
 #include "stockman.hpp"
 
-Stockman::Stockman(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_peternakan, const int m_peternakan) : People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan){
+Stockman::Stockman(const string& name, int weight, int Keuangan, int Type ,int n_penyimpanan,int m_penyimpanan,int n_peternakan,int m_peternakan) : People(name,weight, Keuangan, Type, n_penyimpanan, m_penyimpanan){
     this->peternakan = Peternakan(n_peternakan, m_peternakan);
 };
 

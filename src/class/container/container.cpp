@@ -323,3 +323,15 @@ Container &Container::operator=(Container &container)
 
     return *this;
 }
+
+// /**
+//  * @brief Overloaded subscript operator for the Container class.
+//  *
+//  * This function overloads the subscript operator for the Container class.
+//  *
+//  * @param i The row index of the items to be accessed.
+//  * @return A vector of items in the specified row.
+//  */
+// vector<Item *> Container::operator[](int i) {
+//     return items[i];
+// }

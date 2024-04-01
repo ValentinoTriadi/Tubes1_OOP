@@ -8,7 +8,7 @@ public:
     /*
      * Membuat objek mayor.
      */
-    Mayor(int weight, int keuangan, int type, int n_storage, int m_storage);
+    Mayor(const string& nama, int weight, int keuangan, int type, int n_storage, int m_storage);
 
     /*
      * Membangun bangunan baru menggunakan barang-barang yang ada di storage
