@@ -1,7 +1,7 @@
 #ifndef STOCKMAN_HPP
 #define STOCKMAN_HPP
 #include "../people.hpp"
-#include "../../container/container.hpp"
+#include "../../container/peternakan/peternakan.hpp"
 /**
  * @param weight
  * @param Keuangan
@@ -13,7 +13,12 @@
 */
 class Stockman : public People{
     private:
-        Container Peternakan;
+         Peternakan peternakan;
+        /*
+        * @brief Check If there is an animal in the storage
+        * @return true if there is an animal in the storage, false if there is no animal in the storage
+        */
+        bool CheckHewan(const string&);
     public:
         /**
          * @brief Construct a new Stockman object

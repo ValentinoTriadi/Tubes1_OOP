@@ -1,22 +1,78 @@
 #include "stockman.hpp"
 
 Stockman::Stockman(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_peternakan, const int m_peternakan) : People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan){
-    Peternakan = Container(n_peternakan, m_peternakan);
+    this->peternakan = Peternakan(n_peternakan, m_peternakan);
 };
 
 Stockman::~Stockman() = default;
 
+bool Stockman::CheckHewan(const string& kode){
+    bool found = false;
+    for (int i = 0; i < GameData::_animalConfig.size(); i++) {
+        if (GameData::_animalConfig[i].getCode() == kode) {
+            found = true;
+            break;
+        }
+    }
+    return found;
+}
+
 void Stockman::cetakPeternakan(){
-    cout << Peternakan;
+    cout << peternakan;
 }
 
 void Stockman::ternak(){
-    // TODO: Check di penyimpanan ada hewan ga
-    // TODO: throw eror kalo gada
-    // TODO: tambah hewan di peternakan + pilih tempatnya
-    // TODO: throw eror kalo udh diisi
-    // SUCCESS
-    // TODO: isi peternakan, ilangin storage
+    // Check adakah hewan di penyimpanan
+    bool found = false;
+    for (int i = 0; i < storage.getRow(); i++) {
+        for (int j = 0; j < storage.getCol(); j++) {
+            if (storage(i,j) != nullptr && CheckHewan(storage(i,j)->getCode())){
+                found = true;
+                break;
+            }
+        }
+    }
+    if (!found) {
+        // TODO : EXCEPTION
+        throw "Tidak ada hewan di penyimpanan";
+    }
+
+    this->cetakPenyimpanan();
+
+    // Input slot
+    cout << "Slot: ";
+    string slot;
+    cin >> slot;
+    int slotIndexi = (int)(slot[0] - 'A');
+    int slotIndexj = stoi(slot.substr(1, 2)) - 1;
+
+    // Validate slot
+    if (storage(slotIndexi, slotIndexj) == nullptr) {
+        // TODO : EXCEPTION
+        throw "Slot kosong";
+    } else if (!CheckHewan(storage(slotIndexi, slotIndexj)->getCode())) {
+        // TODO : EXCEPTION
+        throw "Bukan hewan";
+    }
+
+    cout << "Pilih petak tanah yang akan ditinggali" << endl;
+
+    cout << this->peternakan;
+
+    cout << "Petak tanah: ";
+    string petak;
+    cin >> petak;
+    int petakIndexi = (int)(petak[0] - 'A');
+    int petakIndexj = stoi(petak.substr(1, 2)) - 1;
+
+    if (this->peternakan(petakIndexi, petakIndexj) != nullptr) {
+        // TODO : EXCEPTION
+        throw "Petak sudah terisi";
+    } else {
+        // SUCCESS
+        this->peternakan.setItem(petakIndexi, petakIndexj, storage(slotIndexi, slotIndexj));
+        this->storage.deleteItem(slot);
+    }
 }
 
 void Stockman::memberiPangan(){

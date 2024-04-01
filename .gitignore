@@ -36,5 +36,8 @@
 .idea
 
 # CMake cache
-src/cmake-build-debug/
-src/build/
+**/cmake-build-debug/
+**/build/
+/build/
+/src/cmake-build-debug
+src/cmake-build-debug/CMakeFiles/rules.ninja

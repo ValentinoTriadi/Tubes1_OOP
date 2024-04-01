@@ -29,6 +29,7 @@ class GameData {
         /*Baca Config Plant ```src/config/plant.txt```*/
         void BacaConfigPlant();
         /*Baca Config Misc ```src/config/misc.txt```*/
+
         void BacaConfigGame();
 
         /*Tampilkan Config Product ```src/config/product.txt```*/
