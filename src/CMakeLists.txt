@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.27)
 project(Tubes1_OOP)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -19,6 +19,8 @@ add_executable(Tubes1_OOP main.cpp
         class/item/product/product.cpp
         class/item/product/product.hpp
         class/Manager/GameManager/GameManager.hpp
+        class/people/people.hpp
+        class/people/farmer/farmer.cpp
         class/people/farmer/farmer.cpp
         class/people/farmer/farmer.hpp
         class/people/Keuangan/StatusKeuangan.hpp
@@ -32,4 +34,7 @@ add_executable(Tubes1_OOP main.cpp
         class/people/Keuangan/StatusKeuangan.cpp
         class/container/container.cpp
         class/container/container.hpp
+        class/people/people.cpp
+        class/Manager/InputManager/InputManager.cpp
+        class/Manager/StateManager/StateManager.cpp
 )

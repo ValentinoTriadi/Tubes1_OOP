@@ -2,10 +2,10 @@
 
 // Constructor
 Plant::Plant() : FarmEntity(), Age(0) {}
-Plant::Plant(int Id, string Code, string Name, int Price, string Type, int HarvestLimit, int Age) : FarmEntity(Id, Code, Name, Price, Type, HarvestLimit), Age(Age) {}
+Plant::Plant(int Id, const string& Code, const string& Name, int Price, const string& Types, int HarvestLimit, int Age) : FarmEntity(Id, Code, Name, Price, Types, HarvestLimit), Age(Age) {}
 
 // Destructor
-Plant::~Plant() {}
+Plant::~Plant() = default;
 
 // Getter
 int Plant::getAge() const {
@@ -13,8 +13,8 @@ int Plant::getAge() const {
 }
 
 // Setter
-void Plant::setAge(int Age) {
-    this->Age = Age;
+void Plant::setAge(int SetAge) {
+    this->Age = SetAge;
 }
 
 // Method

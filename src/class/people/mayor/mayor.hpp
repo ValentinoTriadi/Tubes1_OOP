@@ -3,15 +3,12 @@
 #define MAYOR_HPP_
 #include "../people.hpp"
 
-class Mayor : People {
-private:
-    // Penyimpanan Storage;
+class Mayor : public People {
 public:
     /*
-     * Membuat objek mayor dengan storage kosong
-     * dan keuangan 0
+     * Membuat objek mayor.
      */
-    Mayor();
+    Mayor(int weight, int keuangan, int type, int n_storage, int m_storage);
 
     /*
      * Membangun bangunan baru menggunakan barang-barang yang ada di storage

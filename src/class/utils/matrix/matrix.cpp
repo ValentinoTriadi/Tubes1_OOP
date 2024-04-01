@@ -10,8 +10,9 @@ Matrix<T>::Matrix(int row, int col) : row(row), col(col), cellKosong(row * col) 
     matrix.clear();
     for (int i = 0; i < row; i++) {
         vector<std::string> temp;
+        temp.reserve(col);
         for (int j = 0; j < col; j++) {
-            temp.push_back(" ");
+            temp.emplace_back(" ");
         }
         matrix.push_back(temp);
     }
@@ -26,12 +27,12 @@ T& Matrix<T>::operator()(int i, int j) {
     return matrix[i][j];
 }
 template <class T>
-void Matrix<T>::setRow(int row) {
-    this->row = row;
+void Matrix<T>::setRow(int Setrow) {
+    this->row = Setrow;
 }
 template <class T>
-void Matrix<T>::setCol(int col) {
-    this->col = col;
+void Matrix<T>::setCol(int Setcol) {
+    this->col = Setcol;
 }
 template <class T>
 int Matrix<T>::getRow() const {

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ojan\Documents\GitHub\Tubes1_OOP\src\build\CMakeFiles\55c1670855e2fd923e08d8ea2277c726\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{965AF235-E665-3F14-B183-54AD3387D525}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
