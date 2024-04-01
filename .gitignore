@@ -36,6 +36,6 @@
 .idea
 
 # CMake cache
-src/cmake-build-debug
-src/build
-build
+*src/cmake-build-debug
+*src/build
+*build
