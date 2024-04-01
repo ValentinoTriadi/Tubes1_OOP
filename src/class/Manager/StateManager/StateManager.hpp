@@ -25,6 +25,12 @@ class StateManager {
 
         void defaultState(const vector<int>& gameConfig);
         void loadFromFile(const vector<int>& gameConfig);
+        Farmer& readFarmers(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
+        Stockman& readStockman(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
+        Mayor& readMayor(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
+        void readShop(ifstream& file);
+
+        void saveStateToFile();
 };
 
 #endif
