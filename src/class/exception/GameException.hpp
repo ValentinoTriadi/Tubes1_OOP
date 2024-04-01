@@ -33,7 +33,7 @@ private:
     string message;
 
 public:
-    MenuException(string additionalMessage = "Invalid Input")
+    explicit MenuException(const string& additionalMessage = "Invalid Input")
     {
         message = additionalMessage;
     }

@@ -177,3 +177,7 @@ void Stockman::pungutPajak(){
 void Stockman::setPeternakan(const Peternakan& peternakan){
     this->peternakan = peternakan;
 }
+
+Peternakan Stockman::getPeternakan() const {
+    return peternakan;
+}

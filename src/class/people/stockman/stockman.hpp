@@ -60,6 +60,11 @@ class Stockman : public People{
          * @brief Set Peternakan
         */
         void setPeternakan(const Peternakan&);
+
+        /**
+         * @brief Get Peternakan
+        */
+        [[nodiscard]] Peternakan getPeternakan() const;
 };
 
 

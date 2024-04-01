@@ -17,7 +17,9 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
-    
+    cout << "Pilih makanan dari penyimpanan" << endl;
+    cetakPenyimpanan();
+
 }
 
 void People::membeli()
@@ -31,4 +33,8 @@ void People::menjual()
 
 void People::setStorage(const Container &storage){
     this->storage = storage;
+}
+
+Container People::getStorage() const{
+    return storage;
 }

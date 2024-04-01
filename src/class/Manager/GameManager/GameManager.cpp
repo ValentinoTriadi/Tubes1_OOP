@@ -108,8 +108,7 @@ void GameManager::EndGame()
 
 void GameManager::nextTurn()
 {
-    _listPlayer.next();
-    this->_currentPlayer = _listPlayer.top();
+    this->_currentPlayer = _listPlayer.next();
 }
 
 void GameManager::StartTurn()
@@ -158,6 +157,8 @@ void GameManager::MayorMenuSelection()
          << "Simpan" << endl;
     cout << "(9): "
          << "Tambah Pemain" << endl;
+    cout << "(10): "
+         << "Next Turn" << endl;
 
     try {
         int data;
@@ -216,6 +217,9 @@ void GameManager::RunMayorSelection(int input) {
                 // Exception for invalid type
             }
             break;
+        case 10:
+            nextTurn();
+            break;
         default:
             // Exception
             break;
@@ -242,6 +246,8 @@ void GameManager::StockmanMenuSelection() {
          << "Muat" << endl;
     cout << "(9): "
          << "Simpan" << endl;
+    cout << "(10): "
+         << "Next Turn" << endl;
 
     try
     {
@@ -306,6 +312,9 @@ void GameManager::RunStockmanSelection(int input){
         case 9:
             // simpan();
             break;
+        case 10:
+            nextTurn();
+            break;
         default:
             // Exception
             break;
@@ -331,6 +340,8 @@ void GameManager::FarmerMenuSelection()
          << "Muat" << endl;
     cout << "(8): "
          << "Simpan" << endl;
+    cout << "(9): "
+         << "Next Turn" << endl;
 
     try
     {
@@ -387,6 +398,9 @@ void GameManager::RunFarmerSelection(int input){
         case 8:
             // simpan();
             break;
+        case 9:
+            nextTurn();
+            break;
         default:
             // Exception
             break;
@@ -404,6 +418,26 @@ void GameManager::Run() {
 }
 
 void GameManager::pungutPajak() {
+    cout << "Mayor akan memungut pajak!" << endl;
+    cout << "Bendahara akan menghitung kekayaan warga." << endl;
+
+
     int total = 0;
+    for (auto &i : _listPlayer) {
+        // Kalau mayor lewatkan
+        if (i->GetType() == 1){
+            continue;
+        }
+
+        if (i->GetType() == 2){
+            if (auto *farmer = dynamic_cast<Farmer *>(i)) {
+//                total += farmer->pungutPajak();
+            }
+        } else {
+            if (auto *stockman = dynamic_cast<Stockman *>(i)) {
+//                total += stockman->pungutPajak();
+            }
+        }
+    }
 
 }

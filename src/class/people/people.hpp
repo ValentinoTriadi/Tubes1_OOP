@@ -12,17 +12,23 @@ class People{
         */
         string name;
 
+        /**
+         * Container storage of user
+        */
         Container storage;
+
         /**
          * Money monitor of user
          * default = 50 gulden
         */
         StatusKeuangan Keuangan;
+
         /**
          * weight of user
          * default = 40 kg
         */
         int Weight;
+        
         /**
          * type of user
          * (1) mayor
@@ -85,10 +91,23 @@ class People{
         [[nodiscard]] int GetType() const{return Type;}
 
         /**
+         *  @brief Get Name
+         *  @return Name
+         */
+        [[nodiscard]] string GetName() const{return name;}
+
+        /**
          *  @brief Set container
          *  @param container container yang akan di set
          */
         void setStorage(const Container&);
+
+        /**
+         *  @brief Get container
+         *  @return container
+         */
+        [[nodiscard]] Container getStorage() const;
+
 };
 
 
