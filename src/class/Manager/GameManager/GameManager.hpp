@@ -7,13 +7,16 @@
 #include "../../people/mayor/mayor.hpp"
 #include "../../people/stockman/stockman.hpp"
 #include "../../gameData/gameData.hpp"
+#include "../InputManager/InputManager.hpp"
+#include "../../Exception/GameException.hpp"
+#include "../../utils/roundRobin/roundRobin.hpp"
 using namespace std;
 
 class GameManager
 {
 private:
     // List of player
-    vector<People *> _listPlayer;
+    roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
 
     // Game Data
@@ -71,26 +74,6 @@ private:
      * (3) stockman
      */
     void MenuSelection(int);
-
-    /**
-     * Display the menu selection for mayor
-     * Usage: ```MayorMenuSelection();```
-     */
-    void MayorMenuSelection();
-
-    /**
-     * Display the menu selection for farmer
-     * Usage: ```FarmerMenuSelection();```
-     */
-    void FarmerMenuSelection();
-
-    /**
-     * Display the menu selection for stockman
-     * Usage: ```StockmanMenuSelection();```
-     */
-    void StockmanMenuSelection();
-
-
 
 public:
     /*CTOR, DTOR*/

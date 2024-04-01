@@ -4,35 +4,48 @@
 #include <iostream>
 using namespace std;
 
-class GameException {
-    public:
+class GameException
+{
+public:
     virtual string what() = 0;
 };
 
-class StateConfigException : public GameException { //utk continue game
-    string what() override {
+class StateConfigException : public GameException
+{ // utk continue game
+    string what() override
+    {
         return "State is unavailable";
     }
 };
 
-class AddUserException : public GameException { //utk add user
-    public:
-    string what() override {
+class AddUserException : public GameException
+{ // utk add user
+public:
+    string what() override
+    {
         return "Invalid user type";
     }
 };
 
-class MenuException : public GameException {    //utk mayor menu & stockman menu & farmer menu
-    public:
-    string what() override {
-        return "Invalid Input";
+class MenuException : public GameException
+{ // utk mayor menu & stockman menu & farmer menu
+private:
+    string message;
+
+public:
+    MenuException(string additionalMessage = "Invalid Input")
+    {
+        message = additionalMessage;
+    }
+    string what() override
+    {
+        return message;
     }
 };
 
-class FarmerException : public GameException {  //utk farmer tanam
- //blm
+class FarmerException : public GameException
+{ // utk farmer tanam
+  // blm
 };
-
-
 
 #endif
