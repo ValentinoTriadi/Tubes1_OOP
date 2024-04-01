@@ -5,110 +5,103 @@
 #include "Keuangan/StatusKeuangan.hpp"
 #include "../container/container.hpp"
 
-class People{
-    protected:
-        /**
-         * name of user
-        */
-        string name;
+class People
+{
+protected:
+    /**
+     * Used to keep track of the number of people
+     * Mainly used to automatically assign the id of people each time a new people is created
+     */
+    static int people_counter;
 
-        /**
-         * Container storage of user
-        */
-        Container storage;
+    /**
+     * Variable Name of user
+     */
+    string name;
 
-        /**
-         * Money monitor of user
-         * default = 50 gulden
-        */
-        StatusKeuangan Keuangan;
+    int id;
+    /**
+     * Id used to create a unique identifier for certain user
+     * Mainly used for identify owner of a store
+     */
+    Container storage;
+    /**
+     * Money monitor of user
+     * default = 50 gulden
+     */
+    StatusKeuangan Keuangan;
+    /**
+     * weight of user
+     * default = 40 kg
+     */
+    int Weight;
+    /**
+     * type of user
+     * (1) mayor
+     * (2) farmer
+     * (3) stockman
+     */
+    int Type;
 
-        /**
-         * weight of user
-         * default = 40 kg
-        */
-        int Weight;
-        
-        /**
-         * type of user
-         * (1) mayor
-         * (2) farmer
-         * (3) stockman
-        */
-        int Type;
-    
-    public:
-        /**
-         * @param weight saved the weight of user
-         * @param Keuangan saved the money of user
-         * @param Type type of user
-        */
-        People(const string&,int,int,int,int,int);
-    
-        People();
+public:
+    /**
+     * @param weight saved the weight of user
+     * @param Keuangan saved the money of user
+     * @param Type type of user
+     */
+    People(const string &, int, int, int, int, int);
 
-        /**
-         * @brief Menghapus objek people
-         */
-        virtual ~People();
+    People();
 
-        /**
-         *  @brief Mencetak penyimpanan yang dimiliki oleh people
-         */
-        void cetakPenyimpanan();
+    /**
+     * @brief Menghapus objek people
+     */
+    virtual ~People();
 
-        /**
-         *  @brief Makan
-         */
-        void makan();
+    /**
+     *  @brief Mencetak penyimpanan yang dimiliki oleh people
+     */
+    void cetakPenyimpanan();
 
-        /**
-         *  @brief Membeli
-         */
-        void membeli();
+    /**
+     *  @brief Makan
+     */
+    void makan();
 
-        /**
-         *  @brief Menjual
-         */
-        void menjual();
+    /**
+     *  @brief Membeli
+     */
+    void membeli();
 
-        /**
-         *  @brief Set container
-         *  @param container container yang akan di set
-         */
-        [[nodiscard]] int GetWeight() const {return Weight;}
+    /**
+     *  @brief Menjual
+     */
+    void menjual();
 
-        /**
-         *  @brief Get Keuangan
-         *  @return Keuangan
-         */
-        [[nodiscard]] int GetKeuangan() {return Keuangan.GetMoney();}
+    /**
+     *  @brief Set container
+     *  @param container container yang akan di set
+     */
 
-        /**
-         *  @brief Get Type
-         *  @return Type
-         */
-        [[nodiscard]] int GetType() const{return Type;}
+    [[nodiscard]] int GetWeight() const { return Weight; }
 
-        /**
-         *  @brief Get Name
-         *  @return Name
-         */
-        [[nodiscard]] string GetName() const{return name;}
+    /**
+     *  @brief Get Keuangan
+     *  @return Keuangan
+     */
+    [[nodiscard]] int GetKeuangan() { return Keuangan.GetMoney(); }
 
-        /**
-         *  @brief Set container
-         *  @param container container yang akan di set
-         */
-        void setStorage(const Container&);
+    /**
+     *  @brief Get Type
+     *  @return Type
+     */
+    [[nodiscard]] int GetType() const { return Type; }
 
-        /**
-         *  @brief Get container
-         *  @return container
-         */
-        [[nodiscard]] Container getStorage() const;
-
+    /**
+     *  @brief Set container
+     *  @param container container yang akan di set
+     */
+    void setStorage(const Container &);
 };
-
 
 #endif
