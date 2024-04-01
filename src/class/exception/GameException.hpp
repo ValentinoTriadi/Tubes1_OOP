@@ -33,6 +33,20 @@ class FarmerException : public GameException {  //utk farmer tanam
  //blm
 };
 
+class FoodEmptyException : public GameException {
+    public:
+    string what() override {
+        return "Kamu mengambil harapan kosong dari penyimpanan.\nSilahkan masukan slot yang berisi makanan.";
+    }
+};
+
+class InvalidFoodTypeException : public GameException {
+    public:
+    string what() override {
+        return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan.";
+    }
+};
+
 
 
 #endif
