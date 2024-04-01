@@ -110,40 +110,4 @@ class People{
 
 };
 
-    /**
-     *  @brief Membeli
-     */
-    void membeli();
-
-    /**
-     *  @brief Menjual
-     */
-    void menjual();
-
-    /**
-     *  @brief Set container
-     *  @param container container yang akan di set
-     */
-
-    [[nodiscard]] int GetWeight() const { return Weight; }
-
-    /**
-     *  @brief Get Keuangan
-     *  @return Keuangan
-     */
-    [[nodiscard]] int GetKeuangan() { return Keuangan.GetMoney(); }
-
-    /**
-     *  @brief Get Type
-     *  @return Type
-     */
-    [[nodiscard]] int GetType() const { return Type; }
-
-    /**
-     *  @brief Set container
-     *  @param container container yang akan di set
-     */
-    void setStorage(const Container &);
-};
-
 #endif

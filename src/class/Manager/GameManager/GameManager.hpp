@@ -79,6 +79,24 @@ private:
      */
     void MenuSelection(int);
 
+    /**
+     * Run the mayor selection
+     * Usage: ```RunMayorSelection();```
+     */
+    void RunMayorSelection(int);
+
+    /**
+     * Run the farmer selection
+     * Usage: ```RunFarmerSelection();```
+     */
+    void RunFarmerSelection(int);
+
+    /**
+     * Run the stockman selection
+     * Usage: ```RunStockmanSelection();```
+     */
+    void RunStockmanSelection(int);
+
 public:
     /*CTOR, DTOR*/
 
