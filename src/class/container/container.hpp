@@ -15,6 +15,8 @@ public:
     // Destructor
     virtual ~Container();
 
+    void deleteItem(int i, int j);
+
     //Setter
     void setRow(int row);
     void setCol(int col);

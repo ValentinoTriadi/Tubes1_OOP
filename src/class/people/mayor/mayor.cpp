@@ -1,5 +1,7 @@
 #include "mayor.hpp"
 
-Mayor
+Mayor::Mayor() = default;
 
+void Mayor::bangun() {
 
+}

@@ -1,15 +1,16 @@
 #ifndef FARMER_HPP
 #define FARMER_HPP
 #include "../people.hpp"
+#include "../../container/container.hpp"
 
-class Farmer :public People{
+
+class Farmer : public People {
     private:
-        // container Farm;
-        // Penyimpanan Storage;
+        Container Ladang;
     public:
         Farmer();
         ~Farmer();
-        void cetakLadang();
+        void cetakLadang() const;
         void tanam();
         void panen();
         void pungutPajak();

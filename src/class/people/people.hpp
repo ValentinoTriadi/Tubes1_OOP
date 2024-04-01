@@ -1,6 +1,7 @@
 #ifndef PEOPLE_HPP
 #define PEOPLE_HPP
 
+#include "../container/container.hpp"
 #include "Keuangan/StatusKeuangan.hpp"
 #include "../container/container.hpp"
 
@@ -30,14 +31,21 @@ class People{
          * @param weight saved the weight of user
          * @param Keuangan saved the money of user
          * @param Type type of user
+         * @param n_penyimpanan
+         * @param m_penyimpanan
         */
-        People(int,int,int);
+        People(int,int,int,int,int);
     
         People();
 
+        /*
+         * Menghapus objek people
+         */
         ~People();
 
-        /**/
+        /*
+         *  Mencetak penyimpanan yang dimiliki oleh people
+         */
         void cetakPenyimpanan();
 
         void makan();

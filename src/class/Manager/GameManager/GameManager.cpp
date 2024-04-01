@@ -20,6 +20,8 @@ void GameManager::ReadConfig()
     this->_gameData.BacaConfigProduct();
     this->_gameData.BacaConfigGame();
 
+
+
     // Save local settings for win conditions
     vector<int> data = _gameData.GetGameConfig();
     this->_moneyToWin = data[0];
@@ -37,16 +39,6 @@ void GameManager::ContinueGame()
     // TODO: create exception if the state is inavailable
 }
 
-void GameManager::ReadInput(string data)
-{
-    this->_inputChecker = data;
-}
-
-string GameManager::GetInputChecker()
-{
-    return this->_inputChecker;
-}
-
 void GameManager::AddUser(int weight, int Keuangan, int type)
 {
     if (type == 1)
@@ -62,7 +54,8 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
     else if (type == 3)
     {
         // TODO: assign stockman to the list player
-        Stockman temp_stockman;
+        vector<int> tempGameDate = _gameData.GetGameConfig();
+        Stockman temp_stockman(weight, Keuangan, type, tempGameDate[2], tempGameDate[3], tempGameDate[6], tempGameDate[7]);
         this->_listPlayer.push_back(&temp_stockman);
     }
     else
@@ -73,31 +66,30 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
 
 void GameManager::StartGameValidation()
 {
-    if (_inputChecker == "1")
+    cout << "Please enter a valid input" << endl;
+    cout << "1. input (1) jika ingin buat game baru" << endl;
+    cout << "2. input (2) jika ingin membaca berkas" << endl
+         << endl;
+    string data;
+    cin >> data;
+    if (data == "1")
     {
         StartNewGame();
     }
-    else if (_inputChecker == "2")
+    else if (data == "2")
     {
         ContinueGame();
     }
     else
     {
-        std::cout << "Invalid Input" << endl;
-        std::cout << "Please enter a valid input" << endl;
-        cout << "1. input (1) jika ingin buat game baru" << endl;
-        cout << "2. input (2) jika ingin membaca berkas" << endl
-             << endl;
-        string data;
-        std::cin >> data;
-        this->ReadInput(data);
+        cout << "Invalid Input" << endl;
         StartGameValidation();
     }
 }
 
 void GameManager::WinCheck()
 {
-    std::vector<People *>::iterator itr;
+    vector<People *>::iterator itr;
     for (itr = _listPlayer.begin(); itr != _listPlayer.end(); ++itr)
     {
         if (*itr)
@@ -116,13 +108,12 @@ void GameManager::WinCheck()
 
 void GameManager::EndGame()
 {
-    std::cout << "Game Over" << endl;
+    cout << "Game Over" << endl;
     // TODO: implement stop all of the loops logic
 }
 
 void GameManager::nextTurn()
 {
-
 }
 
 void GameManager::StartTurn()
@@ -130,9 +121,146 @@ void GameManager::StartTurn()
     this->_currentPlayer = _listPlayer[0];
 }
 
-void GameManager::MenuSelection(const int type){
-    switch(type){
-        case(1) : 
-            
+void GameManager::MenuSelection(const int type)
+{
+    switch (type)
+    {
+    case (1):
+        MayorMenuSelection();
+        break;
+    case (2):
+        FarmerMenuSelection();
+        break;
+    case (3):
+        StockmanMenuSelection();
+        break;
+    }
+}
+
+void GameManager::MayorMenuSelection()
+{
+    // cout << "Menu Selection: "<< endl;
+    // cout << "(1): "<<"Nyetak Simpenan"<<endl;
+    // cout << "(2): "<<"Mungut Pajak"<<endl;
+    // cout << "(3): "<<"Mangun Bangunan"<<endl;
+    // cout << "(4): "<<"Dhahar"<<endl;
+    // cout << "(5): "<<"Tumbas"<<endl;
+    // cout << "(6): "<<"Dodolan"<<endl;
+    // cout << "(7): "<<"Ngleboke"<<endl;
+    // cout << "(8): "<<"Nyimpen"<<endl;
+
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Cetak Simpanan" << endl;
+    cout << "(2): "
+         << "Pungut Pajak" << endl;
+    cout << "(3): "
+         << "Bangun Bangunan" << endl;
+    cout << "(4): "
+         << "Makan" << endl;
+    cout << "(5): "
+         << "Beli" << endl;
+    cout << "(6): "
+         << "Jual" << endl;
+    cout << "(7): "
+         << "Muat" << endl;
+    cout << "(8): "
+         << "Simpan" << endl;
+    cout << "(9): "
+         << "Tambah Pemain" << endl;
+
+    try
+    {
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+
+        if (data < 1 && data > 9)
+        {
+            // TODO: implement data input exception
+        }
+    }
+    catch (const exception &e) // TODO: replace with expection
+    {
+        // TODO: implement input exception
+        cout << e.what() << endl;
+    }
+}
+
+void GameManager::StockmanMenuSelection()
+{
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Cetak Peternakan" << endl;
+    cout << "(2): "
+         << "Ternak" << endl;
+    cout << "(3): "
+         << "Makan" << endl;
+    cout << "(4): "
+         << "Memberi Pangan" << endl;
+    cout << "(5): "
+         << "Membeli" << endl;
+    cout << "(6): "
+         << "Menjual" << endl;
+    cout << "(7): "
+         << "Memanen" << endl;
+    cout << "(8): "
+         << "Muat" << endl;
+    cout << "(9): "
+         << "Simpan" << endl;
+
+    try
+    {
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+
+        if (data < 1 && data > 9)
+        {
+            // TODO: implement data input exception
+        }
+    }
+    catch (const exception &e) // TODO: replace with expection
+    {
+        // TODO: implement input exception
+        cout << e.what() << endl;
+    }
+}
+
+void GameManager::FarmerMenuSelection()
+{
+    cout << "Menu Selection: " << endl;
+    cout << "(1): "
+         << "Tanam" << endl;
+    cout << "(2): "
+         << "Cetak Ladang" << endl;
+    cout << "(3): "
+         << "Makan" << endl;
+    cout << "(4): "
+         << "Membeli" << endl;
+    cout << "(5): "
+         << "Menjual" << endl;
+    cout << "(6): "
+         << "Memanen" << endl;
+    cout << "(7): "
+         << "Muat" << endl;
+    cout << "(8): "
+         << "Simpan" << endl;
+
+    try
+    {
+        int data;
+        cout << "Pilihan: ";
+        cin >> data;
+
+        if (data < 1 && data > 8)
+        {
+            // TODO: implement data input exception
+        }
+    }
+    catch (const exception &e) // TODO: replace with expection
+    {
+        // TODO: implement input exception
+        cout << e.what() << endl;
     }
 }

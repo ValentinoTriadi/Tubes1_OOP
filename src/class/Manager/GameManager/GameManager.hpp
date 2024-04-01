@@ -62,8 +62,15 @@ private:
      * (1) mayor
      * (2) farmer
      * (3) stockman
-    */
+     */
     void MenuSelection(const int);
+
+    void MayorMenuSelection();
+
+    void FarmerMenuSelection();
+
+    void StockmanMenuSelection();
+
 public:
     /*CTOR, DTOR*/
 
@@ -146,18 +153,6 @@ public:
     /**
      * Getter for _inputChecker
      * Usage: '''GetInputChecker();'''
-     */
-    string GetInputChecker();
-    /**
-     * Read input from CLI
-     * Setter for _inputChecker
-     * Usage: ```ReadInput();```
-     */
-    void ReadInput(string);
-
-    /**
-     * validate the input whether to create new game
-     * or continue the game
      */
     void StartGameValidation();
 

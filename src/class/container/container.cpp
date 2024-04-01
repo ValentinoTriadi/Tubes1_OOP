@@ -253,3 +253,17 @@ Container& Container::operator=(Container& container) {
     
     return *this;
 }
+/**
+ * @brief Deletes the item at the specified row and column.
+ *
+ * @param i The row index of the item.
+ * @param j The column index of the item.
+ * @return The item at the specified row and column.
+ */
+void Container::deleteItem(int i, int j) {
+    if (items[i][j] != nullptr) {
+        delete items[i][j];
+        items[i][j] = nullptr;
+        cellKosong++;
+    }
+}
