@@ -19,6 +19,13 @@ class Stockman : public People{
         * @return true if there is an animal in the storage, false if there is no animal in the storage
         */
         bool CheckHewan(const string&);
+        /**
+         * @brief Convert index to slot
+         * @param index i
+         * @param index j
+         * @return slot
+        */
+        string itos(int, int);
     public:
         /**
          * @brief Construct a new Stockman object
