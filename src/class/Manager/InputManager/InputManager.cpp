@@ -1,9 +1,87 @@
 #include <iostream>
 #include "InputManager.hpp"
-
+#include "../../Exception/InputException/InputException.hpp"
 InputManager::InputManager() = default;
 
 std::string InputManager::_inputData;
+
+template <>
+int InputManager::StringToNumber(string data)
+{
+    try
+    {
+        if (isNumber(data))
+        {
+            return std::stoi(data);
+        }
+        else
+        {
+            throw InputException("Input Is Not a Number");
+        }
+    }
+    catch (InputException i)
+    {
+        std::cout << i.what() << std::endl;
+        return -999; // ERROR Code
+    }
+}
+
+template <>
+float InputManager::StringToNumber(string data)
+{
+    try
+    {
+        if (isNumber(data))
+        {
+            return std::stof(data);
+        }
+        else
+        {
+            throw InputException("Input Is Not a Number");
+        }
+    }
+    catch (InputException i)
+    {
+        std::cout << i.what() << std::endl;
+        return -999; // ERROR Code
+    }
+}
+
+bool InputManager::isNumber(string data)
+{
+    if (data.empty() || (data.size() == 1 && data[0] == '-'))
+        return false;
+
+    bool hasDigit = false;
+    bool hasDecimal = false;
+
+    for (size_t i = 0; i < data.size(); ++i)
+    {
+        char c = data[i];
+
+        if (i == 0 && c == '-')
+        {
+            continue;
+        }
+
+        if (c == '.')
+        {
+            if (hasDecimal)
+                return false;
+            hasDecimal = true;
+        }
+        else if (!std::isdigit(c))
+        {
+            return false;
+        }
+        else
+        {
+            hasDigit = true;
+        }
+    }
+
+    return hasDigit;
+}
 
 void InputManager::receiveInput()
 {
@@ -44,7 +122,8 @@ void InputManager::MayorMenuInputValidation()
     std::cout << "Pilihan: ";
     receiveInput();
 
-    int data = std::stoi(_inputData);
+    int data = StringToNumber<int>(_inputData);
+
     if (data < 1 || data > 9)
     {
         throw MenuException("Invalid Input: Please input between 1 and 9");
@@ -75,7 +154,7 @@ void InputManager::StockmanMenuInputValidation()
 
     std::cout << "Pilihan: ";
     receiveInput();
-    int data = std::stoi(_inputData);
+    int data = StringToNumber<int>(_inputData);
 
     if (data < 1 || data > 8)
     {
@@ -105,10 +184,28 @@ void InputManager::FarmerMenuInputValidation()
 
     std::cout << "Pilihan: ";
     receiveInput();
-    int data = std::stoi(_inputData);
 
+    int data = StringToNumber<int>(_inputData);
     if (data < 1 || data > 8)
     {
         throw MenuException("Invalid Input: Please input between 1 and 8");
     }
+}
+
+std::pair<int, int> InputManager::GetSingleRowCol(string input)
+{
+    try
+    {
+        try{
+            if(isAlphabet(input[0])){
+
+            }
+        }
+        return std::make_pair(row, col);
+    }
+};
+
+bool InputManager::isAlphabet(string data)
+{
+    return data >= "A" && data <= "Z";
 }

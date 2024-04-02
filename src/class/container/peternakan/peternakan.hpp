@@ -5,7 +5,7 @@
 #include <map>
 
 
-class Peternakan : public Container {
+class   Peternakan : public Container {
     public:
             /**
              * @brief Default constructor for the Peternakan class.
