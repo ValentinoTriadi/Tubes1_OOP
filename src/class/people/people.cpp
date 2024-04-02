@@ -55,7 +55,7 @@ Item People::membeli()
     cout << "Selamat datang di toko!!" << endl;
     cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
 
-    // TODO : nampilin barang yang bisa dibeli dr toko
+    Toko::displayToko();
 
     cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
     cout << "Slot penyimpanan tersedia:" << endl;
@@ -117,7 +117,7 @@ void People::menjual()
         cin >> slot;
         cout << endl;
         int row = slot[0] - 'A';
-        int col = slot[1] - '0';
+        int col = stoi(slot.substr(1, 2)) - 1;
         Item* itemtosell = storage(row, col);
         storage.deleteItem(row, col);
         Toko::addItems(itemtosell);
