@@ -25,6 +25,13 @@ Ladang::~Ladang() {
 }
 
 Ladang& Ladang::operator=(const Ladang& ladang) {
+    this->row = ladang.row;
+    this->col = ladang.col;
+    this->cellKosong = ladang.cellKosong;
+
+    this->items.clear();
+    this->items.resize(row, vector<Item*>(col, nullptr));
+
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             items[i][j] = ladang.items[i][j];

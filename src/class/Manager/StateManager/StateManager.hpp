@@ -11,6 +11,9 @@
 #include "../../people/mayor/mayor.hpp"
 #include "../../people/stockman/stockman.hpp"
 #include "../../container/container.hpp"
+#include "../../container/ladang/ladang.hpp"
+#include "../../container/peternakan/peternakan.hpp"
+#include "../../gameData/gameData.hpp"
 
 
 class StateManager {
@@ -18,19 +21,22 @@ class StateManager {
         StateManager();
         ~StateManager();
         void saveState();
-        void loadState(const vector<int>& gameConfig);
+        void loadState();
     private:
         vector<People*> _listPlayer;
-        vector<Item*> _listItemToko;
+        map<Item*, int> _listItemToko;
 
-        void defaultState(const vector<int>& gameConfig);
-        void loadFromFile(const vector<int>& gameConfig);
-        Farmer& readFarmers(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
-        Stockman& readStockman(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
-        Mayor& readMayor(ifstream& file, int rowStorage, int colStorage, int rowLand, int colLand);
+        string idxToSlot(int i, int j);
+
+        void defaultState();
+        void loadFromFile();
         void readShop(ifstream& file);
 
-        void saveStateToFile();
+        Farmer* readFarmer(ifstream& file, string name, int money, int weight, vector<int> gameConfig);
+        Mayor* readMayor(ifstream& file, string name, int money, int weight, vector<int> gameConfig);
+        Stockman* readStockman(ifstream& file, string name, int money, int weight, vector<int> gameConfig);
+
+        Item* getItemByName(string name);
 };
 
 #endif
