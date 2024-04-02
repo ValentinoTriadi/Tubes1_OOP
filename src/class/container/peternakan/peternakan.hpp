@@ -63,10 +63,32 @@ class   Peternakan : public Container {
              */
             friend std::ostream& operator<<(std::ostream& os, const Peternakan& ladang);
 
+            /**
+             * @brief Assignment operator for the Peternakan class.
+             * 
+             * This operator assigns the values of the given Peternakan object to the current object.
+             * 
+             * @param peternakan The Peternakan object to be assigned.
+             * @return A reference to the current Peternakan object after assignment.
+             */
             Peternakan& operator=(const Peternakan& peternakan);
 
         private:
+            /**
+             * Prints the specified row of the container to the output stream.
+             *
+             * @param os The output stream to print to.
+             * @param i The index of the row to print.
+             * @return The modified output stream.
+             */
             std::ostream& printRow(std::ostream& os, int i) const;
+
+            /**
+             * Checks if the given item is ready to be harvested.
+             *
+             * @param item The item to check.
+             * @return True if the item is ready to be harvested, false otherwise.
+             */
             bool isReadyToHarvest(Item* item) const;
 };
 

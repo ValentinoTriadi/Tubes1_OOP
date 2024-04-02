@@ -18,25 +18,27 @@ Peternakan::Peternakan(int row, int col) : Container(row, col) {
     }
 }
 
-Peternakan::Peternakan(const Peternakan& peternakan) : Container(peternakan) {
-}
+Peternakan::Peternakan(const Peternakan& peternakan) : Container(peternakan) {}
 
-Peternakan::~Peternakan() {
-}
+Peternakan::~Peternakan() {}
 
 Peternakan& Peternakan::operator=(const Peternakan& peternakan) {
+    // Copy the attributes of the specified peternakan object
     this->row = peternakan.row;
     this->col = peternakan.col;
     this->cellKosong = peternakan.cellKosong;
 
+    // Clear the items vector and resize it to the new size
     this->items.clear();
     this->items.resize(row, vector<Item*>(col, nullptr));
 
+    // Copy the items from the specified peternakan object
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             items[i][j] = peternakan.items[i][j];
         }
     }
+
     return *this;
 }
 
@@ -56,8 +58,10 @@ ostream& Peternakan::printRow(ostream& os, int row) const {
         // Print the item code if it is not nullptr
         if (items[row][i] != nullptr) {
             if (isReadyToHarvest(items[row][i])){
+                // Print the item code in green if it is ready to harvest
                 os << "\033[32m " << items[row][i]->getCode() << "\033[0m ";
             } else {
+                // Print the item code in red if it is not ready to harvest
                 os << "\033[31m " << items[row][i]->getCode() << "\033[0m ";
             }
         } else {
@@ -71,12 +75,18 @@ ostream& Peternakan::printRow(ostream& os, int row) const {
 }
 
 void Peternakan::showAnimal(){
+    // Menampilkan hewan yang ada di peternakan
     set<string> temp;
 
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
+            // Jika ada hewan di peternakan
             if (items[i][j] != nullptr){
+
+                // If the item code is not in the set
                 if (temp.find(items[i][j]->getCode()) == temp.end()){
+
+                    // Insert the item code into the set
                     temp.insert(items[i][j]->getCode());
                     std::cout <<  " - " << items[i][j]->getCode() << " : " << items[i][j]->getNama() << endl;
                 }
@@ -86,11 +96,14 @@ void Peternakan::showAnimal(){
 }
 
 map<string, int> Peternakan::getHarvest(){
+    // Menampilkan hewan yang siap dipanen
     map<string, int> temp;
 
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             if (items[i][j] != nullptr){
+
+                // If the item is ready to harvest
                 if (isReadyToHarvest(items[i][j])) temp[items[i][j]->getCode()]++;
             }
         }
@@ -114,5 +127,6 @@ ostream& operator<<(ostream& os, const Peternakan& ladang) {
 }
 
 bool Peternakan::isReadyToHarvest(Item* item) const {
+    // Check if the animal is ready to be harvested
     return dynamic_cast<Animal*>(item)->getWeight() >= dynamic_cast<Animal*>(item)->getHarvestLimit();
 }

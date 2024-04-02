@@ -1,1 +1,1 @@
-g++ -std=c++17 -o main class/container/main.cpp class/item/item.cpp class/item/building/building.cpp class/item/farmEntity/farmEntity.cpp class/item/product/product.cpp class/item/farmEntity/animal/animal.cpp class/item/farmEntity/plant/plant.cpp class/gameData/gameData.cpp class/container/container.cpp class/container/ladang/ladang.cpp
+cd ../build && cmake ../src && make && clear  && ./Tubes1_OOP
