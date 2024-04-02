@@ -25,6 +25,13 @@ Peternakan::~Peternakan() {
 }
 
 Peternakan& Peternakan::operator=(const Peternakan& peternakan) {
+    this->row = peternakan.row;
+    this->col = peternakan.col;
+    this->cellKosong = peternakan.cellKosong;
+
+    this->items.clear();
+    this->items.resize(row, vector<Item*>(col, nullptr));
+
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             items[i][j] = peternakan.items[i][j];

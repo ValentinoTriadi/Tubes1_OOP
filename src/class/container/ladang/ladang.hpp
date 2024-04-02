@@ -1,3 +1,6 @@
+#ifndef LADANG_HPP_
+#define LADANG_HPP_
+
 #include "../container.hpp"
 #include "../../item/farmEntity/farmEntity.hpp"
 #include "../../item/farmEntity/plant/plant.hpp"
@@ -96,3 +99,5 @@ class Ladang : public Container {
          */
         bool isReadyToHarvest(Item* item) const;
 };
+
+#endif

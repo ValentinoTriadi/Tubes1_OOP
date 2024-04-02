@@ -1,3 +1,6 @@
+#ifndef PETERNAKAN_HPP
+#define PETERNAKAN_HPP
+
 #include "../container.hpp"
 #include "../../item/farmEntity/farmEntity.hpp"
 #include "../../item/farmEntity/animal/animal.hpp"
@@ -66,3 +69,5 @@ class Peternakan : public Container {
             std::ostream& printRow(std::ostream& os, int i) const;
             bool isReadyToHarvest(Item* item) const;
 };
+
+#endif
