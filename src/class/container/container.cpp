@@ -49,21 +49,7 @@ Container::Container(int row, int col)
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container()
-{
-    for (int i = 0; i < row; i++)
-    {
-        for (int j = 0; j < col; j++)
-        {
-
-            // Delete the item if it is not nullptr
-            if (items[i][j] != nullptr)
-            {
-                delete items[i][j];
-            }
-        }
-    }
-}
+Container::~Container(){}
 
 /**
  * @brief Sets the row value of the Container.
@@ -166,7 +152,6 @@ void Container::deleteItem(int i, int j)
 {
     if (items[i][j] != nullptr)
     {
-        delete items[i][j];
         items[i][j] = nullptr;
         cellKosong++;
     }
@@ -329,7 +314,15 @@ Container& Container::operator=(const Container& container) {
     this->row = container.row;
     this->col = container.col;
     this->cellKosong = container.cellKosong;
-    this->items = container.items;
+    
+    this->items.clear();
+    this->items.resize(row, vector<Item*>(col, nullptr));
+
+    for (int i = 0; i < row; i++){
+        for (int j = 0; j < col; j++){
+            items[i][j] = container.items[i][j];
+        }
+    }
     
     return *this;
 }
