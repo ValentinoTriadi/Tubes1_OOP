@@ -9,13 +9,13 @@ public:
 
     InputManager();
 
-    /*
+    /**
      * Receive input from user
      * Usage: ```receiveInput();```
      */
     static void receiveInput();
 
-    /*
+    /**
      * validate the first input user to define whether the
      * the user will create new games or continue the games
      */
@@ -35,6 +35,8 @@ public:
      * @brief Validate User Input for Player Menu Selection
      */
     static void FarmerMenuInputValidation();
+
+    static void BuyItemsValidation();
 };
 
 #endif

@@ -5,7 +5,8 @@
  *
  * This constructor initializes a new instance of the Container class.
  */
-Container::Container() {
+Container::Container()
+{
     row = 0;
     col = 0;
     cellKosong = 0;
@@ -17,24 +18,27 @@ Container::Container() {
  * @param row The number of rows in the container.
  * @param col The number of columns in the container.
  */
-Container::Container(int row, int col) {
+Container::Container(int row, int col)
+{
     this->row = row;
     this->col = col;
     cellKosong = row * col;
 
     // Intialize the items vector with nullptr
-    for (int i = 0; i < row; i++) {
+    for (int i = 0; i < row; i++)
+    {
 
-        //Create a temporary vector to store the items
-        vector<Item*> temp;
-        for (int j = 0; j < col; j++) {
+        // Create a temporary vector to store the items
+        vector<Item *> temp;
+        for (int j = 0; j < col; j++)
+        {
             Item item;
 
-            //Set all items to nullptr
+            // Set all items to nullptr
             temp.push_back(nullptr);
         }
 
-        //Add the temporary vector to the items vector
+        // Add the temporary vector to the items vector
         items.push_back(temp);
     }
 }
@@ -45,12 +49,16 @@ Container::Container(int row, int col) {
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container() {
-    for (int i = 0; i < row; i++) {
-        for (int j = 0; j < col; j++) {
+Container::~Container()
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
 
-            //Delete the item if it is not nullptr
-            if (items[i][j] != nullptr) {
+            // Delete the item if it is not nullptr
+            if (items[i][j] != nullptr)
+            {
                 delete items[i][j];
             }
         }
@@ -64,7 +72,8 @@ Container::~Container() {
  *
  * @param row The new row value to be set.
  */
-void Container::setRow(int Setrow) {
+void Container::setRow(int Setrow)
+{
     this->row = Setrow;
 }
 
@@ -75,7 +84,8 @@ void Container::setRow(int Setrow) {
  *
  * @param col The new column value to be set.
  */
-void Container::setCol(int Setcol) {
+void Container::setCol(int Setcol)
+{
     this->col = Setcol;
 }
 
@@ -86,7 +96,8 @@ void Container::setCol(int Setcol) {
  *
  * @return The row value of the Container.
  */
-int Container::getRow() const {
+int Container::getRow() const
+{
     return row;
 }
 
@@ -97,7 +108,8 @@ int Container::getRow() const {
  *
  * @return The column value of the Container.
  */
-int Container::getCol() const {
+int Container::getCol() const
+{
     return col;
 }
 
@@ -108,7 +120,8 @@ int Container::getCol() const {
  *
  * @return The number of empty cells in the container.
  */
-int Container::getCellKosong() const {
+int Container::getCellKosong() const
+{
     return cellKosong;
 }
 
@@ -121,32 +134,40 @@ int Container::getCellKosong() const {
  * @param j The column index of the item.
  * @param item The item to be set.
  */
-void Container::setItem(int i, int j, Item* item) {
-    if (items[i][j] == nullptr) {
+void Container::setItem(int i, int j, Item *item)
+{
+    if (items[i][j] == nullptr)
+    {
         items[i][j] = item;
         cellKosong--;
     }
 }
 
-void Container::setItem(string slot, Item* item){
+void Container::setItem(string slot, Item *item)
+{
     int i = slot[0] - 'A';
     int j = stoi(slot.substr(1, 2)) - 1;
 
     setItem(i, j, item);
 }
 
-void Container::deleteItem(int i, int j) {
-    if (items[i][j] != nullptr) {
+void Container::deleteItem(int i, int j)
+{
+    if (items[i][j] != nullptr)
+    {
         delete items[i][j];
         items[i][j] = nullptr;
         cellKosong++;
-    } else {
+    }
+    else
+    {
         // TODO: throw exception
         cout << "Slot kosong" << endl;
     }
 }
 
-void Container::deleteItem(string slot) {
+void Container::deleteItem(string slot)
+{
     int i = slot[0] - 'A';
     int j = stoi(slot.substr(1, 2)) - 1;
 
@@ -162,10 +183,10 @@ void Container::deleteItem(string slot) {
  * @param j The column index of the item.
  * @return The item at the specified row and column.
  */
-Item* Container::operator()(int i, int j) {
+Item *Container::operator()(int i, int j)
+{
     return items[i][j];
 }
-
 
 /**
  * Prints the column name of the container.
@@ -173,15 +194,18 @@ Item* Container::operator()(int i, int j) {
  * @param os The output stream to print the column name to.
  * @return The output stream after printing the column name.
  */
-ostream& Container::printColumnName(ostream& os) const{
+ostream &Container::printColumnName(ostream &os) const
+{
     // Print spaces
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         os << " ";
     }
 
     // Print the column name
     char c = 'A';
-    for (int i = 0; i < col; i++) {
+    for (int i = 0; i < col; i++)
+    {
         os << "   " << c << "  ";
         c++;
     }
@@ -199,14 +223,17 @@ ostream& Container::printColumnName(ostream& os) const{
  * @param os The output stream to which the separator will be printed.
  * @return A reference to the output stream after printing the separator.
  */
-ostream& Container::printSeparator(ostream& os) const {
+ostream &Container::printSeparator(ostream &os) const
+{
     // Print spaces
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         os << " ";
     }
 
     // Print the separator
-    for (int i = 0; i < col; i++) {
+    for (int i = 0; i < col; i++)
+    {
         os << "+-----";
     }
 
@@ -216,7 +243,6 @@ ostream& Container::printSeparator(ostream& os) const {
     return os;
 }
 
-
 /**
  * Prints the specified row of the container.
  *
@@ -224,9 +250,11 @@ ostream& Container::printSeparator(ostream& os) const {
  * @param row The row number to print.
  * @return The output stream after printing the row.
  */
-ostream& Container::printRow(ostream& os, int row) const {
+ostream &Container::printRow(ostream &os, int row) const
+{
     // Handle the formatting if the row number is less than 9
-    if (row < 9) {
+    if (row < 9)
+    {
         os << "0";
     }
 
@@ -234,13 +262,17 @@ ostream& Container::printRow(ostream& os, int row) const {
     os << row + 1 << " ";
 
     // Print the items in the row
-    for (int i = 0; i < col; i++) {
+    for (int i = 0; i < col; i++)
+    {
         os << "|";
 
         // Print the item code if it is not nullptr
-        if (items[row][i] != nullptr) {
+        if (items[row][i] != nullptr)
+        {
             os << " " << items[row][i]->getCode() << " ";
-        } else {
+        }
+        else
+        {
             os << "     ";
         }
     }
@@ -249,7 +281,6 @@ ostream& Container::printRow(ostream& os, int row) const {
 
     return os;
 }
-
 
 /**
  * @brief Overloaded stream insertion operator for the Container class.
@@ -260,12 +291,14 @@ ostream& Container::printRow(ostream& os, int row) const {
  * @param container The Container object to write to the output stream.
  * @return The output stream.
  */
-ostream& operator<<(ostream& os, const Container& container) {
+ostream &operator<<(ostream &os, const Container &container)
+{
     // print column name
     container.printColumnName(os);
     container.printSeparator(os);
 
-    for (int i = 0; i < container.getRow(); i++) {
+    for (int i = 0; i < container.getRow(); i++)
+    {
         container.printRow(os, i);
         container.printSeparator(os);
     }
@@ -281,23 +314,11 @@ ostream& operator<<(ostream& os, const Container& container) {
  * @param container The Container object to be copied.
  * @return The copied Container object.
  */
-Container& Container::operator=(Container& container) {
+Container& Container::operator=(const Container& container) {
     this->row = container.row;
     this->col = container.col;
     this->cellKosong = container.cellKosong;
     this->items = container.items;
     
     return *this;
-}
-
-/**
- * @brief Overloaded subscript operator for the Container class.
- *
- * This function overloads the subscript operator for the Container class.
- *
- * @param i The row index of the items to be accessed.
- * @return A vector of items in the specified row.
- */
-vector<Item *> Container::operator[](int i) {
-    return items[i];
 }

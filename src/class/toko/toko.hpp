@@ -1,20 +1,19 @@
 #ifndef TOKO_HPP
 #define TOKO_HPP
-#include <vector>
+#include <map>
 #include "item.hpp"
 
-using namespace std;
 
-class Toko{
-    private:
-        vector<Item*> listItemToko;
-
+class Toko {
     public:
-        Toko();
-        ~Toko();
-        void addItems(Item* item);
-        void removeItems(Item* item);
-        void displayToko();
+        static void addItems(Item* item);
+        static void removeItems(Item* item);
+        static Item* getItemAt(int index);
+        static void displayToko();
+
+    private:
+        static std::map<Item*, int> listItemToko;
 };
+
 
 #endif

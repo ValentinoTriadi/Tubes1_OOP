@@ -3,13 +3,14 @@
 #include "product.hpp"
 #include "toko.hpp"
 
+using namespace std;
+
 
 People::People() : Keuangan(50), Weight(40), Type(0)
 {
-
 }
 
-People::People(int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan)
+People::People(const string &nama, int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan), name(nama)
 {
 }
 People::~People() = default;
@@ -30,15 +31,18 @@ void People::makan()
     cout << endl;
 
     int row = slot[0] - 'A';
-    int col = slot[1] - '0';
+    int col = stoi(slot.substr(1, 2)) - 1;
 
     Item* makanan = storage(row, col);
-    if (makanan == nullptr) {
+    if(makanan == nullptr){
         throw FoodEmptyException();
-    // TODO : else if (makanan->getType() != FOOD)
+    }
+    Product product = dynamic_cast<Product&>(*makanan);
+
+    if(product.getType() == "PRODUCT_MATERIAL_PLANT"){
+        throw InvalidFoodTypeException();
     }else{
-        Product* product = dynamic_cast<Product*>(makanan);
-        Weight += product->getAddedWeight();
+        Weight += product.getAddedWeight();
         storage.deleteItem(row, col);
         cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
         cout << "Alhasil, berat badan kamu naik menjadi" << GetWeight() << endl;
@@ -46,7 +50,7 @@ void People::makan()
 
 }
 
-void People::membeli()
+Item People::membeli()
 {
     cout << "Selamat datang di toko!!" << endl;
     cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
@@ -65,15 +69,17 @@ void People::membeli()
     cin >> quantity;
     cout << endl;
 
+    Item* itemtobuy = Toko::getItemAt(buy-1);
 
     if(storage.getCellKosong() < quantity){
         throw StorageFullException();
-    // TODO : else if Keuangan.GetMoney < ...getPrice() * quantity)
+    }else if(Keuangan.GetMoney() < itemtobuy->getHarga()*quantity){
+        throw NotEnoughMoneyException();
     }else{
         cout << "Selamat Anda berhasil membeli " << quantity << " ";
-        // TODO : cout << nama barang yang dibeli (pake .getName)
+        cout << itemtobuy->getNama();
 
-        // TODO : Keuangan.kurangUang(quantity * ...getPrice())
+        Keuangan.kurangUang(itemtobuy->getHarga()*quantity);
         cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
 
         cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
@@ -85,19 +91,17 @@ void People::membeli()
             cin >> slot;
             cout << endl;
             int row = slot[0] - 'A';
-            int col = slot[1] - '0';
-            // TODO : storage.setItem(row, col, ITEM YANG DIBELI);
+            int col = stoi(slot.substr(1, 2)) - 1;
+            storage.setItem(row, col, itemtobuy);
+            Toko::removeItems(itemtobuy);
         }
         cout << "Barang berhasil disimpan!" << endl;
-
     }
-
 
 }
 
 void People::menjual()
 {
-    // Perintah untuk menjual barang yang dimiliki pada penyimpanan ke toko. Petani dan peternak tidak dapat menjual bangunan. Dalam sekali menjual, dapat dijual lebih dari satu barang. Proses menjual barang akan menambah kuantitas barang tersebut di Toko, kecuali untuk tanaman dan hewan yang berjumlah tak hingga. Apabila penyimpanan kosong, maka menjual tidak dapat dilakukan. Uang penjual akan langsung bertambah sesuai dengan harga jual. Perhatikan bahwa contoh di bawah ini hanya merupakan contoh saja, silahkan dikembangkan menurut kreativitas selama masih memenuhi spesifikasi yang diberikan.
     cout << "Berikut merupakan penyimpanan Anda" << endl;
     cetakPenyimpanan();
 
@@ -114,9 +118,18 @@ void People::menjual()
         cout << endl;
         int row = slot[0] - 'A';
         int col = slot[1] - '0';
-        Item* item = storage(row, col);
+        Item* itemtosell = storage(row, col);
         storage.deleteItem(row, col);
-        Toko.addItems(item);
+        Toko::addItems(itemtosell);
     }
 }
 
+void People::setStorage(const Container &storage)
+{
+    this->storage = storage;
+}
+
+
+Container People::getStorage() const{
+    return storage;
+}

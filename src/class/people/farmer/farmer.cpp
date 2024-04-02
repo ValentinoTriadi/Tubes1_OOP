@@ -102,9 +102,9 @@ void Farmer::panen() {
         // TODO : Validasi input
 
         int row = slot[0] - 'A';
-        int column = slot[1] - '0';
+        int column = stoi(slot.substr(1, 2)) - 1;
 
-        tanaman.emplace_back(ladang[row][column]);
+        tanaman.emplace_back(ladang(row,column));
         petak.emplace_back(row,column);
     }
 
@@ -126,12 +126,16 @@ void Farmer::pungutPajak() {
 }
 
 
-Farmer::Farmer(const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
+Farmer::Farmer(const string& name,const int weight, const int Keuangan, const int Type , const int n_penyimpanan, const int m_penyimpanan, const int n_ladang, const int m_ladang): People(name,weight, Keuangan, Type, n_penyimpanan, m_penyimpanan) {
     this->ladang = Ladang(n_ladang, m_ladang);
 }
 
 void Farmer::setLadang(const Ladang &ladang) {
     this->ladang = ladang;
+}
+
+Ladang Farmer::getLadang() const {
+    return ladang;
 }
 
 Farmer::~Farmer() = default;

@@ -1,34 +1,45 @@
 #include <algorithm>
 #include <iostream>
+#include <map>
 #include "toko.hpp"
 
 using namespace std;
 
-Toko::Toko() {
-    // Constructor implementation
-}
-
-Toko::~Toko() {
-    // Destructor implementation
-    for(auto item : listItemToko) {
-        delete item;
-    }
-    listItemToko.clear();
-}
-
+map<Item*, int> listItemToko;
+map<Item*, int>::iterator it;
 
 void Toko::addItems(Item* item) {
-    listItemToko.push_back(item);
+    if(listItemToko.find(item) != listItemToko.end()) {
+        listItemToko[item]++;
+    } else {
+        listItemToko[item] = 1;
+    }
 }
 
 void Toko::removeItems(Item* item) {
-    auto it = find(listItemToko.begin(), listItemToko.end(), item);
+    auto it = listItemToko.find(item);
     if (it != listItemToko.end()) {
-        delete *it;
-        listItemToko.erase(it);
+        if(it->second > 1) {
+            it->second--;
+        } else {
+            listItemToko.erase(it);
+        }
     }
 }
 
+Item* Toko::getItemAt(int index) {
+    if(index >= 0 && index < listItemToko.size()) {
+        auto it = listItemToko.begin();
+        advance(it, index);
+        return it->first;
+    }
+    return nullptr;
+}
+
 void Toko::displayToko(){
-    // Display implementation
+    int counter = 1;
+    for(auto it = listItemToko.begin(); it != listItemToko.end(); ++it) {
+        cout << counter << ". " << it->first->getNama() << " - " << it->first->getHarga() << " (" << it->second << ")" << endl;
+        counter++;
+    }
 }

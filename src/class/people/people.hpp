@@ -7,17 +7,28 @@
 
 class People{
     protected:
+        /**
+         * name of user
+        */
+        string name;
+
+        /**
+         * Container storage of user
+        */
         Container storage;
+
         /**
          * Money monitor of user
          * default = 50 gulden
         */
         StatusKeuangan Keuangan;
+
         /**
          * weight of user
          * default = 40 kg
         */
         int Weight;
+        
         /**
          * type of user
          * (1) mayor
@@ -32,7 +43,7 @@ class People{
          * @param Keuangan saved the money of user
          * @param Type type of user
         */
-        People(int,int,int,int,int);
+        People(const string&,int,int,int,int,int);
     
         People();
 
@@ -54,7 +65,7 @@ class People{
         /**
          *  @brief Membeli
          */
-        void membeli();
+        Item membeli();
 
         /**
          *  @brief Menjual
@@ -80,11 +91,23 @@ class People{
         [[nodiscard]] int GetType() const{return Type;}
 
         /**
+         *  @brief Get Name
+         *  @return Name
+         */
+        [[nodiscard]] string GetName() const{return name;}
+
+        /**
          *  @brief Set container
          *  @param container container yang akan di set
          */
-//        void SetStorage(const Container&);
-};
+        void setStorage(const Container&);
 
+        /**
+         *  @brief Get container
+         *  @return container
+         */
+        [[nodiscard]] Container getStorage() const;
+
+};
 
 #endif

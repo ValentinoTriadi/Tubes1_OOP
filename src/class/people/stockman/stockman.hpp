@@ -31,7 +31,7 @@ class Stockman : public People{
          * @param n_peternakan
          * @param m_peternakan
         */
-        Stockman(int, int, int, int, int, int, int);
+        Stockman(const string& , int, int, int, int, int, int, int);
         /**
          * @brief Destroy the Stockman object
         */
@@ -56,6 +56,15 @@ class Stockman : public People{
          * @brief Pungut Pajak
         */
         void pungutPajak();
+        /**
+         * @brief Set Peternakan
+        */
+        void setPeternakan(const Peternakan&);
+
+        /**
+         * @brief Get Peternakan
+        */
+        [[nodiscard]] Peternakan getPeternakan() const;
 };
 
 

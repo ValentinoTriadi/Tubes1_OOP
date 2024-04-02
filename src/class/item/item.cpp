@@ -5,8 +5,8 @@
 #include <utility>
 
 // define the constructor
-Item::Item() : Id(0), Price(0) {}
-Item::Item(const int Id, string Code, string Name, const int Price) : Id(Id), Code(std::move(Code)), Name(std::move(Name)), Price(Price) {}
+Item::Item() : Id(0), Price(0), ItemType(0) {}
+Item::Item(int Id, string Code, string Name, int Price, int ItemType) : Id(Id), Code(std::move(Code)), Name(std::move(Name)), Price(Price), ItemType(ItemType) {}
 
 // define the destructor
 Item::~Item() = default;
@@ -23,6 +23,9 @@ string Item::getNama() const {
 }
 int Item::getHarga() const {
     return Price;
+}
+int Item::getItemType() const {
+    return ItemType;
 }
 
 // define method

@@ -24,7 +24,7 @@ class Farmer : public People {
          * @param n_ladang column ladang yang dimiliki farmer
          * @param m_ladang row ladang yang dimiliki farmer
          */
-        Farmer(int,int,int,int,int,int,int);
+        Farmer(const string&, int,int,int,int,int,int,int);
 
         /**
          * @brief Destroy the Farmer object
@@ -56,6 +56,11 @@ class Farmer : public People {
          * @param ladang ladang yang dimiliki farmer
          */
         void setLadang(const Ladang &ladang);
+
+        /**
+         * Get Ladang yang dimiliki farmer
+         */
+        [[nodiscard]] Ladang getLadang() const;
 };
 
 #endif
