@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "InputManager.hpp"
 #include "../../Exception/InputException/InputException.hpp"
+#include <regex>
 InputManager::InputManager() = default;
 
 std::string InputManager::_inputData;
 
 template <>
-int InputManager::StringToNumber(string data)
+int InputManager::StringToNumber(const string& data)
 {
     try
     {
@@ -20,15 +22,15 @@ int InputManager::StringToNumber(string data)
             throw InputException("Input Is Not a Number");
         }
     }
-    catch (InputException i)
+    catch (InputException& i)
     {
         std::cout << i.what() << std::endl;
-        return -999; // ERROR Code
+        return -999;
     }
 }
 
 template <>
-float InputManager::StringToNumber(string data)
+float InputManager::StringToNumber(const string& data)
 {
     try
     {
@@ -41,14 +43,18 @@ float InputManager::StringToNumber(string data)
             throw InputException("Input Is Not a Number");
         }
     }
-    catch (InputException i)
+    catch (InputException& i)
     {
         std::cout << i.what() << std::endl;
         return -999; // ERROR Code
     }
 }
 
-bool InputManager::isNumber(string data)
+bool InputManager::isNumber(char data) {
+    return data >= '0' && data <= '9';
+}
+
+bool InputManager::isNumber(const string& data)
 {
     if (data.empty() || (data.size() == 1 && data[0] == '-'))
         return false;
@@ -71,6 +77,7 @@ bool InputManager::isNumber(string data)
                 return false;
             hasDecimal = true;
         }
+
         else if (!std::isdigit(c))
         {
             return false;
@@ -201,20 +208,134 @@ void InputManager::FarmerMenuInputValidation()
     }
 }
 
-std::pair<int, int> InputManager::GetSingleRowCol(string input)
+std::pair<int, int> InputManager::GetSingleRowCol(const string& input)
 {
-    try
+    if (input.size() != 3)
     {
-        try{
-            if(isAlphabet(input[0])){
-
-            }
-        }
-        return std::make_pair(row, col);
+        throw InputException("Invalid Input: Please input 3 characters (B01)");
     }
+
+    if (!isAlphabet(input[0]) || !isNumber(input[2]))
+    {
+        throw InputException("Invalid Input: Please input A-Z and 0-9");
+    }
+
+    return std::make_pair((int)(input[0] - 'A'), (int)(input[2] - '0'));
 };
 
-bool InputManager::isAlphabet(string data)
+vector<std::pair<int,int>> InputManager::GetMultipleRowCol(std::string input) {
+    if (input.length() < 3) throw InputException("Invalid Input: Please input minimum 3 characters.");
+
+    // Regex for input with format A01, A02, A03,..., A0N
+    std::regex pattern("([A-Z][0-9]{2},?)+");
+    if (!std::regex_match(input, pattern))
+        throw InputException("Invalid Input: Please input A-Z and 0-9 with pattern A09, B01,..., C04");
+
+    vector<std::pair<int, int>> result;
+    for (size_t i = 0; i < input.length(); i += 3) {
+        result.emplace_back((int) (input[i] - 'A'), (int) (input[i + 2] - '0'));
+    }
+
+    return result;
+}
+
+bool InputManager::isAlphabet(const string& data)
 {
-    return data >= "A" && data <= "Z";
+    if (data.empty())
+        return false;
+
+    for (char i : data)
+    {
+        if (!isAlphabet(i))
+            return false;
+    }
+
+    return true;
+}
+
+bool InputManager::isAlphabet(char data) {
+    return data >= 'A' && data <= 'Z';
+}
+
+int InputManager::receiveIntInput() {
+    std::cin >> _inputData;
+
+    if (!isNumber(_inputData)) {
+        throw InputException("Invalid Input: Please input a number");
+    }
+
+    std::cout << std::endl;
+
+    return stoi(_inputData) ;
+}
+
+float InputManager::receiveFloatInput() {
+    std::cin >> _inputData;
+
+    if (!isNumber(_inputData)) {
+        throw InputException("Invalid Input: Please input a number");
+    }
+
+    std::cout << std::endl;
+
+    return (float) stof(_inputData);
+}
+
+string InputManager::receiveStringInput() {
+    std::cin >> _inputData;
+    std::cout << std::endl;
+    return _inputData;
+}
+
+bool InputManager::receiveBooleanInput(){
+    string lower;
+    std::cin >> lower;
+
+    // Change to lower case
+    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+
+    vector<string> yes, no;
+    yes = {
+        "true",
+        "yes",
+        "y",
+        "1",
+        "ya",
+        "benar",
+        "iya",
+        "betul",
+        "bener",
+        "ril",
+        "iyalah",
+        "yup",
+        "yap",
+        "yoi",
+        "yups",
+    };
+
+    no = {
+        "n",
+        "no",
+        "false",
+        "0",
+        "tidak",
+        "tak",
+        "nggak",
+        "ngga",
+        "gak",
+        "g",
+        "t",
+        "nein",
+        "ora",
+        "hell no",
+    };
+
+
+    if (find(yes.begin(), yes.end(), _inputData) != yes.end()){
+        return true;
+    } else if (find(no.begin(), no.end(), _inputData) != no.end()){
+        return false;
+    }
+    throw InputException("Invalid Input: Please input true or false");
+
 }

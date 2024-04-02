@@ -7,6 +7,9 @@
 class InputManager
 {
 public:
+/**
+     * @brief Input Manager Constructor
+     */
     static std::string _inputData;
     InputManager();
 
@@ -17,17 +20,35 @@ public:
     static void receiveInput();
 
     /**
+     * Receive input from user
+     * Usage: ```receiveIntInput();```
+     */
+    static int receiveIntInput();
+
+    /**
+     * Receive input from user
+     * Usage: ```receiveFloatInput();```
+     */
+    static float receiveFloatInput();
+
+    /**
+     * Receive input from user
+     * Usage: ```receiveStringInput();```
+     */
+    static string receiveStringInput();
+
+    /**
      * Convert data input to int or float
      * Usage:```return T;```
      * Param string : used to convert the string into T either float or integer
      */
     template <typename T>
-    static T StringToNumber(string);
-    /*
+    static T StringToNumber(const string&);
+
+    /**
      * validate the first input user to define whether the
      * the user will create new games or continue the games
      */
-
     static void NewGameInput();
 
     /**
@@ -45,14 +66,46 @@ public:
      */
     static void FarmerMenuInputValidation();
 
-    static std::pair<int, int> GetSingleRowCol(string input);
+    /**
+     * @brief Validate User Input for Player Row and Column input
+     */
+    static std::pair<int, int> GetSingleRowCol(const string& input);
+
+    /**
+     * @brief Validate User Input for multiple Row and Column input
+     */
     static vector<std::pair<int, int>> GetMultipleRowCol(string input);
 
 private:
-    static bool isNumber(string);
+    /**
+     * @brief Check if the character is a number
+     * @return true if a number
+     */
+    static bool isNumber(char);
 
-    static bool isAlphabet(string);
+    /**
+     * @brief Check if the character is an alphabet
+     * @return true if an alphabet
+     */
     static bool isAlphabet(char);
+
+    /**
+     * @brief Check if the string is an alphabet
+     * @return true if an alphabet
+     */
+    static bool isAlphabet(const string &data);
+
+    /**
+     * @brief Check if the string is a number
+     * @return true if a number
+     */
+    static bool isNumber(const string& data);
+
+    /**
+     * @brief Check if the string is a boolean
+     * @return true and false if a boolean, exception if not
+     */
+    static bool receiveBooleanInput();
 };
 
 #endif
