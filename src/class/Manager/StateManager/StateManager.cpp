@@ -1,16 +1,13 @@
 #include "StateManager.hpp"
 
-StateManager::StateManager(){};
+vector<People*> StateManager::_listPlayer;
+map<Item*, int> StateManager::_listItemToko;
 
-StateManager::~StateManager(){
-    for (int i = 0; i < _listPlayer.size(); i++){
-        delete _listPlayer[i];
-    }
-};
+StateManager::StateManager()= default;
 
-void StateManager::defaultState(){
-    // Petani petani1 = Petani("Petani1", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100);
-}
+StateManager::~StateManager()= default;
+
+void StateManager::defaultState(){}
 
 void StateManager::loadState(){
     std::cout << "Apakah Anda ingin memuat state? (y/n) ";
@@ -40,7 +37,6 @@ Farmer* StateManager::readFarmer(ifstream& file, string name, int money, int wei
 
     int row = 0, col = 0;
     for (int i = 0; i < countItems; i++){
-        string name;
         file >> name;
         inventory->setItem(row, col++, getItemByName(name));
 
@@ -124,7 +120,6 @@ Mayor* StateManager::readMayor(ifstream& file, string name, int money, int weigh
 
     int row = 0, col = 0;
     for (int i = 0; i < countItems; i++){
-        string name;
         file >> name;
         inventory->setItem(row, col++, getItemByName(name));
 
@@ -182,7 +177,6 @@ void StateManager::loadFromFile(){
         cout << name << " " << type << " " << money << " " << weight << endl;
 
         if (type == "Petani"){
-
             _listPlayer.push_back(readFarmer(file, name, money, weight, gameConfig));
         } else if (type == "Peternak"){
 
@@ -197,7 +191,6 @@ void StateManager::loadFromFile(){
 
     // Load shop items
     readShop(file);
-
     file.close();
 }
 
@@ -211,13 +204,13 @@ void StateManager::saveState(){
 
     file << _listPlayer.size() << std::endl;
 
-    for (int i = 0; i < _listPlayer.size(); i++){
-        cout << _listPlayer[i]->GetName() << " " << _listPlayer[i]->GetType() << " " << _listPlayer[i]->GetKeuangan() << " " << _listPlayer[i]->GetWeight() << std::endl;
+    for (auto & i : _listPlayer){
+        cout << i->GetName() << " " << i->GetType() << " " << i->GetKeuangan() << " " << i->GetWeight() << std::endl;
     }
 
     for (int i = 0; i < _listPlayer.size(); i++){
         string tipe;
-        
+
         if (_listPlayer[i]->GetType() == 1){
             tipe = "Walikota";
         } else if (_listPlayer[i]->GetType() == 2){
@@ -276,28 +269,28 @@ void StateManager::saveState(){
     file.close();
 }
 
-Item* StateManager::getItemByName(string name){
-    for (int i = 0; i < GameData::_productConfig.size(); i++){
-        if ((GameData::_productConfig[i].getNama() )== name){
-            return &GameData::_productConfig[i];
+Item* StateManager::getItemByName(const string& name){
+    for (auto & i : GameData::_productConfig){
+        if ((i.getNama() )== name){
+            return &i;
         }
     }
 
-    for (int i = 0; i < GameData::_animalConfig.size(); i++){
-        if ((GameData::_animalConfig[i].getNama() )== name){
-            return new Animal(GameData::_animalConfig[i].getId(), GameData::_animalConfig[i].getCode(), GameData::_animalConfig[i].getNama(), GameData::_animalConfig[i].getHarga(), GameData::_animalConfig[i].getType(), GameData::_animalConfig[i].getWeight(), GameData::_animalConfig[i].getHarvestLimit());
+    for (auto & i : GameData::_animalConfig){
+        if ((i.getNama() )== name){
+            return new Animal(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getType(), i.getWeight(), i.getHarvestLimit());
         }
     }
 
-    for (int i = 0; i < GameData::_plantConfig.size(); i++){
-        if ((GameData::_plantConfig[i].getNama() )== name){
-            return new Plant(GameData::_plantConfig[i].getId(), GameData::_plantConfig[i].getCode(), GameData::_plantConfig[i].getNama(), GameData::_plantConfig[i].getHarga(), GameData::_plantConfig[i].getType(), GameData::_plantConfig[i].getHarvestLimit(), GameData::_plantConfig[i].getAge());
+    for (auto & i : GameData::_plantConfig){
+        if ((i.getNama() )== name){
+            return new Plant(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getType(), i.getHarvestLimit(), i.getAge());
         }
     }
 
-    for (int i = 0; i < GameData::_buildingConfig.size(); i++){
-        if ((GameData::_buildingConfig[i].getNama() )== name){
-            return &GameData::_buildingConfig[i];
+    for (auto & i : GameData::_buildingConfig){
+        if ((i.getNama() )== name){
+            return &i;
         }
     }
 
@@ -307,7 +300,7 @@ Item* StateManager::getItemByName(string name){
 }
 
 string StateManager::idxToSlot(int i, int j){
-    string slot = "";
+    string slot;
 
     slot += (char)('A' + i);
     slot += std::to_string(j + 1);

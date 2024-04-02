@@ -257,7 +257,7 @@ void Stockman::panen(){
 
     // SUCCESS
     // ilangin field + masukin inventory
-    int tempProductIndex;
+    int tempProductIndex = 0;
     for (int i = 0; i < GameData::_productConfig.size(); i++) {
         if (GameData::_productConfig[i].getType() == "PRODUCT_ANIMAL" && GameData::_productConfig[i].getOrigin() == namaAnimal){
             tempProductIndex = i;

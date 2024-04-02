@@ -7,7 +7,7 @@ private:
     string messages;
 
 public:
-    InputException(const std::string &message) : messages(message){};
+    explicit InputException(const std::string &message) : messages(message){};
 
     string what() override
     {

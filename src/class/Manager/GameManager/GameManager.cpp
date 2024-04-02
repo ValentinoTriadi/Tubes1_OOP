@@ -13,7 +13,7 @@ void GameManager::StartNewGame()
     // User default settings 40 gulden, 40 weight
     for (int i = 1; i <= 3; i++)
     {
-        this->AddUser(40, 40, i);
+        this->AddUser(i);
     }
 }
 
@@ -42,28 +42,30 @@ GameManager::~GameManager()
 void GameManager::ContinueGame()
 {
     this->ReadConfig();
-    // TODO: implement State Config reader
-    // TODO: create exception if the state is inavailable
+    StateManager::loadState();
+    // TODO : set game state
 }
 
-void GameManager::AddUser(int weight, int Keuangan, int type)
+void GameManager::AddUser(int type)
 {
-    if (type == 1)
-    {
-        auto* temp_mayor = new Mayor("Mayor",40, 40 , gameConfig[2], gameConfig[3]);
-        this->_listPlayer.add(temp_mayor);
-    } else if (type == 2) {
-        auto* temp_farmer = new Farmer("Petani1",40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-        this->_listPlayer.add(temp_farmer);
-    } else if (type == 3) {
-        auto* temp_stockman = new Stockman("Peternak1",40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-        this->_listPlayer.add(temp_stockman);
-    } else {
-        // TODO: implement exception for add user
+    try {
+        if (type == 1)
+        {
+            auto* temp_mayor = new Mayor("Mayor",40, 40 , gameConfig[2], gameConfig[3]);
+            this->_listPlayer.add(temp_mayor);
+        } else if (type == 2) {
+            auto* temp_farmer = new Farmer("Petani1",40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+            this->_listPlayer.add(temp_farmer);
+        } else if (type == 3) {
+            auto* temp_stockman = new Stockman("Peternak1",40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+            this->_listPlayer.add(temp_stockman);
+        } else {
+            throw AddUserException();
+        }
+    } catch (AddUserException &e) {
+        cout << e.what() << endl;
     }
 }
-
-
 
 void GameManager::StartGameValidation()
 {
@@ -87,14 +89,13 @@ void GameManager::StartGameValidation()
 
 void GameManager::WinCheck()
 {
-    float weight = float(_currentPlayer->GetWeight());
+    auto weight = float(_currentPlayer->GetWeight());
     int money = _currentPlayer->GetKeuangan();
 
     if (weight >= this->_weightToWin && money >= this->_moneyToWin)
     {
         cout << weight << " " << _weightToWin << endl;
         cout << money << " " << _moneyToWin << endl;
-        // End the game
         GameManager::EndGame();
     }
 }
@@ -134,8 +135,7 @@ void GameManager::MenuSelection(int type)
                 RunStockmanSelection(stoi(InputManager::_inputData<string>));
                 break;
             default:
-                cout << "How did you get here?" << endl;
-                break;
+                throw MenuException();
         }
     } catch (MenuException &e) {
         cout << e.what() << endl;
@@ -153,7 +153,7 @@ void GameManager::RunStockmanSelection(int input){
             if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
                 stockman->ternak();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 3:
@@ -163,7 +163,7 @@ void GameManager::RunStockmanSelection(int input){
             if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
                 stockman->memberiPangan();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 5:
@@ -176,21 +176,20 @@ void GameManager::RunStockmanSelection(int input){
             if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)) {
                 stockman->panen();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 8:
-            // muat();
+            muat();
             break;
         case 9:
-            // simpan();
+
             break;
         case 10:
             nextTurn();
             break;
         default:
-            // Exception
-            break;
+            throw RunException();
     }
 }
 
@@ -206,7 +205,7 @@ void GameManager::RunMayorSelection(int input) {
             if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
                 mayor->bangun();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 4:
@@ -219,24 +218,23 @@ void GameManager::RunMayorSelection(int input) {
             _currentPlayer->menjual();
             break;
         case 7:
-//           muat();
+            muat();
             break;
         case 8:
-//           simpan();
+            simpan();
             break;
         case 9:
             if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
                 mayor->tambahPemain(&_listPlayer);
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 10:
             nextTurn();
             break;
         default:
-            // Exception
-            break;
+            throw RunException();
     }
 }
 
@@ -246,7 +244,7 @@ void GameManager::RunFarmerSelection(int input){
             if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
                 farmer->tanam();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 2:
@@ -265,21 +263,20 @@ void GameManager::RunFarmerSelection(int input){
             if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)) {
                 farmer->panen();
             } else {
-                // Exception for invalid type
+                throw PeopleException();
             }
             break;
         case 7:
-            // muat();
+            muat();
             break;
         case 8:
-            // simpan();
+            simpan();
             break;
         case 9:
             nextTurn();
             break;
         default:
-            // Exception
-            break;
+            throw RunException();
     }
 }
 
@@ -296,5 +293,13 @@ void GameManager::Run() {
 
 void GameManager::pungutPajak() {
     int total = 0;
+
+}
+
+void GameManager::muat() {
+    StateManager::loadState();
+}
+
+void GameManager::simpan() {
 
 }

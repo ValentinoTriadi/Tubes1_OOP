@@ -10,11 +10,14 @@
 #include "../InputManager/InputManager.hpp"
 #include "../../Exception/GameException.hpp"
 #include "../../utils/roundRobin/roundRobin.hpp"
+#include "../StateManager/StateManager.hpp"
 using namespace std;
 
 class GameManager
 {
 private:
+    /*Attribute*/
+
     // List of player
     roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
@@ -41,11 +44,13 @@ private:
      * Usage: ```WinCheck();```
      */
     void WinCheck();
+
     /**
      * Read the configuration file
      * Usage: ```ReadConfig();```
      */
     void ReadConfig();
+
     /**
      * End the game
      * Usage: ```EndGame();```|
@@ -57,6 +62,7 @@ private:
      * Usage: ```StartNewGame();```
      */
     void StartNewGame();
+
     /**
      * Continue the game
      * Usage: ```ContinueGame();```
@@ -68,7 +74,7 @@ private:
      * @param Keuangan used for construct the keuangan of people
      * @param type used for construct tipe people
      */
-    void AddUser(int, int, int);
+    void AddUser(int);
 
     /**
      * Usage: ```StartTurn() and NextTurn()```
@@ -141,6 +147,18 @@ public:
      * Implement the game loop
      */
     void Run();
+
+    /**
+     * Load the game
+     * Implement the load game feature
+     */
+    void muat();
+
+    /**
+     * Save the game
+     * Implement the save game feature
+     */
+    void simpan();
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define GAMEEXCEPTION_HPP
 
 #include <iostream>
+#include <utility>
 using namespace std;
 
 class GameException
@@ -43,13 +44,39 @@ public:
     }
 };
 
+class RunException : public GameException
+{ // utk mayor run & stockman run & farmer run
+private:
+    string message;
+
+public:
+    explicit RunException(const string& additionalMessage = "Invalid Type of Run")
+    {
+        message = additionalMessage;
+    }
+    string what() override
+    {
+        return message;
+    }
+};
+
+
 class FarmerException : public GameException
 { // utk farmer tanam
   // blm
 };
 
 
-// EXCEPTION IN CLASS PEOPLE 
+/*
+ * EXCEPTION IN CLASS PEOPLE
+*/
+class PeopleException : public GameException {
+public:
+string what() override {
+    return "People Exception Error";
+}
+};
+
 class FoodEmptyException : public GameException {
     public:
     string what() override {
@@ -79,7 +106,7 @@ class NotEnoughMoneyException : public GameException {
 };
 
 
-// EXCEPTION IN CLASSS STOCKMAN
+// * EXCEPTION IN CLASS STOCKMAN
 class StockmanException : public GameException {
     private:
         string message1;
@@ -87,8 +114,8 @@ class StockmanException : public GameException {
 
     public:
         StockmanException(string message1, string message2){
-            this->message1 = message1;
-            this->message2 = message2;
+            this->message1 = std::move(message1);
+            this->message2 = std::move(message2);
         }
         string what() override{
             return "Tidak ada " + message1 + " di " + message2;
@@ -101,7 +128,7 @@ class KosongException : public GameException {
 
     public:
         KosongException(string message){
-            this->message = message;
+            this->message = std::move(message);
         }
         string what() override{
             return message + " kosong";
@@ -113,7 +140,7 @@ class NotException : public GameException {
         string message;
     public:
         NotException(string message){
-            this->message = message;
+            this->message = std::move(message);
         }
         string what() override{
             return "Bukan " + message;
@@ -132,7 +159,7 @@ class HewanMakanException : public GameException {
         string message;
     public:
         HewanMakanException(string message){
-            this->message = message;
+            this->message = std::move(message);
         }
         string what() override {
             return "Hewan ini hanya bisa makan " + message;
@@ -151,7 +178,7 @@ class NotValidException : public GameException {
         string message;
     public:
         NotValidException(string message){
-            this->message = message;
+            this->message = std::move(message);
         }
         string what() override {
             return message + " tidak valid";
