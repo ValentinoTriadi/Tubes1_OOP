@@ -1,12 +1,12 @@
 #include "StatusKeuangan.hpp"
-#include "GameException.hpp"
+#include "../../exception/GameException.hpp"
 
 StatusKeuangan::StatusKeuangan(int uang) : money(uang){
 }
 
 int StatusKeuangan::hitungPajak() const{
     int kkp = money;
-    for (int i = 0; i < ; i++){
+    for (int i = 0; i < 5; i++){
         kkp = kkp / 10;
     }
     return NonUang;

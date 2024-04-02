@@ -1,7 +1,6 @@
 #include "people.hpp"
-#include "GameException.hpp"
-#include "product.hpp"
-#include "toko.hpp"
+#include "../exception/GameException.hpp"
+#include "../toko/toko.hpp"
 
 using namespace std;
 
@@ -98,7 +97,7 @@ Item People::membeli()
         }
         cout << "Barang berhasil disimpan!" << endl;
     }
-
+    return *itemtobuy;
 }
 
 void People::menjual()

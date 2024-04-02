@@ -5,7 +5,7 @@
 
 using namespace std;
 
-map<Item*, int> listItemToko;
+std::map<Item*, int> Toko::listItemToko;
 map<Item*, int>::iterator it;
 
 void Toko::addItems(Item* item) {

@@ -1,5 +1,5 @@
 #include "stockman.hpp"
-#include "GameException.hpp"
+#include "../../exception/GameException.hpp"
 
 Stockman::Stockman(const string& name, int weight, int Keuangan,int n_penyimpanan,int m_penyimpanan,int n_peternakan,int m_peternakan) : People(name,weight, Keuangan, 3, n_penyimpanan, m_penyimpanan){
     this->peternakan = Peternakan(n_peternakan, m_peternakan);
