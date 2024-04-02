@@ -1,4 +1,10 @@
 #include "people.hpp"
+#include "GameException.hpp"
+#include "product.hpp"
+#include "toko.hpp"
+
+using namespace std;
+
 
 People::People() : Keuangan(50), Weight(40), Type(0)
 {
@@ -20,32 +26,79 @@ void People::makan()
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetakPenyimpanan();
 
-    // Nunggu input array davis
+    cout << "Slot: ";
+    string slot;
+    cin >> slot;
+    cout << endl;
+
+    int row = slot[0] - 'A';
+    int col = stoi(slot.substr(1, 2)) - 1;
+
+    Item* makanan = storage(row, col);
+    if(makanan == nullptr){
+        throw FoodEmptyException();
+    }
+    Product product = dynamic_cast<Product&>(*makanan);
+
+    if(product.getType() == "PRODUCT_MATERIAL_PLANT"){
+        throw InvalidFoodTypeException();
+    }else{
+        Weight += product.getAddedWeight();
+        storage.deleteItem(row, col);
+        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+        cout << "Alhasil, berat badan kamu naik menjadi" << GetWeight() << endl;
+    }
+
 }
 
-void People::membeli()
+Item People::membeli()
 {
-    cout << "Welcome traveller!!" << endl;
-    cout << "Silahkan melihat barang-barang ku" << endl;
+    cout << "Selamat datang di toko!!" << endl;
+    cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
 
-    // Nunggu shop class
-    // Cetak barang-barang yang ada di shop
+    Toko::displayToko();
 
-    cout << "Uang anda : " << Keuangan.GetMoney() << endl;
-    cout << "Slot penyimpanan tersedia : " << storage.getCellKosong() << endl;
+    cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
+    cout << "Slot penyimpanan tersedia:" << endl;
 
-    cout << "Barang yang ingin dibeli : " << endl;
+    cout << "Barang ingin dibeli : ";
+    int buy;
+    cin >> buy;
+    cout << endl;
+    cout << "Kuantitas : ";
+    int quantity;
+    cin >> quantity;
+    cout << endl;
 
-    // Nunggu input
+    Item* itemtobuy = Toko::getItemAt(buy-1);
 
-    // TODO: Ganti menjadi shop class, hitung jumlah harga
-    Item * item = new Item();
-    int totalHarga = 0;
+    if(storage.getCellKosong() < quantity){
+        throw StorageFullException();
+    }else if(Keuangan.GetMoney() < itemtobuy->getHarga()*quantity){
+        throw NotEnoughMoneyException();
+    }else{
+        cout << "Selamat Anda berhasil membeli " << quantity << " ";
+        cout << itemtobuy->getNama();
 
-    // TODO: Exception jumlah storage dan uang
+        Keuangan.kurangUang(itemtobuy->getHarga()*quantity);
+        cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
 
-    Keuangan.kurangUang(totalHarga);
-    cout << "Terima kasih telah membeli  " << 2 << " " << item->getNama() << "." << "Uang anda tersisa " << Keuangan.GetMoney() << endl;
+        cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+        cetakPenyimpanan();
+
+        cout << "Petak Slot: ";
+        string slot;
+        for (int i = 0; i < quantity; i++) {
+            cin >> slot;
+            cout << endl;
+            int row = slot[0] - 'A';
+            int col = stoi(slot.substr(1, 2)) - 1;
+            storage.setItem(row, col, itemtobuy);
+            Toko::removeItems(itemtobuy);
+        }
+        cout << "Barang berhasil disimpan!" << endl;
+    }
+
 }
 
 void People::menjual()
@@ -53,13 +106,23 @@ void People::menjual()
     cout << "Berikut merupakan penyimpanan Anda" << endl;
     cetakPenyimpanan();
 
+    cout << "Kuantitas barang yang ingin dijual : ";
+    int quantity;
+    cin >> quantity;
+    cout << endl;
+
     cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    // Input matrix
-
-    // TODO: Exception petak valid
-
-    int jumlahHarga = 0;
-    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << jumlahHarga <<" gulden!" << endl;
+    for(int i=0; i<quantity; i++){
+        cout << "Petak ke-" << i+1 << " : ";
+        string slot;
+        cin >> slot;
+        cout << endl;
+        int row = slot[0] - 'A';
+        int col = stoi(slot.substr(1, 2)) - 1;
+        Item* itemtosell = storage(row, col);
+        storage.deleteItem(row, col);
+        Toko::addItems(itemtosell);
+    }
 }
 
 void People::setStorage(const Container &Setstorage)

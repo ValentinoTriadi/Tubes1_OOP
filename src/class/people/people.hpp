@@ -65,7 +65,7 @@ class People{
         /**
          *  @brief Membeli
          */
-        void membeli();
+        Item membeli();
 
         /**
          *  @brief Menjual

@@ -1,4 +1,5 @@
 #include "StatusKeuangan.hpp"
+#include "GameException.hpp"
 
 StatusKeuangan::StatusKeuangan(int uang) : money(uang){
 }
@@ -17,7 +18,7 @@ void StatusKeuangan::tambahUang(int val){
 
 void StatusKeuangan::kurangUang(int val){
     if(money < val){
-        throw "Uang tidak cukup";
+        throw NotEnoughMoneyException();
     }
     money -= val;
 }

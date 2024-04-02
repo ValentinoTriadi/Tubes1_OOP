@@ -77,6 +77,15 @@ public:
      */
     static vector<std::pair<int, int>> GetMultipleRowCol(string input);
 
+    /**
+     * @brief Check if the string is a boolean
+     * @return true and false if a boolean, exception if not
+     */
+    static bool receiveBooleanInput();
+
+    
+    static void BuyItemsValidation();
+
 private:
     /**
      * @brief Check if the character is a number
@@ -102,11 +111,7 @@ private:
      */
     static bool isNumber(const string& data);
 
-    /**
-     * @brief Check if the string is a boolean
-     * @return true and false if a boolean, exception if not
-     */
-    static bool receiveBooleanInput();
+    
 };
 
 #endif
