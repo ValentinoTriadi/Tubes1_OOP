@@ -38,8 +38,8 @@ Item* Toko::getItemAt(int index) {
 
 void Toko::displayToko(){
     int counter = 1;
-    for(auto it = listItemToko.begin(); it != listItemToko.end(); ++it) {
-        cout << counter << ". " << it->first->getNama() << " - " << it->first->getHarga() << " (" << it->second << ")" << endl;
+    for(auto & it : listItemToko) {
+        cout << counter << ". " << it.first->getNama() << " - " << it.first->getHarga() << " (" << it.second << ")" << endl;
         counter++;
     }
 }

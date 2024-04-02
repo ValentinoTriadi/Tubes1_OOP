@@ -121,7 +121,23 @@ public:
      */
     Container& operator=(const Container& container);
 
-    
+    /**
+     * @brief get a map of food and its quantity
+     * @return map of food and its quantity
+     */
+    map<string, int> getFood();
+
+    /**
+     * @brief get total of food
+     * @return total of food
+     */
+    [[nodiscard]] int getFoodTotal() const;
+
+    /**
+     * @brief check if the container is empty
+     * @return true if the container is empty, false otherwise
+     */
+    [[nodiscard]] bool isEmpty() const;
 
 protected:
     /* data */
@@ -134,6 +150,8 @@ protected:
     ostream& printColumnName(ostream& os) const;
     ostream& printSeparator(ostream& os) const;
     virtual ostream& printRow(ostream& os, int row) const;
+
+
 };
 
 

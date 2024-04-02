@@ -80,14 +80,21 @@ string what() override {
 class FoodEmptyException : public GameException {
     public:
     string what() override {
-        return "Kamu mengambil harapan kosong dari penyimpanan.\nSilahkan masukan slot yang berisi makanan.";
+        return "Kamu mengambil harapan kosong dari penyimpanan.\nSilahkan masukan slot yang berisi makanan.\n";
     }
 };
 
 class InvalidFoodTypeException : public GameException {
     public:
     string what() override {
-        return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan.";
+        return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan.\n";
+    }
+};
+
+class StorageEmptyException : GameException {
+    public:
+    string what() override {
+        return "Penyimpanan kosong!";
     }
 };
 

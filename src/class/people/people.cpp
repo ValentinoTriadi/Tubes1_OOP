@@ -1,6 +1,5 @@
 #include "people.hpp"
-#include "../exception/GameException.hpp"
-#include "../toko/toko.hpp"
+
 
 using namespace std;
 
@@ -22,32 +21,45 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
+    try {
+        if (storage.getFoodTotal() == 0)
+            throw StorageEmptyException();
+    } catch (StorageEmptyException& e) {
+        cout << e.what() << endl;
+        return;
+    }
+
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetakPenyimpanan();
+    pair<int,int> slot;
+    Item* makanan;
 
-    cout << "Slot: ";
-    string slot;
-    cin >> slot;
-    cout << endl;
-
-    int row = slot[0] - 'A';
-    int col = stoi(slot.substr(1, 2)) - 1;
-
-    Item* makanan = storage(row, col);
-    if(makanan == nullptr){
-        throw FoodEmptyException();
+    while (true) {
+        try {
+            slot = InputManager::GetSingleRowCol();
+            makanan = storage(slot.first, slot.second);
+            if (makanan == nullptr) {
+                throw FoodEmptyException();
+            }
+            break;
+        } catch (GameException& e) {
+            cout << e.what() << endl;
+        }
     }
+
     Product product = dynamic_cast<Product&>(*makanan);
 
-    if(product.getType() == "PRODUCT_MATERIAL_PLANT"){
-        throw InvalidFoodTypeException();
-    }else{
-        Weight += product.getAddedWeight();
-        storage.deleteItem(row, col);
-        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-        cout << "Alhasil, berat badan kamu naik menjadi" << GetWeight() << endl;
+    try {
+        if (product.getType() != "PRODUCT_MATERIAL_PLANT")
+            throw InvalidFoodTypeException();
+    } catch (InvalidFoodTypeException& e) {
+        cout << e.what() << endl;
     }
 
+    Weight += product.getAddedWeight();
+    storage.deleteItem(slot.first, slot.second);
+    cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+    cout << "Alhasil, berat badan kamu naik menjadi" << GetWeight() << endl;
 }
 
 Item People::membeli()

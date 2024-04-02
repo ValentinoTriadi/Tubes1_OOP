@@ -16,8 +16,8 @@ int main(){
 
     map<pair<string, int>, int> itemMap = container.getItems();
 
-    for (auto it = itemMap.begin(); it != itemMap.end(); it++){
-        cout << it->first.first << " " << it->first.second << " " << it->second << endl;
+    for (auto & it : itemMap){
+        cout << it.first.first << " " << it.first.second << " " << it.second << endl;
     }
 
     return 0;

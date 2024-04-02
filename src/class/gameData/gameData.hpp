@@ -21,16 +21,16 @@ class GameData {
         ~GameData();
 
         /*Baca Config Product ```src/config/product.txt```*/
-        void BacaConfigProduct();
+        static void BacaConfigProduct();
         /*Baca Config Recipe ```src/config/recipe.txt```*/
-        void BacaConfigBuilding();
+        static void BacaConfigBuilding();
         /*Baca Config Animal ```src/config/animal.txt```*/
-        void BacaConfigAnimal();
+        static void BacaConfigAnimal();
         /*Baca Config Plant ```src/config/plant.txt```*/
-        void BacaConfigPlant();
+        static void BacaConfigPlant();
         /*Baca Config Misc ```src/config/misc.txt```*/
 
-        void BacaConfigGame();
+        static void BacaConfigGame();
 
         /*Tampilkan Config Product ```src/config/product.txt```*/
         void DisplayConfigProduct() const;

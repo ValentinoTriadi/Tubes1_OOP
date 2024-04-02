@@ -20,7 +20,7 @@ class roundRobin{
          * 
          * @param elem 
          */
-        ~roundRobin(){}
+        ~roundRobin()= default;
 
 
         /**
@@ -100,67 +100,79 @@ class roundRobin{
          * @brief Print the vector
         */
         friend std::ostream& operator << (std::ostream& os, roundRobin<T>& r){
-        int size = r.buf.size();
-        os << "(";
-        for (int i = 0; i < size; i++){
-            os << r.buf.front();
-            if (i != size - 1) os << ", ";
-            r.next();
+            int size = r.buf.size();
+            os << "(";
+            for (int i = 0; i < size; i++){
+                os << r.buf.front();
+                if (i != size - 1) os << ", ";
+                r.next();
+            }
+            os << ")" << std::endl;
+            return os;
         }
-        os << ")" << std::endl;
-        return os;
-    }
 
-    typename std::vector<T>::iterator begin() {
-        return buf.begin();
-    }
+        /**
+         * @brief assignment operator
+         *
+         * @param rhs vector<t> that will be assigned
+         *
+         * @return roundRobin<T>&
+        */
+        roundRobin<T>& operator= (const std::vector<T>& rhs){
+            this->buf = rhs;
+            return *this;
+        }
 
-    typename std::vector<T>::iterator end() {
-        return buf.end();
-    }
+        typename std::vector<T>::iterator begin() {
+            return buf.begin();
+        }
 
-    //iterator for roundRobin
-    class iterator{
-        private:
-            typename std::vector<T>::iterator it;
-            typename std::vector<T>::iterator begin;
-            typename std::vector<T>::iterator end;
-        public:
-            iterator(typename std::vector<T>::iterator it, typename std::vector<T>::iterator begin, typename std::vector<T>::iterator end){
-                this->it = it;
-                this->begin = begin;
-                this->end = end;
-            }
+        typename std::vector<T>::iterator end() {
+            return buf.end();
+        }
 
-            iterator& operator++(){
-                it++;
-                if (it == end){
-                    it = begin;
+        //iterator for roundRobin
+        class iterator{
+            private:
+                typename std::vector<T>::iterator it;
+                typename std::vector<T>::iterator begin;
+                typename std::vector<T>::iterator end;
+            public:
+                iterator(typename std::vector<T>::iterator it, typename std::vector<T>::iterator begin, typename std::vector<T>::iterator end){
+                    this->it = it;
+                    this->begin = begin;
+                    this->end = end;
                 }
-                return *this;
-            }
 
-            iterator operator++(int){
-                iterator temp = *this;
-                it++;
-                if (it == end){
-                    it = begin;
+                iterator& operator++(){
+                    it++;
+                    if (it == end){
+                        it = begin;
+                    }
+                    return *this;
                 }
-                return temp;
-            }
 
-            T& operator*(){
-                return *it;
-            }
+                iterator operator++(int){
+                    iterator temp = *this;
+                    it++;
+                    if (it == end){
+                        it = begin;
+                    }
+                    return temp;
+                }
 
-            bool operator==(const iterator& rhs){
-                return it == rhs.it;
-            }
+                T& operator*(){
+                    return *it;
+                }
 
-            bool operator!=(const iterator& rhs){
-                return it != rhs.it;
-            }
-    };
+                bool operator==(const iterator& rhs){
+                    return it == rhs.it;
+                }
+
+                bool operator!=(const iterator& rhs){
+                    return it != rhs.it;
+                }
+        };
 };
 
 #endif // ROUND_ROBIN_HPP_

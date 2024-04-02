@@ -19,11 +19,11 @@ void GameManager::StartNewGame()
 
 void GameManager::ReadConfig()
 {
-    this->_gameData.BacaConfigAnimal();
-    this->_gameData.BacaConfigBuilding();
-    this->_gameData.BacaConfigPlant();
-    this->_gameData.BacaConfigProduct();
-    this->_gameData.BacaConfigGame();
+    GameData::BacaConfigAnimal();
+    GameData::BacaConfigBuilding();
+    GameData::BacaConfigPlant();
+    GameData::BacaConfigProduct();
+    GameData::BacaConfigGame();
 
     // Save local settings for win conditions
     gameConfig = GameData::_gameConfig;
@@ -42,8 +42,7 @@ GameManager::~GameManager()
 void GameManager::ContinueGame()
 {
     this->ReadConfig();
-    StateManager::loadState();
-    // TODO : set game state
+    muat();
 }
 
 void GameManager::AddUser(int type)
@@ -89,14 +88,13 @@ void GameManager::StartGameValidation()
 
 void GameManager::WinCheck()
 {
-    auto weight = float(_currentPlayer->GetWeight());
-    int money = _currentPlayer->GetKeuangan();
-
-    if (weight >= this->_weightToWin && money >= this->_moneyToWin)
+    for (auto &player : _listPlayer)
     {
-        cout << weight << " " << _weightToWin << endl;
-        cout << money << " " << _moneyToWin << endl;
-        GameManager::EndGame();
+        if (player->GetKeuangan() >= _moneyToWin && player->GetWeight() >= _weightToWin)
+        {
+            cout << "Player " << player->GetName() << " has won the game!" << endl;
+            EndGame();
+        }
     }
 }
 
@@ -124,15 +122,15 @@ void GameManager::MenuSelection(int type)
         switch (type) {
             case (1):
                 InputManager::MayorMenuInputValidation();
-                RunMayorSelection(stoi(InputManager::_inputData<string>));
+                RunMayorSelection(InputManager::_inputData<int>);
                 break;
             case (2):
                 InputManager::FarmerMenuInputValidation();
-                RunFarmerSelection(stoi(InputManager::_inputData<string>));
+                RunFarmerSelection(InputManager::_inputData<int>);
                 break;
             case (3):
                 InputManager::StockmanMenuInputValidation();
-                RunStockmanSelection(stoi(InputManager::_inputData<string>));
+                RunStockmanSelection(InputManager::_inputData<int>);
                 break;
             default:
                 throw MenuException();
@@ -168,6 +166,7 @@ void GameManager::RunStockmanSelection(int input){
             break;
         case 5:
             _currentPlayer->membeli();
+
             break;
         case 6:
             _currentPlayer->menjual();
@@ -183,7 +182,7 @@ void GameManager::RunStockmanSelection(int input){
             muat();
             break;
         case 9:
-
+            simpan();
             break;
         case 10:
             nextTurn();
@@ -293,13 +292,19 @@ void GameManager::Run() {
 
 void GameManager::pungutPajak() {
     int total = 0;
+    for (auto &player : _listPlayer)
+    {
 
+    }
 }
 
 void GameManager::muat() {
     StateManager::loadState();
+    _listPlayer = StateManager::_listPlayer;
+
+    // TODO : Implement load shop items
 }
 
 void GameManager::simpan() {
-
+    StateManager::saveState();
 }

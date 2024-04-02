@@ -69,13 +69,15 @@ public:
 
     /**
      * @brief Validate User Input for Player Row and Column input
+     * Input will be taken from the function
      */
-    static std::pair<int, int> GetSingleRowCol(const string& input);
+    static std::pair<int, int> GetSingleRowCol();
 
     /**
      * @brief Validate User Input for multiple Row and Column input
+     * Input will be taken from the function
      */
-    static vector<std::pair<int, int>> GetMultipleRowCol(string input);
+    static vector<std::pair<int, int>> GetMultipleRowCol();
 
     /**
      * @brief Check if the string is a boolean
@@ -111,7 +113,26 @@ private:
      */
     static bool isNumber(const string& data);
 
-    
+    /**
+     * @brief Show Mayor Menu
+     */
+    static void ShowMayorMenu();
+
+    /**
+     * @brief Show Farmer Menu
+     */
+    static void ShowFarmerMenu();
+
+    /**
+     * @brief Show Stockman Menu
+     */
+    static void ShowStockmanMenu();
+
+    /**
+     * @brief Change the string to lowercase
+     * @return string in lowercase
+     */
+    static string LowerCase(string data);
 };
 
 #endif

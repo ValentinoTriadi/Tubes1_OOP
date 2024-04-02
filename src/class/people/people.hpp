@@ -4,6 +4,9 @@
 #include "../container/container.hpp"
 #include "Keuangan/StatusKeuangan.hpp"
 #include "../container/container.hpp"
+#include "../exception/GameException.hpp"
+#include "../toko/toko.hpp"
+#include "../Manager/InputManager/InputManager.hpp"
 
 class People{
     protected:

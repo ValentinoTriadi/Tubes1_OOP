@@ -52,10 +52,10 @@ private:
     void ReadConfig();
 
     /**
-     * End the game
+     * end the game
      * Usage: ```EndGame();```|
      */
-    void EndGame();
+    static void EndGame();
 
     /**
      * Start a new game
@@ -158,7 +158,7 @@ public:
      * Save the game
      * Implement the save game feature
      */
-    void simpan();
+    static void simpan();
 };
 
 #endif

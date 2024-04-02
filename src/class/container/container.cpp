@@ -170,8 +170,7 @@ void Container::deleteItem(int i, int j)
     }
     else
     {
-        // TODO: throw exception
-        cout << "Slot kosong" << endl;
+        throw "Cell is empty";
     }
 }
 
@@ -191,14 +190,40 @@ map<pair<string, int>, int> Container::getItems(){
         for (int j = 0; j < col; j++)
         {
             if (items[i][j] != nullptr){
-
-                // Create a pair of item code and price
                 pair<string, int> item = make_pair(items[i][j]->getCode(), items[i][j]->getHarga());
                 itemMap[item]++;
             }
         }
     }
     return itemMap;
+}
+
+map<string, int> Container::getFood(){
+    map<string, int> itemMap;
+    for (auto & row : items)
+    {
+        for (auto & item : row)
+        {
+            if (item != nullptr && dynamic_cast<Product*>(item)){
+                itemMap[item->getCode()]++;
+            }
+        }
+    }
+    return itemMap;
+}
+
+int Container::getFoodTotal() const{
+    int total = 0;
+    for (auto & row : items)
+    {
+        for (auto & item : row)
+        {
+            if (item != nullptr && dynamic_cast<Product*>(item)->getAddedWeight() > 0){
+                total++;
+            }
+        }
+    }
+    return total;
 }
 
 /**
@@ -357,4 +382,17 @@ Container& Container::operator=(const Container& container) {
     }
     
     return *this;
+}
+
+bool Container::isEmpty() const {
+    for (auto & row : items)
+    {
+        for (auto & item : row)
+        {
+            if (item != nullptr){
+                return false;
+            }
+        }
+    }
+    return true;
 }
