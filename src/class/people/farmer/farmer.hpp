@@ -16,6 +16,7 @@ class Farmer : public People {
 
         /**
          * Constructor untuk class Farmer
+         * @param nama nama dari farmer
          * @param weight berat badan dari farmer
          * @param keuangan keuangan dari farmer
          * @param type tipe dari farmer

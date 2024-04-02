@@ -132,8 +132,8 @@ Farmer::Farmer(const string& name, int weight, int Keuangan , int n_penyimpanan,
     this->ladang = Ladang(n_ladang, m_ladang);
 }
 
-void Farmer::setLadang(const Ladang &ladang) {
-    this->ladang = ladang;
+void Farmer::setLadang(const Ladang &Setladang) {
+    this->ladang = Setladang;
 }
 
 Ladang Farmer::getLadang() const {

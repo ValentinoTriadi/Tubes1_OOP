@@ -6,7 +6,8 @@
 #include <regex>
 InputManager::InputManager() = default;
 
-std::string InputManager::_inputData;
+template <typename T>
+T InputManager::_inputData;
 
 template <>
 int InputManager::StringToNumber(const string& data)
@@ -93,8 +94,8 @@ bool InputManager::isNumber(const string& data)
 
 void InputManager::receiveInput()
 {
-    _inputData.clear();
-    cin >> _inputData;
+    std::cin >> _inputData<string>;
+    std::cout << std::endl;
 }
 
 void InputManager::NewGameInput()
@@ -134,9 +135,9 @@ void InputManager::MayorMenuInputValidation()
     receiveInput();
     std::cout << std::endl;
 
-    int data = StringToNumber<int>(_inputData);
+    int data = StringToNumber<int>(_inputData<string>);
 
-    if (data < 1 || data > 9)
+    if (data < 1 || data > 10)
     {
         throw MenuException("Invalid Input: Please input between 1 and 10");
     }
@@ -168,7 +169,7 @@ void InputManager::StockmanMenuInputValidation()
 
     std::cout << "Pilihan: ";
     receiveInput();
-    int data = StringToNumber<int>(_inputData);
+    int data = StringToNumber<int>(_inputData<string>);
 
     if (data < 1 || data > 10)
     {
@@ -201,8 +202,8 @@ void InputManager::FarmerMenuInputValidation()
     std::cout << "Pilihan: ";
     receiveInput();
 
-    int data = StringToNumber<int>(_inputData);
-    if (data < 1 || data > 8)
+    int data = StringToNumber<int>(_inputData<string>);
+    if (data < 1 || data > 9)
     {
         throw MenuException("Invalid Input: Please input between 1 and 9");
     }
@@ -257,34 +258,32 @@ bool InputManager::isAlphabet(char data) {
     return data >= 'A' && data <= 'Z';
 }
 
-int InputManager::receiveIntInput() {
-    std::cin >> _inputData;
+void InputManager::receiveIntInput() {
+    std::cin >> _inputData<string>;
+    std::cout << std::endl;
 
-    if (!isNumber(_inputData)) {
+    if (!isNumber(_inputData<string>)) {
+        throw InputException("Invalid Input: Please input a number");
+    }
+
+    _inputData<int> = stoi(_inputData<string>);
+}
+
+void InputManager::receiveFloatInput() {
+    std::cin >> _inputData<string>;
+
+    if (!isNumber(_inputData<string>)) {
         throw InputException("Invalid Input: Please input a number");
     }
 
     std::cout << std::endl;
 
-    return stoi(_inputData) ;
+    _inputData<float> = stof(_inputData<string>);
 }
 
-float InputManager::receiveFloatInput() {
-    std::cin >> _inputData;
-
-    if (!isNumber(_inputData)) {
-        throw InputException("Invalid Input: Please input a number");
-    }
-
+void InputManager::receiveStringInput() {
+    std::cin >> _inputData<string>;
     std::cout << std::endl;
-
-    return (float) stof(_inputData);
-}
-
-string InputManager::receiveStringInput() {
-    std::cin >> _inputData;
-    std::cout << std::endl;
-    return _inputData;
 }
 
 bool InputManager::receiveBooleanInput(){
@@ -331,9 +330,9 @@ bool InputManager::receiveBooleanInput(){
     };
 
 
-    if (find(yes.begin(), yes.end(), _inputData) != yes.end()){
+    if (find(yes.begin(), yes.end(), _inputData<string>) != yes.end()){
         return true;
-    } else if (find(no.begin(), no.end(), _inputData) != no.end()){
+    } else if (find(no.begin(), no.end(), _inputData<string>) != no.end()){
         return false;
     }
     throw InputException("Invalid Input: Please input true or false");

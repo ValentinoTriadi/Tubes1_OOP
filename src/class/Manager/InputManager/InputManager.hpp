@@ -10,7 +10,8 @@ public:
 /**
      * @brief Input Manager Constructor
      */
-    static std::string _inputData;
+    template <typename T>
+    static T _inputData;
     InputManager();
 
     /**
@@ -23,19 +24,19 @@ public:
      * Receive input from user
      * Usage: ```receiveIntInput();```
      */
-    static int receiveIntInput();
+    static void receiveIntInput();
 
     /**
      * Receive input from user
      * Usage: ```receiveFloatInput();```
      */
-    static float receiveFloatInput();
+    static void receiveFloatInput();
 
     /**
      * Receive input from user
      * Usage: ```receiveStringInput();```
      */
-    static string receiveStringInput();
+    static void receiveStringInput();
 
     /**
      * Convert data input to int or float

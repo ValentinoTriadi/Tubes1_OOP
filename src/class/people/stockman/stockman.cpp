@@ -173,7 +173,7 @@ void Stockman::memberiPangan(){
 }
 
 void Stockman::panen(){
-    map<Animal, int> animals;
+    map<string, int> animals;
     // Check di peternakan ada hewan yang bisa dipanen ga + count yang bisa dipanen
     bool found = false;
     for (int i = 0; i < peternakan.getRow(); i++) {
@@ -182,10 +182,10 @@ void Stockman::panen(){
                 Animal animal = dynamic_cast<Animal&>(*peternakan(i,j));
                 if (animal.getWeight() >= animal.getHarvestLimit()){
                     found = true;
-                    if (animals.find(animal) == animals.end()){
-                        animals[animal] = 1;
+                    if (animals.find(animal.getCode()) == animals.end()){
+                        animals[animal.getCode()] = 1;
                     } else {
-                        animals[animal]++;
+                        animals[animal.getCode()]++;
                     }
                 }
             }
@@ -200,12 +200,12 @@ void Stockman::panen(){
     peternakan.showAnimal();
 
     // Check yang siap di panen + tampilin
-    map<Animal, int>::iterator it;
+    map<string, int>::iterator it;
     int i = 0;
     cout << endl << "Pilih hewan siap panen yang kamu miliki" << endl;
     for (it = animals.begin(); it != animals.end(); it++){
         i++;
-        cout << "  " << i << ". " << it->first.getCode() << " (" << it->second << " petak siap panen)" << endl;
+        cout << "  " << i << ". " << it->first << " (" << it->second << " petak siap panen)" << endl;
     }
     
     // validasi input ( nomor hewan + jumlah + petak yg mana)
@@ -223,8 +223,9 @@ void Stockman::panen(){
     for (int i = 1; i < n; i++){
         it++;
     }
-    string codeAnimal = it->first.getCode();
-    string namaAnimal = it->first.getNama();
+    string codeAnimal = it->first;
+    // TODO:get name by code
+    string namaAnimal = "";
     int countPetak = it->second;
 
     int c;

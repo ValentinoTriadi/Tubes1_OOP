@@ -11,6 +11,11 @@ class Mayor : public People {
 public:
     /*
      * Membuat objek mayor.
+     * @param nama nama dari mayor
+     * @param weight berat badan dari mayor
+     * @param keuangan keuangan dari mayor
+     * @param n_storage column storage yang dimiliki mayor
+     * @param m_storage row storage yang dimiliki mayor
      */
     Mayor(const string& nama, int weight, int keuangan, int n_storage, int m_storage);
 

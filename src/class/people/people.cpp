@@ -62,9 +62,9 @@ void People::menjual()
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << jumlahHarga <<" gulden!" << endl;
 }
 
-void People::setStorage(const Container &storage)
+void People::setStorage(const Container &Setstorage)
 {
-    this->storage = storage;
+    this->storage = Setstorage;
 }
 
 

@@ -69,7 +69,7 @@ void GameManager::StartGameValidation()
 {
     InputManager::NewGameInput();
 
-    string data = InputManager::_inputData;
+    string data = InputManager::_inputData<string>;
     if (data == "1")
     {
         StartNewGame();
@@ -123,15 +123,15 @@ void GameManager::MenuSelection(int type)
         switch (type) {
             case (1):
                 InputManager::MayorMenuInputValidation();
-                RunMayorSelection(stoi(InputManager::_inputData));
+                RunMayorSelection(stoi(InputManager::_inputData<string>));
                 break;
             case (2):
                 InputManager::FarmerMenuInputValidation();
-                RunFarmerSelection(stoi(InputManager::_inputData));
+                RunFarmerSelection(stoi(InputManager::_inputData<string>));
                 break;
             case (3):
                 InputManager::StockmanMenuInputValidation();
-                RunStockmanSelection(stoi(InputManager::_inputData));
+                RunStockmanSelection(stoi(InputManager::_inputData<string>));
                 break;
             default:
                 cout << "How did you get here?" << endl;

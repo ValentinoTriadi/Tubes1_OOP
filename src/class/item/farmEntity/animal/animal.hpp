@@ -53,6 +53,8 @@ class Animal final : public FarmEntity {
          */
         void print() const override;
 
+
+
     private:
         int Weight;
         string code_;
