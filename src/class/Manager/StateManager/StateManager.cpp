@@ -28,7 +28,7 @@ void StateManager::loadState(){
 }
 
 Farmer* StateManager::readFarmer(ifstream& file, string name, int money, int weight, vector<int> gameConfig){
-    Farmer* farmer = new Farmer(name, weight, money, 2, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+    Farmer* farmer = new Farmer(name, weight, money, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
     int countItems, plantCount;
 
     file >> countItems;
@@ -70,7 +70,7 @@ Farmer* StateManager::readFarmer(ifstream& file, string name, int money, int wei
 }
 
 Stockman* StateManager::readStockman(ifstream& file, string name, int money, int weight, vector<int> gameConfig){
-    Stockman* stockman = new Stockman(name, weight, money, 3, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+    Stockman* stockman = new Stockman(name, weight, money, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
     int countItems, countAnimal;
 
     file >> countItems;
@@ -112,7 +112,7 @@ Stockman* StateManager::readStockman(ifstream& file, string name, int money, int
 }
 
 Mayor* StateManager::readMayor(ifstream& file, string name, int money, int weight, vector<int> gameConfig){
-    Mayor* mayor = new Mayor(name, weight, money, 1, gameConfig[2], gameConfig[3]);
+    Mayor* mayor = new Mayor(name, weight, money, gameConfig[2], gameConfig[3]);
     int countItems, countAnimal;
 
     file >> countItems;

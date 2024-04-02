@@ -16,6 +16,7 @@ class Farmer : public People {
 
         /**
          * Constructor untuk class Farmer
+         * @param nama nama dari farmer
          * @param weight berat badan dari farmer
          * @param keuangan keuangan dari farmer
          * @param type tipe dari farmer
@@ -24,7 +25,7 @@ class Farmer : public People {
          * @param n_ladang column ladang yang dimiliki farmer
          * @param m_ladang row ladang yang dimiliki farmer
          */
-        Farmer(const string&, int,int,int,int,int,int,int);
+        Farmer(const string&, int,int,int,int,int,int);
 
         /**
          * @brief Destroy the Farmer object

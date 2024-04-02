@@ -1,5 +1,6 @@
 #include "GameManager.hpp"
 
+
 using namespace std;
 
 bool GameManager::_isGameOver = false;
@@ -49,27 +50,26 @@ void GameManager::AddUser(int weight, int Keuangan, int type)
 {
     if (type == 1)
     {
-        // TODO: Assign mayor to the list player
-        auto* temp_mayor = new Mayor("Mayor",40, 40, type , gameConfig[2], gameConfig[3]);
+        auto* temp_mayor = new Mayor("Mayor",40, 40 , gameConfig[2], gameConfig[3]);
         this->_listPlayer.add(temp_mayor);
     } else if (type == 2) {
-        // TODO: assign farmer to the list player
-        auto* temp_farmer = new Farmer("Petani1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+        auto* temp_farmer = new Farmer("Petani1",40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
         this->_listPlayer.add(temp_farmer);
     } else if (type == 3) {
-        // TODO: assign stockman to the list player
-        auto* temp_stockman = new Stockman("Peternak1",40, 40, type, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+        auto* temp_stockman = new Stockman("Peternak1",40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
         this->_listPlayer.add(temp_stockman);
     } else {
         // TODO: implement exception for add user
     }
 }
 
+
+
 void GameManager::StartGameValidation()
 {
     InputManager::NewGameInput();
 
-    string data = InputManager::_inputData;
+    string data = InputManager::_inputData<string>;
     if (data == "1")
     {
         StartNewGame();
@@ -117,21 +117,21 @@ void GameManager::StartTurn()
     this->_currentPlayer = _listPlayer.top();
 }
 
-void GameManager::MenuSelection(const int type)
+void GameManager::MenuSelection(int type)
 {
     try {
         switch (type) {
             case (1):
                 InputManager::MayorMenuInputValidation();
-                RunMayorSelection(stoi(InputManager::_inputData));
+                RunMayorSelection(stoi(InputManager::_inputData<string>));
                 break;
             case (2):
                 InputManager::FarmerMenuInputValidation();
-                RunFarmerSelection(stoi(InputManager::_inputData));
+                RunFarmerSelection(stoi(InputManager::_inputData<string>));
                 break;
             case (3):
                 InputManager::StockmanMenuInputValidation();
-                RunStockmanSelection(stoi(InputManager::_inputData));
+                RunStockmanSelection(stoi(InputManager::_inputData<string>));
                 break;
             default:
                 cout << "How did you get here?" << endl;
@@ -226,7 +226,7 @@ void GameManager::RunMayorSelection(int input) {
             break;
         case 9:
             if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)) {
-                mayor->tambahPemain();
+                mayor->tambahPemain(&_listPlayer);
             } else {
                 // Exception for invalid type
             }

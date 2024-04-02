@@ -1,5 +1,5 @@
 #include "mayor.hpp"
-#include "../../gameData/gameData.hpp"
+
 
 void Mayor::bangun() {
     cout << "Resep bangunan yang ada: " << endl;
@@ -51,10 +51,33 @@ void Mayor::bangun() {
             return;
         }
     }
+
+    cout << "Anda tidak memiliki resep untuk bangunan tersebut." << endl;
+    return;
 }
 
-Mayor::Mayor(const string& nama, int weight, int keuangan, int type, int n_storage, int m_storage) : People(nama,weight,keuangan,type,n_storage,m_storage){}
+Mayor::Mayor(const string& nama, int weight, int keuangan, int n_storage, int m_storage) : People(nama,weight,keuangan,1,n_storage,m_storage){}
 
-void Mayor::tambahPemain() {
+void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
+    cout << "Masukkan jenis pemain: ";
+    string pekerjaan;
+    cin >> pekerjaan;
+    cout << endl;
 
+    cout << "Masukkan nama pemain: ";
+    string nama;
+    cin >> nama;
+    cout << endl;
+
+    // TODO : MAKE static const constructor with default value from game data.
+    if (pekerjaan == "farmer"){
+        listPlayer->add(new Farmer(nama, 50, 100, 3, 3, 3, 3));
+    } else if (pekerjaan == "stockman"){
+        listPlayer->add(new Stockman(nama, 50, 100, 3, 3, 3, 3));
+    } else if (pekerjaan == "mayor"){
+        listPlayer->add(new Mayor(nama, 50, 100, 3, 3));
+    } else {
+        cout << "Pekerjaan tidak valid." << endl;
+    }
 }
+

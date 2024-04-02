@@ -38,7 +38,7 @@ class Stockman : public People{
          * @param n_peternakan
          * @param m_peternakan
         */
-        Stockman(const string& , int, int, int, int, int, int, int);
+        Stockman(const string& , int, int, int, int, int, int);
         /**
          * @brief Destroy the Stockman object
         */

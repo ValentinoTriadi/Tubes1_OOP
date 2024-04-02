@@ -6,7 +6,7 @@ int main()
     cout << "Test ReceiveInput : " << endl;
     InputManager::receiveInput();
     cout << "Result: " << endl;
-    cout << InputManager::_inputData << endl;
+    cout << InputManager::_inputData<string> << endl;
 
     cout << "Test New Game Input: " << endl;
     InputManager::NewGameInput();
