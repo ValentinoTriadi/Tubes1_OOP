@@ -49,7 +49,15 @@ Container::Container(int row, int col)
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container(){}
+Container::~Container(){
+    for (int i = 0; i < row; i++){
+        for (int j = 0; j < col; j++){
+            if (items[i][j] != nullptr){
+                delete items[i][j];
+            }
+        }
+    }
+}
 
 /**
  * @brief Sets the row value of the Container.
@@ -122,6 +130,11 @@ int Container::getCellKosong() const
  */
 void Container::setItem(int i, int j, Item *item)
 {
+    if (i >= row || j >= col){
+        // TODO: throw exception
+        cout << "Index out of bound" << endl;
+    }
+
     if (items[i][j] == nullptr)
     {
         items[i][j] = item;
@@ -168,6 +181,24 @@ void Container::deleteItem(string slot)
     int j = stoi(slot.substr(1, 2)) - 1;
 
     deleteItem(i, j);
+}
+
+map<pair<string, int>, int> Container::getItems(){
+    map<pair<string, int>, int> itemMap;
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (items[i][j] != nullptr){
+
+                // Create a pair of item code and price
+                pair<string, int> item = make_pair(items[i][j]->getCode(), items[i][j]->getHarga());
+                itemMap[item]++;
+            }
+        }
+    }
+    return itemMap;
 }
 
 /**
@@ -289,6 +320,7 @@ ostream &Container::printRow(ostream &os, int row) const
  */
 ostream &operator<<(ostream &os, const Container &container)
 {
+    os << "=================[ Penyimpanan ]==================" << endl << endl;
     // print column name
     container.printColumnName(os);
     container.printSeparator(os);

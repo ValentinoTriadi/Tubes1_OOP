@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
+#include <utility>
 #include "../item/item.hpp"
 #include "../gameData/gameData.hpp"
 
@@ -80,6 +82,15 @@ public:
     [[nodiscard]] int getRow() const;
     [[nodiscard]] int getCol() const;
     [[nodiscard]] int getCellKosong() const;
+
+    /**
+     * Retrieves the items stored in the container.
+     *
+     * @return A map containing the items as key-value pairs, where the key is a pair of strings
+     *         representing the item's code and price, and the value is an integer representing
+     *         the quantity of the item.
+     */
+    map<pair<string, int>, int> getItems();
 
     /**
      * @brief Returns the item at the specified position in the container.

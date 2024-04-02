@@ -3,6 +3,9 @@
 StateManager::StateManager(){};
 
 StateManager::~StateManager(){
+    for (int i = 0; i < _listPlayer.size(); i++){
+        delete _listPlayer[i];
+    }
 };
 
 void StateManager::defaultState(){

@@ -18,13 +18,12 @@ Ladang::Ladang(int row, int col) : Container(row, col) {
     }
 }
 
-Ladang::Ladang(const Ladang& ladang) : Container(ladang) {
-}
+Ladang::Ladang(const Ladang& ladang) : Container(ladang) {}
 
-Ladang::~Ladang() {
-}
+Ladang::~Ladang() {}
 
 Ladang& Ladang::operator=(const Ladang& ladang) {
+    // Copy the attributes of the specified ladang object
     this->row = ladang.row;
     this->col = ladang.col;
     this->cellKosong = ladang.cellKosong;
@@ -56,8 +55,10 @@ ostream& Ladang::printRow(ostream& os, int row) const {
         // Print the item code if it is not nullptr
         if (items[row][i] != nullptr) {
             if (isReadyToHarvest(items[row][i])){
+                // Print the item code in green if it is ready to harvest
                 os << "\033[32m " << items[row][i]->getCode() << "\033[0m ";
             } else {
+                // Print the item code in red if it is not ready to harvest
                 os << "\033[31m " << items[row][i]->getCode() << "\033[0m ";
             }
         } else {
@@ -71,12 +72,16 @@ ostream& Ladang::printRow(ostream& os, int row) const {
 }
 
 void Ladang::showPlant(){
+    // Inisialisasi set untuk menyimpan kode tanaman yang sudah ditampilkan
     set<string> temp;
 
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             if (items[i][j] != nullptr){
+                // Print the item code if it is not nullptr
                 if (temp.find(items[i][j]->getCode()) == temp.end()){
+
+                    // Insert the item code to the set
                     temp.insert(items[i][j]->getCode());
                     std::cout <<  " - " << items[i][j]->getCode() << " : " << items[i][j]->getNama() << endl;
                 }
@@ -86,11 +91,14 @@ void Ladang::showPlant(){
 }
 
 map<string, int> Ladang::getHarvest(){
+    // Inisialisasi map untuk menyimpan kode tanaman yang siap dipanen
     map<string, int> temp;
 
     for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
             if (items[i][j] != nullptr){
+
+                // Increment the count of the item code if it is ready to harvest
                 if (isReadyToHarvest(items[i][j])) temp[items[i][j]->getCode()]++;
             }
         }
@@ -100,6 +108,7 @@ map<string, int> Ladang::getHarvest(){
 }
 
 ostream& operator<<(ostream& os, const Ladang& ladang) {
+    // Print the ladang object
     os << "=================[ Ladang ]==================" << endl << endl;
 
     ladang.printColumnName(os);
@@ -114,5 +123,6 @@ ostream& operator<<(ostream& os, const Ladang& ladang) {
 }
 
 bool Ladang::isReadyToHarvest(Item* item) const {
+    // Check if the item is ready to be harvested
     return dynamic_cast<Plant*>(item)->getAge() >= dynamic_cast<Plant*>(item)->getHarvestLimit();
 }
