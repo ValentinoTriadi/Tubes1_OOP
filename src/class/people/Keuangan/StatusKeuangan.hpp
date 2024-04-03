@@ -9,15 +9,17 @@ class StatusKeuangan {
 private:
     int money = 0;
     int NonUang = 0;
-    static int ktkp;
+    const int ktkp;
 
 public:
     /*
      * Membuat class status keuangan baru dengan parameter uang
      * set 0 untuk nonUang
+     * set ktkp sesuai nilai
      * @param money amount
+     * @param type of ktkp
      */
-    explicit StatusKeuangan(int);
+    explicit StatusKeuangan(int,int);
 
     /*
      * Fungsi untuk menghitung pajak yang harus dibayar.
@@ -40,6 +42,17 @@ public:
     // Getter for money
     [[nodiscard]] int GetMoney() const{return money;}
 
+    /**
+     * Getter for NonUang
+     * @return NonUang
+     */
+    [[nodiscard]] int GetNonUang() const{return NonUang;}
+
+    /**
+     * Hitung NonUang
+     * Usage: ```HitungNonUang();```
+     */
+    void HitungNonUang();
 };
 
 #endif //STATUSKEUANGAN_H
