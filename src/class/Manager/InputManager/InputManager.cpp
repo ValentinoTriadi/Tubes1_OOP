@@ -370,7 +370,7 @@ void InputManager::StateManagerLoadStateFromFileInputValidation()
     string data_check = DataConverter::LowerCase(_inputData<string>);
     if (!_file_data.is_open())
     {
-        throw InputException("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: (Input Back_to_main_menu untuk kembali ke halaman awal!!)");
+        throw InputException("File tidak bisa dibuka, Berkas tidak ditemukan !!! ");
     }
 }
 

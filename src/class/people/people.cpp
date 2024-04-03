@@ -53,10 +53,6 @@ void People::makan()
         {
             cout << e.what() << endl;
         }
-        catch (InputException e)
-        {
-            cout << e.what() << endl;
-        }
     }
 
     Product product = dynamic_cast<Product &>(*makanan);
@@ -140,10 +136,6 @@ Item People::membeli()
     {
         cout << e.what() << endl;
     }
-    catch (InputException e)
-    {
-        cout << e.what() << endl;
-    }
     return *itemtobuy;
 }
 
@@ -173,9 +165,7 @@ void People::menjual()
             storage.deleteItem(slot.first, slot.second);
             Toko::addItems(itemtosell);
         }
-    }
-    catch (InputException e)
-    {
+    }catch(GameException& e){
         cout << e.what() << endl;
     }
 }
