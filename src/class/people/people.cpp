@@ -64,24 +64,29 @@ void People::makan()
     }
 }
 
-Item People::membeli()
+void People::membeli()
 {
     try {
-        cout << "Selamat datang di toko!!" << endl;
-        cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+        cout << "Selamat datang di toko!!\n";
+        cout << "Berikut merupakan hal yang dapat Anda Beli\n";
 
         Toko::displayToko();
 
-        cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
-        cout << "Slot penyimpanan tersedia:" << endl;
+        cout << "Uang Anda : " << Keuangan.GetMoney() << " gulden.\n";
+        cout << "Slot penyimpanan tersedia: " << storage.getCellKosong() << " petak\n";
+
 
         InputManager::receiveIntInput("Barang ingin dibeli : ");
         int buy = InputManager::_inputData<int>;
-        InputManager::receiveIntInput("Kuantitas : ");
-        int quantity = InputManager::_inputData<int>;
-        cout << endl;
 
         Item *itemtobuy = Toko::getItemAt(buy - 1);
+        if (itemtobuy == nullptr)
+        {
+            throw ItemNotFoundException("");
+        }
+
+        InputManager::receiveIntInput("Kuantitas : ");
+        int quantity = InputManager::_inputData<int>;
 
         if (storage.getCellKosong() < quantity) {
             throw FullException("penyimpanan");
@@ -92,30 +97,40 @@ Item People::membeli()
             cout << itemtobuy->getNama();
 
             Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
-            cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
+            cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden\n";
 
-            cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
-            cetakPenyimpanan();
+            cout << "Pilih slot untuk menyimpan barang yang Anda beli!\n";
 
-            cout << "Petak Slot: ";
-            while (true) {
-                vector<std::pair<int, int>> temp = DataConverter::GetMultipleRowCol();
-                if (temp.size() == quantity) {
-                    vector<std::pair<int, int>>::iterator it = temp.begin();
-                    for (int i = 0; i < quantity; i++) {
-                        storage.setItem(it->first, it->second, itemtobuy);
-                        Toko::removeItems(itemtobuy);
-                        it++;
+
+            while (true){
+                try {
+                    cetakPenyimpanan();
+                    cout << "petak : ";
+                    vector<pair<int, int>> petak = DataConverter::GetMultipleRowCol(quantity);
+                    int temp = quantity;
+                    for (int i = 0; i < temp; i++)
+                    {
+                        // Validasi petak index
+                        if (petak[i].second < 0 || petak[i].second >= storage.getCol() || petak[i].first >= storage.getRow() || petak[i].first < 0) {
+                            throw IndexOutOfBoundException();
+                        }
+
+                        if (storage(petak[i].second, petak[i].first) != nullptr)
+                        {
+                            throw NotEmptyCellException(DataConverter::itos(petak[i].second , petak[i].first));
+                        }
+
+                        storage.setItem(petak[i].second, petak[i].first, itemtobuy);
+                        quantity--;
                     }
+                    cout << "Barang berhasil disimpan!" << endl;
                     break;
-                } else {
-                    cout << "Jumlah input slot tidak sesuai dengan quantity yang dibeli!\n";
+                } catch (GameException &e) {
+                    cout << e.what() << endl;
                 }
             }
-            cout << "Barang berhasil disimpan!" << endl;
         }
-        return *itemtobuy;
-    } catch (GameException& e){
+    } catch (GameException &e) {
         cout << e.what() << endl;
     }
 }

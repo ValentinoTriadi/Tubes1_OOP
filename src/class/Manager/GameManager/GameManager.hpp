@@ -24,6 +24,7 @@ private:
 
     // Game Data
     GameData _gameData;
+    Toko _toko;
 
     int _moneyToWin{};
     float _weightToWin{};
@@ -31,7 +32,6 @@ private:
 
     // Local Variable
     static bool _isGameOver;
-    static int _currentTurn;
     static Mayor _mayor;
     string _inputChecker;
 

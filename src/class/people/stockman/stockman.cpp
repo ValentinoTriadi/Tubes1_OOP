@@ -8,17 +8,17 @@ Stockman::Stockman(const string& name, int weight, int Keuangan,int n_penyimpana
 Stockman::~Stockman() = default;
 
 bool Stockman::CheckHewan(const string& kode){
-    // bool found = false;
-    // for (auto & i : GameData::_animalConfig) {
-    //     if (i.getCode() == kode) {
-    //         found = true;
-    //         break;
-    //     }
-    // }
-    // return found;
-
-    // Optimized version
-    // find_if -> find from start to end of vector which meets the lambda function condition
+//     bool found = false;
+//     for (auto & i : GameData::_animalConfig) {
+//         if (i.getCode() == kode) {
+//             found = true;
+//             break;
+//         }
+//     }
+//     return found;
+//
+//     Optimized version
+//     find_if -> find from start to end of vector which meets the lambda function condition
     if (find_if(GameData::_animalConfig.begin(), GameData::_animalConfig.end(), [&kode](const Animal& animal) { return animal.getCode() == kode; }) != GameData::_animalConfig.end())
        return true;
     return false;
@@ -111,6 +111,11 @@ void Stockman::memberiPangan(){
         cout << "Petak kandang: ";
         pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
 
+        // Validasi petak index
+        if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
+            throw NotValidException("Petak");
+        }
+
         if (this->peternakan(petakIndex.second, petakIndex.first) == nullptr) {
             throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
         }
@@ -129,6 +134,11 @@ void Stockman::memberiPangan(){
         cout << "Pilih pangan yang akan diberikan" << endl;
         cetakPenyimpanan();
         pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
+
+        // Validasi slot index
+        if (slotIndex.second < 0 || slotIndex.second >= storage.getCol() || slotIndex.first < 0 || slotIndex.first >= storage.getRow()) {
+            throw NotValidException("Slot");
+        }
 
         // Validasi slot kosong
         if (storage(slotIndex.second, slotIndex.first) == nullptr) {
@@ -190,8 +200,7 @@ void Stockman::panen(){
         }
 
         // Input nomor hewan yang ingin dipanen
-        cout << "Nomor hewan yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Nomor hewan yang ingin dipanen: ");
         int nomor = InputManager::_inputData<int>;
         if (nomor <= 0 || nomor > animals.size()){
             throw NotValidException("Nomor hewan");
@@ -205,8 +214,7 @@ void Stockman::panen(){
         int countPetak = it->second;
 
         // Input jumlah petak yang ingin dipanen
-        cout << "Berapa petak yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
         int jumlah = InputManager::_inputData<int>;
         if (jumlah <= 0 || jumlah > countPetak){
             throw PetakMelebihiException();
@@ -214,7 +222,7 @@ void Stockman::panen(){
 
         // Exception jika storage penuh
         if (storage.getCellKosong() < jumlah){
-            throw StorageFullException();
+            throw FullException("penyimpanan");
         }
 
         // Input petak yang ingin dipanen

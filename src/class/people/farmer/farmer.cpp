@@ -145,8 +145,7 @@ void Farmer::panen() {
             std::cout << "  " << i << ". " << it->first << " (" << it->second << " petak siap panen)" << endl;
         }
 
-        std::cout << "Nomor tanaman yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Nomor tanaman yang ingin dipanen: ");
         int nomor = InputManager::_inputData<int>;
 
         // Validasi input
@@ -164,8 +163,7 @@ void Farmer::panen() {
         string namePlant = getNameByCode(codePlant);
 
 
-        std::cout<< "Berapa petak yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
         int jumlah = InputManager::_inputData<int>;
 
         // Validasi input
@@ -177,7 +175,7 @@ void Farmer::panen() {
 
         // validasi inventory
         if (storage.getCellKosong() < jumlah){
-            throw StorageFullException();
+            throw FullException("penyimpanan");
         }
 
 

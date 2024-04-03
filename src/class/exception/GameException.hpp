@@ -342,4 +342,30 @@ class NotEnoughGuldenOrItemException : public GameException {
         }
 };
 
+/*
+ * Class Exception untuk Toko
+ */
+
+class ItemNotFoundException : public GameException {
+    string message;
+public:
+    ItemNotFoundException(string message) {
+        this->message = std::move(message);
+    }
+    string what() override {
+        return "Item " + message + " tidak ditemukan";
+    }
+};
+
+class NotEmptyCellException : public GameException {
+    string message;
+public:
+    NotEmptyCellException(string message) {
+        this->message = std::move(message);
+    }
+    string what() override {
+        return "Petak " + message + " sudah terisi";
+    }
+};
+
 #endif
