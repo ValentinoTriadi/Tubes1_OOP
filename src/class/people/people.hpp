@@ -7,6 +7,7 @@
 #include "../exception/GameException.hpp"
 #include "../toko/toko.hpp"
 #include "../Manager/InputManager/InputManager.hpp"
+#include <algorithm>
 
 class People{
     protected:
@@ -120,6 +121,11 @@ class People{
          * Menghitung nilai non uang
          */
         void HitungNonUang();
+
+        /**
+         * @brief get name by code
+        */
+        virtual string getNameByCode(const string&) const = 0;
 
 };
 

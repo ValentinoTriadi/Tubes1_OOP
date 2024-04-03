@@ -2,6 +2,7 @@
 #define STOCKMAN_HPP
 #include "../people.hpp"
 #include "../../container/peternakan/peternakan.hpp"
+
 /**
  * @param weight
  * @param Keuangan
@@ -19,13 +20,7 @@ class Stockman : public People{
         * @return true if there is an animal in the storage, false if there is no animal in the storage
         */
         bool CheckHewan(const string&);
-        /**
-         * @brief Convert index to slot
-         * @param index i
-         * @param index j
-         * @return slot
-        */
-        string itos(int, int);
+
     public:
         /**
          * @brief Construct a new Stockman object
@@ -72,6 +67,11 @@ class Stockman : public People{
          * @brief Get Peternakan
         */
         [[nodiscard]] Peternakan getPeternakan() const;
+
+        /**
+         * @brief get name animal by code
+        */
+        string getNameByCode(const string&) const override;
 };
 
 
