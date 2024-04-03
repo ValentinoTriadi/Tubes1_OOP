@@ -23,63 +23,33 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
-    try
-    {
-        if (storage.getFoodTotal() == 0)
-            throw StorageEmptyException();
-    }
-    catch (StorageEmptyException &e)
-    {
-        cout << e.what() << endl;
+    if (storage.getFoodTotal() == 0) {
+        cout << "Storage is empty." << endl;
         return;
     }
 
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetakPenyimpanan();
-    pair<int, int> slot;
-    Item *makanan;
+    pair<int, int> slot = DataConverter::GetSingleRowCol();
 
-    while (true)
-    {
-        try
-        {
-            slot = DataConverter::GetSingleRowCol();
-            makanan = storage(slot.second, slot.first);
-            if (makanan == nullptr)
-            {
-                throw FoodEmptyException();
-            }
-            break;
-        }
-        catch (GameException &e)
-        {
-            cout << e.what() << endl;
-        }
-    }
-
-
-
-    try {
-        auto & test_product = dynamic_cast<Product &>(*makanan);
-    } catch (bad_cast &e) {
-        cout << "Item yang dipilih bukan produk" << endl;
+    if (slot.first < 0 || slot.first >= storage.getCol() || slot.second >= storage.getRow() || slot.second < 0) {
+        cout << "Index out of bounds." << endl;
         return;
     }
 
-    Product product = dynamic_cast<Product &>(*makanan);
-
-
-    try
-    {
-        if (product.getAddedWeight() == 0)
-            throw InvalidFoodTypeException();
-    }
-    catch (InvalidFoodTypeException &e)
-    {
-        cout << e.what() << endl;
+    Item *makanan = storage(slot.second, slot.first);
+    if (makanan == nullptr) {
+        cout << "Food is empty." << endl;
+        return;
     }
 
-    Weight += product.getAddedWeight();
+    auto* product = dynamic_cast<Product*>(makanan);
+    if (product == nullptr || product->getAddedWeight() == 0) {
+        cout << "Invalid food type." << endl;
+        return;
+    }
+
+    Weight += product->getAddedWeight();
     storage.deleteItem(slot.second, slot.first);
     cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
     cout << "Alhasil, berat badan kamu naik menjadi " << GetWeight() << endl;

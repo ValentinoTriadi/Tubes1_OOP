@@ -69,7 +69,7 @@ class Stockman : public People{
         */
         string getNameByCode(const string&) const override;
 
-    static long join(vector<string> vector1, const char *string);
+    static long join(const vector<string>& vector1, const char *string);
 };
 
 

@@ -134,6 +134,7 @@ void Stockman::memberiPangan(){
         if (storage(slotIndex.second, slotIndex.first) == nullptr) {
             throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         }
+
         // Validasi slot bukan product
         if (storage(slotIndex.second, slotIndex.first)->getItemType() != 0){
             throw NotException("product");
@@ -161,8 +162,8 @@ void Stockman::memberiPangan(){
 
         peternakan.setItem(petakIndex.second, petakIndex.first, &animal);
         // hapus dari penyimpanan
-        storage.deleteItem(DataConverter::itos(slotIndex.second, slotIndex.first));
-
+        storage.deleteItem(slotIndex.second, slotIndex.first);
+        cout << animal.getNama() <<" sudah diberi makan dan beratnya menjadi " << animal.getWeight() << endl;
     } catch (GameException& e) {
         cout << e.what() << endl;
     }
@@ -274,7 +275,7 @@ Peternakan Stockman::getPeternakan() const {
     return peternakan;
 }
 
-long Stockman::join(vector<string> vector1, const char *string) {
+long Stockman::join(const vector<string>& vector1, const char *string) {
     long result = 0;
     for (const auto & i : vector1) {
         result += i.length();

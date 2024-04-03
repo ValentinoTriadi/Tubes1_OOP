@@ -46,6 +46,15 @@ public:
     }
 };
 
+class IndexOutOfBoundException : public GameException
+{
+public:
+    string what() override
+    {
+        return "Index out of bound";
+    }
+};
+
 class RunException : public GameException
 { // utk mayor run & stockman run & farmer run
 private:

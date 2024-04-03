@@ -154,7 +154,7 @@ string DataConverter::LowerCase(string data)
 }
 
 string DataConverter::itos(int j, int i){
-    string slot = "";
+    string slot;
     slot += (char)(i + 'A');
     string temp = to_string(j+1);
     if (temp.length() == 1) slot += "0";

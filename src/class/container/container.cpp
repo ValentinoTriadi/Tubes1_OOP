@@ -163,14 +163,19 @@ void Container::setItem(Item *item)
 
 void Container::deleteItem(int i, int j)
 {
-    if (items[i][j] != nullptr)
+    try {
+        if (items[i][j] != nullptr)
+        {
+            items[i][j] = nullptr;
+            cellKosong++;
+        }
+        else
+        {
+            throw "Cell is empty";
+        }
+    } catch (const char *msg)
     {
-        items[i][j] = nullptr;
-        cellKosong++;
-    }
-    else
-    {
-        throw "Cell is empty";
+        cerr << msg << endl;
     }
 }
 
@@ -178,7 +183,6 @@ void Container::deleteItem(string slot)
 {
     int i = slot[0] - 'A';
     int j = stoi(slot.substr(1, 2)) - 1;
-
     deleteItem(i, j);
 }
 
