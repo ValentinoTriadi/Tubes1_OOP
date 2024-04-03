@@ -7,6 +7,42 @@ InputManager::InputManager() = default;
 template <typename T>
 T InputManager::_inputData;
 
+std::vector<std::string> InputManager::yes = {
+        "true",
+        "yes",
+        "y",
+        "1",
+        "ya",
+        "benar",
+        "iya",
+        "betul",
+        "bener",
+        "ril",
+        "iyalah",
+        "yup",
+        "yap",
+        "yoi",
+        "yups",
+        "yay",
+};
+
+std::vector<std::string> InputManager::no = {
+        "n",
+        "no",
+        "false",
+        "0",
+        "tidak",
+        "tak",
+        "nggak",
+        "ngga",
+        "gak",
+        "g",
+        "t",
+        "nein",
+        "ora",
+        "hell no",
+};
+
 void InputManager::receiveInput()
 {
     std::cout << "Pilihan: ";
@@ -135,22 +171,24 @@ void InputManager::ShowStockmanMenu()
     std::cout << "(1): "
               << "Cetak Peternakan\n";
     std::cout << "(2): "
-              << "Ternak\n";
+              << "Cetak Penyimpanan\n";
     std::cout << "(3): "
-              << "Makan\n";
+              << "Ternak\n";
     std::cout << "(4): "
-              << "Memberi Pangan\n";
+              << "Makan\n";
     std::cout << "(5): "
-              << "Membeli\n";
+              << "Memberi Pangan\n";
     std::cout << "(6): "
-              << "Menjual\n";
+              << "Membeli\n";
     std::cout << "(7): "
-              << "Memanen\n";
+              << "Menjual\n";
     std::cout << "(8): "
-              << "Muat\n";
+              << "Memanen\n";
     std::cout << "(9): "
-              << "Simpan\n";
+              << "Muat\n";
     std::cout << "(10): "
+              << "Simpan\n";
+    std::cout << "(11): "
               << "Next Turn\n";
 }
 
@@ -164,41 +202,45 @@ void InputManager::StockmanMenuInputValidation()
     {
         _inputData<int> = 1;
     }
-    else if (_inputData<string> == "ternak")
+    else if (_inputData<string> == "cetak_penyimpanan")
     {
         _inputData<int> = 2;
     }
-    else if (_inputData<string> == "makan")
+    else if (_inputData<string> == "ternak")
     {
         _inputData<int> = 3;
     }
-    else if (_inputData<string> == "memberi_pangan")
+    else if (_inputData<string> == "makan")
     {
         _inputData<int> = 4;
     }
-    else if (_inputData<string> == "membeli")
+    else if (_inputData<string> == "memberi_pangan")
     {
         _inputData<int> = 5;
     }
-    else if (_inputData<string> == "menjual")
+    else if (_inputData<string> == "membeli")
     {
         _inputData<int> = 6;
     }
-    else if (_inputData<string> == "memanen")
+    else if (_inputData<string> == "menjual")
     {
         _inputData<int> = 7;
     }
-    else if (_inputData<string> == "muat")
+    else if (_inputData<string> == "memanen")
     {
         _inputData<int> = 8;
     }
-    else if (_inputData<string> == "simpan")
+    else if (_inputData<string> == "muat")
     {
         _inputData<int> = 9;
     }
-    else if (_inputData<string> == "next turn")
+    else if (_inputData<string> == "simpan")
     {
         _inputData<int> = 10;
+    }
+    else if (_inputData<string> == "next turn")
+    {
+        _inputData<int> = 11;
     }
     else
     {
@@ -280,29 +322,43 @@ void InputManager::FarmerMenuInputValidation()
 
 void InputManager::receiveIntInput()
 {
-    std::cin >> _inputData<string>;
-    std::cout << std::endl;
-
-    if (!DataConverter::isNumber(_inputData<string>))
+    while (true)
     {
-        throw InputException("Invalid Input: Please input a number");
-    }
+        try {
+            std::cin >> _inputData<string>;
+            std::cout << std::endl;
 
-    _inputData<int> = stoi(_inputData<string>);
+            if (!DataConverter::isNumber(_inputData<string>))
+            {
+                throw InputException("Invalid Input: Please input a number");
+            }
+
+            _inputData<int> = stoi(_inputData<string>);
+            break;
+        } catch (InputException& e) {
+            std::cout << e.what() << std::endl;
+        }
+    }
 }
 
 void InputManager::receiveFloatInput()
 {
-    std::cin >> _inputData<string>;
+    while (true){
+        try {
+            std::cin >> _inputData<string>;
+            std::cout << std::endl;
 
-    if (!DataConverter::isNumber(_inputData<string>))
-    {
-        throw InputException("Invalid Input: Please input a number");
+            if (!DataConverter::isNumber(_inputData<string>))
+            {
+                throw InputException("Invalid Input: Please input a number");
+            }
+
+            _inputData<float> = stof(_inputData<string>);
+            break;
+        } catch (InputException& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
-
-    std::cout << "\n";
-
-    _inputData<float> = stof(_inputData<string>);
 }
 
 void InputManager::receiveStringInput()
@@ -313,54 +369,24 @@ void InputManager::receiveStringInput()
 
 bool InputManager::receiveBooleanInput()
 {
-    receiveStringInput();
+    while (true) {
+        try{
+            receiveStringInput();
 
-    _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+            _inputData<string> = DataConverter::LowerCase(_inputData<string>);
 
-    vector<string> yes, no;
-    yes = {
-        "true",
-        "yes",
-        "y",
-        "1",
-        "ya",
-        "benar",
-        "iya",
-        "betul",
-        "bener",
-        "ril",
-        "iyalah",
-        "yup",
-        "yap",
-        "yoi",
-        "yups",
-        "yay",
-    };
 
-    no = {
-        "n",
-        "no",
-        "false",
-        "0",
-        "tidak",
-        "tak",
-        "nggak",
-        "ngga",
-        "gak",
-        "g",
-        "t",
-        "nein",
-        "ora",
-        "hell no",
-    };
-
-    if (find(yes.begin(), yes.end(), _inputData<string>) != yes.end())
-    {
-        return true;
+            if (find(yes.begin(), yes.end(), _inputData<string>) != yes.end())
+            {
+                return true;
+            }
+            else if (find(no.begin(), no.end(), _inputData<string>) != no.end())
+            {
+                return false;
+            }
+            throw InputException("Invalid Input: Please input true or false");
+        } catch (InputException& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
-    else if (find(no.begin(), no.end(), _inputData<string>) != no.end())
-    {
-        return false;
-    }
-    throw InputException("Invalid Input: Please input true or false");
 }

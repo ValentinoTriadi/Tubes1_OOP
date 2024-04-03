@@ -32,6 +32,8 @@ public:
     void tambahPemain(roundRobin<People *> *listPlayer);
 
     void PrintBuildingRecipe();
+
+    string getNameByCode(const string &) const;
 };
 
 #endif

@@ -153,7 +153,7 @@ string DataConverter::LowerCase(string data)
     return data;
 }
 
-string DataConverter::itos(int i, int j){
+string DataConverter::itos(int j, int i){
     string slot = "";
     slot += (char)(i + 'A');
     string temp = to_string(j+1);

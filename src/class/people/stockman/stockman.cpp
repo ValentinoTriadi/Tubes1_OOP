@@ -44,16 +44,8 @@ void Stockman::cetakPeternakan(){
 
 void Stockman::ternak(){
     try {
-        // Check adakah hewan di penyimpanan
-        bool found = false;
-        for (int i = 0; i < storage.getRow(); i++) {
-            for (int j = 0; j < storage.getCol(); j++) {
-                if (storage(i,j) != nullptr && CheckHewan(storage(i,j)->getCode())){
-                    found = true;
-                    break;
-                }
-            }
-        }
+        // Check adakah hewan di penyimpanam
+        bool found = storage.isAnyAnimal();
         if (!found) {
             throw NotInException("tumbuhan", "penyimpanan");
         }
@@ -66,27 +58,41 @@ void Stockman::ternak(){
         cout << "Slot: ";
         pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
 
+        // Valisasikan slot index
+        if (slotIndex.second < 0 || slotIndex.second >= storage.getCol() || slotIndex.first < 0 || slotIndex.first >= storage.getRow()) {
+            throw NotValidException("Slot");
+        }
+
         // Validate slot
-        if (storage(slotIndex.first, slotIndex.second) == nullptr) {
-            throw KosongException("Slot" + DataConverter::itos(slotIndex.first, slotIndex.second));
-        } else if (!CheckHewan(storage(slotIndex.first, slotIndex.second)->getCode())) {
+        if (storage(slotIndex.second, slotIndex.first) == nullptr) {
+            throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
+        } else if (!CheckHewan(storage(slotIndex.second, slotIndex.first)->getCode())) {
             throw NotException("hewan");
         }
 
-        cout << "Pilih petak tanah yang akan ditinggali" << endl;
+        cout << "Pilih petak tanah yang akan ditinggali\n";
 
         cetakPeternakan();
 
         cout << "Petak tanah: ";
         pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
 
-        if (this->peternakan(petakIndex.first, petakIndex.second) != nullptr) {
-            throw PetakSudahTerisiException(DataConverter::itos(petakIndex.first, petakIndex.second));
+        if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
+            throw NotValidException("Slot");
+        }
+
+        Item * hewan;
+        if (this->peternakan(petakIndex.second, petakIndex.first) != nullptr) {
+            throw PetakSudahTerisiException(DataConverter::itos(petakIndex.second, petakIndex.first));
         } else {
             // SUCCESS
-            this->peternakan.setItem(petakIndex.first, petakIndex.second, storage(slotIndex.first, slotIndex.second));
-            this->storage.deleteItem(slotIndex.first, slotIndex.second);
+            hewan = storage(slotIndex.second, slotIndex.first);
+            this->peternakan.setItem(petakIndex.second, petakIndex.first, hewan);
+            this->storage.deleteItem(slotIndex.second, slotIndex.first);
         }
+
+        cout << "Dengan hati-hati, kamu meletakkan seekor "<< hewan->getNama() << " di kandang.\n";
+        cout <<  hewan->getNama() <<" telah menjadi peliharaanmu sekarang!" << endl;
     } catch (GameException& e) {
         cout << e.what() << endl;
     }
@@ -95,44 +101,26 @@ void Stockman::ternak(){
 void Stockman::memberiPangan(){
     try{
         // Check di peternakan ada hewan ga
-        bool found = false;
-        for (int i = 0; i < peternakan.getRow(); i++) {
-            for (int j = 0; j < peternakan.getCol(); j++) {
-                if (peternakan(i,j) != nullptr){
-                    found = true;
-                    break;
-                }
-            }
-        }
+        bool found = peternakan.isAnyHarvestable();
+
         if (!found) {
             throw NotInException("hewan", "peternakan");
         }
-        
-        // TODO: pilih petak + throw eror kalo gada atau salah pilih petak
+
         cetakPeternakan();
         cout << "Petak kandang: ";
         pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
 
-        if (this->peternakan(petakIndex.first, petakIndex.second) == nullptr) {
-            throw KosongException("Petak " + DataConverter::itos(petakIndex.first, petakIndex.second));
+        if (this->peternakan(petakIndex.second, petakIndex.first) == nullptr) {
+            throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
         }
 
-        Animal animal = dynamic_cast<Animal&>(*this->peternakan(petakIndex.first, petakIndex.second));
+        Animal animal = dynamic_cast<Animal&>(*this->peternakan(petakIndex.second, petakIndex.first));
         cout << "Kamu memilih " << animal.getNama() << " untuk diberi makan." << endl;
 
         // check inventory ada makanan ga + throw eror kalo gaada
-        found = false;
-        for (int i = 0; i < storage.getRow(); i++) {
-            for (int j = 0; j < storage.getCol(); j++) {
-                if (storage(i,j) != nullptr && storage(i,j)->getItemType() == 0){
-                    Product temp = dynamic_cast<Product&>(*storage(i,j));
-                    if (temp.getType() == "PRODUCT_ANIMAL" || temp.getType() == "PRODUCT_FRUIT_PLANT") {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-        }
+        found = storage.getFoodTotal() > 0;
+
         if (!found){
             throw NotInException("makanan", "penyimpanan");
         }
@@ -143,29 +131,38 @@ void Stockman::memberiPangan(){
         pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
 
         // Validasi slot kosong
-        if (storage(slotIndex.first, slotIndex.second) == nullptr) {
-            throw KosongException("Slot " + DataConverter::itos(slotIndex.first, slotIndex.second));
+        if (storage(slotIndex.second, slotIndex.first) == nullptr) {
+            throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         }
         // Validasi slot bukan product
-        if (storage(slotIndex.first, slotIndex.second)->getItemType() != 0){
+        if (storage(slotIndex.second, slotIndex.first)->getItemType() != 0){
             throw NotException("product");
         }
-        // Validasi tipe makanan
-        Product temp = dynamic_cast<Product&>(*storage(slotIndex.first, slotIndex.second));
-        if (temp.getType() == "PRODUCT_MATERIAL_PLANT"){
-            throw NotException("makanan hewan");
-        } else if (animal.getType() == "HERBIVORE" && temp.getType() != "PRODUCT_FRUIT_PLANT") {
-            throw HewanMakanException("buah");
-        } else if (animal.getType() == "CARNIVORE" && temp.getType() != "PRODUCT_ANIMAL") {
-            throw HewanMakanException("daging");
+
+        try {
+            // Validasi alokasi produk
+            Product temp = dynamic_cast<Product&>(*storage(slotIndex.second, slotIndex.first));
+
+            // Validasi tipe makanan
+            if (temp.getType() == "PRODUCT_MATERIAL_PLANT"){
+                throw NotException("makanan hewan");
+            } else if (animal.getType() == "HERBIVORE" && temp.getType() != "PRODUCT_FRUIT_PLANT") {
+                throw HewanMakanException("buah");
+            } else if (animal.getType() == "CARNIVORE" && temp.getType() != "PRODUCT_ANIMAL") {
+                throw HewanMakanException("daging");
+            }
+
+            // SUCCESS
+            // tambahin berat
+            animal.setWeight(animal.getWeight() + temp.getAddedWeight());
+        } catch (const exception& e) {
+            throw NotException("product");
         }
 
-        // SUCCESS
-        // tambahin berat
-        animal.setWeight(animal.getWeight() + temp.getAddedWeight());
-        peternakan.setItem(petakIndex.first, petakIndex.second, &animal);
+        peternakan.setItem(petakIndex.second, petakIndex.first, &animal);
         // hapus dari penyimpanan
-        storage.deleteItem(DataConverter::itos(slotIndex.first, slotIndex.second));
+        storage.deleteItem(DataConverter::itos(slotIndex.second, slotIndex.first));
+
     } catch (GameException& e) {
         cout << e.what() << endl;
     }
@@ -173,41 +170,25 @@ void Stockman::memberiPangan(){
 
 void Stockman::panen(){
     try {
-        map<string, int> animals;
-        // Check di peternakan ada hewan yang bisa dipanen ga + count yang bisa dipanen
-        bool found = false;
-        for (int i = 0; i < peternakan.getRow(); i++) {
-            for (int j = 0; j < peternakan.getCol(); j++) {
-                if (peternakan(i,j) != nullptr){
-                    Animal animal = dynamic_cast<Animal&>(*peternakan(i,j));
-                    if (animal.getWeight() >= animal.getHarvestLimit()){
-                        found = true;
-                        if (animals.find(animal.getCode()) == animals.end()){
-                            animals[animal.getCode()] = 1;
-                        } else {
-                            animals[animal.getCode()]++;
-                        }
-                    }
-                }
-            }
-        }
-        if (!found) {
+        // Check ada hewan yang bisa dipanen
+        map<string, int> animals = peternakan.getHarvestable();
+
+        // Jika tidak ada hewan yang bisa dipanen throw error
+        if (animals.empty()) {
             throw FarmEntityNotFoundException("hewan");
         }
 
+        // Cetak peternakan
         cetakPeternakan();
         peternakan.showAnimal();
 
-        // Check yang siap di panen + tampilin
-        map<string, int>::iterator it;
+        // Cetak hewan yang bisa dipanen
         int i = 0;
-        cout << endl << "Pilih hewan siap panen yang kamu miliki" << endl;
-        for (it = animals.begin(); it != animals.end(); it++){
-            i++;
-            cout << "  " << i << ". " << it->first << " (" << it->second << " petak siap panen)" << endl;
+        for (const auto& animal : animals){
+            cout << "  " << ++i << ". " << animal.first << " (" << animal.second << " petak siap panen)" << endl;
         }
-        
-        // validasi input ( nomor hewan + jumlah + petak yg mana)
+
+        // Input nomor hewan yang ingin dipanen
         cout << "Nomor hewan yang ingin dipanen: ";
         InputManager::receiveIntInput();
         int nomor = InputManager::_inputData<int>;
@@ -215,52 +196,50 @@ void Stockman::panen(){
             throw NotValidException("Nomor hewan");
         }
 
-        // get count petak yang siap dipanen
-        it = animals.begin();
-        for (int i = 1; i < nomor; i++){
-            it++;
-        }
+        // Ambil hewan yang dipilih
+        auto it = animals.begin();
+        advance(it, nomor - 1);
         string codeAnimal = it->first;
         string namaAnimal = getNameByCode(codeAnimal);
         int countPetak = it->second;
 
+        // Input jumlah petak yang ingin dipanen
         cout << "Berapa petak yang ingin dipanen: ";
         InputManager::receiveIntInput();
         int jumlah = InputManager::_inputData<int>;
-        if (jumlah <= 0){
-            throw NotValidException("Jumlah petak");
-        } else if (jumlah > countPetak){
+        if (jumlah <= 0 || jumlah > countPetak){
             throw PetakMelebihiException();
         }
 
-
-        // validasi inventory
+        // Exception jika storage penuh
         if (storage.getCellKosong() < jumlah){
             throw StorageFullException();
         }
 
-
-        // validasi petak yang dipilih
+        // Input petak yang ingin dipanen
         vector<string> tempSlot;
-        cout << "Pilih petak yang ingin dipanen: " << endl;
         for (int i = 0; i < jumlah; i++) {
             cout << "Petak ke-" << i+1 << ": ";
             pair<int, int> petakIndex = DataConverter::GetSingleRowCol();
-            if (peternakan(petakIndex.first, petakIndex.second) == nullptr){
-                throw KosongException("Petak" + DataConverter::itos(petakIndex.first, petakIndex.second));
+            // Validasi petak kosong
+            if (peternakan(petakIndex.second, petakIndex.first) == nullptr){
+                throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
             } else {
-                Animal animal = dynamic_cast<Animal&>(*peternakan(petakIndex.first, petakIndex.second));
-                if (animal.getCode() != codeAnimal){
+                // Validasi petak bukan hewan yang dipilih
+                try {
+                    Animal animal = dynamic_cast<Animal&>(*peternakan(petakIndex.second, petakIndex.first));
+                    if (animal.getCode() != codeAnimal || animal.getWeight() < animal.getHarvestLimit()){
+                        throw NotReadyHarvestedException("Hewan");
+                    }
+                } catch (const exception& e) {
                     throw NotChoosenException("Hewan");
-                } else if (animal.getWeight() < animal.getHarvestLimit()){
-                    throw NotReadyHarvestedException("Hewan");
                 }
-                tempSlot.push_back(DataConverter::itos(petakIndex.first, petakIndex.second));
+                tempSlot.push_back(DataConverter::itos(petakIndex.second, petakIndex.first));
             }
         }
 
         // SUCCESS
-        // ilangin field + masukin inventory
+        // Panen hewan
         int tempProductIndex = -1;
         for (int i = 0; i < GameData::_productConfig.size(); i++) {
             if (GameData::_productConfig[i].getType() == "PRODUCT_ANIMAL" && GameData::_productConfig[i].getOrigin() == namaAnimal){
@@ -268,32 +247,23 @@ void Stockman::panen(){
                 break;
             }
         }
+
+        // Exception jika product tidak ditemukan
         if (tempProductIndex == -1){
             throw NotFoundException("Product");
         }
         Product tempProduct = GameData::_productConfig[tempProductIndex];
 
-        cout << jumlah << " petak hewan " << codeAnimal << " pada petak ";
+        // Masukkan hewan ke storage
         for (int i = 0; i < jumlah; i++) {
-            Product* newProduct = new Product(tempProduct);
-            cout << tempSlot[i];
-            if (i != jumlah-1) {
-                cout << ", ";
-            }
-            // Delete from peternakan
+            auto* newProduct = new Product(tempProduct);
             peternakan.deleteItem(tempSlot[i]);
-
-            // Insert to inventory
             storage.setItem(newProduct);
-        }                                                       
-        cout << " telah dipanen!" << endl;
+        }
+        cout << jumlah << " petak hewan " << codeAnimal << " pada petak " << join(tempSlot, ", ") << " telah dipanen!" << endl;
     } catch (GameException& e) {
         cout << e.what() << endl;
     }
-}
-
-void Stockman::pungutPajak(){
-    int pajak = 0;
 }
 
 void Stockman::setPeternakan(const Peternakan& peternakan){
@@ -302,4 +272,12 @@ void Stockman::setPeternakan(const Peternakan& peternakan){
 
 Peternakan Stockman::getPeternakan() const {
     return peternakan;
+}
+
+long Stockman::join(vector<string> vector1, const char *string) {
+    long result = 0;
+    for (const auto & i : vector1) {
+        result += i.length();
+    }
+    return result;
 }

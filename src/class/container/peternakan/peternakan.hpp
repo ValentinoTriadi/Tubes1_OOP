@@ -73,7 +73,15 @@ class   Peternakan : public Container {
              */
             Peternakan& operator=(const Peternakan& peternakan);
 
-        private:
+            /**
+             * @brief Mencari apakah ada hewan yang siap dipanen.
+             * @return true jika ada hewan yang siap dipanen, false jika tidak ada hewan yang siap dipanen
+             */
+            bool isAnyHarvestable();
+
+            map<string, int> getHarvestable();
+
+private:
             /**
              * Prints the specified row of the container to the output stream.
              *
@@ -89,7 +97,8 @@ class   Peternakan : public Container {
              * @param item The item to check.
              * @return True if the item is ready to be harvested, false otherwise.
              */
-            bool isReadyToHarvest(Item* item) const;
+            static bool isReadyToHarvest(Item* item) ;
+
 };
 
 #endif

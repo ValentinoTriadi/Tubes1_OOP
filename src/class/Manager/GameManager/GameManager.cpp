@@ -165,6 +165,9 @@ void GameManager::RunStockmanSelection(int input)
         }
         break;
     case 2:
+        _currentPlayer->cetakPenyimpanan();
+        break;
+    case 3:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->ternak();
@@ -174,10 +177,10 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 3:
+    case 4:
         _currentPlayer->makan();
         break;
-    case 4:
+    case 5:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->memberiPangan();
@@ -187,14 +190,13 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 5:
-        _currentPlayer->membeli();
-
-        break;
     case 6:
-        _currentPlayer->menjual();
+        _currentPlayer->membeli();
         break;
     case 7:
+        _currentPlayer->menjual();
+        break;
+    case 8:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->panen();
@@ -204,13 +206,13 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 8:
+    case 9:
         muat();
         break;
-    case 9:
+    case 10:
         simpan();
         break;
-    case 10:
+    case 11:
         nextTurn();
         break;
     default:

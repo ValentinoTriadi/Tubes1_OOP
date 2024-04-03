@@ -141,6 +141,8 @@ public:
 
     map<string, vector<Item *>> getItemsPointer();
 
+    bool isAnyAnimal();
+
 protected:
     /* data */
     vector<vector<Item*> > items;

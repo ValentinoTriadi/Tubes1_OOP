@@ -6,6 +6,8 @@
 
 class InputManager
 {
+private:
+    static std::vector<std::string> yes,no;
 public:
     /**
      * @brief Input Manager Constructor

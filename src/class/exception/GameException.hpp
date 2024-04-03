@@ -4,11 +4,10 @@
 #include <iostream>
 #include <utility>
 #include <map>
-#include "../utils/DataConverter/DataConverter.hpp"
 #include <string>
 using namespace std;
 
-class GameException
+class GameException : public exception
 {
 public:
     virtual string what() = 0;
@@ -263,7 +262,7 @@ public:
     }
     string what() override
     {
-        return message + " di slot bukanlah " + DataConverter::LowerCase(message) + " yang dipilih";
+        return message + " di slot bukanlah " + message + " yang dipilih";
     }
 };
 

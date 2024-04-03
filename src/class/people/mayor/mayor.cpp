@@ -75,6 +75,10 @@ void Mayor::bangun() {
 
 Mayor::Mayor(const string& nama, int weight, int keuangan, int n_storage, int m_storage) : People(nama,weight,keuangan,1,n_storage,m_storage){}
 
+string Mayor::getNameByCode(const std::string &) const {
+    return "";
+}
+
 void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     cout << "Masukkan jenis pemain: ";
     string pekerjaan;

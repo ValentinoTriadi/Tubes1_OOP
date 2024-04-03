@@ -409,3 +409,14 @@ bool Container::isEmpty() const {
     }
     return true;
 }
+
+bool Container::isAnyAnimal() {
+    for (const auto & row : items) {
+        for (const auto & item : row) {
+            if (item != nullptr && dynamic_cast<Animal*>(item)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
