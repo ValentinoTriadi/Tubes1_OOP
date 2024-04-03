@@ -255,7 +255,7 @@ void GameManager::RunMayorSelection(int input)
     case 2:
         if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
         {
-            mayor->TagihPajak(&_listPlayer);
+//            mayor->TagihPajak(&_listPlayer);
         }
         break;
     case 3:
@@ -356,21 +356,21 @@ void GameManager::Run()
     }
 }
 
-void GameManager::muat()
-{
-    int total = 0;
-    int temp;
-    for (auto &player : _listPlayer)
-    {
-        if (player->GetType() == 1){
-            return;
-        }
-        player->HitungNonUang();
-        temp = player->getStatusKeuangan().hitungPajak();
-        player->getStatusKeuangan().kurangUang(temp);
-        total += temp;
-    }
-}
+//void GameManager::()
+//{
+//    int total = 0;
+//    int temp;
+//    for (auto &player : _listPlayer)
+//    {
+//        if (player->GetType() == 1){
+//            return;
+//        }
+//        player->HitungNonUang();
+//        temp = player->getStatusKeuangan().hitungPajak();
+//        player->getStatusKeuangan().kurangUang(temp);
+//        total += temp;
+//    }
+//}
 
 void GameManager::muat()
 {

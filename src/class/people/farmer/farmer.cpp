@@ -274,11 +274,6 @@ void Farmer::panen()
     }
 }
 
-void Farmer::pungutPajak(int jumlah)
-{
-    People::pungutPajak(jumlah);
-}
-
 Farmer::Farmer(const string &name, int weight, int Keuangan, int n_penyimpanan, int m_penyimpanan, int n_ladang, int m_ladang) : People(name, weight, Keuangan, 2, n_penyimpanan, m_penyimpanan)
 {
     this->ladang = Ladang(n_ladang, m_ladang);

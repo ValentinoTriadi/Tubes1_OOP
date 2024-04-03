@@ -3,7 +3,10 @@
 #include <algorithm>
 #include "InputManager.hpp"
 #include <fstream>
+
 InputManager::InputManager() = default;
+ifstream InputManager::_file_data;
+
 
 template <typename T>
 T InputManager::_inputData;
@@ -53,7 +56,6 @@ void InputManager::receiveInput(const string& message)
 
 void InputManager::NewGameInput()
 {
-  <<<<<<< merge
     try
     {
         cout << "Please enter a valid input\n";
@@ -65,21 +67,16 @@ void InputManager::NewGameInput()
         string data = DataConverter::LowerCase(_inputData<string>);
 
 
-        if (data == "new_game" || data == "continue")
-        {
-            if (data == "new_game")
-            {
+        if (data == "new_game" || data == "continue") {
+            if (data == "new_game") {
                 _inputData<int> = 1;
-            }
-            else
-            {
+            } else if (data == "continue") {
                 _inputData<int> = 2;
+            } else {
+                throw InputException("Input Invalid: Masukan belum benar");
             }
-         else {
-           throw InputException("Input Invalid: Masukan belum benar");
-         }
-    } catch (GameException& e)
-    {
+        }
+    } catch (GameException& e) {
         cout << e.what() << endl;
     }
 }
@@ -353,8 +350,7 @@ void InputManager::StateManagerLoadStateInputValidation()
     {
         try
         {
-            receiveStringInput();
-            _inputData<bool> = receiveBooleanInput();
+            _inputData<bool> = receiveBooleanInput("Masukkan 'y' atau 'n' :");
         }
         catch (InputException e)
         {
@@ -369,7 +365,7 @@ void InputManager::StateManagerLoadStateInputValidation()
 
 void InputManager::StateManagerLoadStateFromFileInputValidation()
 {
-    receiveStringInput();
+    receiveInput("");
     _file_data.open(_inputData<string>);
 
     string data_check = DataConverter::LowerCase(_inputData<string>);
@@ -381,8 +377,7 @@ void InputManager::StateManagerLoadStateFromFileInputValidation()
 
 void InputManager::MembeliInputValidationPickingItems(int ItemsMaxSize)
 {
-    cout << "Barang yang ingin dibeli: ";
-    receiveIntInput();
+    receiveIntInput("Barang yang ingin dibeli: ");
     cout << endl;
     if (_inputData<int> <= 0 || _inputData<int> > ItemsMaxSize)
     {
@@ -392,8 +387,7 @@ void InputManager::MembeliInputValidationPickingItems(int ItemsMaxSize)
 
 void InputManager::QuantityValidation(int ItemsQuantity)
 {
-    cout << "Kuantitas : ";
-    receiveIntInput();
+    receiveIntInput("Kuantitas : ");
     cout << endl;
     if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
     {

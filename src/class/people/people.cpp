@@ -178,18 +178,6 @@ void People::HitungNonUang()
     }
 }
 
-void People::pungutPajak(int jumlah)
-{
-    if (jumlah > GetKeuangan())
-    {
-        getStatusKeuangan().kurangUang(GetKeuangan());
-    }
-    else
-    {
-        getStatusKeuangan().kurangUang(jumlah);
-    }
-}
-
 string People::getNameByCode(const string &code) const
 {
     return name;
