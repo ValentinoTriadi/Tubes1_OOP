@@ -37,7 +37,6 @@ private:
 
     /*Method*/
 
-
     /**
      * Check if the player is winner
      * If the player is a winner, print the winner and end the game

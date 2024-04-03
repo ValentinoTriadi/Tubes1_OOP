@@ -1,11 +1,13 @@
 #include "stockman.hpp"
 #include "../../exception/GameException.hpp"
 
-Stockman::Stockman(const string& name, int weight, int Keuangan,int n_penyimpanan,int m_penyimpanan,int n_peternakan,int m_peternakan) : People(name,weight, Keuangan, 3, n_penyimpanan, m_penyimpanan){
+Stockman::Stockman(const string &name, int weight, int Keuangan, int n_penyimpanan, int m_penyimpanan, int n_peternakan, int m_peternakan) : People(name, weight, Keuangan, 3, n_penyimpanan, m_penyimpanan)
+{
     this->peternakan = Peternakan(n_peternakan, m_peternakan);
 };
 
 Stockman::~Stockman() = default;
+
 
 bool Stockman::CheckHewan(const string& kode){
 //     bool found = false;
@@ -24,23 +26,31 @@ bool Stockman::CheckHewan(const string& kode){
     return false;
 }
 
-string Stockman::getNameByCode(const string& code) const {
-    try {
-        for (auto & i : GameData::_animalConfig) {
-            if (i.getCode() == code) {
+string Stockman::getNameByCode(const string &code) const
+{
+    try
+    {
+        for (auto &i : GameData::_animalConfig)
+        {
+            if (i.getCode() == code)
+            {
                 return i.getNama();
             }
         }
         throw NotFoundException("Kode Hewan");
-    } catch (GameException& e) {
+    }
+    catch (GameException &e)
+    {
         cout << e.what() << endl;
         return "";
     }
 }
 
-void Stockman::cetakPeternakan(){
+void Stockman::cetakPeternakan()
+{
     cout << peternakan << endl;
 }
+
 
 void Stockman::ternak(){
     try {
@@ -63,6 +73,7 @@ void Stockman::ternak(){
         }
 
         // Validate slot
+
         if (storage(slotIndex.second, slotIndex.first) == nullptr) {
             throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         } else if (!CheckHewan(storage(slotIndex.second, slotIndex.first)->getCode())) {
@@ -72,6 +83,7 @@ void Stockman::ternak(){
         cout << "Pilih petak tanah yang akan ditinggali\n";
 
         cetakPeternakan();
+
 
         pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
 
@@ -96,8 +108,10 @@ void Stockman::ternak(){
     }
 }
 
-void Stockman::memberiPangan(){
-    try{
+void Stockman::memberiPangan()
+{
+    try
+    {
         // Check di peternakan ada hewan ga
         bool found = peternakan.isAnyHarvestable();
 
@@ -139,6 +153,7 @@ void Stockman::memberiPangan(){
         }
 
         // Validasi slot kosong
+
         if (storage(slotIndex.second, slotIndex.first) == nullptr) {
             throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         }
@@ -200,9 +215,11 @@ void Stockman::panen(){
         // Input nomor hewan yang ingin dipanen
         InputManager::receiveIntInput("Nomor hewan yang ingin dipanen: ");
         int nomor = InputManager::_inputData<int>;
-        if (nomor <= 0 || nomor > animals.size()){
+        if (nomor <= 0 || nomor > animals.size())
+        {
             throw NotValidException("Nomor hewan");
         }
+
 
         // Ambil hewan yang dipilih
         auto it = animals.begin();
@@ -214,6 +231,7 @@ void Stockman::panen(){
         // Input jumlah petak yang ingin dipanen
         InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
         int jumlah = InputManager::_inputData<int>;
+
         if (jumlah <= 0 || jumlah > countPetak){
             throw PetakMelebihiException();
         }
@@ -256,12 +274,15 @@ void Stockman::panen(){
         // SUCCESS
         // Panen hewan
         int tempProductIndex = -1;
-        for (int i = 0; i < GameData::_productConfig.size(); i++) {
-            if (GameData::_productConfig[i].getType() == "PRODUCT_ANIMAL" && GameData::_productConfig[i].getOrigin() == namaAnimal){
+        for (int i = 0; i < GameData::_productConfig.size(); i++)
+        {
+            if (GameData::_productConfig[i].getType() == "PRODUCT_ANIMAL" && GameData::_productConfig[i].getOrigin() == namaAnimal)
+            {
                 tempProductIndex = i;
                 break;
             }
         }
+
 
         // Exception jika product tidak ditemukan
         if (tempProductIndex == -1){
@@ -269,12 +290,14 @@ void Stockman::panen(){
         }
         Product tempProduct = GameData::_productConfig[tempProductIndex];
 
+
         // Masukkan produk hewan ke storage
         for (int i = 0; i < jumlah; i++) {
             auto* newProduct = new Product(tempProduct);
             peternakan.deleteItem(tempSlot[i]);
             storage.setItem(newProduct);
         }
+
         cout << jumlah << " petak hewan " << codeAnimal << " pada petak " << join(tempSlot, ", ") << " telah dipanen!" << endl;
     } catch (GameException& e) {
         cout << e.what() << endl;
@@ -285,7 +308,8 @@ void Stockman::setPeternakan(const Peternakan& peternakan){
     this->peternakan = peternakan;
 }
 
-Peternakan Stockman::getPeternakan() const {
+Peternakan Stockman::getPeternakan() const
+{
     return peternakan;
 }
 

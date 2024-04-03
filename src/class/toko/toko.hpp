@@ -14,6 +14,7 @@ class Toko {
         static Item* getItemAt(int index);
         static void displayToko();
 
+
     static void setListItems(map<Item *, int> listItemToko);
 
     static void tambahListItems(map<Item *, int> listItemToko);

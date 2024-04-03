@@ -1,4 +1,5 @@
 #include "DataConverter.hpp"
+#include <iostream>
 #include <algorithm>
 #include <regex>
 
@@ -90,7 +91,9 @@ std::pair<int, int> DataConverter::GetSingleRowCol(const string& message)
 {
     cout << message;
     string input;
-    cin >> input;
+    std::cin >> input;
+    std::cout << "\n";
+
     if (input.size() != 3)
     {
         throw InputException("Invalid Input: Please input 3 characters EX: (B01)");

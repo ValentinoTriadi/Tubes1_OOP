@@ -17,6 +17,7 @@ add_executable(Tubes1_OOP main.cpp
         class/item/farmEntity/plant/plant.cpp
         class/item/farmEntity/plant/plant.hpp
         class/item/product/product.cpp
+        class/utils/DataConverter/DataConverter.cpp
         class/item/product/product.hpp
         class/Manager/GameManager/GameManager.hpp
         class/people/people.hpp

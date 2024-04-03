@@ -2,11 +2,9 @@
 
 #include <utility>
 
-
 using namespace std;
 
-
-People::People() : Keuangan(50,0), Weight(40), Type(0)
+People::People() : Keuangan(50, 0), Weight(40), Type(0)
 {
 }
 
@@ -165,14 +163,34 @@ Container People::getStorage() const
     return storage;
 }
 
-StatusKeuangan People::getStatusKeuangan() const {
+StatusKeuangan People::getStatusKeuangan() const
+{
     return Keuangan;
 }
 
-void People::HitungNonUang() {
+void People::HitungNonUang()
+{
     int NonUang = Keuangan.GetNonUang();
-    map<pair<string,int>, int> item = storage.getItems();
-    for (auto & i : item) {
+    map<pair<string, int>, int> item = storage.getItems();
+    for (auto &i : item)
+    {
         NonUang += i.second;
     }
+}
+
+void People::pungutPajak(int jumlah)
+{
+    if (jumlah > GetKeuangan())
+    {
+        getStatusKeuangan().kurangUang(GetKeuangan());
+    }
+    else
+    {
+        getStatusKeuangan().kurangUang(jumlah);
+    }
+}
+
+string People::getNameByCode(const string &code) const
+{
+    return name;
 }

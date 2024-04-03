@@ -5,6 +5,8 @@
 #include <utility>
 #include <map>
 #include <string>
+#include <cctype>
+
 using namespace std;
 
 class GameException : public exception
@@ -149,12 +151,13 @@ public:
  * @brief exception cek container
  * @param message1 (hewan/tumbuhan/produk)
  * @param message2 (penyimpanan/peternakan/ladang)
-*/
+ */
 class NotInException : public GameException
 {
 private:
     string message1;
     string message2;
+
 public:
     NotInException(string message1, string message2)
     {
@@ -203,6 +206,7 @@ class PetakSudahTerisiException : public GameException
 {
 private:
     string message;
+
 public:
     PetakSudahTerisiException(string message)
     {
@@ -234,6 +238,7 @@ class FarmEntityNotFoundException : public GameException
 {
 private:
     string message;
+
 public:
     FarmEntityNotFoundException(string message)
     {
@@ -274,20 +279,31 @@ class NotChoosenException : public GameException
 {
 private:
     string message;
+
 public:
+    string toLower(const std::string &str)
+    {
+        std::string result;
+        for (char c : str)
+        {
+            result += std::tolower(static_cast<unsigned char>(c));
+        }
+        return result;
+    }
     NotChoosenException(string message)
     {
         this->message = std::move(message);
     }
     string what() override
     {
-        return message + " di slot bukanlah " + message + " yang dipilih";
+        return message + " di slot bukanlah " + toLower(message) + " yang dipilih";
     }
 };
 
 class NotReadyHarvestedException : public GameException
 {
     string message;
+
 public:
     NotReadyHarvestedException(string message)
     {
@@ -303,6 +319,7 @@ class NotFoundException : public GameException
 {
 private:
     string message;
+
 public:
     NotFoundException(string message)
     {
@@ -317,29 +334,42 @@ public:
 /*
  * Class Exception untuk Mayor
  */
-class NotEnoughGuldenOrItemException : public GameException {
+class NotEnoughGuldenOrItemException : public GameException
+{
     int money = 0;
-    const std::map<string,int>& barang{};
+    const std::map<string, int> &barang{};
 
-    public:
+public:
+    NotEnoughGuldenOrItemException() = default;
+    NotEnoughGuldenOrItemException(int money, const std::map<string, int> &barang) : money(money), barang(barang){};
 
-        NotEnoughGuldenOrItemException() = default;
-        NotEnoughGuldenOrItemException(int money , const std::map<string,int>& barang) : money(money), barang(barang) {};
-
-        string what() override {
-            string message = "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-            if (money > 0) {
-                message += to_string(money) + " gulden, ";
-            }
-            for (auto& item : barang) {
-                message += to_string(item.second) + " " + item.first;
-                if (item != *barang.rbegin()) {
-                    message += ", ";
-                }
-            }
-            message += "!";
-            return message;
+    string what() override
+    {
+        string message = "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+        if (money > 0)
+        {
+            message += to_string(money) + " gulden, ";
         }
+        for (auto &item : barang)
+        {
+            message += to_string(item.second) + " " + item.first;
+            if (item != *barang.rbegin())
+            {
+                message += ", ";
+            }
+        }
+        message += "!";
+        return message;
+    }
+};
+
+class BackToMenuState : public GameException
+{
+public:
+    string what() override
+    {
+        return "Kembali ke Main Menu";
+    }
 };
 
 /*
