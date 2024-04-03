@@ -22,9 +22,7 @@ void Mayor::PrintBuildingRecipe(){
 void Mayor::bangun() {
 
     PrintBuildingRecipe();
-
-    cout << "Pilih bangunan yang ingin dibangun: ";
-    InputManager::receiveStringInput();
+    InputManager::receiveInput("Pilih bangunan yang ingin dibangun: ");
 
     // Local Variable
     int kekuranganUang = 0;

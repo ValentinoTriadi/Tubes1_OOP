@@ -49,14 +49,8 @@ Container::Container(int row, int col)
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container(){
-    for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++){
-            if (items[i][j] != nullptr){
-                delete items[i][j];
-            }
-        }
-    }
+Container::~Container() {
+
 }
 
 /**
@@ -156,7 +150,7 @@ void Container::setItem(Item *item)
     {
         for (int j = 0; j < col; j++)
         {
-            if (items[i][j] == nullptr) setItem(i, j, item);
+            if (items[i][j] == nullptr) { setItem(i, j, item); return;}
         }
     }
     throw FullException("penyimpanan");
@@ -177,8 +171,8 @@ void Container::deleteItem(int i, int j)
 
 void Container::deleteItem(string slot)
 {
-    int i = slot[0] - 'A';
-    int j = stoi(slot.substr(1, 2)) - 1;
+    int j = slot[0] - 'A';
+    int i = stoi(slot.substr(1, 2)) - 1;
     deleteItem(i, j);
 }
 

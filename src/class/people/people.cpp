@@ -33,7 +33,7 @@ void People::makan()
         pair<int, int> slot;
         while (true) {
             try {
-                slot = DataConverter::GetSingleRowCol();
+                slot = DataConverter::GetSingleRowCol("Slot : ");
                 break;
             } catch (GameException &e) {
                 cout << e.what() << endl;
@@ -105,8 +105,7 @@ void People::membeli()
             while (true){
                 try {
                     cetakPenyimpanan();
-                    cout << "petak : ";
-                    vector<pair<int, int>> petak = DataConverter::GetMultipleRowCol(quantity);
+                    vector<pair<int, int>> petak = DataConverter::GetMultipleRowCol(quantity, "petak : ");
                     int temp = quantity;
                     for (int i = 0; i < temp; i++)
                     {
@@ -146,8 +145,7 @@ void People::menjual()
 
         cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
         for (int i = 0; i < quantity; i++) {
-            cout << "Petak ke-" << i + 1 << " : ";
-            pair<int,int> petakIndex = DataConverter::GetSingleRowCol();
+            pair<int,int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1) + " : ");
             Item *itemtosell = storage(petakIndex.second, petakIndex.first);
             storage.deleteItem(petakIndex.second, petakIndex.first);
             Toko::addItems(itemtosell);

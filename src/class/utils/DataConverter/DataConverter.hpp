@@ -17,13 +17,13 @@ public:
      * @brief Validate User Input for multiple Row and Column input
      * Input will be taken from the function
      */
-    static vector<std::pair<int, int>> GetMultipleRowCol(int);
+    static vector<std::pair<int, int>> GetMultipleRowCol(int, const string& message);
 
     /**
      * @brief Validate User Input for Player Row and Column input
      * Input will be taken from the function
      */
-    static std::pair<int, int> GetSingleRowCol();
+    static std::pair<int, int> GetSingleRowCol(const string& message);
     /**
      * @brief Check if the character is a number
      * @return true if a number

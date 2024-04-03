@@ -55,8 +55,7 @@ void Stockman::ternak(){
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        cout << "Slot: ";
-        pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
+        pair<int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
 
         // Valisasikan slot index
         if (slotIndex.second < 0 || slotIndex.second >= storage.getCol() || slotIndex.first < 0 || slotIndex.first >= storage.getRow()) {
@@ -74,8 +73,7 @@ void Stockman::ternak(){
 
         cetakPeternakan();
 
-        cout << "Petak tanah: ";
-        pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
+        pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
 
         if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
             throw NotValidException("Slot");
@@ -108,8 +106,7 @@ void Stockman::memberiPangan(){
         }
 
         cetakPeternakan();
-        cout << "Petak kandang: ";
-        pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
+        pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak kandang: ");
 
         // Validasi petak index
         if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
@@ -133,7 +130,8 @@ void Stockman::memberiPangan(){
         // throw error kalo pilih yg kosong atau pilih yg bukan tipenya
         cout << "Pilih pangan yang akan diberikan" << endl;
         cetakPenyimpanan();
-        pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
+
+        pair<int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
 
         // Validasi slot index
         if (slotIndex.second < 0 || slotIndex.second >= storage.getCol() || slotIndex.first < 0 || slotIndex.first >= storage.getRow()) {
@@ -228,8 +226,7 @@ void Stockman::panen(){
         // Input petak yang ingin dipanen
         vector<string> tempSlot;
         for (int i = 0; i < jumlah; i++) {
-            cout << "Petak ke-" << i+1 << ": ";
-            pair<int, int> petakIndex = DataConverter::GetSingleRowCol();
+            pair<int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1) + ": ");
 
             // Validasi petak index
             if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
@@ -272,7 +269,7 @@ void Stockman::panen(){
         }
         Product tempProduct = GameData::_productConfig[tempProductIndex];
 
-        // Masukkan hewan ke storage
+        // Masukkan produk hewan ke storage
         for (int i = 0; i < jumlah; i++) {
             auto* newProduct = new Product(tempProduct);
             peternakan.deleteItem(tempSlot[i]);

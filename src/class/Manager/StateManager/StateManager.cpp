@@ -12,12 +12,11 @@ void StateManager::defaultState(){
 }
 
 void StateManager::loadState(){
-    std::cout << "Apakah Anda ingin memuat state? (y/n) ";
 
     bool input;
     while (true) {
         try {
-            input = InputManager::receiveBooleanInput();
+            input = InputManager::receiveBooleanInput("Apakah Anda ingin memuat state? (y/n) ");
             break;
         } catch (GameException& e){
             cout << e.what() << endl;
@@ -150,16 +149,14 @@ void StateManager::readShop(ifstream& file){
 }
 
 void StateManager::loadFromFile(){
-    std::cout << "Masukkan lokasi berkas state : ";
 
-    InputManager::receiveStringInput();
+    InputManager::receiveInput("Masukkan lokasi berkas state : ");
     string filename = InputManager::_inputData<string>;
 
     ifstream file(filename);
 
     while (!file.is_open()){
-        std::cout << "Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ";
-        InputManager::receiveStringInput();
+        InputManager::receiveInput("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ");
         filename = InputManager::_inputData<string>;
         file.open(filename);
     }
@@ -192,74 +189,62 @@ void StateManager::loadFromFile(){
     file.close();
 }
 
-void StateManager::saveState(){
-    std::cout << "Masukkan lokasi berkas state : ";
-
-    InputManager::receiveStringInput();
-
+void StateManager::saveState() {
+    InputManager::receiveInput("Masukkan lokasi berkas state : ");
     ofstream file(InputManager::_inputData<string>);
 
-    file << _listPlayer.size() << std::endl;
+    vector<People*> _listPlayer = StateManager::_listPlayer;
 
-    for (int i = 0; i < _listPlayer.size(); i++){
-        string tipe;
+    file << _listPlayer.size() << "\n";
+    for (auto* player : _listPlayer) {
+        string tipe = player->GetType() == 1 ? "Walikota" : player->GetType() == 2 ? "Petani" : "Peternak";
+        file << player->GetName() << " " << tipe << " " << player->GetKeuangan() << " " << player->GetWeight() << "\n";
+        file << player->getStorage().getRow() * player->getStorage().getCol() - player->getStorage().getCellKosong() << "\n";
 
-        if (_listPlayer[i]->GetType() == 1){
-            tipe = "Walikota";
-        } else if (_listPlayer[i]->GetType() == 2){
-            tipe = "Petani";
-        } else if (_listPlayer[i]->GetType() == 3){
-            tipe = "Peternak";
-        }
-
-        file << _listPlayer[i]->GetName() << " " << tipe << " " << _listPlayer[i]->GetKeuangan() << " " << _listPlayer[i]->GetWeight() << std::endl;
-
-        file << _listPlayer[i]->getStorage().getRow() * _listPlayer[i]->getStorage().getCol() - _listPlayer[i]->getStorage().getCellKosong() << std::endl;
-
-        for (int j = 0; j < _listPlayer[i]->getStorage().getRow(); j++){
-            for (int k = 0; k < _listPlayer[i]->getStorage().getCol(); k++){
-                if (_listPlayer[i]->getStorage()(j, k) != nullptr){
-                    file << _listPlayer[i]->getStorage()(j, k)->getNama() << endl;
+        for (int j = 0; j < player->getStorage().getRow(); j++) {
+            for (int k = 0; k < player->getStorage().getCol(); k++) {
+                if (player->getStorage()(j, k) != nullptr) {
+                    file << player->getStorage()(j, k)->getNama() << "\n";
                 }
             }
         }
 
-        if (tipe == "Petani"){
-            Farmer* temp = dynamic_cast<Farmer*>(_listPlayer[i]);
-
-            file << temp->getLadang().getRow() * temp->getLadang().getCol() - temp->getLadang().getCellKosong() << std::endl;
-
-            for (int j = 0; j < temp->getLadang().getRow(); j++){
-                for (int k = 0; k < temp->getLadang().getCol(); k++){
-                    if (temp->getLadang()(j, k) != nullptr){
-                        file << idxToSlot(i, j) << " " << temp->getLadang()(j, k)->getNama() << " " << dynamic_cast<Plant*>(temp->getLadang()(j, k))->getAge() << std::endl;
-                    }
-                }
-            }
-        } else if (tipe == "Peternak"){
-            Stockman* temp = dynamic_cast<Stockman*>(_listPlayer[i]);
-
-            file << temp->getPeternakan().getRow() * temp->getPeternakan().getCol() - temp->getPeternakan().getCellKosong() << std::endl;
-
-            for (int j = 0; j < temp->getPeternakan().getRow(); j++){
-                for (int k = 0; k < temp->getPeternakan().getCol(); k++){
-                    if (temp->getPeternakan()(j, k) != nullptr){
-                        file << idxToSlot(i, j) << " " << temp->getPeternakan()(j, k)->getNama() << " " << dynamic_cast<Animal*>(temp->getPeternakan()(j, k))->getWeight() << std::endl;
-                    }
-                }
-            }
+        if (auto* temp = dynamic_cast<Farmer*>(player)) {
+            saveLadang(file, temp);
+        } else if (auto* temp = dynamic_cast<Stockman*>(player)) {
+            savePeternakan(file, temp);
         }
     }
 
-    file << _listItemToko.size() << std::endl;
-
-    for (auto & i : _listItemToko){
-        file << i.first->getNama() << " " << i.second << std::endl;
+    file << _listItemToko.size() << "\n";
+    for (auto & i : _listItemToko) {
+        file << i.first->getNama() << " " << i.second << "\n";
     }
 
-    cout << "State berhasil disimpan." << endl;
-
+    cout << "State berhasil disimpan.\n";
     file.close();
+}
+
+void StateManager::saveLadang(ofstream& file, Farmer* temp) {
+    file << temp->getLadang().getRow() * temp->getLadang().getCol() - temp->getLadang().getCellKosong() << "\n";
+    for (int j = 0; j < temp->getLadang().getRow(); j++) {
+        for (int k = 0; k < temp->getLadang().getCol(); k++) {
+            if (temp->getLadang()(j, k) != nullptr) {
+                file << idxToSlot(j, k) << " " << temp->getLadang()(j, k)->getNama() << " " << dynamic_cast<Plant*>(temp->getLadang()(j, k))->getAge() << "\n";
+            }
+        }
+    }
+}
+
+void StateManager::savePeternakan(ofstream& file, Stockman* temp) {
+    file << temp->getPeternakan().getRow() * temp->getPeternakan().getCol() - temp->getPeternakan().getCellKosong() << "\n";
+    for (int j = 0; j < temp->getPeternakan().getRow(); j++) {
+        for (int k = 0; k < temp->getPeternakan().getCol(); k++) {
+            if (temp->getPeternakan()(j, k) != nullptr) {
+                file << idxToSlot(j, k) << " " << temp->getPeternakan()(j, k)->getNama() << " " << dynamic_cast<Animal*>(temp->getPeternakan()(j, k))->getWeight() << "\n";
+            }
+        }
+    }
 }
 
 Item* StateManager::getItemByName(const string& name){

@@ -67,8 +67,7 @@ void Farmer::tanam() {
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        std::cout << "Slot: ";
-        pair <int, int> slotIndex = DataConverter::GetSingleRowCol();
+        pair <int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
 
 
         // Validasi
@@ -89,8 +88,7 @@ void Farmer::tanam() {
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        std::cout << "Petak tanah: ";
-        pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
+        pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
 
         // Validasi
         if (this->ladang(petakIndex.first, petakIndex.second) != nullptr) {
@@ -183,18 +181,17 @@ void Farmer::panen() {
         std::cout << "Pilih petak yang ingin dipanen: " << endl;
         // Cetak petak yang bisa dipanen
         for (int i = 0; i < jumlah; i++) {
-            std::cout << "Petak ke-" << i+1 << ": ";
-            pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
-            if (ladang(petakIndex.first, petakIndex.second) == nullptr){
-                throw KosongException("Petak" + DataConverter::itos(petakIndex.first, petakIndex.second));
+            pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1)+ ": ");
+            if (ladang(petakIndex.second, petakIndex.first) == nullptr){
+                throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
             } else {
-                Plant plant = dynamic_cast<Plant&>(*ladang(petakIndex.first, petakIndex.second));
+                Plant plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
                 if (plant.getCode() != codePlant){
                     throw NotChoosenException("Tumbuhan");
                 } else if (plant.getAge() < plant.getHarvestLimit()){
                     throw NotReadyHarvestedException("Tumbuhan");
                 }
-                tempSlot.push_back(DataConverter::itos(petakIndex.first, petakIndex.second));
+                tempSlot.push_back(DataConverter::itos(petakIndex.second, petakIndex.first));
             }
         }
 

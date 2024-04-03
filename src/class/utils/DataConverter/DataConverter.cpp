@@ -86,8 +86,9 @@ bool DataConverter::isNumber(const string &data)
     return hasDigit;
 }
 
-std::pair<int, int> DataConverter::GetSingleRowCol()
+std::pair<int, int> DataConverter::GetSingleRowCol(const string& message)
 {
+    cout << message;
     string input;
     cin >> input;
     if (input.size() != 3)
@@ -102,11 +103,11 @@ std::pair<int, int> DataConverter::GetSingleRowCol()
     return std::make_pair((int)(input[0] - 'A'), stoi(input.substr(1,2)) - 1);
 };
 
-vector<std::pair<int, int>> DataConverter::GetMultipleRowCol(int quantity)
+vector<std::pair<int, int>> DataConverter::GetMultipleRowCol(int quantity, const string& message)
 {
     while (true) {
         try{
-            cout << "Slot: ";
+            cout << message;
             string input;
             for (int i = 0; i < quantity; i++)
             {

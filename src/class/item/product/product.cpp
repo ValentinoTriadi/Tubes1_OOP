@@ -10,7 +10,7 @@ Product::Product(const int Id, const string &Code, const string &Name, const int
     price_(Price) {}
 
 // define the destructor
-Product::~Product() = default;
+Product::~Product(){};
 
 // define the getter
 string Product::getType() const {
