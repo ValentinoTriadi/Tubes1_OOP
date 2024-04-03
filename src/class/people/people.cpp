@@ -44,7 +44,7 @@ void People::makan()
         try
         {
             slot = DataConverter::GetSingleRowCol();
-            makanan = storage(slot.first, slot.second);
+            makanan = storage(slot.second, slot.first);
             if (makanan == nullptr)
             {
                 throw FoodEmptyException();
@@ -57,11 +57,21 @@ void People::makan()
         }
     }
 
+
+
+    try {
+        auto & test_product = dynamic_cast<Product &>(*makanan);
+    } catch (bad_cast &e) {
+        cout << "Item yang dipilih bukan produk" << endl;
+        return;
+    }
+
     Product product = dynamic_cast<Product &>(*makanan);
+
 
     try
     {
-        if (product.getType() != "PRODUCT_MATERIAL_PLANT")
+        if (product.getAddedWeight() == 0)
             throw InvalidFoodTypeException();
     }
     catch (InvalidFoodTypeException &e)
@@ -70,9 +80,9 @@ void People::makan()
     }
 
     Weight += product.getAddedWeight();
-    storage.deleteItem(slot.first, slot.second);
+    storage.deleteItem(slot.second, slot.first);
     cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-    cout << "Alhasil, berat badan kamu naik menjadi" << GetWeight() << endl;
+    cout << "Alhasil, berat badan kamu naik menjadi " << GetWeight() << endl;
 }
 
 Item People::membeli()

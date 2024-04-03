@@ -7,20 +7,24 @@ StateManager::StateManager()= default;
 
 StateManager::~StateManager()= default;
 
-void StateManager::defaultState(){}
+void StateManager::defaultState(){
+
+}
 
 void StateManager::loadState(){
     std::cout << "Apakah Anda ingin memuat state? (y/n) ";
 
-    char answer;
-    std::cin >> answer;
-
-    while ((char)tolower(answer) != 'y' && (char)tolower(answer) != 'n'){
-        std::cout << "Masukkan tidak valid. Silakan masukkan 'y' atau 'n'." << std::endl;
-        std::cin >> answer;
+    bool input;
+    while (true) {
+        try {
+            input = InputManager::receiveBooleanInput();
+            break;
+        } catch (GameException& e){
+            cout << e.what() << endl;
+        }
     }
 
-    if ((char)tolower(answer) == 'y'){
+    if (input){
         loadFromFile();
     } else {
         defaultState();
@@ -53,7 +57,6 @@ Farmer* StateManager::readFarmer(ifstream& file, string name, int money, int wei
     string slot, plantName;
     int age;
 
-    row = 0, col = 0;
     for (int i = 0; i < plantCount; i++){
         file >> slot >> plantName >> age;
         
@@ -95,14 +98,12 @@ Stockman* StateManager::readStockman(ifstream& file, string name, int money, int
     string slot, animalName;
     int weightAnimal;
 
-    row = 0, col = 0;
     for (int i = 0; i < countAnimal; i++){
         file >> slot >> name >> weightAnimal;
         Animal* animal = dynamic_cast<Animal*>(getItemByName(name));
         animal->setWeight(weightAnimal);
         peternakan->setItem(slot, animal);
     }
-    cout << "Selesai" << endl;
 
     stockman->setPeternakan(*peternakan);
     stockman->setStorage(*inventory);
@@ -112,7 +113,7 @@ Stockman* StateManager::readStockman(ifstream& file, string name, int money, int
 
 Mayor* StateManager::readMayor(ifstream& file, string name, int money, int weight, vector<int> gameConfig){
     Mayor* mayor = new Mayor(name, weight, money, gameConfig[2], gameConfig[3]);
-    int countItems, countAnimal;
+    int countItems;
 
     file >> countItems;
 
@@ -151,14 +152,15 @@ void StateManager::readShop(ifstream& file){
 void StateManager::loadFromFile(){
     std::cout << "Masukkan lokasi berkas state : ";
 
-    string filename;
-    cin >> filename;
+    InputManager::receiveStringInput();
+    string filename = InputManager::_inputData<string>;
 
     ifstream file(filename);
 
     while (!file.is_open()){
         std::cout << "Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ";
-        cin >> filename;
+        InputManager::receiveStringInput();
+        filename = InputManager::_inputData<string>;
         file.open(filename);
     }
 
@@ -174,15 +176,11 @@ void StateManager::loadFromFile(){
 
         file >> name >> type >> money >> weight;
 
-        cout << name << " " << type << " " << money << " " << weight << endl;
-
         if (type == "Petani"){
             _listPlayer.push_back(readFarmer(file, name, money, weight, gameConfig));
         } else if (type == "Peternak"){
-
             _listPlayer.push_back(readStockman(file, name, money, weight, gameConfig));
         } else if (type == "Walikota"){
-
             _listPlayer.push_back(readMayor(file, name, money, weight, gameConfig));
         } else {
             std::cout << "Tipe pemain tidak valid." << std::endl;
@@ -197,16 +195,11 @@ void StateManager::loadFromFile(){
 void StateManager::saveState(){
     std::cout << "Masukkan lokasi berkas state : ";
 
-    string filename;
-    cin >> filename;
+    InputManager::receiveStringInput();
 
-    ofstream file(filename);
+    ofstream file(InputManager::_inputData<string>);
 
     file << _listPlayer.size() << std::endl;
-
-    for (auto & i : _listPlayer){
-        cout << i->GetName() << " " << i->GetType() << " " << i->GetKeuangan() << " " << i->GetWeight() << std::endl;
-    }
 
     for (int i = 0; i < _listPlayer.size(); i++){
         string tipe;

@@ -2,6 +2,7 @@
 
 using namespace std;
 
+roundRobin<People *> GameManager::_listPlayer;
 bool GameManager::_isGameOver = false;
 
 void GameManager::StartNewGame()
@@ -51,17 +52,17 @@ void GameManager::AddUser(int type)
         if (type == 1)
         {
             auto *temp_mayor = new Mayor("Mayor", 40, 40, gameConfig[2], gameConfig[3]);
-            this->_listPlayer.add(temp_mayor);
+            GameManager::_listPlayer.add(temp_mayor);
         }
         else if (type == 2)
         {
             auto *temp_farmer = new Farmer("Petani1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-            this->_listPlayer.add(temp_farmer);
+            GameManager::_listPlayer.add(temp_farmer);
         }
         else if (type == 3)
         {
             auto *temp_stockman = new Stockman("Peternak1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-            this->_listPlayer.add(temp_stockman);
+            GameManager::_listPlayer.add(temp_stockman);
         }
         else
         {
@@ -85,6 +86,7 @@ void GameManager::StartGameValidation()
     }
     else
     {
+
         ContinueGame();
     }
 }
@@ -153,7 +155,14 @@ void GameManager::RunStockmanSelection(int input)
     switch (input)
     {
     case 1:
-        _currentPlayer->cetakPenyimpanan();
+        if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+        {
+            stockman->cetakPeternakan();
+        }
+        else
+        {
+            throw PeopleException();
+        }
         break;
     case 2:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
@@ -326,10 +335,16 @@ void GameManager::Run()
 void GameManager::pungutPajak()
 {
     int total = 0;
+    int temp;
     for (auto &player : _listPlayer)
     {
+        if (player->GetType() == 1){
+            return;
+        }
         player->HitungNonUang();
-        total += player->getStatusKeuangan().hitungPajak();
+        temp = player->getStatusKeuangan().hitungPajak();
+        player->getStatusKeuangan().kurangUang(temp);
+        total += temp;
     }
 }
 
@@ -343,5 +358,7 @@ void GameManager::muat()
 
 void GameManager::simpan()
 {
+    StateManager::_listPlayer = _listPlayer.getBuffer();
     StateManager::saveState();
+
 }

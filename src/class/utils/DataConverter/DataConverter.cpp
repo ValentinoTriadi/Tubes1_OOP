@@ -102,12 +102,11 @@ std::pair<int, int> DataConverter::GetSingleRowCol()
         throw InputException("Invalid Input: Please input A-Z and 0-9");
     }
 
-    return std::make_pair((int)(input[0] - 'A'), (int)(input[2] - '0'));
+    return std::make_pair((int)(input[0] - 'A'), (int)(input[2] - '1'));
 };
 
 vector<std::pair<int, int>> DataConverter::GetMultipleRowCol()
 {
-
     cout << "Slot: ";
     string input;
     cin >> input;

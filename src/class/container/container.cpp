@@ -227,11 +227,11 @@ map<string, int> Container::getFood(){
 
 int Container::getFoodTotal() const{
     int total = 0;
-    for (auto & row : items)
+    for (const auto & row : items)
     {
-        for (auto & item : row)
+        for (const auto & item : row)
         {
-            if (item != nullptr && dynamic_cast<Product*>(item)->getAddedWeight() > 0){
+            if (item != nullptr && dynamic_cast<Product*>(item)){
                 total++;
             }
         }

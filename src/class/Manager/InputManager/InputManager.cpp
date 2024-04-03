@@ -10,7 +10,7 @@ T InputManager::_inputData;
 void InputManager::receiveInput()
 {
     std::cout << "Pilihan: ";
-    std::getline(std::cin, _inputData<string>);
+    std::cin >> _inputData<string>;
     std::cout << "\n";
 }
 
@@ -82,7 +82,6 @@ void InputManager::MayorMenuInputValidation()
     receiveInput();
 
     _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-
     string data = _inputData<string>;
     if (data == "cetak_penyimpanan")
     {
@@ -314,6 +313,7 @@ void InputManager::receiveStringInput()
 
 bool InputManager::receiveBooleanInput()
 {
+    receiveStringInput();
 
     _inputData<string> = DataConverter::LowerCase(_inputData<string>);
 
@@ -334,6 +334,7 @@ bool InputManager::receiveBooleanInput()
         "yap",
         "yoi",
         "yups",
+        "yay",
     };
 
     no = {

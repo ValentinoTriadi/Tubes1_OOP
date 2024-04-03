@@ -96,6 +96,9 @@ class roundRobin{
             buf.clear();
         }
 
+
+        vector<T> getBuffer();
+
         /**
          * @brief Print the vector
         */
@@ -174,5 +177,10 @@ class roundRobin{
                 }
         };
 };
+
+template<class T>
+vector<T> roundRobin<T>::getBuffer() {
+    return buf;
+}
 
 #endif // ROUND_ROBIN_HPP_

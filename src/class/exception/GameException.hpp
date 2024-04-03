@@ -4,7 +4,8 @@
 #include <iostream>
 #include <utility>
 #include <map>
-#include "../../utils/DataConverter/DataConverter.hpp"
+#include "../utils/DataConverter/DataConverter.hpp"
+#include <string>
 using namespace std;
 
 class GameException

@@ -8,7 +8,7 @@
 #include "../../people/stockman/stockman.hpp"
 #include "../../gameData/gameData.hpp"
 #include "../InputManager/InputManager.hpp"
-#include "../../Exception/GameException.hpp"
+#include "../../exception/GameException.hpp"
 #include "../../utils/roundRobin/roundRobin.hpp"
 #include "../StateManager/StateManager.hpp"
 using namespace std;
@@ -19,7 +19,7 @@ private:
     /*Attribute*/
 
     // List of player
-    roundRobin<People *> _listPlayer;
+    static roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
 
     // Game Data
@@ -159,6 +159,7 @@ public:
      * Implement the save game feature
      */
     static void simpan();
+
 };
 
 #endif
