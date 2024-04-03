@@ -82,16 +82,17 @@ void InputManager::MayorMenuInputValidation()
     receiveInput();
 
     _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+
     string data = _inputData<string>;
-    if (data == "cetak simpanan" || data == "1")
+    if (data == "cetak_penyimpanan")
     {
         _inputData<int> = 1;
     }
-    else if (data == "pungut pajak" || data == "2")
+    else if (data == "pungut_pajak")
     {
         _inputData<int> = 2;
     }
-    else if (data == "bangun bangunan" || data == "3")
+    else if (data == "bangun_bangunan")
     {
         _inputData<int> = 3;
     }
@@ -160,7 +161,7 @@ void InputManager::StockmanMenuInputValidation()
     receiveInput();
 
     _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-    if (_inputData<string> == "cetak peternakan")
+    if (_inputData<string> == "cetak_peternakan")
     {
         _inputData<int> = 1;
     }
@@ -172,7 +173,7 @@ void InputManager::StockmanMenuInputValidation()
     {
         _inputData<int> = 3;
     }
-    else if (_inputData<string> == "memberi pangan")
+    else if (_inputData<string> == "memberi_pangan")
     {
         _inputData<int> = 4;
     }
@@ -240,7 +241,7 @@ void InputManager::FarmerMenuInputValidation()
     {
         _inputData<int> = 1;
     }
-    else if (data == "cetak ladang" || data == "2")
+    else if (_inputData<string> == "cetak_ladang")
     {
         _inputData<int> = 2;
     }
@@ -300,7 +301,7 @@ void InputManager::receiveFloatInput()
         throw InputException("Invalid Input: Please input a number");
     }
 
-    std::cout << std::endl;
+    std::cout << "\n";
 
     _inputData<float> = stof(_inputData<string>);
 }
@@ -308,7 +309,7 @@ void InputManager::receiveFloatInput()
 void InputManager::receiveStringInput()
 {
     std::cin >> _inputData<string>;
-    std::cout << std::endl;
+    std::cout << "\n";
 }
 
 bool InputManager::receiveBooleanInput()

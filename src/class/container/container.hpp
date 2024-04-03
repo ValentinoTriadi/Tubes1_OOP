@@ -139,6 +139,8 @@ public:
      */
     [[nodiscard]] bool isEmpty() const;
 
+    map<string, vector<Item *>> getItemsPointer();
+
 protected:
     /* data */
     vector<vector<Item*> > items;

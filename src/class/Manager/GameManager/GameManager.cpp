@@ -328,6 +328,8 @@ void GameManager::pungutPajak()
     int total = 0;
     for (auto &player : _listPlayer)
     {
+        player->HitungNonUang();
+        total += player->getStatusKeuangan().hitungPajak();
     }
 }
 
@@ -335,8 +337,8 @@ void GameManager::muat()
 {
     StateManager::loadState();
     _listPlayer = StateManager::_listPlayer;
-
     // TODO : Implement load shop items
+
 }
 
 void GameManager::simpan()

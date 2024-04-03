@@ -46,7 +46,7 @@ class People{
          * @param Keuangan saved the money of user
          * @param Type type of user
         */
-        People(const string&,int,int,int,int,int);
+        People(string ,int,int,int,int,int);
     
         People();
 
@@ -110,6 +110,16 @@ class People{
          *  @return container
          */
         [[nodiscard]] Container getStorage() const;
+
+        /**
+         *  @brief Get StatusKeuangan
+         */
+        [[nodiscard]] StatusKeuangan getStatusKeuangan() const;
+
+        /**
+         * Menghitung nilai non uang
+         */
+        void HitungNonUang();
 
 };
 

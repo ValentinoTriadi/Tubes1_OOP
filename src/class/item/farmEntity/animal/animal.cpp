@@ -1,5 +1,4 @@
 #include "animal.hpp"
-
 #include <iostream>
 
 // Constructor

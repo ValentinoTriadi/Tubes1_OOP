@@ -1,12 +1,16 @@
 #include "people.hpp"
 
+#include <utility>
+
+
 using namespace std;
 
-People::People() : Keuangan(50), Weight(40), Type(0)
+
+People::People() : Keuangan(50,0), Weight(40), Type(0)
 {
 }
 
-People::People(const string &nama, int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan), name(nama)
+People::People(string nama, int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan, 0), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan), name(std::move(nama))
 {
 }
 
@@ -160,4 +164,16 @@ void People::setStorage(const Container &Setstorage)
 Container People::getStorage() const
 {
     return storage;
+}
+
+StatusKeuangan People::getStatusKeuangan() const {
+    return Keuangan;
+}
+
+void People::HitungNonUang() {
+    int NonUang = Keuangan.GetNonUang();
+    map<pair<string,int>, int> item = storage.getItems();
+    for (auto & i : item) {
+        NonUang += i.second;
+    }
 }

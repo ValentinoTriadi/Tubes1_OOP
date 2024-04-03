@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <utility>
+#include <map>
 using namespace std;
 
 class GameException
@@ -248,6 +249,34 @@ public:
     {
         return "Hewan belum siap dipanen";
     }
+};
+
+/*
+ * Class Exception untuk Mayor
+ */
+class NotEnoughGuldenOrItemException : public GameException {
+    int money = 0;
+    const std::map<string,int>& barang{};
+
+    public:
+
+        NotEnoughGuldenOrItemException() = default;
+        NotEnoughGuldenOrItemException(int money , const std::map<string,int>& barang) : money(money), barang(barang) {};
+
+        string what() override {
+            string message = "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+            if (money > 0) {
+                message += to_string(money) + " gulden, ";
+            }
+            for (auto& item : barang) {
+                message += to_string(item.second) + " " + item.first;
+                if (item != *barang.rbegin()) {
+                    message += ", ";
+                }
+            }
+            message += "!";
+            return message;
+        }
 };
 
 #endif

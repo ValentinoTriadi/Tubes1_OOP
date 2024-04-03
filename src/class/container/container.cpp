@@ -198,6 +198,19 @@ map<pair<string, int>, int> Container::getItems(){
     return itemMap;
 }
 
+map<string, vector<Item *>> Container::getItemsPointer() {
+    map<string, vector<Item *>> itemMap;
+
+    for (auto & row : items) {
+        for (auto & item : row) {
+            if (item != nullptr) {
+                itemMap[item->getCode()].push_back(item);
+            }
+        }
+    }
+    return itemMap;
+}
+
 map<string, int> Container::getFood(){
     map<string, int> itemMap;
     for (auto & row : items)
