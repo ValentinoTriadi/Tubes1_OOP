@@ -8,117 +8,229 @@ Farmer::Farmer() = default;
  *  Mencetak Ladang dari petani
  */
 void Farmer::cetakLadang() const {
-    cout << ladang;
+    std::cout << ladang;
+}
+
+bool Farmer::CheckTumbuhan(const string& kode){
+    // bool found = false;
+    // for (auto & i : GameData::_plantConfig) {
+    //     if (i.getCode() == kode) {
+    //         found = true;
+    //         break;
+    //     }
+    // }
+    // return found;
+
+    // Optimized version
+    // find_if -> find from start to end of vector which meets the lambda function condition
+    if (find_if(GameData::_plantConfig.begin(), GameData::_plantConfig.end(), [&kode](const Plant& plant) { return plant.getCode() == kode; }) != GameData::_plantConfig.end())
+       return true;
+    return false;
+}
+
+string Farmer::getNameByCode(const string& code) const{
+    try {
+        for (auto & i : GameData::_plantConfig) {
+            if (i.getCode() == code) {
+                return i.getNama();
+            }
+        }
+        throw NotFoundException("Kode Tumbuhan");
+    } catch (GameException& e) {
+        std::cout << e.what() << endl;
+        return "";
+    }
 }
 
 /**
  *  Menanam tanaman
  */
 void Farmer::tanam() {
-    // Pilih tanaman dari penyimpanan
-    cout << "Pilih tanaman dari penyimpanan" << endl;
-    cetakPenyimpanan();
+    try{
+        // Check adakah tumbuhan di penyimpanan
+        bool found = false;
+        for (int i = 0; i < storage.getRow(); i++) {
+            for (int j = 0; j < storage.getCol(); j++) {
+                if (storage(i,j) != nullptr && CheckTumbuhan(storage(i,j)->getCode())){
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            throw NotInException("hewan", "penyimpanan");
+        }
 
-    // Ambil input dari user simpan dalam variable slot
-    // Input berformat char int (B10)
-    cout << "Slot: ";
-    string slot;
-    cin >> slot;
-    cout << endl;
+        // Pilih tanaman dari penyimpanan
+        std::cout << "Pilih tanaman dari penyimpanan" << endl;
+        cetakPenyimpanan();
 
-    // Ubah input menjadi column dan row
-    int row1 = slot[0] - 'A';
-    int column1 = stoi(slot.substr(1, 2)) - 1;
+        // Ambil input dari user simpan dalam variable slot
+        // Input berformat char int (B10)
+        std::cout << "Slot: ";
+        pair <int, int> slotIndex = DataConverter::GetSingleRowCol();
 
-    // Validasi
-    // TODO: Exception handling
 
-    // Akses item
-    Item* tanaman = storage(row1,column1);
+        // Validasi
+        if (storage(slotIndex.first, slotIndex.second) == nullptr) {
+            throw KosongException("Slot" + DataConverter::itos(slotIndex.first, slotIndex.second));
+        } else if (!CheckTumbuhan(storage(slotIndex.first, slotIndex.second)->getCode())) {
+            throw NotException("tumbuhan");
+        }
 
-    cout << "Kamu memilih " << tanaman->getNama() << endl;
+        // Akses item
+        Item* tanaman = storage(slotIndex.first,slotIndex.second);
 
-    // Ambil input petak yang akan ditanami
-    cout << "Pilih petak tanah yang akan ditanami" << endl;
-    cetakLadang();
+        std::cout << "Kamu memilih " << tanaman->getNama() << endl;
 
-    // Ambil input dari user simpan dalam variable slot
-    // Input berformat char int (B10)
-    cout << "Petak tanah: ";
-    string petak;
-    cin >> petak;
-    cout << endl << endl;
+        // Ambil input petak yang akan ditanami
+        std::cout << "Pilih petak tanah yang akan ditanami" << endl;
+        cetakLadang();
 
-    // Ubah input menjadi column dan row
-    int row2 = petak[0] - 'A';
-    int column2 = stoi(petak.substr(1, 2)) - 1;
+        // Ambil input dari user simpan dalam variable slot
+        // Input berformat char int (B10)
+        std::cout << "Petak tanah: ";
+        pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
 
-    // Validasi
-    // TODO : Exception handling
-
-    ladang.setItem(row2,column2, tanaman);
-
-    cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
-    cout << tanaman->getNama() << " berhasil ditanam!" << endl;
-
-    storage.deleteItem(row1,column1);
+        // Validasi
+        if (this->ladang(petakIndex.first, petakIndex.second) != nullptr) {
+            throw PetakSudahTerisiException(DataConverter::itos(petakIndex.first, petakIndex.second));
+        } else {
+            // SUCCESS
+            this->ladang.setItem(petakIndex.first, petakIndex.second, storage(slotIndex.first, slotIndex.second));
+            this->storage.deleteItem(slotIndex.first, slotIndex.second);
+        }
+    } catch (GameException& e) {
+        std::cout << e.what() << endl;
+    }
 }
 
 void Farmer::panen() {
-    // TODO : Cek ada barang yang bisa dipanen atau ga, kalau ga langsung exception
-
-    cetakLadang();
-
-    // TODO : Cetak barang yang bisa diambil
-
-    cout << "Pilih tanaman tanah yang akan dipanen" << endl;
-
-    // TODO : Cetak barang yang bisa diambil dan jumlahnya
-
-    cout << "Nomor tanamn yang ingin dipanen: ";
-    int nomor;
-    cin >> nomor;
-    cout << endl << endl;
-
-    // TODO : Validasi input
-
-    cout<< "Berapa petak yang ingin dipanen: ";
-    int jumlah;
-    cin >> jumlah;
-    cout << endl << endl;
-
-    // TODO : Validasi input
-
-    cout << "Pilih petak yang ingin dipanen: " << endl;
-
-    // TODO : Cetak petak yang bisa dipanen
-
-    vector<Item*>tanaman;
-    vector<pair<int,int>> petak;
-    for (int i = 0; i < jumlah; i++) {
-        cout << "Petak ke-" << i+1 << ": ";
-        string slot;
-        cin >> slot;
-        cout << endl;
-
-        // TODO : Validasi input
-
-        int row = slot[0] - 'A';
-        int column = stoi(slot.substr(1, 2)) - 1;
-
-        tanaman.emplace_back(ladang(row,column));
-        petak.emplace_back(row,column);
-    }
-
-    cout << jumlah << " petak tanaman " << tanaman[nomor-1]->getNama() << " pada petak ";
-    for (int i = 0; i < jumlah; i++) {
-        cout << petak[i].first << petak[i].second;
-        if (i != jumlah-1) {
-            cout << ", ";
+    try{
+        map<string, int> plants;
+        // Check di ladang ada tumbuhan yang bisa dipanen ga + count yang bisa dipanen
+        bool found = false;
+        for (int i = 0; i < ladang.getRow(); i++) {
+            for (int j = 0; j < ladang.getCol(); j++) {
+                if (ladang(i,j) != nullptr){
+                    Plant plant = dynamic_cast<Plant&>(*ladang(i,j));
+                    if (plant.getAge() >= plant.getHarvestLimit()){
+                        found = true;
+                        if (plants.find(plant.getCode()) == plants.end()){
+                            plants[plant.getCode()] = 1;
+                        } else {
+                            plants[plant.getCode()]++;
+                        }
+                    }
+                }
+            }
         }
-        ladang.deleteItem(petak[i].first,petak[i].second);
+        if (!found) {
+            throw FarmEntityNotFoundException("tumbuhan");
+        }
+
+        // Cetak ladang + barang yang bisa diambil
+        cetakLadang();
+        ladang.showPlant();
+
+
+        std::cout << "Pilih tanaman tanah yang akan dipanen" << endl;
+
+        // Check yang siap di panen + tampilin
+        map<string, int>::iterator it;
+        int i = 0;
+        std::cout << endl << "Pilih hewan siap panen yang kamu miliki" << endl;
+        for (it = plants.begin(); it != plants.end(); it++){
+            i++;
+            std::cout << "  " << i << ". " << it->first << " (" << it->second << " petak siap panen)" << endl;
+        }
+
+        std::cout << "Nomor tanaman yang ingin dipanen: ";
+        InputManager::receiveIntInput();
+        int nomor = InputManager::_inputData<int>;
+
+        // Validasi input
+        if (nomor <= 0 || nomor > plants.size()){
+            throw NotValidException("Nomor tumbuhan");
+        }
+
+        // get count petak yang siap dipanen
+        it = plants.begin();
+        for (int i = 1; i < nomor; i++){
+            it++;
+        }
+        string codePlant = it->first;
+        int countPetak = it->second;
+        string namePlant = getNameByCode(codePlant);
+
+
+        std::cout<< "Berapa petak yang ingin dipanen: ";
+        InputManager::receiveIntInput();
+        int jumlah = InputManager::_inputData<int>;
+
+        // Validasi input
+        if (jumlah <= 0){
+            throw NotValidException("Jumlah petak");
+        } else if (jumlah > countPetak){
+            throw PetakMelebihiException();
+        }
+
+        // validasi inventory
+        if (storage.getCellKosong() < jumlah){
+            throw StorageFullException();
+        }
+
+
+        vector<string> tempSlot;
+        std::cout << "Pilih petak yang ingin dipanen: " << endl;
+        // Cetak petak yang bisa dipanen
+        for (int i = 0; i < jumlah; i++) {
+            std::cout << "Petak ke-" << i+1 << ": ";
+            pair <int, int> petakIndex = DataConverter::GetSingleRowCol();
+            if (ladang(petakIndex.first, petakIndex.second) == nullptr){
+                throw KosongException("Petak" + DataConverter::itos(petakIndex.first, petakIndex.second));
+            } else {
+                Plant plant = dynamic_cast<Plant&>(*ladang(petakIndex.first, petakIndex.second));
+                if (plant.getCode() != codePlant){
+                    throw NotChoosenException("Tumbuhan");
+                } else if (plant.getAge() < plant.getHarvestLimit()){
+                    throw NotReadyHarvestedException("Tumbuhan");
+                }
+                tempSlot.push_back(DataConverter::itos(petakIndex.first, petakIndex.second));
+            }
+        }
+
+        // SUCCESS
+        // ilangin field + masukin inventory
+        int tempProductIndex = -1;
+        for (int i = 0; i < GameData::_productConfig.size(); i++) {
+            if (GameData::_productConfig[i].getType() == "PRODUCT_FRUIT_PLANT" && GameData::_productConfig[i].getOrigin() == namePlant){
+                tempProductIndex = i;
+                break;
+            }
+        }
+        if (tempProductIndex == -1){
+            throw NotFoundException("Product");
+        }
+        Product tempProduct = GameData::_productConfig[tempProductIndex];
+
+        std::cout << jumlah << " petak hewan " << codePlant << " pada petak ";
+        for (int i = 0; i < jumlah; i++) {
+            Product* newProduct = new Product(tempProduct);
+            std::cout << tempSlot[i];
+            if (i != jumlah-1) {
+                std::cout << ", ";
+            }
+            // Delete from ladang
+            ladang.deleteItem(tempSlot[i]);
+
+            // Insert to inventory
+            storage.setItem(newProduct);
+        }                                                       
+        std::cout << " telah dipanen!" << endl;
+    } catch (GameException& e) {
+        std::cout << e.what() << endl;
     }
-    cout<<" telah dipanen!" << endl;
 }
 
 void Farmer::pungutPajak() {

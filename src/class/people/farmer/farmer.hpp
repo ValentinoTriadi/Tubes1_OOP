@@ -5,9 +5,15 @@
 
 
 
+
 class Farmer : public People {
     private:
-         Ladang ladang;
+        Ladang ladang;
+        /*
+        * @brief Check If there is an plant in the storage
+        * @return true if there is an plant in the storage, false if there is no plant in the storage
+        */
+        bool CheckTumbuhan(const string&);
     public:
         /**
          * @brief Construct a new Farmer object
@@ -62,6 +68,11 @@ class Farmer : public People {
          * Get Ladang yang dimiliki farmer
          */
         [[nodiscard]] Ladang getLadang() const;
+
+        /**
+         * @brief get name plant by code
+        */
+        string getNameByCode(const string&) const override;
 };
 
 #endif

@@ -88,7 +88,6 @@ bool DataConverter::isNumber(const string &data)
 
 std::pair<int, int> DataConverter::GetSingleRowCol()
 {
-    cout << "Slot: ";
     string input;
     cin >> input;
     cout << "\n";
@@ -153,4 +152,13 @@ string DataConverter::LowerCase(string data)
 {
     std::transform(data.begin(), data.end(), data.begin(), ::tolower);
     return data;
+}
+
+string DataConverter::itos(int i, int j){
+    string slot = "";
+    slot += (char)(i + 'A');
+    string temp = to_string(j+1);
+    if (temp.length() == 1) slot += "0";
+    slot += temp;
+    return slot;
 }
