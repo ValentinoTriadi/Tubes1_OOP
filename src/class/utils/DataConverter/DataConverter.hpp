@@ -17,7 +17,7 @@ public:
      * @brief Validate User Input for multiple Row and Column input
      * Input will be taken from the function
      */
-    static vector<std::pair<int, int>> GetMultipleRowCol();
+    static vector<std::pair<int, int>> GetMultipleRowCol(int);
 
     /**
      * @brief Validate User Input for Player Row and Column input

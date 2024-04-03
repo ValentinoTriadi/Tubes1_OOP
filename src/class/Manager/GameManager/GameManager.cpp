@@ -8,6 +8,7 @@ bool GameManager::_isGameOver = false;
 void GameManager::StartNewGame()
 {
     this->ReadConfig();
+    _toko = Toko();
 
     // Add user to the list player
     // User default settings 40 gulden, 40 weight
@@ -352,15 +353,14 @@ void GameManager::pungutPajak()
 
 void GameManager::muat()
 {
+    _toko = Toko();
     StateManager::loadState();
     _listPlayer = StateManager::_listPlayer;
-    // TODO : Implement load shop items
-
+    Toko::tambahListItems(StateManager::_listItemToko);
 }
 
 void GameManager::simpan()
 {
     StateManager::_listPlayer = _listPlayer.getBuffer();
     StateManager::saveState();
-
 }

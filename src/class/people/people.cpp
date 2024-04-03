@@ -55,60 +55,81 @@ void People::makan()
     cout << "Alhasil, berat badan kamu naik menjadi " << GetWeight() << endl;
 }
 
-Item People::membeli()
+void People::membeli()
 {
-    cout << "Selamat datang di toko!!" << endl;
-    cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    try {
+        cout << "Selamat datang di toko!!\n";
+        cout << "Berikut merupakan hal yang dapat Anda Beli\n";
 
-    Toko::displayToko();
+        Toko::displayToko();
 
-    cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
-    cout << "Slot penyimpanan tersedia:" << endl;
+        cout << "Uang Anda : " << Keuangan.GetMoney() << " gulden.\n";
+        cout << "Slot penyimpanan tersedia: " << storage.getCellKosong() << " petak\n";
 
-    cout << "Barang ingin dibeli : ";
-    int buy;
-    cin >> buy;
-    cout << endl;
-    cout << "Kuantitas : ";
-    int quantity;
-    cin >> quantity;
-    cout << endl;
+        cout << "Barang ingin dibeli : ";
 
-    Item *itemtobuy = Toko::getItemAt(buy - 1);
+        InputManager::receiveIntInput();
+        int buy = InputManager::_inputData<int>;
 
-    if (storage.getCellKosong() < quantity)
-    {
-        throw StorageFullException();
-    }
-    else if (Keuangan.GetMoney() < itemtobuy->getHarga() * quantity)
-    {
-        throw NotEnoughMoneyException();
-    }
-    else
-    {
-        cout << "Selamat Anda berhasil membeli " << quantity << " ";
-        cout << itemtobuy->getNama();
-
-        Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
-        cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
-
-        cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
-        cetakPenyimpanan();
-
-        cout << "Petak Slot: ";
-        string slot;
-        for (int i = 0; i < quantity; i++)
+        Item *itemtobuy = Toko::getItemAt(buy - 1);
+        if (itemtobuy == nullptr)
         {
-            cin >> slot;
-            cout << endl;
-            int row = slot[0] - 'A';
-            int col = stoi(slot.substr(1, 2)) - 1;
-            storage.setItem(row, col, itemtobuy);
-            Toko::removeItems(itemtobuy);
+            throw ItemNotFoundException("");
         }
-        cout << "Barang berhasil disimpan!" << endl;
+
+        cout << "Kuantitas : ";
+        InputManager::receiveIntInput();
+        int quantity = InputManager::_inputData<int>;
+
+        if (storage.getCellKosong() < quantity)
+        {
+            throw StorageFullException();
+        }
+        else if (Keuangan.GetMoney() < itemtobuy->getHarga() * quantity)
+        {
+            throw NotEnoughMoneyException();
+        }
+        else
+        {
+            cout << "Selamat Anda berhasil membeli " << quantity << " ";
+            cout << itemtobuy->getNama();
+
+            Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
+            cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden\n";
+
+            cout << "Pilih slot untuk menyimpan barang yang Anda beli!\n";
+
+
+            while (true){
+                try {
+                    cetakPenyimpanan();
+                    vector<pair<int, int>> petak = DataConverter::GetMultipleRowCol(quantity);
+                    int temp = quantity;
+                    for (int i = 0; i < temp; i++)
+                    {
+                        // Validasi petak index
+                        if (petak[i].second < 0 || petak[i].second >= storage.getCol() || petak[i].first >= storage.getRow() || petak[i].first < 0) {
+                            throw IndexOutOfBoundException();
+                        }
+
+                        if (storage(petak[i].second, petak[i].first) != nullptr)
+                        {
+                            throw NotEmptyCellException(DataConverter::itos(petak[i].second , petak[i].first));
+                        }
+
+                        storage.setItem(petak[i].second, petak[i].first, itemtobuy);
+                        quantity--;
+                    }
+                    cout << "Barang berhasil disimpan!" << endl;
+                    break;
+                } catch (GameException &e) {
+                    cout << e.what() << endl;
+                }
+            }
+        }
+    } catch (GameException &e) {
+        cout << e.what() << endl;
     }
-    return *itemtobuy;
 }
 
 void People::menjual()
