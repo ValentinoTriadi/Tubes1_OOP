@@ -130,15 +130,15 @@ int Container::getCellKosong() const
  */
 void Container::setItem(int i, int j, Item *item)
 {
-    if (i >= row || j >= col){
-        // TODO: throw exception
-        cout << "Index out of bound" << endl;
+    if (i >= row || j >= col || i < 0 || j < 0) {
+        throw IndexOutOfBoundException();
     }
 
-    if (items[i][j] == nullptr)
-    {
+    if (items[i][j] == nullptr) {
         items[i][j] = item;
         cellKosong--;
+    } else {
+        throw PetakSudahTerisiException(DataConverter::itos(j,i));
     }
 }
 
@@ -159,23 +159,19 @@ void Container::setItem(Item *item)
             if (items[i][j] == nullptr) setItem(i, j, item);
         }
     }
+    throw FullException("penyimpanan");
 }
 
 void Container::deleteItem(int i, int j)
 {
-    try {
-        if (items[i][j] != nullptr)
-        {
-            items[i][j] = nullptr;
-            cellKosong++;
-        }
-        else
-        {
-            throw "Cell is empty";
-        }
-    } catch (const char *msg)
+    if (items[i][j] != nullptr)
     {
-        cerr << msg << endl;
+        items[i][j] = nullptr;
+        cellKosong++;
+    }
+    else
+    {
+        throw KosongException("Slot " + DataConverter::itos(j,i));
     }
 }
 

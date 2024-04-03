@@ -16,7 +16,7 @@ int DataConverter::StringToNumber(const string &data)
             throw InputException("Input Is Not a Number");
         }
     }
-    catch (InputException &i)
+    catch (GameException &i)
     {
         std::cout << i.what() << std::endl;
         return -999;
@@ -97,12 +97,12 @@ std::pair<int, int> DataConverter::GetSingleRowCol()
         throw InputException("Invalid Input: Please input 3 characters EX: (B01)");
     }
 
-    if (!isAlphabet(input[0]) || !isNumber(input[2]))
+    if (!isAlphabet(input[0]) || !isNumber(input[1]) || !isNumber(input[2]))
     {
-        throw InputException("Invalid Input: Please input A-Z and 0-9");
+        throw InputException("Invalid Input: Please input [A-Z][0-9][0-9]");
     }
 
-    return std::make_pair((int)(input[0] - 'A'), (int)(input[2] - '1'));
+    return std::make_pair((int)(input[0] - 'A'), stoi(input.substr(1,2)) - 1);
 };
 
 vector<std::pair<int, int>> DataConverter::GetMultipleRowCol()
@@ -117,7 +117,7 @@ vector<std::pair<int, int>> DataConverter::GetMultipleRowCol()
     // Regex for input with format A01, A02, A03,..., A0N
     std::regex pattern("([A-Z][0-9]{2},?)+");
     if (!std::regex_match(input, pattern))
-        throw InputException("Invalid Input: Please input A-Z and 0-9 with pattern A09, B01,..., C04");
+        throw InputException("Invalid Input: Please input A-Z and 0-9 with pattern A09, B01, ... ,C04");
 
     vector<std::pair<int, int>> result;
     for (size_t i = 0; i < input.length(); i += 3)

@@ -43,9 +43,9 @@ std::vector<std::string> InputManager::no = {
         "hell no",
 };
 
-void InputManager::receiveInput()
+void InputManager::receiveInput(const string& message)
 {
-    std::cout << "Pilihan: ";
+    std::cout << message;
     std::cin >> _inputData<string>;
     std::cout << "\n";
 }
@@ -57,7 +57,7 @@ void InputManager::NewGameInput()
         std::cout << "Please enter a valid input\n";
         std::cout << "1. input (New Game) or (1) jika ingin buat game baru\n";
         std::cout << "2. input (Continue) or (2) jika ingin membaca berkas\n\n";
-        receiveInput();
+        receiveInput("Pilihan: ");
 
         if (_inputData<string> == "New Game" || _inputData<string> == "Continue")
         {
@@ -80,7 +80,7 @@ void InputManager::NewGameInput()
             }
         }
     }
-    catch (InputException e)
+    catch (GameException& e)
     {
         std::cout << e.what() << std::endl;
         NewGameInput();
@@ -114,54 +114,38 @@ void InputManager::ShowMayorMenu()
 
 void InputManager::MayorMenuInputValidation()
 {
-    ShowMayorMenu();
-    receiveInput();
+    try {
+        ShowMayorMenu();
+        receiveInput("Pilihan : ");
 
-    _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-    string data = _inputData<string>;
-    if (data == "cetak_penyimpanan")
-    {
-        _inputData<int> = 1;
-    }
-    else if (data == "pungut_pajak")
-    {
-        _inputData<int> = 2;
-    }
-    else if (data == "bangun_bangunan")
-    {
-        _inputData<int> = 3;
-    }
-    else if (data == "makan" || data == "4")
-    {
-        _inputData<int> = 4;
-    }
-    else if (data == "beli" || data == "5")
-    {
-        _inputData<int> = 5;
-    }
-    else if (data == "jual" || data == "6")
-    {
-        _inputData<int> = 6;
-    }
-    else if (data == "muat" || data == "7")
-    {
-        _inputData<int> = 7;
-    }
-    else if (data == "simpan" || data == "8")
-    {
-        _inputData<int> = 8;
-    }
-    else if (data == "tambah pemain" || data == "9")
-    {
-        _inputData<int> = 9;
-    }
-    else if (data == "next turn" || data == "10")
-    {
-        _inputData<int> = 10;
-    }
-    else
-    {
-        throw MenuException("Invalid Input: Masukan belum benar");
+        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+        string data = _inputData<string>;
+        if (data == "cetak_penyimpanan") {
+            _inputData<int> = 1;
+        } else if (data == "pungut_pajak") {
+            _inputData<int> = 2;
+        } else if (data == "bangun_bangunan") {
+            _inputData<int> = 3;
+        } else if (data == "makan" || data == "4") {
+            _inputData<int> = 4;
+        } else if (data == "beli" || data == "5") {
+            _inputData<int> = 5;
+        } else if (data == "jual" || data == "6") {
+            _inputData<int> = 6;
+        } else if (data == "muat" || data == "7") {
+            _inputData<int> = 7;
+        } else if (data == "simpan" || data == "8") {
+            _inputData<int> = 8;
+        } else if (data == "tambah pemain" || data == "9") {
+            _inputData<int> = 9;
+        } else if (data == "next turn" || data == "10") {
+            _inputData<int> = 10;
+        } else {
+            throw MenuException("Invalid Input: Masukan belum benar");
+        }
+    } catch (GameException& e){
+        cout << e.what() << endl;
+        MayorMenuInputValidation();
     }
 }
 
@@ -194,57 +178,39 @@ void InputManager::ShowStockmanMenu()
 
 void InputManager::StockmanMenuInputValidation()
 {
-    ShowStockmanMenu();
-    receiveInput();
+    try {
+        ShowStockmanMenu();
+        receiveInput("Pilihan : ");
 
-    _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-    if (_inputData<string> == "cetak_peternakan")
-    {
-        _inputData<int> = 1;
-    }
-    else if (_inputData<string> == "cetak_penyimpanan")
-    {
-        _inputData<int> = 2;
-    }
-    else if (_inputData<string> == "ternak")
-    {
-        _inputData<int> = 3;
-    }
-    else if (_inputData<string> == "makan")
-    {
-        _inputData<int> = 4;
-    }
-    else if (_inputData<string> == "memberi_pangan")
-    {
-        _inputData<int> = 5;
-    }
-    else if (_inputData<string> == "membeli")
-    {
-        _inputData<int> = 6;
-    }
-    else if (_inputData<string> == "menjual")
-    {
-        _inputData<int> = 7;
-    }
-    else if (_inputData<string> == "memanen")
-    {
-        _inputData<int> = 8;
-    }
-    else if (_inputData<string> == "muat")
-    {
-        _inputData<int> = 9;
-    }
-    else if (_inputData<string> == "simpan")
-    {
-        _inputData<int> = 10;
-    }
-    else if (_inputData<string> == "next turn")
-    {
-        _inputData<int> = 11;
-    }
-    else
-    {
-        throw MenuException("Invalid Input: Masukan belum benar");
+        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+        if (_inputData<string> == "cetak_peternakan") {
+            _inputData<int> = 1;
+        } else if (_inputData<string> == "cetak_penyimpanan") {
+            _inputData<int> = 2;
+        } else if (_inputData<string> == "ternak") {
+            _inputData<int> = 3;
+        } else if (_inputData<string> == "makan") {
+            _inputData<int> = 4;
+        } else if (_inputData<string> == "memberi_pangan") {
+            _inputData<int> = 5;
+        } else if (_inputData<string> == "membeli") {
+            _inputData<int> = 6;
+        } else if (_inputData<string> == "menjual") {
+            _inputData<int> = 7;
+        } else if (_inputData<string> == "memanen") {
+            _inputData<int> = 8;
+        } else if (_inputData<string> == "muat") {
+            _inputData<int> = 9;
+        } else if (_inputData<string> == "simpan") {
+            _inputData<int> = 10;
+        } else if (_inputData<string> == "next turn") {
+            _inputData<int> = 11;
+        } else {
+            throw MenuException("Invalid Input: Masukan belum benar");
+        }
+    } catch (GameException& e){
+        cout << e.what() << endl;
+        StockmanMenuInputValidation();
     }
 }
 
@@ -273,60 +239,45 @@ void InputManager::ShowFarmerMenu()
 
 void InputManager::FarmerMenuInputValidation()
 {
-    ShowFarmerMenu();
-    receiveInput();
+    try {
+        ShowFarmerMenu();
+        receiveInput("Pilihan : ");
 
-    _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-    string data = _inputData<string>;
-    if (data == "tanam" || data == "1")
-    {
-        _inputData<int> = 1;
-    }
-    else if (_inputData<string> == "cetak_ladang")
-    {
-        _inputData<int> = 2;
-    }
-    else if (data == "makan" || data == "3")
-    {
-        _inputData<int> = 3;
-    }
-    else if (data == "membeli" || data == "4")
-    {
-        _inputData<int> = 4;
-    }
-    else if (data == "menjual" || data == "5")
-    {
-        _inputData<int> = 5;
-    }
-    else if (data == "memanen" || data == "6")
-    {
-        _inputData<int> = 6;
-    }
-    else if (data == "muat" || data == "7")
-    {
-        _inputData<int> = 7;
-    }
-    else if (data == "simpan" || data == "8")
-    {
-        _inputData<int> = 8;
-    }
-    else if (data == "next turn" || data == "9")
-    {
-        _inputData<int> = 9;
-    }
-    else
-    {
-        throw MenuException("Invalid Input: Masukan belum benar");
+        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+        string data = _inputData<string>;
+        if (data == "tanam" || data == "1") {
+            _inputData<int> = 1;
+        } else if (_inputData<string> == "cetak_ladang") {
+            _inputData<int> = 2;
+        } else if (data == "makan" || data == "3") {
+            _inputData<int> = 3;
+        } else if (data == "membeli" || data == "4") {
+            _inputData<int> = 4;
+        } else if (data == "menjual" || data == "5") {
+            _inputData<int> = 5;
+        } else if (data == "memanen" || data == "6") {
+            _inputData<int> = 6;
+        } else if (data == "muat" || data == "7") {
+            _inputData<int> = 7;
+        } else if (data == "simpan" || data == "8") {
+            _inputData<int> = 8;
+        } else if (data == "next turn" || data == "9") {
+            _inputData<int> = 9;
+        } else {
+            throw MenuException("Invalid Input: Masukan belum benar");
+        }
+    } catch (GameException& e){
+        cout << e.what() << endl;
+        FarmerMenuInputValidation();
     }
 }
 
-void InputManager::receiveIntInput()
+void InputManager::receiveIntInput(const string& message)
 {
     while (true)
     {
         try {
-            std::cin >> _inputData<string>;
-            std::cout << std::endl;
+            receiveInput(message);
 
             if (!DataConverter::isNumber(_inputData<string>))
             {
@@ -341,12 +292,11 @@ void InputManager::receiveIntInput()
     }
 }
 
-void InputManager::receiveFloatInput()
+void InputManager::receiveFloatInput(const string& message)
 {
     while (true){
         try {
-            std::cin >> _inputData<string>;
-            std::cout << std::endl;
+            receiveInput(message);
 
             if (!DataConverter::isNumber(_inputData<string>))
             {
@@ -361,17 +311,11 @@ void InputManager::receiveFloatInput()
     }
 }
 
-void InputManager::receiveStringInput()
-{
-    std::cin >> _inputData<string>;
-    std::cout << "\n";
-}
-
-bool InputManager::receiveBooleanInput()
+bool InputManager::receiveBooleanInput(const string& message)
 {
     while (true) {
         try{
-            receiveStringInput();
+            receiveInput(message);
 
             _inputData<string> = DataConverter::LowerCase(_inputData<string>);
 

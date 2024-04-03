@@ -115,12 +115,22 @@ public:
     }
 };
 
-class StorageFullException : public GameException
+
+class FullException : public GameException
 {
+private:
+    string message;
 public:
+    /**
+     * @brief Constructor
+     * @param string (penyimpanan/ladang/peternakan)
+     */
+    FullException(string message){
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Jumlah penyimpanan tidaak cukup!";
+        return "Jumlah " + message + " tidak cukup!";
     }
 };
 

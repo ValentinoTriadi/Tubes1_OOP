@@ -45,7 +45,7 @@ Peternakan& Peternakan::operator=(const Peternakan& peternakan) {
 bool Peternakan::isAnyHarvestable() {
     for (const auto & row : items) {
         for (const auto & item : row) {
-            if (item != nullptr) {
+            if (item != nullptr && isReadyToHarvest(item)) {
                 return true;
             }
         }

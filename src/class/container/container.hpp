@@ -8,6 +8,8 @@
 #include <utility>
 #include "../item/item.hpp"
 #include "../gameData/gameData.hpp"
+#include "../exception/GameException.hpp"
+#include "../utils/DataConverter/DataConverter.hpp"
 
 
 class Container {
