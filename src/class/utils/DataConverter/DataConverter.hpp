@@ -2,7 +2,7 @@
 #define DATA_CONVERTER_HPP
 #include <string>
 #include <vector>
-#include "../../exception/InputException/InputException.hpp"
+#include "../../exception/InputException.hpp"
 
 /**
  * @brief Class Used to hanlde all the data converts from one data type to another

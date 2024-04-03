@@ -3,76 +3,75 @@
 #include "../people.hpp"
 #include "../../container/ladang/ladang.hpp"
 
+class Farmer : public People
+{
+private:
+    Ladang ladang;
+    /*
+     * @brief Check If there is an plant in the storage
+     * @return true if there is an plant in the storage, false if there is no plant in the storage
+     */
+    bool CheckTumbuhan(const string &);
 
+public:
+    /**
+     * @brief Construct a new Farmer object
+     */
+    Farmer();
 
+    /**
+     * Constructor untuk class Farmer
+     * @param nama nama dari farmer
+     * @param weight berat badan dari farmer
+     * @param keuangan keuangan dari farmer
+     * @param type tipe dari farmer
+     * @param n_storage column storage yang dimiliki farmer
+     * @param m_storage row storage yang dimiliki farmer
+     * @param n_ladang column ladang yang dimiliki farmer
+     * @param m_ladang row ladang yang dimiliki farmer
+     */
+    Farmer(const string &, int, int, int, int, int, int);
 
-class Farmer : public People {
-    private:
-        Ladang ladang;
-        /*
-        * @brief Check If there is an plant in the storage
-        * @return true if there is an plant in the storage, false if there is no plant in the storage
-        */
-        bool CheckTumbuhan(const string&);
-    public:
-        /**
-         * @brief Construct a new Farmer object
-         */
-        Farmer();
+    /**
+     * @brief Destroy the Farmer object
+     */
+    ~Farmer() override;
 
-        /**
-         * Constructor untuk class Farmer
-         * @param nama nama dari farmer
-         * @param weight berat badan dari farmer
-         * @param keuangan keuangan dari farmer
-         * @param type tipe dari farmer
-         * @param n_storage column storage yang dimiliki farmer
-         * @param m_storage row storage yang dimiliki farmer
-         * @param n_ladang column ladang yang dimiliki farmer
-         * @param m_ladang row ladang yang dimiliki farmer
-         */
-        Farmer(const string&, int,int,int,int,int,int);
+    /**
+     * @brief Cetak ladang yang dimiliki farmer
+     */
+    void cetakLadang() const;
 
-        /**
-         * @brief Destroy the Farmer object
-         */
-        ~Farmer() override;
+    /**
+     * @brief Tanam tanaman pada ladang
+     */
+    void tanam();
 
-        /**
-         * @brief Cetak ladang yang dimiliki farmer
-         */
-        void cetakLadang() const;
+    /**
+     * @brief Panen tanaman pada ladang
+     */
+    void panen();
 
-        /**
-         * @brief Tanam tanaman pada ladang
-         */
-        void tanam();
+    /**
+     * @brief Pungut pajak dari petani
+     */
+    void pungutPajak(int jumlah) ;
 
-        /**
-         * @brief Panen tanaman pada ladang
-         */
-        void panen();
+    /**
+     * @brief Set ladang yang dimiliki farmer
+     * @param ladang ladang yang dimiliki farmer
+     */
+    void setLadang(const Ladang &ladang);
 
-        /**
-         * @brief Pungut pajak dari petani
-         */
-        void pungutPajak();
+    /**
+     * Get Ladang yang dimiliki farmer
+     */
+    [[nodiscard]] Ladang getLadang() const;
 
-        /**
-         * @brief Set ladang yang dimiliki farmer
-         * @param ladang ladang yang dimiliki farmer
-         */
-        void setLadang(const Ladang &ladang);
-
-        /**
-         * Get Ladang yang dimiliki farmer
-         */
-        [[nodiscard]] Ladang getLadang() const;
-
-        /**
-         * @brief get name plant by code
-        */
-        string getNameByCode(const string&) const override;
+    /**
+     * @brief get name plant by code
+     */
+    string getNameByCode(const string &) const override;
 };
 
 #endif

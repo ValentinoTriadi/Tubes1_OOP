@@ -1,4 +1,5 @@
 #include "DataConverter.hpp"
+#include <iostream>
 #include <algorithm>
 #include <regex>
 
@@ -89,8 +90,8 @@ bool DataConverter::isNumber(const string &data)
 std::pair<int, int> DataConverter::GetSingleRowCol()
 {
     string input;
-    cin >> input;
-    cout << "\n";
+    std::cin >> input;
+    std::cout << "\n";
 
     if (input.size() != 3)
     {

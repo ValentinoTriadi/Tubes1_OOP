@@ -2,11 +2,9 @@
 
 #include <utility>
 
-
 using namespace std;
 
-
-People::People() : Keuangan(50,0), Weight(40), Type(0)
+People::People() : Keuangan(50, 0), Weight(40), Type(0)
 {
 }
 
@@ -77,82 +75,98 @@ void People::makan()
 
 Item People::membeli()
 {
-    cout << "Selamat datang di toko!!" << endl;
-    cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
-
-    Toko::displayToko();
-
-    cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
-    cout << "Slot penyimpanan tersedia:" << endl;
-
-    cout << "Barang ingin dibeli : ";
-    int buy;
-    cin >> buy;
-    cout << endl;
-    cout << "Kuantitas : ";
-    int quantity;
-    cin >> quantity;
-    cout << endl;
-
-    Item *itemtobuy = Toko::getItemAt(buy - 1);
-
-    if (storage.getCellKosong() < quantity)
+    Item *itemtobuy;
+    try
     {
-        throw StorageFullException();
-    }
-    else if (Keuangan.GetMoney() < itemtobuy->getHarga() * quantity)
-    {
-        throw NotEnoughMoneyException();
-    }
-    else
-    {
-        cout << "Selamat Anda berhasil membeli " << quantity << " ";
-        cout << itemtobuy->getNama();
+        cout << "Selamat datang di toko!!" << endl;
+        cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
 
-        Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
-        cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
+        Toko::displayToko();
 
-        cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
-        cetakPenyimpanan();
+        map<Item *, int> Items_in_Toko = Toko::getListItemToko();
+        int amountOfItems = Items_in_Toko.size();
 
-        cout << "Petak Slot: ";
-        string slot;
-        for (int i = 0; i < quantity; i++)
+        cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
+        cout << "Slot penyimpanan tersedia:" << endl;
+
+        int buy, quantity;
+
+        // Validate Items Input, might Result as Exception
+        InputManager::MembeliInputValidationPickingItems(amountOfItems);
+        buy = InputManager::_inputData<int>;
+        itemtobuy = Toko::getItemAt(buy - 1);
+
+        // Validate Quantity Input, might Result as Exception
+        int max_quantity = Items_in_Toko[itemtobuy];
+        InputManager::QuantityValidation(max_quantity);
+        quantity = InputManager::_inputData<int>;
+
+        if (storage.getCellKosong() < quantity)
         {
-            cin >> slot;
-            cout << endl;
-            int row = slot[0] - 'A';
-            int col = stoi(slot.substr(1, 2)) - 1;
-            storage.setItem(row, col, itemtobuy);
-            Toko::removeItems(itemtobuy);
+            throw StorageFullException();
         }
-        cout << "Barang berhasil disimpan!" << endl;
+        else if (Keuangan.GetMoney() < itemtobuy->getHarga() * quantity)
+        {
+            throw NotEnoughMoneyException();
+        }
+        else
+        {
+            cout << "Selamat Anda berhasil membeli " << quantity << " ";
+            cout << itemtobuy->getNama();
+
+            Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
+            cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
+
+            cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+            cetakPenyimpanan();
+
+            cout << "Petak Slot: ";
+            pair<int, int> slot;
+            for (int i = 0; i < quantity; i++)
+            {
+                slot = DataConverter::GetSingleRowCol();
+                storage.setItem(slot.first, slot.second, itemtobuy);
+                Toko::removeItems(itemtobuy);
+            }
+            cout << "Barang berhasil disimpan!" << endl;
+        }
+        return *itemtobuy;
+    }
+    catch (GameException &e)
+    {
+        cout << e.what() << endl;
     }
     return *itemtobuy;
 }
 
 void People::menjual()
 {
-    cout << "Berikut merupakan penyimpanan Anda" << endl;
-    cetakPenyimpanan();
-
-    cout << "Kuantitas barang yang ingin dijual : ";
-    int quantity;
-    cin >> quantity;
-    cout << endl;
-
-    cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    for (int i = 0; i < quantity; i++)
+    try
     {
-        cout << "Petak ke-" << i + 1 << " : ";
-        string slot;
-        cin >> slot;
-        cout << endl;
-        int row = slot[0] - 'A';
-        int col = stoi(slot.substr(1, 2)) - 1;
-        Item *itemtosell = storage(row, col);
-        storage.deleteItem(row, col);
-        Toko::addItems(itemtosell);
+        cout << "Berikut merupakan penyimpanan Anda" << endl;
+        cetakPenyimpanan();
+
+        // Ambil Slot yang terisi
+        int maxSlot = (storage.getCol() * storage.getRow()) - storage.getCellKosong();
+
+        cout << "Kuantitas barang yang ingin dijual : ";
+
+        // Cek Kuantitas yang di masukkan Valid atau tidak
+        InputManager::QuantityValidation(maxSlot);
+        int quantity = InputManager::_inputData<int>;
+
+        pair<int, int> slot;
+        cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+        for (int i = 0; i < quantity; i++)
+        {
+            cout << "Petak ke-" << i + 1 << " : ";
+            slot = DataConverter::GetSingleRowCol();
+            Item *itemtosell = storage(slot.first, slot.second);
+            storage.deleteItem(slot.first, slot.second);
+            Toko::addItems(itemtosell);
+        }
+    }catch(GameException& e){
+        cout << e.what() << endl;
     }
 }
 
@@ -166,14 +180,34 @@ Container People::getStorage() const
     return storage;
 }
 
-StatusKeuangan People::getStatusKeuangan() const {
+StatusKeuangan People::getStatusKeuangan() const
+{
     return Keuangan;
 }
 
-void People::HitungNonUang() {
+void People::HitungNonUang()
+{
     int NonUang = Keuangan.GetNonUang();
-    map<pair<string,int>, int> item = storage.getItems();
-    for (auto & i : item) {
+    map<pair<string, int>, int> item = storage.getItems();
+    for (auto &i : item)
+    {
         NonUang += i.second;
     }
+}
+
+void People::pungutPajak(int jumlah)
+{
+    if (jumlah > GetKeuangan())
+    {
+        getStatusKeuangan().kurangUang(GetKeuangan());
+    }
+    else
+    {
+        getStatusKeuangan().kurangUang(jumlah);
+    }
+}
+
+string People::getNameByCode(const string &code) const
+{
+    return name;
 }
