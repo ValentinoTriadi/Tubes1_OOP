@@ -371,7 +371,7 @@ void InputManager::StateManagerLoadStateInputValidation()
 {
     try
     {
-        receiveInput();
+        receiveStringInput();
 
         string data = DataConverter::LowerCase(_inputData<string>);
         cout << data << std::endl;
@@ -407,5 +407,27 @@ void InputManager::StateManagerLoadStateFromFileInputValidation()
     {
         std::cout << e.what() << std::endl;
         StateManagerLoadStateFromFileInputValidation();
+    }
+}
+
+void InputManager::MembeliInputValidationPickingItems(int ItemsMaxSize)
+{
+    cout << "Barang yang ingin dibeli: ";
+    receiveIntInput();
+    cout << endl;
+    if (_inputData<int> <= 0 || _inputData<int> > ItemsMaxSize)
+    {
+        throw InputException("Barang yang ingin dibeli tidak valid");
+    }
+}
+
+void InputManager::QuantityValidation(int ItemsQuantity)
+{
+    cout << "Kuantitas : ";
+    receiveIntInput();
+    cout << endl;
+    if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
+    {
+        throw InputException("Kuantitas tidak valid");
     }
 }

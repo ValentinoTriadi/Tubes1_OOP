@@ -11,6 +11,8 @@ class Toko {
         static Item* getItemAt(int index);
         static void displayToko();
 
+        static std::map<Item*, int> getListItemToko() {return listItemToko;}
+
     private:
         static std::map<Item*, int> listItemToko;
 };

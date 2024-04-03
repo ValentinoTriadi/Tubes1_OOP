@@ -77,6 +77,20 @@ public:
      */
     static void StateManagerLoadStateFromFileInputValidation();
 
+    /**
+     * @brief Validate User Input for only accepting Valid Item to buy
+     * @param ItemsMaxSize The maximum size of the list items toko
+     */
+    static void MembeliInputValidationPickingItems(int ItemsMaxSize);
+    /**
+     * @brief Used in membeli and menjual to validate Quantity input
+     */
+    static void QuantityValidation(int maxQuantity);
+    /**
+     * @brief Validate User Input for only accepting Valid Item Quantity to sell. e.g quantity > 0 and quantity < max slot
+     */
+    static void MenjualInputValidationQuantity(int maxSlot);
+
 private:
     /**
      * @brief Show Mayor Menu
