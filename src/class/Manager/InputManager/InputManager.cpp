@@ -138,11 +138,11 @@ void InputManager::MayorMenuInputValidation()
     receiveInput();
 
     _inputData<string> = LowerCase(_inputData<string>);
-    if (_inputData<string> == "cetak simpanan") {
+    if (_inputData<string> == "cetak_penyimpanan") {
         _inputData<int> = 1;
-    } else if (_inputData<string> == "pungut pajak") {
+    } else if (_inputData<string> == "pungut_pajak") {
         _inputData<int> = 2;
-    } else if (_inputData<string> == "bangun bangunan") {
+    } else if (_inputData<string> == "bangun_bangunan") {
         _inputData<int> = 3;
     } else if (_inputData<string> == "makan") {
         _inputData<int> = 4;
@@ -193,13 +193,13 @@ void InputManager::StockmanMenuInputValidation()
     receiveInput();
 
     _inputData<string> = LowerCase(_inputData<string>);
-    if (_inputData<string> == "cetak peternakan") {
+    if (_inputData<string> == "cetak_peternakan") {
         _inputData<int> = 1;
     } else if (_inputData<string> == "ternak") {
         _inputData<int> = 2;
     } else if (_inputData<string> == "makan") {
         _inputData<int> = 3;
-    } else if (_inputData<string> == "memberi pangan") {
+    } else if (_inputData<string> == "memberi_pangan") {
         _inputData<int> = 4;
     } else if (_inputData<string> == "membeli") {
         _inputData<int> = 5;
@@ -249,7 +249,7 @@ void InputManager::FarmerMenuInputValidation()
     _inputData<string> = LowerCase(_inputData<string>);
     if (_inputData<string> == "tanam") {
         _inputData<int> = 1;
-    } else if (_inputData<string> == "cetak ladang") {
+    } else if (_inputData<string> == "cetak_ladang") {
         _inputData<int> = 2;
     } else if (_inputData<string> == "makan") {
         _inputData<int> = 3;
@@ -347,14 +347,14 @@ void InputManager::receiveFloatInput() {
         throw InputException("Invalid Input: Please input a number");
     }
 
-    std::cout << std::endl;
+    std::cout << "\n";
 
     _inputData<float> = stof(_inputData<string>);
 }
 
 void InputManager::receiveStringInput() {
     std::cin >> _inputData<string>;
-    std::cout << std::endl;
+    std::cout << "\n";
 }
 
 string InputManager::LowerCase(string data) {
@@ -409,5 +409,4 @@ bool InputManager::receiveBooleanInput(){
         return false;
     }
     throw InputException("Invalid Input: Please input true or false");
-
 }

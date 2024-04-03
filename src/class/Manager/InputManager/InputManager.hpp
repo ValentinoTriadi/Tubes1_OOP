@@ -85,6 +85,12 @@ public:
      */
     static bool receiveBooleanInput();
 
+    /**
+     * @brief Change the string to lowercase
+     * @return string in lowercase
+     */
+    static string LowerCase(string data);
+
     
     static void BuyItemsValidation();
 
@@ -127,12 +133,6 @@ private:
      * @brief Show Stockman Menu
      */
     static void ShowStockmanMenu();
-
-    /**
-     * @brief Change the string to lowercase
-     * @return string in lowercase
-     */
-    static string LowerCase(string data);
 };
 
 #endif
