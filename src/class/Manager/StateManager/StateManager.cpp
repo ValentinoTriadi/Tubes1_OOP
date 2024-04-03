@@ -11,20 +11,11 @@ void StateManager::defaultState(){}
 
 void StateManager::loadState(){
 
-    bool input;
-    while (true) {
-        try {
-            input = InputManager::receiveBooleanInput("Apakah Anda ingin memuat state? (y/n) ");
-            break;
-        } catch (GameException& e){
-            cout << e.what() << endl;
-        }
-    }
+    bool input = InputManager::receiveBooleanInput("Apakah anda ingin memuat state dari file? (y/n) : ");
 
     if (input){
         loadFromFile();
     } else {
-        defaultState();
         throw BackToMenuState();
     }
 }
@@ -173,41 +164,32 @@ void StateManager::loadFromFile(){
         file.open(filename);
     }
 
-        vector<int> gameConfig = GameData::_gameConfig;
+    vector<int> gameConfig = GameData::_gameConfig;
 
-        cout << "Silahkan Masukkan Path Berkas yang ingin dimuat: " << endl;
-        cout << "path: ";
-        InputManager::StateManagerLoadStateFromFileInputValidation();
-        // Load player count
-        int n;
-        InputManager::_file_data >> n;
+    // Load player count
+    int n;
+    file >> n;
 
-        for (int i = 0; i < n; i++)
-        {
-            string name, type;
-            int money, weight;
+    for (int i = 0; i < n; i++){
+        string name, type;
+        int money, weight;
 
-            InputManager::_file_data >> name >> type >> money >> weight;
-          
-            if (type == "Petani"){
-                _listPlayer.push_back(readFarmer(file, name, money, weight, gameConfig));
-            } else if (type == "Peternak"){
-                _listPlayer.push_back(readStockman(file, name, money, weight, gameConfig));
-            } else if (type == "Walikota"){
-                _listPlayer.push_back(readMayor(file, name, money, weight, gameConfig));
-            } else {
-                std::cout << "Tipe pemain tidak valid." << std::endl;
-            }
+        file >> name >> type >> money >> weight;
+
+        if (type == "Petani"){
+            _listPlayer.push_back(readFarmer(file, name, money, weight, gameConfig));
+        } else if (type == "Peternak"){
+            _listPlayer.push_back(readStockman(file, name, money, weight, gameConfig));
+        } else if (type == "Walikota"){
+            _listPlayer.push_back(readMayor(file, name, money, weight, gameConfig));
+        } else {
+            std::cout << "Tipe pemain tidak valid." << std::endl;
         }
+    }
 
-        // Load shop items
-        readShop(InputManager::_file_data);
-        InputManager::_file_data.close();
-    }
-    catch (InputException e)
-    {
-        throw InputException(e.what());
-    }
+    // Load shop items
+    readShop(file);
+    file.close();
 }
 
 
