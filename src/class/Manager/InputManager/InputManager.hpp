@@ -2,12 +2,12 @@
 #define INPUT_MANAGER_HPP
 #include <vector>
 #include <string>
-#include "../../Exception/GameException.hpp"
+#include "../../utils/DataConverter/DataConverter.hpp"
 
 class InputManager
 {
 public:
-/**
+    /**
      * @brief Input Manager Constructor
      */
     template <typename T>
@@ -39,14 +39,6 @@ public:
     static void receiveStringInput();
 
     /**
-     * Convert data input to int or float
-     * Usage:```return T;```
-     * Param string : used to convert the string into T either float or integer
-     */
-    template <typename T>
-    static T StringToNumber(const string&);
-
-    /**
      * validate the first input user to define whether the
      * the user will create new games or continue the games
      */
@@ -68,51 +60,14 @@ public:
     static void FarmerMenuInputValidation();
 
     /**
-     * @brief Validate User Input for Player Row and Column input
-     * Input will be taken from the function
-     */
-    static std::pair<int, int> GetSingleRowCol();
-
-    /**
-     * @brief Validate User Input for multiple Row and Column input
-     * Input will be taken from the function
-     */
-    static vector<std::pair<int, int>> GetMultipleRowCol();
-
-    /**
      * @brief Check if the string is a boolean
      * @return true and false if a boolean, exception if not
      */
     static bool receiveBooleanInput();
 
-    
     static void BuyItemsValidation();
 
 private:
-    /**
-     * @brief Check if the character is a number
-     * @return true if a number
-     */
-    static bool isNumber(char);
-
-    /**
-     * @brief Check if the character is an alphabet
-     * @return true if an alphabet
-     */
-    static bool isAlphabet(char);
-
-    /**
-     * @brief Check if the string is an alphabet
-     * @return true if an alphabet
-     */
-    static bool isAlphabet(const string &data);
-
-    /**
-     * @brief Check if the string is a number
-     * @return true if a number
-     */
-    static bool isNumber(const string& data);
-
     /**
      * @brief Show Mayor Menu
      */
@@ -127,12 +82,6 @@ private:
      * @brief Show Stockman Menu
      */
     static void ShowStockmanMenu();
-
-    /**
-     * @brief Change the string to lowercase
-     * @return string in lowercase
-     */
-    static string LowerCase(string data);
 };
 
 #endif

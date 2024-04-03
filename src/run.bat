@@ -1,1 +1,1 @@
-cd ../build && cmake ../src && make && clear  && ./Tubes1_OOP.exe
+cd build && cmake .. && make && cls  && Tubes1_OOP.exe

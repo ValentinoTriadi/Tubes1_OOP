@@ -1,8 +1,6 @@
 #include "people.hpp"
 
-
 using namespace std;
-
 
 People::People() : Keuangan(50), Weight(40), Type(0)
 {
@@ -21,38 +19,49 @@ void People::cetakPenyimpanan()
 
 void People::makan()
 {
-    try {
+    try
+    {
         if (storage.getFoodTotal() == 0)
             throw StorageEmptyException();
-    } catch (StorageEmptyException& e) {
+    }
+    catch (StorageEmptyException &e)
+    {
         cout << e.what() << endl;
         return;
     }
 
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetakPenyimpanan();
-    pair<int,int> slot;
-    Item* makanan;
+    pair<int, int> slot;
+    Item *makanan;
 
-    while (true) {
-        try {
-            slot = InputManager::GetSingleRowCol();
+    while (true)
+    {
+        try
+        {
+            slot = DataConverter::GetSingleRowCol();
             makanan = storage(slot.first, slot.second);
-            if (makanan == nullptr) {
+            if (makanan == nullptr)
+            {
                 throw FoodEmptyException();
             }
             break;
-        } catch (GameException& e) {
+        }
+        catch (GameException &e)
+        {
             cout << e.what() << endl;
         }
     }
 
-    Product product = dynamic_cast<Product&>(*makanan);
+    Product product = dynamic_cast<Product &>(*makanan);
 
-    try {
+    try
+    {
         if (product.getType() != "PRODUCT_MATERIAL_PLANT")
             throw InvalidFoodTypeException();
-    } catch (InvalidFoodTypeException& e) {
+    }
+    catch (InvalidFoodTypeException &e)
+    {
         cout << e.what() << endl;
     }
 
@@ -81,17 +90,22 @@ Item People::membeli()
     cin >> quantity;
     cout << endl;
 
-    Item* itemtobuy = Toko::getItemAt(buy-1);
+    Item *itemtobuy = Toko::getItemAt(buy - 1);
 
-    if(storage.getCellKosong() < quantity){
+    if (storage.getCellKosong() < quantity)
+    {
         throw StorageFullException();
-    }else if(Keuangan.GetMoney() < itemtobuy->getHarga()*quantity){
+    }
+    else if (Keuangan.GetMoney() < itemtobuy->getHarga() * quantity)
+    {
         throw NotEnoughMoneyException();
-    }else{
+    }
+    else
+    {
         cout << "Selamat Anda berhasil membeli " << quantity << " ";
         cout << itemtobuy->getNama();
 
-        Keuangan.kurangUang(itemtobuy->getHarga()*quantity);
+        Keuangan.kurangUang(itemtobuy->getHarga() * quantity);
         cout << ". Uang Anda tersisa " << Keuangan.GetMoney() << " gulden" << endl;
 
         cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
@@ -99,7 +113,8 @@ Item People::membeli()
 
         cout << "Petak Slot: ";
         string slot;
-        for (int i = 0; i < quantity; i++) {
+        for (int i = 0; i < quantity; i++)
+        {
             cin >> slot;
             cout << endl;
             int row = slot[0] - 'A';
@@ -123,14 +138,15 @@ void People::menjual()
     cout << endl;
 
     cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    for(int i=0; i<quantity; i++){
-        cout << "Petak ke-" << i+1 << " : ";
+    for (int i = 0; i < quantity; i++)
+    {
+        cout << "Petak ke-" << i + 1 << " : ";
         string slot;
         cin >> slot;
         cout << endl;
         int row = slot[0] - 'A';
         int col = stoi(slot.substr(1, 2)) - 1;
-        Item* itemtosell = storage(row, col);
+        Item *itemtosell = storage(row, col);
         storage.deleteItem(row, col);
         Toko::addItems(itemtosell);
     }
@@ -141,7 +157,7 @@ void People::setStorage(const Container &Setstorage)
     this->storage = Setstorage;
 }
 
-
-Container People::getStorage() const{
+Container People::getStorage() const
+{
     return storage;
 }
