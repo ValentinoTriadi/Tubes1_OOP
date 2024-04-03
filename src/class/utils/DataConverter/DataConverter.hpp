@@ -61,5 +61,13 @@ public:
      * @return string in lowercase
      */
     static string LowerCase(string data);
+
+    /**
+     * @brief Convert index to slot
+     * @param index i
+     * @param index j
+     * @return slot
+    */
+    static string itos(int, int);
 };
 #endif

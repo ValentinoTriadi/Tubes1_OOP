@@ -4,6 +4,7 @@
 #include <iostream>
 #include <utility>
 #include <map>
+#include "../../utils/DataConverter/DataConverter.hpp"
 using namespace std;
 
 class GameException
@@ -123,15 +124,20 @@ public:
     }
 };
 
-// * EXCEPTION IN CLASS STOCKMAN
-class StockmanException : public GameException
+// EXCEPTION IN CLASS STOCKMAN & FARMER
+
+/**
+ * @brief exception cek container
+ * @param message1 (hewan/tumbuhan/produk)
+ * @param message2 (penyimpanan/peternakan/ladang)
+*/
+class NotInException : public GameException
 {
 private:
     string message1;
     string message2;
-
 public:
-    StockmanException(string message1, string message2)
+    NotInException(string message1, string message2)
     {
         this->message1 = std::move(message1);
         this->message2 = std::move(message2);
@@ -176,10 +182,16 @@ public:
 
 class PetakSudahTerisiException : public GameException
 {
+private:
+    string message;
 public:
+    PetakSudahTerisiException(string message)
+    {
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Petak sudah terisi";
+        return "Petak " + message + " sudah terisi";
     }
 };
 
@@ -199,12 +211,18 @@ public:
     }
 };
 
-class AnimalNotFoundException : public GameException
+class FarmEntityNotFoundException : public GameException
 {
+private:
+    string message;
 public:
+    FarmEntityNotFoundException(string message)
+    {
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Tidak ada hewan yang bisa dipanen";
+        return "Tidak ada " + message + " yang bisa dipanen";
     }
 };
 
@@ -233,21 +251,47 @@ public:
     }
 };
 
-class AnimalCodeException : public GameException
+class NotChoosenException : public GameException
 {
+private:
+    string message;
 public:
+    NotChoosenException(string message)
+    {
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Hewan di slot bukanlah hewan yang dipilih";
+        return message + " di slot bukanlah " + DataConverter::LowerCase(message) + " yang dipilih";
     }
 };
 
 class NotReadyHarvestedException : public GameException
 {
+    string message;
 public:
+    NotReadyHarvestedException(string message)
+    {
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Hewan belum siap dipanen";
+        return message + " belum siap dipanen";
+    }
+};
+
+class NotFoundException : public GameException
+{
+private:
+    string message;
+public:
+    NotFoundException(string message)
+    {
+        this->message = std::move(message);
+    }
+    string what() override
+    {
+        return message + " tidak ditemukan";
     }
 };
 
