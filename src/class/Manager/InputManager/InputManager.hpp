@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "../../utils/DataConverter/DataConverter.hpp"
+#include "../../exception/GameException.hpp"
 
 class InputManager
 {

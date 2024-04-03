@@ -14,6 +14,8 @@ void GameManager::StartNewGame()
     {
         this->AddUser(i);
     }
+
+    
 }
 
 void GameManager::ReadConfig()
@@ -41,7 +43,14 @@ GameManager::~GameManager()
 void GameManager::ContinueGame()
 {
     this->ReadConfig();
-    muat();
+    try
+    {
+        muat();
+    }
+    catch (BackToMenuState e)
+    {
+        throw;
+    }
 }
 
 void GameManager::AddUser(int type)
@@ -76,16 +85,32 @@ void GameManager::AddUser(int type)
 
 void GameManager::StartGameValidation()
 {
-    InputManager::NewGameInput();
+    try
+    {
+        InputManager::NewGameInput();
 
-    int data = InputManager::_inputData<int>;
-    if (data == 1)
-    {
-        StartNewGame();
+        int data = InputManager::_inputData<int>;
+        if (data == 1)
+        {
+            StartNewGame();
+        }
+        else
+        {
+            try
+            {
+                ContinueGame();
+            }
+            catch (BackToMenuState e)
+            {
+                cout << e.what() << endl;
+                StartGameValidation();
+            }
+        }
     }
-    else
+    catch (InputException e)
     {
-        ContinueGame();
+        cout << e.what() << endl;
+        StartGameValidation();
     }
 }
 
@@ -196,12 +221,9 @@ void GameManager::RunStockmanSelection(int input)
         }
         break;
     case 8:
-        muat();
-        break;
-    case 9:
         simpan();
         break;
-    case 10:
+    case 9:
         nextTurn();
         break;
     default:
@@ -217,7 +239,10 @@ void GameManager::RunMayorSelection(int input)
         _currentPlayer->cetakPenyimpanan();
         break;
     case 2:
-        pungutPajak();
+        if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
+        {
+            mayor->TagihPajak(&_listPlayer);
+        }
         break;
     case 3:
         if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
@@ -239,12 +264,9 @@ void GameManager::RunMayorSelection(int input)
         _currentPlayer->menjual();
         break;
     case 7:
-        muat();
-        break;
-    case 8:
         simpan();
         break;
-    case 9:
+    case 8:
         if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
         {
             mayor->tambahPemain(&_listPlayer);
@@ -254,7 +276,7 @@ void GameManager::RunMayorSelection(int input)
             throw PeopleException();
         }
         break;
-    case 10:
+    case 9:
         nextTurn();
         break;
     default:
@@ -267,6 +289,9 @@ void GameManager::RunFarmerSelection(int input)
     switch (input)
     {
     case 1:
+        _currentPlayer->cetakPenyimpanan();
+        break;
+    case 2:
         if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
         {
             farmer->tanam();
@@ -275,9 +300,6 @@ void GameManager::RunFarmerSelection(int input)
         {
             throw PeopleException();
         }
-        break;
-    case 2:
-        _currentPlayer->cetakPenyimpanan();
         break;
     case 3:
         _currentPlayer->makan();
@@ -299,12 +321,9 @@ void GameManager::RunFarmerSelection(int input)
         }
         break;
     case 7:
-        muat();
-        break;
-    case 8:
         simpan();
         break;
-    case 9:
+    case 8:
         nextTurn();
         break;
     default:
@@ -323,22 +342,18 @@ void GameManager::Run()
     }
 }
 
-void GameManager::pungutPajak()
-{
-    int total = 0;
-    for (auto &player : _listPlayer)
-    {
-        player->HitungNonUang();
-        total += player->getStatusKeuangan().hitungPajak();
-    }
-}
-
 void GameManager::muat()
 {
-    StateManager::loadState();
+    try
+    {
+        StateManager::loadState();
+    }
+    catch (BackToMenuState e)
+    {
+        throw;
+    }
     _listPlayer = StateManager::_listPlayer;
     // TODO : Implement load shop items
-
 }
 
 void GameManager::simpan()

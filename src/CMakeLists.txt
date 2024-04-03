@@ -17,6 +17,7 @@ add_executable(Tubes1_OOP main.cpp
         class/item/farmEntity/plant/plant.cpp
         class/item/farmEntity/plant/plant.hpp
         class/item/product/product.cpp
+        class/utils/DataConverter/DataConverter.cpp
         class/item/product/product.hpp
         class/Manager/GameManager/GameManager.hpp
         class/people/people.hpp
@@ -39,6 +40,5 @@ add_executable(Tubes1_OOP main.cpp
         class/utils/roundRobin/roundRobin.hpp
         class/container/ladang/ladang.cpp
         class/container/peternakan/peternakan.cpp
-        class/toko/toko.cpp
-        class/utils/DataConverter/DataConverter.cpp
+        class/toko/toko.cpp 
 )

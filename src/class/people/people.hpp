@@ -5,6 +5,7 @@
 #include "Keuangan/StatusKeuangan.hpp"
 #include "../container/container.hpp"
 #include "../exception/GameException.hpp"
+#include "../exception/InputException.hpp"
 #include "../toko/toko.hpp"
 #include "../Manager/InputManager/InputManager.hpp"
 #include <algorithm>
@@ -127,6 +128,8 @@ public:
      * @brief get name by code
      */
     virtual string getNameByCode(const string &) const;
+
+    virtual void pungutPajak(int jumlah);
 };
 
 #endif

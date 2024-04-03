@@ -32,6 +32,8 @@ public:
     void tambahPemain(roundRobin<People *> *listPlayer);
 
     void PrintBuildingRecipe();
+
+    void TagihPajak(roundRobin<People*> *listPlayer);
 };
 
 #endif

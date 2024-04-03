@@ -22,7 +22,6 @@ class roundRobin{
          */
         ~roundRobin()= default;
 
-
         /**
          * @brief Get the first element
          * 

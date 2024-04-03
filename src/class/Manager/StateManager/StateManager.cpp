@@ -15,13 +15,23 @@ void StateManager::loadState()
 
     InputManager::StateManagerLoadStateInputValidation();
 
-    if (InputManager::_inputData<string> == "y")
+    if (InputManager::_inputData<bool>)
     {
-        loadFromFile();
+        try
+        {
+            loadFromFile();
+        }
+        catch (InputException e)
+        {
+            std::cout << e.what() << std::endl;
+            // Back to menu state digunakan sebagai callback untuk StartGameValidation untuk memulai ulang game dengan kembali ke main menu.
+            throw BackToMenuState();
+        }
     }
     else
     {
         defaultState();
+        throw BackToMenuState();
     }
 }
 
@@ -161,46 +171,55 @@ void StateManager::readShop(ifstream &file)
 
 void StateManager::loadFromFile()
 {
-
-    vector<int> gameConfig = GameData::_gameConfig;
-
-    InputManager::StateManagerLoadStateFromFileInputValidation();
-    // Load player count
-    int n;
-    InputManager::_file_data >> n;
-
-    for (int i = 0; i < n; i++)
+    try
     {
-        string name, type;
-        int money, weight;
 
-        InputManager::_file_data >> name >> type >> money >> weight;
+        vector<int> gameConfig = GameData::_gameConfig;
 
-        cout << name << " " << type << " " << money << " " << weight << endl;
+        cout << "Silahkan Masukkan Path Berkas yang ingin dimuat: " << endl;
+        cout << "path: ";
+        InputManager::StateManagerLoadStateFromFileInputValidation();
+        // Load player count
+        int n;
+        InputManager::_file_data >> n;
 
-        if (type == "Petani")
+        for (int i = 0; i < n; i++)
         {
-            _listPlayer.push_back(readFarmer(InputManager::_file_data, name, money, weight, gameConfig));
-        }
-        else if (type == "Peternak")
-        {
+            string name, type;
+            int money, weight;
 
-            _listPlayer.push_back(readStockman(InputManager::_file_data, name, money, weight, gameConfig));
-        }
-        else if (type == "Walikota")
-        {
+            InputManager::_file_data >> name >> type >> money >> weight;
 
-            _listPlayer.push_back(readMayor(InputManager::_file_data, name, money, weight, gameConfig));
+            cout << name << " " << type << " " << money << " " << weight << endl;
+
+            if (type == "Petani")
+            {
+                _listPlayer.push_back(readFarmer(InputManager::_file_data, name, money, weight, gameConfig));
+            }
+            else if (type == "Peternak")
+            {
+
+                _listPlayer.push_back(readStockman(InputManager::_file_data, name, money, weight, gameConfig));
+            }
+            else if (type == "Walikota")
+            {
+
+                _listPlayer.push_back(readMayor(InputManager::_file_data, name, money, weight, gameConfig));
+            }
+            else
+            {
+                std::cout << "Tipe pemain tidak valid." << std::endl;
+            }
         }
-        else
-        {
-            std::cout << "Tipe pemain tidak valid." << std::endl;
-        }
+
+        // Load shop items
+        readShop(InputManager::_file_data);
+        InputManager::_file_data.close();
     }
-
-    // Load shop items
-    readShop(InputManager::_file_data);
-    InputManager::_file_data.close();
+    catch (InputException e)
+    {
+        throw InputException(e.what());
+    }
 }
 
 void StateManager::saveState()

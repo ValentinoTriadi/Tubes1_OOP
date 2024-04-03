@@ -53,6 +53,10 @@ void People::makan()
         {
             cout << e.what() << endl;
         }
+        catch (InputException e)
+        {
+            cout << e.what() << endl;
+        }
     }
 
     Product product = dynamic_cast<Product &>(*makanan);
@@ -75,6 +79,7 @@ void People::makan()
 
 Item People::membeli()
 {
+    Item *itemtobuy;
     try
     {
         cout << "Selamat datang di toko!!" << endl;
@@ -88,7 +93,6 @@ Item People::membeli()
         cout << "Uang Anda : " << Keuangan.GetMoney() << endl;
         cout << "Slot penyimpanan tersedia:" << endl;
 
-        Item *itemtobuy;
         int buy, quantity;
 
         // Validate Items Input, might Result as Exception
@@ -132,18 +136,15 @@ Item People::membeli()
         }
         return *itemtobuy;
     }
+    catch (GameException &e)
+    {
+        cout << e.what() << endl;
+    }
     catch (InputException e)
     {
         cout << e.what() << endl;
     }
-    catch (StorageFullException e)
-    {
-        cout << e.what() << endl;
-    }
-    catch (NotEnoughMoneyException e)
-    {
-        cout << e.what() << endl;
-    }
+    return *itemtobuy;
 }
 
 void People::menjual()
@@ -153,10 +154,12 @@ void People::menjual()
         cout << "Berikut merupakan penyimpanan Anda" << endl;
         cetakPenyimpanan();
 
-        // Get The filled Slot inside the inventory that can be sold
+        // Ambil Slot yang terisi
         int maxSlot = (storage.getCol() * storage.getRow()) - storage.getCellKosong();
 
         cout << "Kuantitas barang yang ingin dijual : ";
+
+        // Cek Kuantitas yang di masukkan Valid atau tidak
         InputManager::QuantityValidation(maxSlot);
         int quantity = InputManager::_inputData<int>;
 
@@ -200,4 +203,21 @@ void People::HitungNonUang()
     {
         NonUang += i.second;
     }
+}
+
+void People::pungutPajak(int jumlah)
+{
+    if (jumlah > GetKeuangan())
+    {
+        getStatusKeuangan().kurangUang(GetKeuangan());
+    }
+    else
+    {
+        getStatusKeuangan().kurangUang(jumlah);
+    }
+}
+
+string People::getNameByCode(const string &code) const
+{
+    return name;
 }

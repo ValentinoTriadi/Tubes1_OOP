@@ -8,7 +8,7 @@
 #include "../../people/stockman/stockman.hpp"
 #include "../../gameData/gameData.hpp"
 #include "../InputManager/InputManager.hpp"
-#include "../../Exception/GameException.hpp"
+#include "../../exception/GameException.hpp"
 #include "../../utils/roundRobin/roundRobin.hpp"
 #include "../StateManager/StateManager.hpp"
 using namespace std;
@@ -36,7 +36,6 @@ private:
     string _inputChecker;
 
     /*Method*/
-
 
     /**
      * Check if the player is winner

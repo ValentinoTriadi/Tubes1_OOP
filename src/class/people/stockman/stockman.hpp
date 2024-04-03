@@ -57,7 +57,7 @@ class Stockman : public People{
         /**
          * @brief Pungut Pajak
         */
-        void pungutPajak();
+        void pungutPajak(int jumlah);
         /**
          * @brief Set Peternakan
         */
