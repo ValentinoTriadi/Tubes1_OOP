@@ -230,6 +230,12 @@ void Stockman::panen(){
         for (int i = 0; i < jumlah; i++) {
             cout << "Petak ke-" << i+1 << ": ";
             pair<int, int> petakIndex = DataConverter::GetSingleRowCol();
+
+            // Validasi petak index
+            if (petakIndex.second < 0 || petakIndex.second >= peternakan.getCol() || petakIndex.first < 0 || petakIndex.first >= peternakan.getRow()) {
+                throw NotValidException("Petak");
+            }
+
             // Validasi petak kosong
             if (peternakan(petakIndex.second, petakIndex.first) == nullptr){
                 throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
@@ -237,8 +243,11 @@ void Stockman::panen(){
                 // Validasi petak bukan hewan yang dipilih
                 try {
                     Animal animal = dynamic_cast<Animal&>(*peternakan(petakIndex.second, petakIndex.first));
-                    if (animal.getCode() != codeAnimal || animal.getWeight() < animal.getHarvestLimit()){
+                    if (animal.getWeight() < animal.getHarvestLimit()){
                         throw NotReadyHarvestedException("Hewan");
+                    }
+                    if (animal.getCode() != codeAnimal) {
+                        throw NotException("hewan");
                     }
                 } catch (const exception& e) {
                     throw NotChoosenException("Hewan");
