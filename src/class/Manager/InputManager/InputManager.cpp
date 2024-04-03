@@ -2,10 +2,13 @@
 #include <string>
 #include <algorithm>
 #include "InputManager.hpp"
+#include <fstream>
 InputManager::InputManager() = default;
 
 template <typename T>
 T InputManager::_inputData;
+
+ifstream InputManager::_file_data;
 
 void InputManager::receiveInput()
 {
@@ -96,31 +99,31 @@ void InputManager::MayorMenuInputValidation()
     {
         _inputData<int> = 3;
     }
-    else if (data == "makan" || data == "4")
+    else if (data == "makan")
     {
         _inputData<int> = 4;
     }
-    else if (data == "beli" || data == "5")
+    else if (data == "beli")
     {
         _inputData<int> = 5;
     }
-    else if (data == "jual" || data == "6")
+    else if (data == "jual")
     {
         _inputData<int> = 6;
     }
-    else if (data == "muat" || data == "7")
+    else if (data == "muat")
     {
         _inputData<int> = 7;
     }
-    else if (data == "simpan" || data == "8")
+    else if (data == "simpan")
     {
         _inputData<int> = 8;
     }
-    else if (data == "tambah pemain" || data == "9")
+    else if (data == "tambah_pemain")
     {
         _inputData<int> = 9;
     }
-    else if (data == "next turn" || data == "10")
+    else if (data == "next_turn")
     {
         _inputData<int> = 10;
     }
@@ -237,7 +240,7 @@ void InputManager::FarmerMenuInputValidation()
 
     _inputData<string> = DataConverter::LowerCase(_inputData<string>);
     string data = _inputData<string>;
-    if (data == "tanam" || data == "1")
+    if (data == "tanam")
     {
         _inputData<int> = 1;
     }
@@ -245,31 +248,31 @@ void InputManager::FarmerMenuInputValidation()
     {
         _inputData<int> = 2;
     }
-    else if (data == "makan" || data == "3")
+    else if (data == "makan")
     {
         _inputData<int> = 3;
     }
-    else if (data == "membeli" || data == "4")
+    else if (data == "membeli")
     {
         _inputData<int> = 4;
     }
-    else if (data == "menjual" || data == "5")
+    else if (data == "menjual")
     {
         _inputData<int> = 5;
     }
-    else if (data == "memanen" || data == "6")
+    else if (data == "memanen")
     {
         _inputData<int> = 6;
     }
-    else if (data == "muat" || data == "7")
+    else if (data == "muat")
     {
         _inputData<int> = 7;
     }
-    else if (data == "simpan" || data == "8")
+    else if (data == "simpan")
     {
         _inputData<int> = 8;
     }
-    else if (data == "next turn" || data == "9")
+    else if (data == "next turn")
     {
         _inputData<int> = 9;
     }
@@ -362,4 +365,47 @@ bool InputManager::receiveBooleanInput()
         return false;
     }
     throw InputException("Invalid Input: Please input true or false");
+}
+
+void InputManager::StateManagerLoadStateInputValidation()
+{
+    try
+    {
+        receiveInput();
+
+        string data = DataConverter::LowerCase(_inputData<string>);
+        cout << data << std::endl;
+        if (data != "y" && data != "n")
+        {
+            throw InputException("Masukkan tidak valid. Silakan masukkan 'y' atau 'n'.");
+        }
+    }
+    catch (InputException e)
+    {
+        std::cout << e.what() << std::endl;
+        StateManagerLoadStateInputValidation();
+    }
+}
+
+void InputManager::StateManagerLoadStateFromFileInputValidation()
+{
+    try
+    {
+        receiveStringInput();
+        _file_data.open(_inputData<string>);
+
+        string data_check = DataConverter::LowerCase(_inputData<string>);
+        if (!_file_data.is_open())
+        {
+            if (data_check != "back_to_main_menu")
+            {
+                throw InputException("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: (Input Back_to_main_menu untuk kembali ke halaman awal!!)");
+            }
+        }
+    }
+    catch (InputException e)
+    {
+        std::cout << e.what() << std::endl;
+        StateManagerLoadStateFromFileInputValidation();
+    }
 }

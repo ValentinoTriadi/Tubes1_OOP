@@ -12,6 +12,7 @@ public:
      */
     template <typename T>
     static T _inputData;
+    static ifstream _file_data;
     InputManager();
 
     /**
@@ -66,6 +67,15 @@ public:
     static bool receiveBooleanInput();
 
     static void BuyItemsValidation();
+
+    /**
+     * @brief Validate User Input for StateManager Load State
+     */
+    static void StateManagerLoadStateInputValidation();
+    /**
+     * @brief Validate User Input for StateManager Load State From File
+     */
+    static void StateManagerLoadStateFromFileInputValidation();
 
 private:
     /**
