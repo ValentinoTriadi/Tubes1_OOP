@@ -30,6 +30,8 @@ public:
      * Menambahkan pemain baru
      */
     void tambahPemain(roundRobin<People *> *listPlayer);
+
+    void PrintBuildingRecipe();
 };
 
 #endif
