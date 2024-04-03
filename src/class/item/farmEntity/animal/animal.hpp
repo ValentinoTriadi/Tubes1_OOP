@@ -13,6 +13,7 @@ class Animal final : public FarmEntity {
          * Usage: ```Animal animal;```
          */
         Animal();
+
         /**
          * Constructor
          * @param Id ID of Animal

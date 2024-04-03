@@ -49,14 +49,8 @@ Container::Container(int row, int col)
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container(){
-    for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++){
-            if (items[i][j] != nullptr){
-                delete items[i][j];
-            }
-        }
-    }
+Container::~Container() {
+
 }
 
 /**
@@ -130,15 +124,15 @@ int Container::getCellKosong() const
  */
 void Container::setItem(int i, int j, Item *item)
 {
-    if (i >= row || j >= col){
-        // TODO: throw exception
-        cout << "Index out of bound" << endl;
+    if (i >= row || j >= col || i < 0 || j < 0) {
+        throw IndexOutOfBoundException();
     }
 
-    if (items[i][j] == nullptr)
-    {
+    if (items[i][j] == nullptr) {
         items[i][j] = item;
         cellKosong--;
+    } else {
+        throw PetakSudahTerisiException(DataConverter::itos(j,i));
     }
 }
 
@@ -156,9 +150,10 @@ void Container::setItem(Item *item)
     {
         for (int j = 0; j < col; j++)
         {
-            if (items[i][j] == nullptr) setItem(i, j, item);
+            if (items[i][j] == nullptr) { setItem(i, j, item); return;}
         }
     }
+    throw FullException("penyimpanan");
 }
 
 void Container::deleteItem(int i, int j)
@@ -170,15 +165,14 @@ void Container::deleteItem(int i, int j)
     }
     else
     {
-        throw "Cell is empty";
+        throw KosongException("Slot " + DataConverter::itos(j,i));
     }
 }
 
 void Container::deleteItem(string slot)
 {
-    int i = slot[0] - 'A';
-    int j = stoi(slot.substr(1, 2)) - 1;
-
+    int j = slot[0] - 'A';
+    int i = stoi(slot.substr(1, 2)) - 1;
     deleteItem(i, j);
 }
 
@@ -227,11 +221,11 @@ map<string, int> Container::getFood(){
 
 int Container::getFoodTotal() const{
     int total = 0;
-    for (auto & row : items)
+    for (const auto & row : items)
     {
-        for (auto & item : row)
+        for (const auto & item : row)
         {
-            if (item != nullptr && dynamic_cast<Product*>(item)->getAddedWeight() > 0){
+            if (item != nullptr && dynamic_cast<Product*>(item)){
                 total++;
             }
         }
@@ -408,4 +402,15 @@ bool Container::isEmpty() const {
         }
     }
     return true;
+}
+
+bool Container::isAnyAnimal() {
+    for (const auto & row : items) {
+        for (const auto & item : row) {
+            if (item != nullptr && dynamic_cast<Animal*>(item)){
+                return true;
+            }
+        }
+    }
+    return false;
 }

@@ -40,5 +40,7 @@ add_executable(Tubes1_OOP main.cpp
         class/utils/roundRobin/roundRobin.hpp
         class/container/ladang/ladang.cpp
         class/container/peternakan/peternakan.cpp
-        class/toko/toko.cpp 
+        class/toko/toko.cpp
+        class/utils/DataConverter/DataConverter.cpp
+        class/exception/InputException/InputException.hpp
 )

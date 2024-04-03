@@ -7,6 +7,8 @@
 
 class InputManager
 {
+private:
+    static std::vector<std::string> yes,no;
 public:
     /**
      * @brief Input Manager Constructor
@@ -18,27 +20,21 @@ public:
 
     /**
      * Receive input from user
-     * Usage: ```receiveInput();```
+     * Usage: ```receiveInput(message);```
      */
-    static void receiveInput();
+    static void receiveInput(const string& message);
 
     /**
      * Receive input from user
-     * Usage: ```receiveIntInput();```
+     * Usage: ```receiveIntInput(message);```
      */
-    static void receiveIntInput();
+    static void receiveIntInput(const string& message);
 
     /**
      * Receive input from user
-     * Usage: ```receiveFloatInput();```
+     * Usage: ```receiveFloatInput(message);```
      */
-    static void receiveFloatInput();
-
-    /**
-     * Receive input from user
-     * Usage: ```receiveStringInput();```
-     */
-    static void receiveStringInput();
+    static void receiveFloatInput(const string& message);
 
     /**
      * validate the first input user to define whether the
@@ -65,7 +61,7 @@ public:
      * @brief Check if the string is a boolean
      * @return true and false if a boolean, exception if not
      */
-    static bool receiveBooleanInput();
+    static bool receiveBooleanInput(const string& message);
 
     static void BuyItemsValidation();
 

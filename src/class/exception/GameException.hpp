@@ -4,10 +4,12 @@
 #include <iostream>
 #include <utility>
 #include <map>
+#include <string>
 #include <cctype>
+
 using namespace std;
 
-class GameException
+class GameException : public exception
 {
 public:
     virtual string what() = 0;
@@ -43,6 +45,15 @@ public:
     string what() override
     {
         return message;
+    }
+};
+
+class IndexOutOfBoundException : public GameException
+{
+public:
+    string what() override
+    {
+        return "Index out of bound";
     }
 };
 
@@ -106,12 +117,22 @@ public:
     }
 };
 
-class StorageFullException : public GameException
+
+class FullException : public GameException
 {
+private:
+    string message;
 public:
+    /**
+     * @brief Constructor
+     * @param string (penyimpanan/ladang/peternakan)
+     */
+    FullException(string message){
+        this->message = std::move(message);
+    }
     string what() override
     {
-        return "Jumlah penyimpanan tidaak cukup!";
+        return "Jumlah " + message + " tidak cukup!";
     }
 };
 
@@ -348,6 +369,32 @@ public:
     string what() override
     {
         return "Kembali ke Main Menu";
+    }
+};
+
+/*
+ * Class Exception untuk Toko
+ */
+
+class ItemNotFoundException : public GameException {
+    string message;
+public:
+    ItemNotFoundException(string message) {
+        this->message = std::move(message);
+    }
+    string what() override {
+        return "Item " + message + " tidak ditemukan";
+    }
+};
+
+class NotEmptyCellException : public GameException {
+    string message;
+public:
+    NotEmptyCellException(string message) {
+        this->message = std::move(message);
+    }
+    string what() override {
+        return "Petak " + message + " sudah terisi";
     }
 };
 

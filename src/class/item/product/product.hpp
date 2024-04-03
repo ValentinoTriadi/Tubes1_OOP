@@ -10,6 +10,7 @@ class Product final : public Item {
          * Usage: ```Product product;```
         */
         Product();
+
         /**
          * Constructor
          * @param Id ID of Product

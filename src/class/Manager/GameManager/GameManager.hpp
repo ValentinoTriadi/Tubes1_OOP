@@ -19,11 +19,12 @@ private:
     /*Attribute*/
 
     // List of player
-    roundRobin<People *> _listPlayer;
+    static roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
 
     // Game Data
     GameData _gameData;
+    Toko _toko;
 
     int _moneyToWin{};
     float _weightToWin{};
@@ -31,7 +32,6 @@ private:
 
     // Local Variable
     static bool _isGameOver;
-    static int _currentTurn;
     static Mayor _mayor;
     string _inputChecker;
 
@@ -158,6 +158,7 @@ public:
      * Implement the save game feature
      */
     static void simpan();
+
 };
 
 #endif

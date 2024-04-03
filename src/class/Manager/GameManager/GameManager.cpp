@@ -2,11 +2,13 @@
 
 using namespace std;
 
+roundRobin<People *> GameManager::_listPlayer;
 bool GameManager::_isGameOver = false;
 
 void GameManager::StartNewGame()
 {
     this->ReadConfig();
+    _toko = Toko();
 
     // Add user to the list player
     // User default settings 40 gulden, 40 weight
@@ -60,17 +62,17 @@ void GameManager::AddUser(int type)
         if (type == 1)
         {
             auto *temp_mayor = new Mayor("Mayor", 40, 40, gameConfig[2], gameConfig[3]);
-            this->_listPlayer.add(temp_mayor);
+            GameManager::_listPlayer.add(temp_mayor);
         }
         else if (type == 2)
         {
             auto *temp_farmer = new Farmer("Petani1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
-            this->_listPlayer.add(temp_farmer);
+            GameManager::_listPlayer.add(temp_farmer);
         }
         else if (type == 3)
         {
             auto *temp_stockman = new Stockman("Peternak1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
-            this->_listPlayer.add(temp_stockman);
+            GameManager::_listPlayer.add(temp_stockman);
         }
         else
         {
@@ -178,9 +180,19 @@ void GameManager::RunStockmanSelection(int input)
     switch (input)
     {
     case 1:
-        _currentPlayer->cetakPenyimpanan();
+        if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+        {
+            stockman->cetakPeternakan();
+        }
+        else
+        {
+            throw PeopleException();
+        }
         break;
     case 2:
+        _currentPlayer->cetakPenyimpanan();
+        break;
+    case 3:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->ternak();
@@ -190,10 +202,10 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 3:
+    case 4:
         _currentPlayer->makan();
         break;
-    case 4:
+    case 5:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->memberiPangan();
@@ -203,14 +215,13 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 5:
-        _currentPlayer->membeli();
-
-        break;
     case 6:
-        _currentPlayer->menjual();
+        _currentPlayer->membeli();
         break;
     case 7:
+        _currentPlayer->menjual();
+        break;
+    case 8:
         if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
         {
             stockman->panen();
@@ -220,10 +231,13 @@ void GameManager::RunStockmanSelection(int input)
             throw PeopleException();
         }
         break;
-    case 8:
+    case 9:
+        muat();
+        break;
+    case 10:
         simpan();
         break;
-    case 9:
+    case 11:
         nextTurn();
         break;
     default:
@@ -344,19 +358,30 @@ void GameManager::Run()
 
 void GameManager::muat()
 {
-    try
+    int total = 0;
+    int temp;
+    for (auto &player : _listPlayer)
     {
-        StateManager::loadState();
+        if (player->GetType() == 1){
+            return;
+        }
+        player->HitungNonUang();
+        temp = player->getStatusKeuangan().hitungPajak();
+        player->getStatusKeuangan().kurangUang(temp);
+        total += temp;
     }
-    catch (BackToMenuState e)
-    {
-        throw;
-    }
+}
+
+void GameManager::muat()
+{
+    _toko = Toko();
+    StateManager::loadState();
     _listPlayer = StateManager::_listPlayer;
-    // TODO : Implement load shop items
+    Toko::tambahListItems(StateManager::_listItemToko);
 }
 
 void GameManager::simpan()
 {
+    StateManager::_listPlayer = _listPlayer.getBuffer();
     StateManager::saveState();
 }

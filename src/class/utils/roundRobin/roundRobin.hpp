@@ -122,6 +122,10 @@ class roundRobin{
             return *this;
         }
 
+        vector<T> getBuffer() const {
+            return buf;
+        }
+
         typename std::vector<T>::iterator begin() {
             return buf.begin();
         }
@@ -173,5 +177,6 @@ class roundRobin{
                 }
         };
 };
+
 
 #endif // ROUND_ROBIN_HPP_

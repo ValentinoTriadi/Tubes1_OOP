@@ -42,6 +42,17 @@ Peternakan& Peternakan::operator=(const Peternakan& peternakan) {
     return *this;
 }
 
+bool Peternakan::isAnyHarvestable() {
+    for (const auto & row : items) {
+        for (const auto & item : row) {
+            if (item != nullptr && isReadyToHarvest(item)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 ostream& Peternakan::printRow(ostream& os, int row) const {
 
     if (row < 9) {
@@ -126,7 +137,22 @@ ostream& operator<<(ostream& os, const Peternakan& ladang) {
     return os;
 }
 
-bool Peternakan::isReadyToHarvest(Item* item) const {
+bool Peternakan::isReadyToHarvest(Item* item) {
     // Check if the animal is ready to be harvested
     return dynamic_cast<Animal*>(item)->getWeight() >= dynamic_cast<Animal*>(item)->getHarvestLimit();
+}
+
+map<string, int> Peternakan::getHarvestable() {
+    map<string, int> animals;
+    for (const auto & row : items) {
+        for (const auto & item : row) {
+            if (item != nullptr){
+                auto* animal = dynamic_cast<Animal*>(item);
+                if (animal->getWeight() >= animal->getHarvestLimit()){
+                    animals[animal->getCode()]++;
+                }
+            }
+        }
+    }
+    return animals;
 }

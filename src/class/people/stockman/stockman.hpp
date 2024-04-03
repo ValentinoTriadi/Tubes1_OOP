@@ -55,10 +55,6 @@ class Stockman : public People{
         */
         void panen();
         /**
-         * @brief Pungut Pajak
-        */
-        void pungutPajak(int jumlah);
-        /**
          * @brief Set Peternakan
         */
         void setPeternakan(const Peternakan&);
@@ -72,6 +68,8 @@ class Stockman : public People{
          * @brief get name animal by code
         */
         string getNameByCode(const string&) const override;
+
+    static long join(const vector<string>& vector1, const char *string);
 };
 
 

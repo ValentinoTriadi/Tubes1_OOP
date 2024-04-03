@@ -112,6 +112,10 @@ class StateManager {
          * @return The item.
          */
         static Item* getItemByName(const string& name);
+
+    static void saveLadang(ofstream &file, Farmer *temp);
+
+    static void savePeternakan(ofstream &file, Stockman *temp);
 };
 
 #endif

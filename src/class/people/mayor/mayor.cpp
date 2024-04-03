@@ -27,9 +27,7 @@ void Mayor::bangun()
 {
 
     PrintBuildingRecipe();
-
-    cout << "Pilih bangunan yang ingin dibangun: ";
-    InputManager::receiveStringInput();
+    InputManager::receiveInput("Pilih bangunan yang ingin dibangun: ");
 
     // Local Variable
     int kekuranganUang = 0;
@@ -91,8 +89,11 @@ void Mayor::bangun()
 
 Mayor::Mayor(const string &nama, int weight, int keuangan, int n_storage, int m_storage) : People(nama, weight, keuangan, 1, n_storage, m_storage) {}
 
-void Mayor::tambahPemain(roundRobin<People *> *listPlayer)
-{
+string Mayor::getNameByCode(const std::string &) const {
+    return "";
+}
+
+void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     cout << "Masukkan jenis pemain: ";
     string pekerjaan;
     InputManager::receiveStringInput();

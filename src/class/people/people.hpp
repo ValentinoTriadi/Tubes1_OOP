@@ -10,126 +10,123 @@
 #include "../Manager/InputManager/InputManager.hpp"
 #include <algorithm>
 
-class People
-{
-protected:
-    /**
-     * name of user
-     */
-    string name;
+class People{
+    protected:
+        /**
+         * name of user
+        */
+        string name;
 
-    /**
-     * Container storage of user
-     */
-    Container storage;
+        /**
+         * Container storage of user
+        */
+        Container storage;
 
-    /**
-     * Money monitor of user
-     * default = 50 gulden
-     */
-    StatusKeuangan Keuangan;
+        /**
+         * Money monitor of user
+         * default = 50 gulden
+        */
+        StatusKeuangan Keuangan;
 
-    /**
-     * weight of user
-     * default = 40 kg
-     */
-    int Weight;
+        /**
+         * weight of user
+         * default = 40 kg
+        */
+        int Weight;
+        
+        /**
+         * type of user
+         * (1) mayor
+         * (2) farmer
+         * (3) stockman
+        */
+        int Type;
+    
+    public:
+        /**
+         * @param weight saved the weight of user
+         * @param Keuangan saved the money of user
+         * @param Type type of user
+        */
+        People(string ,int,int,int,int,int);
+    
+        People();
 
-    /**
-     * type of user
-     * (1) mayor
-     * (2) farmer
-     * (3) stockman
-     */
-    int Type;
+        /**
+         * @brief Menghapus objek people
+         */
+        virtual ~People();
 
-public:
-    /**
-     * @param weight saved the weight of user
-     * @param Keuangan saved the money of user
-     * @param Type type of user
-     */
-    People(string, int, int, int, int, int);
+        /**
+         *  @brief Mencetak penyimpanan yang dimiliki oleh people
+         */
+        void cetakPenyimpanan();
 
-    People();
+        /**
+         *  @brief Makan
+         */
+        void makan();
 
-    /**
-     * @brief Menghapus objek people
-     */
-    virtual ~People();
+        /**
+         *  @brief Membeli
+         */
+        void membeli();
 
-    /**
-     *  @brief Mencetak penyimpanan yang dimiliki oleh people
-     */
-    void cetakPenyimpanan();
+        /**
+         *  @brief Menjual
+         */
+        void menjual();
 
-    /**
-     *  @brief Makan
-     */
-    void makan();
+        /**
+         *  @brief Set container
+         *  @param container container yang akan di set
+         */
+        [[nodiscard]] int GetWeight() const {return Weight;}
 
-    /**
-     *  @brief Membeli
-     */
-    Item membeli();
+        /**
+         *  @brief Get Keuangan
+         *  @return Keuangan
+         */
+        [[nodiscard]] int GetKeuangan() {return Keuangan.GetMoney();}
 
-    /**
-     *  @brief Menjual
-     */
-    void menjual();
+        /**
+         *  @brief Get Type
+         *  @return Type
+         */
+        [[nodiscard]] int GetType() const {return Type;}
 
-    /**
-     *  @brief Set container
-     *  @param container container yang akan di set
-     */
-    [[nodiscard]] int GetWeight() const { return Weight; }
+        /**
+         *  @brief Get Name
+         *  @return Name
+         */
+        [[nodiscard]] string GetName() const{return name;}
 
-    /**
-     *  @brief Get Keuangan
-     *  @return Keuangan
-     */
-    [[nodiscard]] int GetKeuangan() { return Keuangan.GetMoney(); }
+        /**
+         *  @brief Set container
+         *  @param container container yang akan di set
+         */
+        void setStorage(const Container&);
 
-    /**
-     *  @brief Get Type
-     *  @return Type
-     */
-    [[nodiscard]] int GetType() const { return Type; }
+        /**
+         *  @brief Get container
+         *  @return container
+         */
+        [[nodiscard]] Container getStorage() const;
 
-    /**
-     *  @brief Get Name
-     *  @return Name
-     */
-    [[nodiscard]] string GetName() const { return name; }
+        /**
+         *  @brief Get StatusKeuangan
+         */
+        [[nodiscard]] StatusKeuangan getStatusKeuangan() const;
 
-    /**
-     *  @brief Set container
-     *  @param container container yang akan di set
-     */
-    void setStorage(const Container &);
+        /**
+         * Menghitung nilai non uang
+         */
+        void HitungNonUang();
 
-    /**
-     *  @brief Get container
-     *  @return container
-     */
-    [[nodiscard]] Container getStorage() const;
-
-    /**
-     *  @brief Get StatusKeuangan
-     */
-    [[nodiscard]] StatusKeuangan getStatusKeuangan() const;
-
-    /**
-     * Menghitung nilai non uang
-     */
-    void HitungNonUang();
-
-    /**
-     * @brief get name by code
-     */
-    virtual string getNameByCode(const string &) const;
-
-    virtual void pungutPajak(int jumlah);
+        /**
+         * @brief get name by code
+        */
+        virtual string getNameByCode(const string&) const = 0;
 };
 
 #endif

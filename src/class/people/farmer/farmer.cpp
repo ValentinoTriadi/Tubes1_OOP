@@ -82,8 +82,8 @@ void Farmer::tanam()
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        std::cout << "Slot: ";
-        pair<int, int> slotIndex = DataConverter::GetSingleRowCol();
+        pair <int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
+
 
         // Validasi
         if (storage(slotIndex.first, slotIndex.second) == nullptr)
@@ -106,9 +106,8 @@ void Farmer::tanam()
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        std::cout << "Petak tanah: ";
-        pair<int, int> petakIndex = DataConverter::GetSingleRowCol();
 
+        pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
         // Validasi
         if (this->ladang(petakIndex.first, petakIndex.second) != nullptr)
         {
@@ -178,8 +177,7 @@ void Farmer::panen()
             std::cout << "  " << i << ". " << it->first << " (" << it->second << " petak siap panen)" << endl;
         }
 
-        std::cout << "Nomor tanaman yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Nomor tanaman yang ingin dipanen: ");
         int nomor = InputManager::_inputData<int>;
 
         // Validasi input
@@ -198,8 +196,7 @@ void Farmer::panen()
         int countPetak = it->second;
         string namePlant = getNameByCode(codePlant);
 
-        std::cout << "Berapa petak yang ingin dipanen: ";
-        InputManager::receiveIntInput();
+        InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
         int jumlah = InputManager::_inputData<int>;
 
         // Validasi input
@@ -213,34 +210,27 @@ void Farmer::panen()
         }
 
         // validasi inventory
-        if (storage.getCellKosong() < jumlah)
-        {
-            throw StorageFullException();
+        if (storage.getCellKosong() < jumlah){
+            throw FullException("penyimpanan");
         }
 
         vector<string> tempSlot;
         std::cout << "Pilih petak yang ingin dipanen: " << endl;
         // Cetak petak yang bisa dipanen
-        for (int i = 0; i < jumlah; i++)
-        {
-            std::cout << "Petak ke-" << i + 1 << ": ";
-            pair<int, int> petakIndex = DataConverter::GetSingleRowCol();
-            if (ladang(petakIndex.first, petakIndex.second) == nullptr)
-            {
-                throw KosongException("Petak" + DataConverter::itos(petakIndex.first, petakIndex.second));
-            }
-            else
-            {
-                Plant plant = dynamic_cast<Plant &>(*ladang(petakIndex.first, petakIndex.second));
-                if (plant.getCode() != codePlant)
-                {
+        for (int i = 0; i < jumlah; i++) {
+            pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1)+ ": ");
+            if (ladang(petakIndex.second, petakIndex.first) == nullptr){
+                throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
+            } else {
+                Plant plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
+                if (plant.getCode() != codePlant){
                     throw NotChoosenException("Tumbuhan");
                 }
                 else if (plant.getAge() < plant.getHarvestLimit())
                 {
                     throw NotReadyHarvestedException("Tumbuhan");
                 }
-                tempSlot.push_back(DataConverter::itos(petakIndex.first, petakIndex.second));
+                tempSlot.push_back(DataConverter::itos(petakIndex.second, petakIndex.first));
             }
         }
 

@@ -8,6 +8,8 @@
 #include <utility>
 #include "../item/item.hpp"
 #include "../gameData/gameData.hpp"
+#include "../exception/GameException.hpp"
+#include "../utils/DataConverter/DataConverter.hpp"
 
 
 class Container {
@@ -140,6 +142,8 @@ public:
     [[nodiscard]] bool isEmpty() const;
 
     map<string, vector<Item *>> getItemsPointer();
+
+    bool isAnyAnimal();
 
 protected:
     /* data */

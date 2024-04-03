@@ -33,7 +33,7 @@ public:
 
     void PrintBuildingRecipe();
 
-    void TagihPajak(roundRobin<People*> *listPlayer);
+    string getNameByCode(const string &) const;
 };
 
 #endif
