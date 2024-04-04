@@ -159,6 +159,7 @@ public:
      */
     static void simpan();
 
+    void ShowCurrentPlayerInfo();
 };
 
 #endif

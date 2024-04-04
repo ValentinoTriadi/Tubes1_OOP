@@ -124,15 +124,22 @@ int Container::getCellKosong() const
  */
 void Container::setItem(int i, int j, Item *item)
 {
-    if (i >= row || j >= col || i < 0 || j < 0) {
-        throw IndexOutOfBoundException();
-    }
+    try {
+        if (i >= row || j >= col || i < 0 || j < 0) {
+            throw IndexOutOfBoundException();
+        }
 
-    if (items[i][j] == nullptr) {
-        items[i][j] = item;
-        cellKosong--;
-    } else {
-        throw PetakSudahTerisiException(DataConverter::itos(j,i));
+        if (items[i][j] == nullptr) {
+            items[i][j] = item;
+            cellKosong--;
+        } else {
+            throw PetakSudahTerisiException(DataConverter::itos(j,i));
+        }
+
+    } catch (IndexOutOfBoundException &e) {
+        cout << e.what() << endl;
+    } catch (PetakSudahTerisiException &e) {
+        cout << e.what() << endl;
     }
 }
 
@@ -408,6 +415,17 @@ bool Container::isAnyAnimal() {
     for (const auto & row : items) {
         for (const auto & item : row) {
             if (item != nullptr && dynamic_cast<Animal*>(item)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Container::isAnyPlant() {
+    for (const auto & row : items) {
+        for (const auto & item : row) {
+            if (item != nullptr && dynamic_cast<Plant*>(item)){
                 return true;
             }
         }

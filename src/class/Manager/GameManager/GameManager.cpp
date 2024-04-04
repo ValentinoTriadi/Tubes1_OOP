@@ -319,7 +319,7 @@ void GameManager::RunFarmerSelection(int input)
             case 2:
                 if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
                 {
-                    farmer->tanam();
+                    farmer->cetakLadang();
                 }
                 else
                 {
@@ -327,15 +327,25 @@ void GameManager::RunFarmerSelection(int input)
                 }
                 break;
             case 3:
-                _currentPlayer->makan();
+                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
+                {
+                    farmer->tanam();
+                }
+                else
+                {
+                    throw PeopleException();
+                }
                 break;
             case 4:
-                _currentPlayer->membeli();
+                _currentPlayer->makan();
                 break;
             case 5:
-                _currentPlayer->menjual();
+                _currentPlayer->membeli();
                 break;
             case 6:
+                _currentPlayer->menjual();
+                break;
+            case 7:
                 if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
                 {
                     farmer->panen();
@@ -345,10 +355,10 @@ void GameManager::RunFarmerSelection(int input)
                     throw PeopleException();
                 }
                 break;
-            case 7:
+            case 8:
                 simpan();
                 break;
-            case 8:
+            case 9:
                 nextTurn();
                 break;
             default:
@@ -366,9 +376,33 @@ void GameManager::Run()
     StartTurn();
     while (!_isGameOver)
     {
+        // Show player Name, Occupation, Money, Weight
+        ShowCurrentPlayerInfo();
         MenuSelection(_currentPlayer->GetType());
         WinCheck();
     }
+}
+
+void GameManager::ShowCurrentPlayerInfo(){
+    cout << "Current Player Info: " << endl;
+    cout << "Player Name: " << _currentPlayer->GetName();
+    cout << "\nOccupation: ";
+
+    if (_currentPlayer->GetType() == 1)
+    {
+        cout << "Mayor" << endl;
+    }
+    else if (_currentPlayer->GetType() == 2)
+    {
+        cout << "Farmer" << endl;
+    }
+    else if (_currentPlayer->GetType() == 3)
+    {
+        cout << "Stockman" << endl;
+    }
+
+    cout << "Money: " << _currentPlayer->GetKeuangan();
+    cout << "\nWeight: " << _currentPlayer->GetWeight() << endl << endl;
 }
 
 void GameManager::muat()

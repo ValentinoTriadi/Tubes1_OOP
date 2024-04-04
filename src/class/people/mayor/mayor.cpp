@@ -112,12 +112,12 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     InputManager::receiveInput("Masukkan nama pemain: ");
     nama = InputManager::_inputData<string>;
 
-    if (pekerjaan == "farmer")
+    if (pekerjaan == "farmer" || pekerjaan == "petani")
     {
         listPlayer->add(new Farmer(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
 
     }
-    else if (pekerjaan == "stockman")
+    else if (pekerjaan == "stockman" || pekerjaan == "peternak")
     {
         listPlayer->add(new Stockman(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
     } else
