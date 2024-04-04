@@ -156,6 +156,8 @@ public:
      */
     bool isAnyPlant();
 
+    void deleteItemByName(string slot);
+
 protected:
     /* data */
     vector<vector<Item*> > items;

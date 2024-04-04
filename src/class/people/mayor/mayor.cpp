@@ -26,6 +26,11 @@ void Mayor::PrintBuildingRecipe()
 
 void Mayor::bangun()
 {
+    // Check if the player has any slot left
+    if (storage.getCellKosong()){
+        cout << "Anda tidak memiliki slot kosong untuk bangunan!" << endl;
+        return;
+    }
 
     PrintBuildingRecipe();
     InputManager::receiveInput("Pilih bangunan yang ingin dibangun: ");
@@ -33,6 +38,7 @@ void Mayor::bangun()
     // Local Variable
     int kekuranganUang = 0;
     map<string, int> kekuranganBarang;
+    map<string, vector<Item *>> itemsPointer = storage.getItemsPointer();
 
     // Check if the choice is valid
     for (auto &i : GameData::_buildingConfig)
@@ -41,25 +47,28 @@ void Mayor::bangun()
         {
             try
             {
-                // Check if the player has enough money and items
+                // Check if the player has enough money
                 if (Keuangan.GetMoney() < i.getHarga())
                 {
                     kekuranganUang = i.getHarga() - Keuangan.GetMoney();
                 }
 
-                storage.getItemsPointer();
+                // Check if the player has enough items
                 for (auto &item : i.getRecipe())
                 {
-                    if (storage.getItemsPointer().find(item.first) == storage.getItemsPointer().end())
+                    // If the item is not in the storage
+                    if (itemsPointer.find(item.first) == itemsPointer.end())
                     {
                         kekuranganBarang[item.first] = item.second;
                     }
-                    else if (storage.getItemsPointer()[item.first].size() < item.second)
+                    // If the item is in the storage but not enough
+                    else if (itemsPointer[item.first].size() < item.second)
                     {
-                        kekuranganBarang[item.first] = item.second - storage.getItemsPointer()[item.first].size();
+                        kekuranganBarang[item.first] = item.second - itemsPointer[item.first].size();
                     }
                 }
 
+                // If there is any lack of money or items
                 if (kekuranganUang != 0 || !kekuranganBarang.empty())
                 {
                     throw NotEnoughGuldenOrItemException(kekuranganUang, kekuranganBarang);
@@ -71,10 +80,17 @@ void Mayor::bangun()
                 {
                     for (int j = 0; j < item.second; j++)
                     {
-                        storage.deleteItem(item.first);
+                        try {
+                            storage.deleteItemByName(item.first);
+                        } catch (GameException &e) {
+                            cout << e.what() << endl;
+                            return;
+                        }
                     }
                 }
 
+                // Add the building to the storage
+                storage.setItem(new Building(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getRecipe() ));
                 cout << "Bangunan berhasil dibangun!" << endl;
                 return;
             }
