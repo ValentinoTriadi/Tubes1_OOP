@@ -8,7 +8,7 @@ People::People() : Keuangan(50, 0), Weight(40), Type(0)
 {
 }
 
-People::People(string nama, int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan, 0), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan), name(std::move(nama))
+People::People(string nama, int weight, int Keuangan, int type, int n_penyimpanan, int m_penyimpanan) : Keuangan(Keuangan, type), Weight(weight), Type(type), storage(n_penyimpanan, m_penyimpanan), name(std::move(nama))
 {
 }
 
@@ -134,6 +134,7 @@ void People::membeli()
 
 void People::menjual()
 {
+    int total = 0;
     try {
         cout << "Berikut merupakan penyimpanan Anda" << endl;
         cetakPenyimpanan();
@@ -141,13 +142,37 @@ void People::menjual()
         InputManager::receiveIntInput("Kuantitas barang yang ingin dijual : ");
         int quantity = InputManager::_inputData<int>;
 
+        if (quantity > storage.getItems().size()) {
+            throw NotEnoughItemException();
+        }
+
         cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
         for (int i = 0; i < quantity; i++) {
-            pair<int,int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1) + " : ");
-            Item *itemtosell = storage(petakIndex.second, petakIndex.first);
-            storage.deleteItem(petakIndex.second, petakIndex.first);
-            Toko::addItems(itemtosell);
+            try{
+                pair<int,int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1) + " : ");
+
+                // Validasi petak index
+                if (petakIndex.first < 0 || petakIndex.first >= storage.getCol() || petakIndex.second >= storage.getRow() || petakIndex.second < 0) {
+                    throw IndexOutOfBoundException();
+                }
+
+                Item *itemtosell = storage(petakIndex.second, petakIndex.first);
+
+                if (itemtosell == nullptr) {
+                    throw StorageEmptyException();
+                }
+
+                storage.deleteItem(petakIndex.second, petakIndex.first);
+                total += itemtosell->getHarga();
+                Toko::addItems(itemtosell);
+            } catch (GameException &e) {
+                cout << e.what() << endl;
+                i--;
+            }
         }
+
+        Keuangan.tambahUang(total);
+        cout << "Barang Anda berhasil dijual! Uang Anda bertambah "<< total <<" gulden!" << endl;
     } catch (GameException& e){
         cout << e.what() << endl;
     }
@@ -176,6 +201,7 @@ void People::HitungNonUang()
     {
         NonUang += i.second;
     }
+    Keuangan.SetNonUang(NonUang);
 }
 
 string People::getNameByCode(const string &code) const

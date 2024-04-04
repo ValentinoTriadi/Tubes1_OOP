@@ -156,3 +156,7 @@ map<string, int> Peternakan::getHarvestable() {
     }
     return animals;
 }
+
+bool Peternakan::isAnyEmpty() {
+    return cellKosong > 0;
+}

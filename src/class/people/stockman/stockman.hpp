@@ -24,10 +24,10 @@ class Stockman : public People{
     public:
         /**
          * @brief Construct a new Stockman object
-         * 
+         *
+         * @param Name
          * @param weight
          * @param Keuangan
-         * @param Type
          * @param n_penyimpanan 
          * @param m_penyimpanan
          * @param n_peternakan

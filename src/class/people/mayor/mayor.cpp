@@ -1,6 +1,7 @@
 #include "mayor.hpp"
 #include <queue>
 #include <algorithm>
+#include "../../gameData/gameData.hpp"
 void Mayor::PrintBuildingRecipe()
 {
     cout << "Resep bangunan yang ada: \n";
@@ -94,87 +95,74 @@ string Mayor::getNameByCode(const std::string &) const {
 }
 
 void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
+
+    if (GetKeuangan() < 50)
+    {
+        cout << "Uang Anda tidak cukup untuk menambahkan pemain!" << endl;
+        return;
+    }
+
+    vector<int> gameConfig = GameData::_gameConfig;
+
     string pekerjaan;
     InputManager::receiveInput("Masukkan jenis pemain: ");
     pekerjaan = DataConverter::LowerCase(InputManager::_inputData<string>);
-    cout << endl;
 
     string nama;
     InputManager::receiveInput("Masukkan nama pemain: ");
-    nama = DataConverter::LowerCase(InputManager::_inputData<string>);
-    cout << endl;
+    nama = InputManager::_inputData<string>;
 
-    // TODO : MAKE static const constructor with default value from game data.
-    if (pekerjaan == "farmer")
+    if (pekerjaan == "farmer" || pekerjaan == "petani")
     {
-        listPlayer->add(new Farmer(nama, 50, 100, 3, 3, 3, 3));
+        listPlayer->add(new Farmer(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
+
     }
-    else if (pekerjaan == "stockman")
+    else if (pekerjaan == "stockman" || pekerjaan == "peternak")
     {
-        listPlayer->add(new Stockman(nama, 50, 100, 3, 3, 3, 3));
-    }
-    else if (pekerjaan == "mayor")
-    {
-        listPlayer->add(new Mayor(nama, 50, 100, 3, 3));
-    }
-    else
+        listPlayer->add(new Stockman(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
+    } else
     {
         cout << "Pekerjaan tidak valid." << endl;
+        return;
     }
+
+    getStatusKeuangan().kurangUang(50);
+    cout << "Pemain berhasil ditambahkan!" << endl;
 }
 
-//void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
-//{
-//    int totalPajak = 0;
-//
-//    cout << "Cring cring cring..." << endl;
-//    cout << "Pajak sudah dipungut!" << endl;
-//
-//    vector<pair<People *, int>> playerPajak;
-//
-//    for (auto &player : *listPlayer)
-//    {
-//        if (player->GetType() != 1)
-//        {
-//            int JumlahPajak = player->getStatusKeuangan().hitungPajak();
-//            if (JumlahPajak > player->GetKeuangan())
-//            {
-//                JumlahPajak = player->GetKeuangan();
-//            }
-//            player->pungutPajak(JumlahPajak);
-//            totalPajak += JumlahPajak;
-//            playerPajak.push_back(std::make_pair(player, JumlahPajak));
-//        }
-//    }
-//
-//    std::cout << "Berikut adalah detil dari pemungutan pajak: " << std::endl;
-//
-//    // Sort Player berdasarkan jumlah pajak, jika sama bandingkan dengan leksikografiknya
-//    std::sort(playerPajak.begin(), playerPajak.end(),
-//              [](const auto &a, const auto &b)
-//              {
-//                  if (a.second == b.second)
-//                  {
-//                      return a.first->GetName() < b.first->GetName();
-//                  }
-//                  return a.second < b.second;
-//              });
-//
-//    for (int i = 1; i <= playerPajak.size(); i++)
-//    {
-//        // Farmer
-//        string job;
-//        if (playerPajak[i].first->GetType() == 2)
-//        {
-//            job = "Petani";
-//        }
-//        else
-//        {
-//            job = "Peternak";
-//        }
-//        cout << "\t" << i << ". " << playerPajak[i].first->GetName() << " - " << job << ": " << playerPajak[i].second << " gulden";
-//    }
-//
-//    cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << endl;
-//    cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
-//}
+void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
+{
+    int totalPajak = 0;
+    vector<pair<People *, int>> playerPajak;
+
+    cout << "Cring cring cring...\n";
+    cout << "Pajak sudah dipungut!\n\n";
+
+    for (auto &player : *listPlayer)
+    {
+        if (player->GetType() != 1)
+        {
+            player->HitungNonUang();
+            int JumlahPajak = min(player->getStatusKeuangan().hitungPajak(), player->GetKeuangan());
+            player->getStatusKeuangan().kurangUang(JumlahPajak);
+            totalPajak += JumlahPajak;
+            playerPajak.emplace_back(player, JumlahPajak);
+        }
+    }
+
+    cout << "Berikut adalah detil dari pemungutan pajak:\n";
+
+    sort(playerPajak.rbegin(), playerPajak.rend(),
+         [](const auto &a, const auto &b)
+         {
+             return a.second == b.second ? a.first->GetName() > b.first->GetName() : a.second > b.second;
+         });
+
+    for (int i = 0; i < playerPajak.size(); i++)
+    {
+        string job = playerPajak[i].first->GetType() == 2 ? "Petani" : "Peternak";
+        cout << "\t" << i+1 << ". " << playerPajak[i].first->GetName() << " - " << job << ": " << playerPajak[i].second << " gulden\n";
+    }
+
+    cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << endl;
+}

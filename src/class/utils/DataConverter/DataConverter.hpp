@@ -2,6 +2,10 @@
 #define DATA_CONVERTER_HPP
 #include <string>
 #include <vector>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <regex>
 #include "../../exception/InputException.hpp"
 
 /**

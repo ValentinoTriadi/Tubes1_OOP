@@ -127,6 +127,7 @@ class People{
          * @brief get name by code
         */
         virtual string getNameByCode(const string&) const = 0;
+
 };
 
 #endif

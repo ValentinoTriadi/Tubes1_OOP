@@ -81,6 +81,8 @@ class   Peternakan : public Container {
 
             map<string, int> getHarvestable();
 
+    bool isAnyEmpty();
+
 private:
             /**
              * Prints the specified row of the container to the output stream.

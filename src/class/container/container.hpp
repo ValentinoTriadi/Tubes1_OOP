@@ -145,6 +145,8 @@ public:
 
     bool isAnyAnimal();
 
+    bool isAnyPlant();
+
 protected:
     /* data */
     vector<vector<Item*> > items;

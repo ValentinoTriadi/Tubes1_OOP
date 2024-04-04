@@ -54,8 +54,14 @@ void Stockman::cetakPeternakan()
 
 void Stockman::ternak(){
     try {
+        // Check apakah masih ada space di ladang
+        bool found = peternakan.isAnyEmpty();
+        if (!found) {
+            throw FullException("peternakan");
+        }
+
         // Check adakah hewan di penyimpanam
-        bool found = storage.isAnyAnimal();
+        found = storage.isAnyAnimal();
         if (!found) {
             throw NotInException("tumbuhan", "penyimpanan");
         }

@@ -1,7 +1,5 @@
 #include "DataConverter.hpp"
-#include <iostream>
-#include <algorithm>
-#include <regex>
+
 
 template <>
 int DataConverter::StringToNumber(const string &data)

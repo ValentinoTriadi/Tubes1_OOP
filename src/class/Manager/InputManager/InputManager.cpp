@@ -119,19 +119,19 @@ void InputManager::MayorMenuInputValidation()
             _inputData<int> = 2;
         } else if (data == "bangun_bangunan") {
             _inputData<int> = 3;
-        } else if (data == "makan" || data == "4") {
+        } else if (data == "makan") {
             _inputData<int> = 4;
-        } else if (data == "beli" || data == "5") {
+        } else if (data == "beli") {
             _inputData<int> = 5;
-        } else if (data == "jual" || data == "6") {
+        } else if (data == "jual") {
             _inputData<int> = 6;
-        } else if (data == "muat" || data == "7") {
+        } else if (data == "muat") {
             _inputData<int> = 7;
-        } else if (data == "simpan" || data == "8") {
+        } else if (data == "simpan") {
             _inputData<int> = 8;
-        } else if (data == "tambah pemain" || data == "9") {
+        } else if (data == "tambah_pemain") {
             _inputData<int> = 9;
-        } else if (data == "next turn" || data == "10") {
+        } else if (data == "next") {
             _inputData<int> = 10;
         } else {
             throw MenuException("Invalid Input: Masukan belum benar");
@@ -144,7 +144,7 @@ void InputManager::MayorMenuInputValidation()
 
 void InputManager::ShowStockmanMenu()
 {
-    std::cout << "Menu Selection: \n";
+    std::cout << "===== Menu Selection =====\n";
     std::cout << "(1): "
               << "Cetak Peternakan\n";
     std::cout << "(2): "
@@ -211,20 +211,22 @@ void InputManager::ShowFarmerMenu()
 {
     cout << "===== Menu Selection ===== \n";
     cout << "(1): "
-         << "Cetak_Ladang\n";
+         << "Cetak_Penyimpanan\n";
     cout << "(2): "
-         << "Tanam\n";
+         << "Cetak_Ladang\n";
     cout << "(3): "
-         << "Makan\n";
+         << "Tanam\n";
     cout << "(4): "
-         << "Beli\n";
+         << "Makan\n";
     cout << "(5): "
-         << "Jual\n";
+         << "Beli\n";
     cout << "(6): "
-         << "Panen\n";
+         << "Jual\n";
     cout << "(7): "
-         << "Simpan\n";
+         << "Panen\n";
     cout << "(8): "
+         << "Simpan\n";
+    cout << "(9): "
          << "Next_Turn\n";
     cout << endl;
 }
@@ -241,33 +243,37 @@ void InputManager::FarmerMenuInputValidation()
         {
             _inputData<int> = 1;
         }
-        else if (_inputData<string> == "tanam")
+        else if (data == "cetak_penyimpanan")
         {
             _inputData<int> = 2;
         }
-        else if (data == "makan")
+        else if (_inputData<string> == "tanam")
         {
             _inputData<int> = 3;
         }
-        else if (data == "beli")
+        else if (data == "makan")
         {
             _inputData<int> = 4;
         }
-        else if (data == "jual")
+        else if (data == "beli")
         {
             _inputData<int> = 5;
         }
-        else if (data == "panen")
+        else if (data == "jual")
         {
             _inputData<int> = 6;
         }
-        else if (data == "simpan")
+        else if (data == "panen")
         {
             _inputData<int> = 7;
         }
-        else if (data == "next_turn")
+        else if (data == "simpan")
         {
             _inputData<int> = 8;
+        }
+        else if (data == "next")
+        {
+            _inputData<int> = 9;
         }
         else
         {
@@ -275,6 +281,7 @@ void InputManager::FarmerMenuInputValidation()
         }
     } catch (MenuException& e){
         cout << e.what() << endl;
+        FarmerMenuInputValidation();
     }
 }
 

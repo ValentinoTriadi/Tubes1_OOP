@@ -108,7 +108,7 @@ public:
     }
 };
 
-class StorageEmptyException : GameException
+class StorageEmptyException : public GameException
 {
 public:
     string what() override
@@ -360,6 +360,15 @@ public:
         }
         message += "!";
         return message;
+    }
+};
+
+class NotEnoughItemException : public GameException
+{
+public:
+    string what() override
+    {
+        return "Item dalam storage tidak cukup";
     }
 };
 

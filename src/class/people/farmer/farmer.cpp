@@ -58,19 +58,14 @@ void Farmer::tanam()
 {
     try
     {
-        // Check adakah tumbuhan di penyimpanan
-        bool found = false;
-        for (int i = 0; i < storage.getRow(); i++)
+        // Check apakah ada slot kosong di sawah
+        if (ladang.getCellKosong() == 0)
         {
-            for (int j = 0; j < storage.getCol(); j++)
-            {
-                if (storage(i, j) != nullptr && CheckTumbuhan(storage(i, j)->getCode()))
-                {
-                    found = true;
-                    break;
-                }
-            }
+            throw FullException("ladang");
         }
+
+        // Check adakah tumbuhan di penyimpanan
+        bool found = storage.isAnyPlant();
         if (!found)
         {
             throw NotInException("tumbuhan", "penyimpanan");
@@ -84,7 +79,11 @@ void Farmer::tanam()
         // Input berformat char int (B10)
         pair <int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
 
-
+        // Validasi slot index
+        if (slotIndex.second < 0 || slotIndex.second >= storage.getRow() || slotIndex.first < 0 || slotIndex.first >= storage.getCol())
+        {
+            throw NotValidException("Slot");
+        }
         // Validasi
         if (storage(slotIndex.first, slotIndex.second) == nullptr)
         {
@@ -108,6 +107,13 @@ void Farmer::tanam()
         // Input berformat char int (B10)
 
         pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
+
+        // Validasi petak index
+        if (petakIndex.second < 0 || petakIndex.second >= ladang.getRow() || petakIndex.first < 0 || petakIndex.first >= ladang.getCol())
+        {
+            throw NotValidException("Petak");
+        }
+
         // Validasi
         if (this->ladang(petakIndex.first, petakIndex.second) != nullptr)
         {
@@ -116,9 +122,12 @@ void Farmer::tanam()
         else
         {
             // SUCCESS
-            this->ladang.setItem(petakIndex.first, petakIndex.second, storage(slotIndex.first, slotIndex.second));
+            this->ladang.setItem(petakIndex.first, petakIndex.second, tanaman);
             this->storage.deleteItem(slotIndex.first, slotIndex.second);
         }
+
+        cout << "Cangkul, cangkul, cangkul yang dalam~!\n";
+        cout << tanaman->getNama() <<" berhasil ditanam!" << endl;
     }
     catch (GameException &e)
     {
@@ -126,36 +135,28 @@ void Farmer::tanam()
     }
 }
 
+
+
 void Farmer::panen()
 {
     try
     {
         map<string, int> plants;
-        // Check di ladang ada tumbuhan yang bisa dipanen ga + count yang bisa dipanen
-        bool found = false;
         for (int i = 0; i < ladang.getRow(); i++)
         {
             for (int j = 0; j < ladang.getCol(); j++)
             {
                 if (ladang(i, j) != nullptr)
                 {
-                    Plant plant = dynamic_cast<Plant &>(*ladang(i, j));
+                    auto& plant = dynamic_cast<Plant&>(*ladang(i, j));
                     if (plant.getAge() >= plant.getHarvestLimit())
                     {
-                        found = true;
-                        if (plants.find(plant.getCode()) == plants.end())
-                        {
-                            plants[plant.getCode()] = 1;
-                        }
-                        else
-                        {
-                            plants[plant.getCode()]++;
-                        }
+                        plants[plant.getCode()]++;
                     }
                 }
             }
         }
-        if (!found)
+        if (plants.empty())
         {
             throw FarmEntityNotFoundException("tumbuhan");
         }
@@ -218,19 +219,27 @@ void Farmer::panen()
         std::cout << "Pilih petak yang ingin dipanen: " << endl;
         // Cetak petak yang bisa dipanen
         for (int i = 0; i < jumlah; i++) {
-            pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1)+ ": ");
-            if (ladang(petakIndex.second, petakIndex.first) == nullptr){
-                throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
-            } else {
-                Plant plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
+            try {
+                pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1)+ ": ");
+                if (petakIndex.second < 0 || petakIndex.second >= ladang.getRow() || petakIndex.first < 0 || petakIndex.first >= ladang.getCol())
+                {
+                    throw NotValidException("Petak");
+                }
+                if (ladang(petakIndex.second, petakIndex.first) == nullptr){
+                    throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
+                }
+                Plant& plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
                 if (plant.getCode() != codePlant){
                     throw NotChoosenException("Tumbuhan");
                 }
-                else if (plant.getAge() < plant.getHarvestLimit())
+                if (plant.getAge() < plant.getHarvestLimit())
                 {
                     throw NotReadyHarvestedException("Tumbuhan");
                 }
                 tempSlot.push_back(DataConverter::itos(petakIndex.second, petakIndex.first));
+            } catch (GameException &e) {
+                std::cout << e.what() << endl;
+                i--;
             }
         }
 
@@ -245,6 +254,7 @@ void Farmer::panen()
                 break;
             }
         }
+
         if (tempProductIndex == -1)
         {
             throw NotFoundException("Product");
