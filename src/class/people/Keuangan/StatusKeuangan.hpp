@@ -53,6 +53,8 @@ public:
      * Usage: ```HitungNonUang();```
      */
     void HitungNonUang();
+
+    void SetNonUang(int);
 };
 
 #endif //STATUSKEUANGAN_H

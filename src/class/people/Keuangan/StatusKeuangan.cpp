@@ -16,10 +16,35 @@ int StatusKeuangan::hitungPajak() const{
     int tarif = 0;
 
     switch (kkp) {
-        
+        // 0 - 6
+        case 0 ... 6:
+            tarif = 5;
+            break;
+        // 6 - 25
+        case 7 ... 25:
+            tarif = 15;
+            break;
+        // 25 - 50
+        case 26 ... 50:
+            tarif = 25;
+            break;
+        // 50 - 500
+        case 51 ... 500:
+            tarif = 30;
+            break;
+        // > 500
+        default:
+            tarif = 35;
+            break;
     }
 
-    return ((kkp * tarif) / 100) - ktkp ;
+    int kenaPajak = (kkp * tarif) / 100;
+
+    if (kenaPajak < ktkp) {
+        return 0;
+    }
+
+    return kenaPajak - ktkp ;
 }
 
 void StatusKeuangan::tambahUang(int val){
@@ -31,4 +56,12 @@ void StatusKeuangan::kurangUang(int val){
         throw NotEnoughMoneyException();
     }
     money -= val;
+}
+
+void StatusKeuangan::HitungNonUang() {
+
+}
+
+void StatusKeuangan::SetNonUang(int s) {
+    NonUang = s;
 }

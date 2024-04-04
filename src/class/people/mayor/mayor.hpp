@@ -34,6 +34,8 @@ public:
     void PrintBuildingRecipe();
 
     string getNameByCode(const string &) const;
+
+    static void TagihPajak(roundRobin<People *> *listPlayer);
 };
 
 #endif

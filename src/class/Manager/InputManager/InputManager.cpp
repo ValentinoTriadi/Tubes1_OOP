@@ -119,19 +119,19 @@ void InputManager::MayorMenuInputValidation()
             _inputData<int> = 2;
         } else if (data == "bangun_bangunan") {
             _inputData<int> = 3;
-        } else if (data == "makan" || data == "4") {
+        } else if (data == "makan") {
             _inputData<int> = 4;
-        } else if (data == "beli" || data == "5") {
+        } else if (data == "beli") {
             _inputData<int> = 5;
-        } else if (data == "jual" || data == "6") {
+        } else if (data == "jual") {
             _inputData<int> = 6;
-        } else if (data == "muat" || data == "7") {
+        } else if (data == "muat") {
             _inputData<int> = 7;
-        } else if (data == "simpan" || data == "8") {
+        } else if (data == "simpan") {
             _inputData<int> = 8;
-        } else if (data == "tambah pemain" || data == "9") {
+        } else if (data == "tambah pemain") {
             _inputData<int> = 9;
-        } else if (data == "next turn" || data == "10") {
+        } else if (data == "next") {
             _inputData<int> = 10;
         } else {
             throw MenuException("Invalid Input: Masukan belum benar");
@@ -265,7 +265,7 @@ void InputManager::FarmerMenuInputValidation()
         {
             _inputData<int> = 7;
         }
-        else if (data == "next_turn")
+        else if (data == "next")
         {
             _inputData<int> = 8;
         }
@@ -275,6 +275,7 @@ void InputManager::FarmerMenuInputValidation()
         }
     } catch (MenuException& e){
         cout << e.what() << endl;
+        FarmerMenuInputValidation();
     }
 }
 
