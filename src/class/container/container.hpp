@@ -30,6 +30,7 @@ public:
     //Setter
     void setRow(int row);
     void setCol(int col);
+
     /**
      * @brief Sets the item at the specified position in the container.
      * 
@@ -40,7 +41,7 @@ public:
      * @param j The column index of the position.
      * @param item A pointer to the item to be set.
      */
-    void setItem(int i, int j, Item* item);
+    virtual void setItem(int i, int j, Item* item);
 
     /**
      * @brief Sets an item in the container at the specified slot.
@@ -50,7 +51,7 @@ public:
      * @param slot The slot where the item will be set.
      * @param item A pointer to the item to be set.
      */
-    void setItem(string slot, Item* item);
+    virtual void setItem(string slot, Item* item);
 
     /**
      * @brief Sets the item in the container.
@@ -59,7 +60,7 @@ public:
      * 
      * @param item A pointer to the item to be set.
      */
-    void setItem(Item* item);
+    virtual void setItem(Item* item);
 
     /**
      * @brief Deletes an item at the specified position in the container.
@@ -69,7 +70,7 @@ public:
      * @param i The row index of the item to be deleted.
      * @param j The column index of the item to be deleted.
      */
-    void deleteItem(int i, int j);
+    virtual void deleteItem(int i, int j);
 
     /**
      * @brief Deletes an item from the container.
@@ -78,7 +79,7 @@ public:
      * 
      * @param slot The slot of the item to be deleted.
      */
-    void deleteItem(string slot);
+    virtual void deleteItem(string slot);
 
     //Getter
     [[nodiscard]] int getRow() const;
@@ -143,9 +144,19 @@ public:
 
     map<string, vector<Item *>> getItemsPointer();
 
+    /**
+     * @brief Check if there is any animal in the container.
+     * @return true if there is any animal in the container, false otherwise.
+     */
     bool isAnyAnimal();
 
+    /**
+     * @brief Check if there is any plant in the container.
+     * @return true if there is any plant in the container, false otherwise.
+     */
     bool isAnyPlant();
+
+    void deleteItemByName(string slot);
 
 protected:
     /* data */

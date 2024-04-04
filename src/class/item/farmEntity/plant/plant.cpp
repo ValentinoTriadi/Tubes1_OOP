@@ -23,3 +23,7 @@ void Plant::print() const {
     cout << "Duration to harvest: " << getHarvestLimit() << endl;
     cout << "Age: " << Age << endl;
 }
+
+void Plant::grow() {
+    Age++;
+}

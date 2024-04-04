@@ -83,7 +83,22 @@ class Ladang : public Container {
          */
         Ladang& operator=(const Ladang& ladang);
 
+        void setItem(int i, int j, Item* item) override;
+
+        void setItem(string slot, Item* item) override;
+
+        void setItem(Item* item) override;
+
+        void deleteItem(int i, int j) override;
+
+        void deleteItem(string slot) override;
+
+        void addAge();
+
     private:
+
+        std::set<Item*> harvestable;
+
         /**
          * @brief Mencetak baris dari ladang
          * @param os
@@ -97,7 +112,7 @@ class Ladang : public Container {
          * @param os
          * @return
          */
-        bool isReadyToHarvest(Item* item) const;
+        static bool isReadyToHarvest(Item* item) ;
 };
 
 #endif

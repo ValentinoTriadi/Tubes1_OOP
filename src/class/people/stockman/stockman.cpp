@@ -1,5 +1,4 @@
 #include "stockman.hpp"
-#include "../../exception/GameException.hpp"
 
 Stockman::Stockman(const string &name, int weight, int Keuangan, int n_penyimpanan, int m_penyimpanan, int n_peternakan, int m_peternakan) : People(name, weight, Keuangan, 3, n_penyimpanan, m_penyimpanan)
 {
@@ -7,6 +6,7 @@ Stockman::Stockman(const string &name, int weight, int Keuangan, int n_penyimpan
 };
 
 Stockman::~Stockman() = default;
+
 
 
 bool Stockman::CheckHewan(const string& kode){
@@ -119,7 +119,7 @@ void Stockman::memberiPangan()
     try
     {
         // Check di peternakan ada hewan ga
-        bool found = peternakan.isAnyHarvestable();
+        bool found = peternakan.isAnyAnimal();
 
         if (!found) {
             throw NotInException("hewan", "peternakan");
@@ -319,10 +319,13 @@ Peternakan Stockman::getPeternakan() const
     return peternakan;
 }
 
-long Stockman::join(const vector<string>& vector1, const char *string) {
-    long result = 0;
-    for (const auto & i : vector1) {
-        result += i.length();
+string Stockman::join(const vector<string>& vector1, const char *string) {
+    std::string result;
+    for (int i = 0; i < vector1.size(); i++) {
+        result += vector1[i];
+        if (i != vector1.size() - 1) {
+            result += string;
+        }
     }
     return result;
 }
