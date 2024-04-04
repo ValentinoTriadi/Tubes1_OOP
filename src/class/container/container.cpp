@@ -147,7 +147,6 @@ void Container::setItem(string slot, Item *item)
 {
     int i = slot[0] - 'A';
     int j = stoi(slot.substr(1, 2)) - 1;
-
     setItem(i, j, item);
 }
 
@@ -183,6 +182,21 @@ void Container::deleteItem(string slot)
     deleteItem(i, j);
 }
 
+void Container::deleteItemByName(string slot)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (items[i][j] != nullptr && items[i][j]->getNama() == slot) {
+                deleteItem(i, j);
+                return;
+            }
+        }
+    }
+    throw KosongException("Item " + slot);
+}
+
 map<pair<string, int>, int> Container::getItems(){
     map<pair<string, int>, int> itemMap;
 
@@ -205,7 +219,7 @@ map<string, vector<Item *>> Container::getItemsPointer() {
     for (auto & row : items) {
         for (auto & item : row) {
             if (item != nullptr) {
-                itemMap[item->getCode()].push_back(item);
+                itemMap[item->getNama()].push_back(item);
             }
         }
     }

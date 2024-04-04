@@ -11,7 +11,7 @@ private:
      * @brief Check If there is an plant in the storage
      * @return true if there is an plant in the storage, false if there is no plant in the storage
      */
-    bool CheckTumbuhan(const string &);
+    static bool CheckTumbuhan(const string &);
 
 public:
     /**
@@ -53,11 +53,6 @@ public:
     void panen();
 
     /**
-     * @brief Pungut pajak dari petani
-     */
-    void pungutPajak(int jumlah) ;
-
-    /**
      * @brief Set ladang yang dimiliki farmer
      * @param ladang ladang yang dimiliki farmer
      */
@@ -72,6 +67,8 @@ public:
      * @brief get name plant by code
      */
     string getNameByCode(const string &) const override;
+
+    void addPlantAge();
 };
 
 #endif

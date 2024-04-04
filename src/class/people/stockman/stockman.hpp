@@ -19,7 +19,7 @@ class Stockman : public People{
         * @brief Check If there is an animal in the storage
         * @return true if there is an animal in the storage, false if there is no animal in the storage
         */
-        bool CheckHewan(const string&);
+        static bool CheckHewan(const string&);
 
     public:
         /**
@@ -67,9 +67,9 @@ class Stockman : public People{
         /**
          * @brief get name animal by code
         */
-        string getNameByCode(const string&) const override;
+        [[nodiscard]] string getNameByCode(const string&) const override;
 
-    static long join(const vector<string>& vector1, const char *string);
+        static string join(const vector<string>& vector1, const char *string);
 };
 
 

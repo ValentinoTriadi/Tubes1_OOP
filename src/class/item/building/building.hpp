@@ -6,7 +6,20 @@
 
 class Building final : public Item {
     public:
+        /**
+         * @brief Construct a new Building object
+         */
         Building();
+
+        /**
+         * @brief Construct a new Building object
+         *
+         * @param id id dari building
+         * @param code code dari building
+         * @param name nama dari building
+         * @param price harga dari building
+         * @param recipe resep dari building
+         */
         Building(int, const string&, const string&, int, const map<string, int>&);
 
         ~Building() override;

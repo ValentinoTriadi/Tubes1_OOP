@@ -51,6 +51,10 @@ string Farmer::getNameByCode(const string &code) const
     }
 }
 
+void Farmer::addPlantAge(){
+    ladang.addAge();
+}
+
 /**
  *  Menanam tanaman
  */

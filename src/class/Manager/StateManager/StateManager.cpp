@@ -268,7 +268,7 @@ Item *StateManager::getItemByName(const string &name)
     {
         if ((i.getNama()) == name)
         {
-            return new Animal(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getType(), i.getWeight(), i.getHarvestLimit());
+            return new Animal(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getType(), i.getHarvestLimit(), i.getWeight());
         }
     }
 
