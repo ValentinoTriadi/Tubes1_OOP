@@ -147,7 +147,6 @@ void Container::setItem(string slot, Item *item)
 {
     int i = slot[0] - 'A';
     int j = stoi(slot.substr(1, 2)) - 1;
-
     setItem(i, j, item);
 }
 

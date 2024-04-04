@@ -160,6 +160,8 @@ public:
     static void simpan();
 
     void ShowCurrentPlayerInfo();
+
+    static void addAge();
 };
 
 #endif

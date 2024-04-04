@@ -79,11 +79,14 @@ class   Peternakan : public Container {
              */
             bool isAnyHarvestable();
 
+            // Override the setItem method from the Container class. To cache harvestable.
             map<string, int> getHarvestable();
 
-    bool isAnyEmpty();
+            bool isAnyEmpty();
 
 private:
+
+
             /**
              * Prints the specified row of the container to the output stream.
              *
@@ -100,7 +103,6 @@ private:
              * @return True if the item is ready to be harvested, false otherwise.
              */
             static bool isReadyToHarvest(Item* item) ;
-
 };
 
 #endif

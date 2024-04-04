@@ -44,6 +44,8 @@ class Plant final : public FarmEntity {
         */
         void setAge(int);
 
+        void grow();
+
 
         //! Method !//
 

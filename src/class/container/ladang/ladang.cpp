@@ -36,6 +36,8 @@ Ladang& Ladang::operator=(const Ladang& ladang) {
             items[i][j] = ladang.items[i][j];
         }
     }
+
+    this->harvestable = ladang.harvestable;
     return *this;
 }
 
@@ -122,7 +124,40 @@ ostream& operator<<(ostream& os, const Ladang& ladang) {
     return os;
 }
 
-bool Ladang::isReadyToHarvest(Item* item) const {
+bool Ladang::isReadyToHarvest(Item* item) {
     // Check if the item is ready to be harvested
     return dynamic_cast<Plant*>(item)->getAge() >= dynamic_cast<Plant*>(item)->getHarvestLimit();
+}
+
+void Ladang::setItem(int i, int j, Item *item) {
+    Container::setItem(i, j, item);
+    harvestable.emplace(item);
+}
+
+void Ladang::setItem(string slot, Item *item) {
+    Container::setItem(slot, item);
+    harvestable.emplace(item);
+}
+
+void Ladang::setItem(Item *item) {
+    Container::setItem(item);
+    harvestable.emplace(item);
+}
+
+void Ladang::deleteItem(int i, int j) {
+    Container::deleteItem(i, j);
+    harvestable.erase(items[i][j]);
+}
+
+void Ladang::deleteItem(string slot) {
+    Container::deleteItem(slot);
+    int j = slot[0] - 'A';
+    int i = stoi(slot.substr(1, 2)) - 1;
+    harvestable.erase(items[i][j]);
+}
+
+void Ladang::addAge(){
+    for (auto & item : harvestable){
+        dynamic_cast<Plant*>(item)->grow();
+    }
 }

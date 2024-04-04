@@ -139,6 +139,15 @@ void GameManager::nextTurn()
 {
     _listPlayer.next();
     this->_currentPlayer = _listPlayer.top();
+    addAge();
+}
+
+void GameManager::addAge() {
+    for (auto &player: _listPlayer) {
+        if (auto *farmer = dynamic_cast<Farmer *>(player)) {
+            farmer->addPlantAge();
+        }
+    }
 }
 
 void GameManager::StartTurn()
@@ -384,7 +393,7 @@ void GameManager::Run()
 }
 
 void GameManager::ShowCurrentPlayerInfo(){
-    cout << "Current Player Info: " << endl;
+    cout << "\n\nCurrent Player Info: " << endl;
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
 

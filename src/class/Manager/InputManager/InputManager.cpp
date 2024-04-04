@@ -239,11 +239,11 @@ void InputManager::FarmerMenuInputValidation()
 
         _inputData<string> = DataConverter::LowerCase(_inputData<string>);
         string data = _inputData<string>;
-        if (data == "cetak_ladang")
+        if (data == "cetak_penyimpanan")
         {
             _inputData<int> = 1;
         }
-        else if (data == "cetak_penyimpanan")
+        else if (data == "cetak_ladang")
         {
             _inputData<int> = 2;
         }
