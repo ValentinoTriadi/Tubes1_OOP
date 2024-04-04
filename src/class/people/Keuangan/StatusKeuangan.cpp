@@ -15,27 +15,16 @@ int StatusKeuangan::hitungPajak() const{
 
     int tarif = 0;
 
-    switch (kkp) {
-        // 0 - 6
-        case 0 ... 6:
-            tarif = 5;
-            break;
-        // 6 - 25
-        case 7 ... 25:
-            tarif = 15;
-            break;
-        // 25 - 50
-        case 26 ... 50:
-            tarif = 25;
-            break;
-        // 50 - 500
-        case 51 ... 500:
-            tarif = 30;
-            break;
-        // > 500
-        default:
-            tarif = 35;
-            break;
+    if (kkp <= 6) {
+        tarif = 5;
+    } else if (kkp <= 25) {
+        tarif = 15;
+    } else if (kkp <= 50) {
+        tarif = 25;
+    } else if (kkp <= 500) {
+        tarif = 30;
+    } else {
+        tarif = 50;
     }
 
     int kenaPajak = (kkp * tarif) / 100;
