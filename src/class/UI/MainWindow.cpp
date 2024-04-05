@@ -5,10 +5,11 @@
 #include "MainWindow.h"
 
 
+
 void MainWindow::initWindow() {
-    this->videoMode.height = 600;
-    this->videoMode.width = 800;
-    this->window = new sf::RenderWindow(this->videoMode, "Game 1", sf::Style::Titlebar | sf::Style::Close);
+    this->videoMode.height = 720;
+    this->videoMode.width = 1024;
+    this->window = new sf::RenderWindow(this->videoMode, "Game 1", sf::Style::Close);
     this->window->setFramerateLimit(60);
 }
 
@@ -25,7 +26,7 @@ void MainWindow::initText()
     this->uiText.setFont(this->font);
     this->uiText.setCharacterSize(24);
     this->uiText.setFillColor(sf::Color::White);
-    this->uiText.setString("NONE");
+    this->uiText.setString("HELLO WORLD");
 }
 
 void MainWindow::initVariables() {
@@ -47,6 +48,17 @@ MainWindow::~MainWindow() {
     delete this->window;
 }
 
+void MainWindow::ChangeColorOnHover(sf::Sprite button, sf::Vector2f mousePosF){
+    if ( button.getGlobalBounds().contains( mousePosF ) )
+    {
+        button.setColor( sf::Color( 250, 20, 20 ) );
+    }
+    else
+    {
+        button.setColor( sf::Color( 255, 255, 255 ) );
+    }
+}
+
 
 void MainWindow::pollEvents()
 {
@@ -62,8 +74,52 @@ void MainWindow::pollEvents()
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 break;
+            case sf::Event::MouseButtonPressed:
+                if (this->ev.mouseButton.button == sf::Mouse::Left)
+                    this->mouseHeld = true;
+
+                // Check if mouse is inside button 1 bounding box
+                if ( button1Image.getGlobalBounds().contains( static_cast<sf::Vector2f>( this->mousePosWindow ) ) )
+                {
+                    // Button 1 clicked
+                    // Start new game
+                    RunStartNewGameButton();
+                }
+
+                // Check if mouse is inside button 2 bounding box
+                if ( button2Image.getGlobalBounds().contains( static_cast<sf::Vector2f>( this->mousePosWindow ) ) )
+                {
+                    // Button 2 clicked
+                    // Continue game
+                    gameManager.ContinueGame();
+                }
+
+                break;
+            case sf::Event::MouseButtonReleased:
+                if (this->ev.mouseButton.button == sf::Mouse::Left)
+                    this->mouseHeld = false;
+                break;
+            case sf::Event::MouseMoved:
+                // Get mouse position
+                sf::Vector2i mousePos = sf::Mouse::getPosition( *this->window );
+                sf::Vector2f mousePosF = sf::Vector2f( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
+                // Check if mouse is inside button 1 bounding box
+                ChangeColorOnHover( button1Image, mousePosF );
+                // Check if mouse is inside button 2 bounding box
+                ChangeColorOnHover( button2Image, mousePosF );
+                break;
         }
     }
+}
+
+void MainWindow::RunStartNewGameButton(){
+    gameManager.StartNewGame();
+    gameManager.StartTurn();
+}
+
+void MainWindow::RunContinueGameButton(){
+    gameManager.ContinueGame();
+    gameManager.StartTurn();
 }
 
 void MainWindow::updateMousePositions()
@@ -81,12 +137,7 @@ void MainWindow::updateMousePositions()
 
 void MainWindow::updateText()
 {
-    std::stringstream ss;
 
-    ss << "Points: " << this->points << "\n"
-       << "Health: " << this->health << "\n";
-
-    this->uiText.setString(ss.str());
 }
 
 
@@ -99,10 +150,12 @@ void MainWindow::update()
         this->updateMousePositions();
         this->updateText();
     }
+}
 
-    // End game condition
-    if (this->health <= 0)
-        this->endGame = true;
+void MainWindow::renderButton()
+{
+    this->window->draw( button1Image );
+    this->window->draw( button2Image );
 }
 
 void MainWindow::renderText(sf::RenderTarget& target)
@@ -112,23 +165,8 @@ void MainWindow::renderText(sf::RenderTarget& target)
 
 void MainWindow::render()
 {
-    /**
-        @return void
-
-        - clear old frame
-        - render objects
-        - display frame in window
-
-        Renders the game objects.
-    */
-
     this->window->clear();
-
-    //Draw game objects
-
-
-    this->renderText(*this->window);
-
+    this->renderButton();
     this->window->display();
 }
 
@@ -141,5 +179,22 @@ bool MainWindow::running() const
 bool MainWindow::getEndGame() const
 {
     return this->endGame;
+}
+
+void MainWindow::RunInitializeGameState()
+{
+    // Create 2 button
+    // Load button image
+
+    button1Texture.loadFromFile( "Assets/button1.png" );
+    button1Image.setTexture( button1Texture );
+
+    button2Texture.loadFromFile( "Assets/button2.png" );
+    button2Image.setTexture( button2Texture );
+
+    // Button 1: Start New Game
+    // Button 2: Continue Game
+    button1Image.setPosition( 50.0f, 300.0f );
+    button2Image.setPosition( 400.0f, 300.0f );
 }
 

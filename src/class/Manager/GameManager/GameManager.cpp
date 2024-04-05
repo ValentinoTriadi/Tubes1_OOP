@@ -16,8 +16,6 @@ void GameManager::StartNewGame()
     {
         this->AddUser(i);
     }
-
-    
 }
 
 void GameManager::ReadConfig()

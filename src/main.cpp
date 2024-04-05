@@ -8,13 +8,13 @@ int main() {
 
     //Init Game engine
     MainWindow gameWindow;
+    gameWindow.RunInitializeGameState();
 
     //Game loop
     while (gameWindow.running() && !gameWindow.getEndGame())
     {
         //Update
         gameWindow.update();
-
         //Render
         gameWindow.render();
     }

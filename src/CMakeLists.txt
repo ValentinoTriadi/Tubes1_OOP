@@ -47,7 +47,7 @@ add_executable(Tubes1_OOP main.cpp
         class/UI/MainWindow.h
 )
 
-include_directories( class /usr/include c:/SFML/include )
+include_directories( /usr/include c:/SFML/include )
 
 set(SFML_ROOT c:/SFML)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

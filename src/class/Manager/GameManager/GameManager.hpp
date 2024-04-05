@@ -56,18 +56,6 @@ private:
      */
     static void EndGame();
 
-    /**
-     * Start a new game
-     * Usage: ```StartNewGame();```
-     */
-    void StartNewGame();
-
-    /**
-     * Continue the game
-     * Usage: ```ContinueGame();```
-     */
-    void ContinueGame();
-
     /** Add user to the list_player
      * @param weight used for construct of "berat badan"
      * @param Keuangan used for construct the keuangan of people
@@ -162,6 +150,18 @@ public:
     void ShowCurrentPlayerInfo();
 
     static void addAge();
+
+/**
+ * Start a new game
+ * Usage: ```StartNewGame();```
+ */
+void StartNewGame();
+
+/**
+ * Continue the game
+ * Usage: ```ContinueGame();```
+ */
+void ContinueGame();
 };
 
 #endif

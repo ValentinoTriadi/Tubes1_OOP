@@ -18,6 +18,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+#include "../Manager/GameManager/GameManager.hpp"
+
 class MainWindow {
 private:
     //Variables
@@ -28,9 +30,17 @@ private:
 
     //Mouse positions
     sf::Vector2i mousePosWindow;
+    sf::Vector2f mousePosView;
+    bool mouseHeld;
 
     //Resources
     sf::Font font;
+
+    // Button
+    sf::Sprite button1Image;
+    sf::Texture button1Texture;
+    sf::Sprite button2Image;
+    sf::Texture button2Texture;
 
     //Text
     sf::Text uiText;
@@ -41,8 +51,7 @@ private:
     int health;
 
     //Game objects
-    std::vector<sf::RectangleShape> enemies;
-    sf::RectangleShape enemy;
+    GameManager gameManager;
 
     //Private functions
     void initVariables();
@@ -66,6 +75,16 @@ public:
 
     void renderText(sf::RenderTarget& target);
     void render();
+
+    void RunInitializeGameState();
+
+    static void ChangeColorOnHover(sf::Sprite button, sf::Vector2f mousePosF);
+
+    void renderButton();
+
+    void RunStartNewGameButton();
+
+    void RunContinueGameButton();
 };
 
 
