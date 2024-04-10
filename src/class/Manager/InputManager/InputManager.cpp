@@ -67,14 +67,12 @@ void InputManager::NewGameInput()
         string data = DataConverter::LowerCase(_inputData<string>);
 
 
-        if (data == "new_game" || data == "continue") {
-            if (data == "new_game") {
-                _inputData<int> = 1;
-            } else if (data == "continue") {
-                _inputData<int> = 2;
-            } else {
-                throw InputException("Input Invalid: Masukan belum benar");
-            }
+        if (data == "new_game") {
+            _inputData<int> = 1;
+        } else if (data == "continue") {
+            _inputData<int> = 2;
+        } else {
+            throw InputException("Input Invalid: Masukan belum benar");
         }
     } catch (GameException& e) {
         cout << e.what() << endl;
