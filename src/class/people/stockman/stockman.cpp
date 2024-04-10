@@ -221,7 +221,7 @@ void Stockman::panen(){
         // Input nomor hewan yang ingin dipanen
         InputManager::receiveIntInput("Nomor hewan yang ingin dipanen: ");
         int nomor = InputManager::_inputData<int>;
-        if (nomor <= 0 || nomor > animals.size())
+        if (nomor <= 0 || nomor > (int) animals.size())
         {
             throw NotValidException("Nomor hewan");
         }
@@ -280,7 +280,7 @@ void Stockman::panen(){
         // SUCCESS
         // Panen hewan
         int tempProductIndex = -1;
-        for (int i = 0; i < GameData::_productConfig.size(); i++)
+        for (int i = 0; i < (int) GameData::_productConfig.size(); i++)
         {
             if (GameData::_productConfig[i].getType() == "PRODUCT_ANIMAL" && GameData::_productConfig[i].getOrigin() == namaAnimal)
             {
@@ -321,9 +321,9 @@ Peternakan Stockman::getPeternakan() const
 
 string Stockman::join(const vector<string>& vector1, const char *string) {
     std::string result;
-    for (int i = 0; i < vector1.size(); i++) {
+    for (int i = 0; i < (int) vector1.size(); i++) {
         result += vector1[i];
-        if (i != vector1.size() - 1) {
+        if (i != (int) vector1.size() - 1) {
             result += string;
         }
     }

@@ -357,12 +357,12 @@ void InputManager::StateManagerLoadStateInputValidation()
         {
             _inputData<bool> = receiveBooleanInput("Masukkan 'y' atau 'n' :");
         }
-        catch (InputException e)
+        catch (InputException& e)
         {
             throw InputException("Masukkan tidak valid. Silakan masukkan 'y' atau 'n' atau yes or no apapun yang dapat kamu pikirkan .");
         }
     }
-    catch (InputException e)
+    catch (InputException& e)
     {
         cout << e.what() << endl;
     }

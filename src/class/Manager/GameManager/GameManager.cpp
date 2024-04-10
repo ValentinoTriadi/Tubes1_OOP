@@ -49,7 +49,7 @@ void GameManager::ContinueGame()
     {
         muat();
     }
-    catch (BackToMenuState e)
+    catch (BackToMenuState& e)
     {
         throw;
     }
@@ -102,14 +102,14 @@ void GameManager::StartGameValidation()
             {
                 ContinueGame();
             }
-            catch (BackToMenuState e)
+            catch (BackToMenuState& e)
             {
                 cout << e.what() << endl;
                 StartGameValidation();
             }
         }
     }
-    catch (InputException e)
+    catch (InputException& e)
     {
         cout << e.what() << endl;
         StartGameValidation();

@@ -62,9 +62,9 @@ void Mayor::bangun()
                         kekuranganBarang[item.first] = item.second;
                     }
                     // If the item is in the storage but not enough
-                    else if (itemsPointer[item.first].size() < item.second)
+                    else if ((int) itemsPointer[item.first].size() < item.second)
                     {
-                        kekuranganBarang[item.first] = item.second - itemsPointer[item.first].size();
+                        kekuranganBarang[item.first] = item.second - (int) itemsPointer[item.first].size();
                     }
                 }
 
@@ -174,7 +174,7 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
              return a.second == b.second ? a.first->GetName() > b.first->GetName() : a.second > b.second;
          });
 
-    for (int i = 0; i < playerPajak.size(); i++)
+    for (int i = 0; i < (int) playerPajak.size(); i++)
     {
         string job = playerPajak[i].first->GetType() == 2 ? "Petani" : "Peternak";
         cout << "\t" << i+1 << ". " << playerPajak[i].first->GetName() << " - " << job << ": " << playerPajak[i].second << " gulden\n";

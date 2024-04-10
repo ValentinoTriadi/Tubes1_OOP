@@ -87,21 +87,26 @@ bool DataConverter::isNumber(const string &data)
 
 std::pair<int, int> DataConverter::GetSingleRowCol(const string& message)
 {
-    cout << message;
-    string input;
-    std::cin >> input;
-    std::cout << "\n";
+    try {
+        cout << message;
+        string input;
+        std::cin >> input;
+        std::cout << "\n";
 
-    if (input.size() != 3)
-    {
-        throw InputException("Invalid Input: Please input 3 characters EX: (B01)");
-    }
-    if (!isAlphabet(input[0]) || !isNumber(input[1]) || !isNumber(input[2]))
-    {
-        throw InputException("Invalid Input: Please input [A-Z][0-9][0-9]");
-    }
+        if (input.size() != 3)
+        {
+            throw InputException("Invalid Input: Please input 3 characters EX: (B01)");
+        }
+        if (!isAlphabet(input[0]) || !isNumber(input[1]) || !isNumber(input[2]))
+        {
+            throw InputException("Invalid Input: Please input [A-Z][0-9][0-9]");
+        }
 
-    return std::make_pair((int)(input[0] - 'A'), stoi(input.substr(1,2)) - 1);
+        return std::make_pair((int)(input[0] - 'A'), stoi(input.substr(1,2)) - 1);
+    } catch (InputException &e) {
+        cout << e.what() << endl;
+        return GetSingleRowCol(message);
+    }
 };
 
 vector<std::pair<int, int>> DataConverter::GetMultipleRowCol(int quantity, const string& message)

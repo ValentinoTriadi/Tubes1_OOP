@@ -142,7 +142,7 @@ void People::menjual()
         InputManager::receiveIntInput("Kuantitas barang yang ingin dijual : ");
         int quantity = InputManager::_inputData<int>;
 
-        if (quantity > storage.getItems().size()) {
+        if (quantity > (int) storage.getItems().size()) {
             throw NotEnoughItemException();
         }
 

@@ -186,7 +186,7 @@ void Farmer::panen()
         int nomor = InputManager::_inputData<int>;
 
         // Validasi input
-        if (nomor <= 0 || nomor > plants.size())
+        if (nomor <= 0 || nomor > (int) plants.size())
         {
             throw NotValidException("Nomor tumbuhan");
         }
@@ -250,7 +250,7 @@ void Farmer::panen()
         // SUCCESS
         // ilangin field + masukin inventory
         int tempProductIndex = -1;
-        for (int i = 0; i < GameData::_productConfig.size(); i++)
+        for (int i = 0; i < (int) GameData::_productConfig.size(); i++)
         {
             if (GameData::_productConfig[i].getType() == "PRODUCT_FRUIT_PLANT" && GameData::_productConfig[i].getOrigin() == namePlant)
             {
