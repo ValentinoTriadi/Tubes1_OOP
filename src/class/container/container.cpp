@@ -32,8 +32,6 @@ Container::Container(int row, int col)
         vector<Item *> temp;
         for (int j = 0; j < col; j++)
         {
-            Item item;
-
             // Set all items to nullptr
             temp.push_back(nullptr);
         }
