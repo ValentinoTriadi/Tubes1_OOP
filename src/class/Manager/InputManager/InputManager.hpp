@@ -8,7 +8,8 @@
 class InputManager
 {
 private:
-    static std::vector<std::string> yes,no;
+    static std::vector<std::string> yes, no;
+
 public:
     /**
      * @brief Input Manager Constructor
@@ -22,19 +23,19 @@ public:
      * Receive input from user
      * Usage: ```receiveInput(message);```
      */
-    static void receiveInput(const string& message);
+    static void receiveInput(const string &message);
 
     /**
      * Receive input from user
      * Usage: ```receiveIntInput(message);```
      */
-    static void receiveIntInput(const string& message);
+    static void receiveIntInput(const string &message);
 
     /**
      * Receive input from user
      * Usage: ```receiveFloatInput(message);```
      */
-    static void receiveFloatInput(const string& message);
+    static void receiveFloatInput(const string &message);
 
     /**
      * validate the first input user to define whether the
@@ -61,7 +62,7 @@ public:
      * @brief Check if the string is a boolean
      * @return true and false if a boolean, exception if not
      */
-    static bool receiveBooleanInput(const string& message);
+    static bool receiveBooleanInput(const string &message);
 
     static void BuyItemsValidation();
 
@@ -78,16 +79,11 @@ public:
      * @brief Validate User Input for only accepting Valid Item to buy
      * @param ItemsMaxSize The maximum size of the list items toko
      */
-    static void MembeliInputValidationPickingItems(int ItemsMaxSize);
-    /**
-     * @brief Used in membeli and menjual to validate Quantity input
-     */
-    static void QuantityValidation(int maxQuantity);
+
+    static void QuantityValidation(int maxQuantity, string messages);
     /**
      * @brief Validate User Input for only accepting Valid Item Quantity to sell. e.g quantity > 0 and quantity < max slot
      */
-    static void MenjualInputValidationQuantity(int maxSlot);
-
 private:
     /**
      * @brief Show Mayor Menu

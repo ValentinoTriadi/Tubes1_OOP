@@ -13,6 +13,7 @@ class Toko {
         static void removeItems(Item* item);
         static Item* getItemAt(int index);
         static void displayToko();
+        static std::map<Item*, int> getListToko(){return listItemToko;}
 
 
     static void setListItems(map<Item *, int> listItemToko);

@@ -438,19 +438,9 @@ void InputManager::StateManagerLoadStateFromFileInputValidation()
     }
 }
 
-void InputManager::MembeliInputValidationPickingItems(int ItemsMaxSize)
+void InputManager::QuantityValidation(int ItemsQuantity, string messages)
 {
-    receiveIntInput("Barang yang ingin dibeli: ");
-    cout << endl;
-    if (_inputData<int> <= 0 || _inputData<int> > ItemsMaxSize)
-    {
-        throw InputException("Barang yang ingin dibeli tidak valid");
-    }
-}
-
-void InputManager::QuantityValidation(int ItemsQuantity)
-{
-    receiveIntInput("Kuantitas : ");
+    receiveIntInput(messages + " : ");
     cout << endl;
     if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
     {
