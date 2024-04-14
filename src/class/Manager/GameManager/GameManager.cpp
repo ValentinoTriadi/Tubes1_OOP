@@ -381,7 +381,26 @@ void GameManager::Run()
 
 void GameManager::ShowCurrentPlayerInfo()
 {
-    cout << "\n\nCurrent Player Info: " << endl;
+    cout << "\n\n ===== Current Player Info ===== " << endl;
+    cout << "current Season: ";
+
+    if (getCurrentSeason() == 1)
+    {
+        cout << "Spring" << endl;
+    }
+    else if (getCurrentSeason() == 2)
+    {
+        cout << "Summer" << endl;
+    }
+    else if (getCurrentSeason() == 3)
+    {
+        cout << "Fall" << endl;
+    }
+    else if (getCurrentSeason() == 4)
+    {
+        cout << "Winter" << endl;
+    }
+
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
 

@@ -199,7 +199,6 @@ void StateManager::saveState() {
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
     string userInput = InputManager::_inputData<string>;
     string path = "save/" + userInput;
-    ofstream file(path);
 
     filesystem::path pathObj(userInput);
     string directory = "save/" + pathObj.parent_path().string();
@@ -208,6 +207,8 @@ void StateManager::saveState() {
     if (!filesystem::exists(directory)) {
         filesystem::create_directories(directory);
     }
+
+    ofstream file(path);
 
     vector<People*> _listPlayer = StateManager::_listPlayer;
 
