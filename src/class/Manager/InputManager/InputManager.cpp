@@ -160,10 +160,8 @@ void InputManager::ShowStockmanMenu()
     std::cout << "(8): "
               << "Memanen\n";
     std::cout << "(9): "
-              << "Muat\n";
-    std::cout << "(10): "
               << "Simpan\n";
-    std::cout << "(11): "
+    std::cout << "(10): "
               << "Next Turn\n";
 }
 
@@ -190,12 +188,10 @@ void InputManager::StockmanMenuInputValidation()
             _inputData<int> = 7;
         } else if (_inputData<string> == "memanen") {
             _inputData<int> = 8;
-        } else if (_inputData<string> == "muat") {
-            _inputData<int> = 9;
         } else if (_inputData<string> == "simpan") {
-            _inputData<int> = 10;
+            _inputData<int> = 9;
         } else if (_inputData<string> == "next") {
-            _inputData<int> = 11;
+            _inputData<int> = 10;
         } else {
             throw MenuException("Invalid Input: Masukan belum benar");
         }

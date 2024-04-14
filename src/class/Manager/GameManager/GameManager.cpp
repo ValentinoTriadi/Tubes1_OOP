@@ -16,8 +16,6 @@ void GameManager::StartNewGame()
     {
         this->AddUser(i);
     }
-
-    
 }
 
 void GameManager::ReadConfig()
@@ -49,7 +47,7 @@ void GameManager::ContinueGame()
     {
         muat();
     }
-    catch (BackToMenuState& e)
+    catch (BackToMenuState &e)
     {
         throw;
     }
@@ -102,14 +100,14 @@ void GameManager::StartGameValidation()
             {
                 ContinueGame();
             }
-            catch (BackToMenuState& e)
+            catch (BackToMenuState &e)
             {
                 cout << e.what() << endl;
                 StartGameValidation();
             }
         }
     }
-    catch (InputException& e)
+    catch (InputException &e)
     {
         cout << e.what() << endl;
         StartGameValidation();
@@ -142,9 +140,12 @@ void GameManager::nextTurn()
     addAge();
 }
 
-void GameManager::addAge() {
-    for (auto &player: _listPlayer) {
-        if (auto *farmer = dynamic_cast<Farmer *>(player)) {
+void GameManager::addAge()
+{
+    for (auto &player : _listPlayer)
+    {
+        if (auto *farmer = dynamic_cast<Farmer *>(player))
+        {
             farmer->addPlantAge();
         }
     }
@@ -186,74 +187,73 @@ void GameManager::MenuSelection(int type)
 
 void GameManager::RunStockmanSelection(int input)
 {
-    try {
+    try
+    {
         switch (input)
         {
-            case 1:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->cetakPeternakan();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 2:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 3:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->ternak();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->memberiPangan();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 6:
-                _currentPlayer->membeli();
-                break;
-            case 7:
-                _currentPlayer->menjual();
-                break;
-            case 8:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->panen();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 9:
-                muat();
-                break;
-            case 10:
-                simpan();
-                break;
-            case 11:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+            {
+                stockman->cetakPeternakan();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 2:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 3:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+            {
+                stockman->ternak();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+            {
+                stockman->memberiPangan();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 6:
+            _currentPlayer->membeli();
+            break;
+        case 7:
+            _currentPlayer->menjual();
+            break;
+        case 8:
+            if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
+            {
+                stockman->panen();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 9:
+            simpan();
+            break;
+        case 10:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -261,57 +261,56 @@ void GameManager::RunStockmanSelection(int input)
 
 void GameManager::RunMayorSelection(int input)
 {
-    try{
+    try
+    {
         switch (input)
         {
-            case 1:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 2:
-                Mayor::TagihPajak(&_listPlayer);
-                break;
-            case 3:
-                if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
-                {
-                    mayor->bangun();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                _currentPlayer->membeli();
-                break;
-            case 6:
-                _currentPlayer->menjual();
-                break;
-            case 7:
-                simpan();
-                break;
-            case 8:
-                muat();
-                break;
-            case 9:
-                if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
-                {
-                    mayor->tambahPemain(&_listPlayer);
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 10:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            Mayor::TagihPajak(&_listPlayer);
+            break;
+        case 3:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
+            {
+                mayor->bangun();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            simpan();
+            break;
+        case 8:
+            if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
+            {
+                mayor->tambahPemain(&_listPlayer);
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 9:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -319,61 +318,63 @@ void GameManager::RunMayorSelection(int input)
 
 void GameManager::RunFarmerSelection(int input)
 {
-    try {
+    try
+    {
         switch (input)
         {
-            case 1:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 2:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->cetakLadang();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 3:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->tanam();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                _currentPlayer->membeli();
-                break;
-            case 6:
-                _currentPlayer->menjual();
-                break;
-            case 7:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->panen();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
-                break;
-            case 8:
-                simpan();
-                break;
-            case 9:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
+            {
+                farmer->cetakLadang();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 3:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
+            {
+                farmer->tanam();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
+            {
+                farmer->panen();
+            }
+            else
+            {
+                throw PeopleException();
+            }
+            break;
+        case 8:
+            simpan();
+            break;
+        case 9:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -392,7 +393,8 @@ void GameManager::Run()
     }
 }
 
-void GameManager::ShowCurrentPlayerInfo(){
+void GameManager::ShowCurrentPlayerInfo()
+{
     cout << "\n\nCurrent Player Info: " << endl;
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
@@ -411,7 +413,8 @@ void GameManager::ShowCurrentPlayerInfo(){
     }
 
     cout << "Money: " << _currentPlayer->GetKeuangan();
-    cout << "\nWeight: " << _currentPlayer->GetWeight() << endl << endl;
+    cout << "\nWeight: " << _currentPlayer->GetWeight() << endl
+         << endl;
 }
 
 void GameManager::muat()
