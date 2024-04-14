@@ -1,6 +1,7 @@
 #include "StateManager.hpp"
 
 vector<People *> StateManager::_listPlayer;
+
 map<Item *, int> StateManager::_listItemToko;
 
 StateManager::StateManager() = default;
@@ -161,7 +162,7 @@ void StateManager::loadFromFile(){
     while (!file.is_open()){
         InputManager::receiveInput("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ");
         filename = InputManager::_inputData<string>;
-        file.open(filename);
+        file.open("save/" + filename);
     }
 
     vector<int> gameConfig = GameData::_gameConfig;
