@@ -3,44 +3,12 @@ project(Tubes1_OOP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Tubes1_OOP main.cpp
-        class/gameData/gameData.cpp
-        class/gameData/gameData.hpp
-        class/item/item.cpp
-        class/item/item.hpp
-        class/item/building/building.cpp
-        class/item/building/building.hpp
-        class/item/farmEntity/farmEntity.cpp
-        class/item/farmEntity/farmEntity.hpp
-        class/item/farmEntity/animal/animal.cpp
-        class/item/farmEntity/animal/animal.hpp
-        class/item/farmEntity/plant/plant.cpp
-        class/item/farmEntity/plant/plant.hpp
-        class/item/product/product.cpp
-        class/utils/DataConverter/DataConverter.cpp
-        class/item/product/product.hpp
-        class/Manager/GameManager/GameManager.hpp
-        class/people/people.hpp
-        class/people/people.cpp
-        class/people/farmer/farmer.cpp
-        class/people/farmer/farmer.hpp
-        class/people/Keuangan/StatusKeuangan.hpp
-        class/people/mayor/mayor.cpp
-        class/people/mayor/mayor.hpp
-        class/people/stockman/stockman.cpp
-        class/people/stockman/stockman.hpp
-        class/utils/matrix/matrix.cpp
-        class/utils/matrix/matrix.hpp
-        class/Manager/GameManager/GameManager.cpp
-        class/people/Keuangan/StatusKeuangan.cpp
-        class/container/container.cpp
-        class/container/container.hpp
-        class/Manager/InputManager/InputManager.cpp
-        class/Manager/StateManager/StateManager.cpp
-        class/utils/roundRobin/roundRobin.hpp
-        class/container/ladang/ladang.cpp
-        class/container/peternakan/peternakan.cpp
-        class/toko/toko.cpp
-        class/utils/DataConverter/DataConverter.cpp
-        class/exception/InputException.hpp
-)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+# Automatically include all .cpp files in the src directory
+file(GLOB_RECURSE SOURCES "class/*.cpp")
+
+add_executable(Tubes1_OOP ${SOURCES})
+
+# Specify the directories where the compiler should look for include files
+target_include_directories(Tubes1_OOP PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
