@@ -144,8 +144,11 @@ void GameManager::nextTurn()
 
 void GameManager::addAge() {
     for (auto &player: _listPlayer) {
-        if (auto *farmer = dynamic_cast<Farmer *>(player)) {
-            farmer->addPlantAge();
+        // If the player is a farmer, add the plant age
+        if (player->GetType() == 2) {
+            // TODO : Add plant age
+            // auto *farmer = dynamic_cast<Farmer *>(player);
+            // farmer->addPlantAge();
         }
     }
 }
@@ -187,43 +190,32 @@ void GameManager::MenuSelection(int type)
 void GameManager::RunStockmanSelection(int input)
 {
     try {
+        // ! IF ELSE BUAT NGE CASTING KE STOCKMAN HARUSNYA DISINI
+        // TODO : dynamic casting
+        // auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)
+        // if casting gagal throw PeopleException();
         switch (input)
         {
             case 1:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->cetakPeternakan();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
+                // TODO : Print peternakan
+                // stockman->cetakPeternakan();
                 break;
             case 2:
                 _currentPlayer->cetakPenyimpanan();
                 break;
             case 3:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->ternak();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
+                // TODO : Ternak
+                // stockman->ternak();
                 break;
             case 4:
                 _currentPlayer->makan();
                 break;
             case 5:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->memberiPangan();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
+                // TODO : Memberi Pangan
+                // stockman->memberiPangan();
                 break;
             case 6:
                 _currentPlayer->membeli();
@@ -232,14 +224,9 @@ void GameManager::RunStockmanSelection(int input)
                 _currentPlayer->menjual();
                 break;
             case 8:
-                if (auto *stockman = dynamic_cast<Stockman *>(_currentPlayer))
-                {
-                    stockman->panen();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
+                // TODO : Panen
+                // stockman->panen();
                 break;
             case 9:
                 muat();
@@ -262,6 +249,11 @@ void GameManager::RunStockmanSelection(int input)
 void GameManager::RunMayorSelection(int input)
 {
     try{
+        // ! IF ELSE BUAT NGE CASTING KE MAYOR HARUSNYA DISINI
+        // TODO : dynamic casting
+        // auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)
+        // if casting gagal throw PeopleException();
+
         switch (input)
         {
             case 1:
@@ -271,14 +263,9 @@ void GameManager::RunMayorSelection(int input)
                 Mayor::TagihPajak(&_listPlayer);
                 break;
             case 3:
-                if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
-                {
-                    mayor->bangun();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI MAYOR
+                // TODO : Bangun
+                // mayor->bangun();
                 break;
             case 4:
                 _currentPlayer->makan();
@@ -296,14 +283,9 @@ void GameManager::RunMayorSelection(int input)
                 muat();
                 break;
             case 9:
-                if (auto *mayor = dynamic_cast<Mayor *>(_currentPlayer))
-                {
-                    mayor->tambahPemain(&_listPlayer);
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI MAYOR
+                // TODO : Tambah Pemain
+                // mayor->tambahPemain(&_listPlayer);
                 break;
             case 10:
                 nextTurn();
@@ -320,30 +302,24 @@ void GameManager::RunMayorSelection(int input)
 void GameManager::RunFarmerSelection(int input)
 {
     try {
+        // ! IF ELSE BUAT NGE CASTING KE FARMER HARUSNYA DISINI
+        // TODO : dynamic casting
+        // auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)
+        // if casting gagal throw PeopleException();
         switch (input)
         {
             case 1:
                 _currentPlayer->cetakPenyimpanan();
                 break;
             case 2:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->cetakLadang();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
+                // TODO : Cetak Ladang
+                // farmer->cetakLadang();
                 break;
             case 3:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->tanam();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
+                // TODO : Tanam
+                // farmer->tanam();
                 break;
             case 4:
                 _currentPlayer->makan();
@@ -355,14 +331,9 @@ void GameManager::RunFarmerSelection(int input)
                 _currentPlayer->menjual();
                 break;
             case 7:
-                if (auto *farmer = dynamic_cast<Farmer *>(_currentPlayer))
-                {
-                    farmer->panen();
-                }
-                else
-                {
-                    throw PeopleException();
-                }
+                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
+                // TODO : Panen
+                // farmer->panen();
                 break;
             case 8:
                 simpan();
