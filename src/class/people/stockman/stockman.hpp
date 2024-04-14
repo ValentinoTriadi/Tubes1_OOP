@@ -49,7 +49,7 @@ class Stockman : public People{
         /**
          * @brief Memberi Pangan
         */
-        void memberiPangan();
+        void memberiPangan(int season);
         /**
          * @brief Panen
         */

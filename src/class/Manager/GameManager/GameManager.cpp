@@ -148,7 +148,10 @@ void GameManager::nextTurn()
     if (_currentPlayer->GetType() == 1){
         _seasons.next();
     }
-    addAge();
+    // Kalau Fall tanaman ga tumbuh
+    if (getCurrentSeason() != 3){
+        addAge();
+    }
 }
 
 void GameManager::addAge()
@@ -160,6 +163,10 @@ void GameManager::addAge()
         {
             Farmer *farmer = dynamic_cast<Farmer *>(player);
             farmer->addPlantAge();
+            // Kalau Spring tanaman tumbuh 2x
+            if (getCurrentSeason() == 1){
+                farmer->addPlantAge();
+            }
         }
     }
 }
@@ -223,7 +230,7 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->makan();
             break;
         case 5:
-            stockman->memberiPangan();
+            stockman->memberiPangan(getCurrentSeason());
             break;
         case 6:
             _currentPlayer->membeli();
@@ -265,7 +272,7 @@ void GameManager::RunMayorSelection(int input)
             _currentPlayer->cetakPenyimpanan();
             break;
         case 2:
-            Mayor::TagihPajak(&_listPlayer);
+            Mayor::TagihPajak(&_listPlayer, getCurrentSeason());
             break;
         case 3:
             mayor->bangun();

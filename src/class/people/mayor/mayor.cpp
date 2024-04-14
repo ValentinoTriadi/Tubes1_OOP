@@ -146,7 +146,7 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     cout << "Pemain berhasil ditambahkan!" << endl;
 }
 
-void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
+void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
 {
     int totalPajak = 0;
     vector<pair<People *, int>> playerPajak;
@@ -159,7 +159,10 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
         if (player->GetType() != 1)
         {
             player->HitungNonUang();
-            int JumlahPajak = min(player->getStatusKeuangan().hitungPajak(), player->GetKeuangan());
+            // Kalau season spring (1), pajak dikurangi 25%
+            // Kalau season fall (3), pajak ditambah 25%
+            int JumlahPajak = player->getStatusKeuangan().hitungPajak() * (season == 1 ? 0.75 : 1) * (season == 3 ? 1.25 : 1);
+            JumlahPajak = min(JumlahPajak, player->GetKeuangan());
             player->getStatusKeuangan().kurangUang(JumlahPajak);
             totalPajak += JumlahPajak;
             playerPajak.emplace_back(player, JumlahPajak);
