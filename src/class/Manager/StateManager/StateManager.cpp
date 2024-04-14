@@ -54,7 +54,7 @@ Farmer *StateManager::readFarmer(ifstream &file, string name, int money, int wei
 
         file >> slot >> plantName >> age;
 
-        Plant *plant = dynamic_cast<Plant *>(getItemByName(plantName));
+        Plant *plant = (Plant *)(getItemByName(plantName));
         plant->setAge(age);
         ladang->setItem(slot, plant);
     }
@@ -98,9 +98,15 @@ Stockman *StateManager::readStockman(ifstream &file, string name, int money, int
 
     for (int i = 0; i < countAnimal; i++){
         file >> slot >> name >> weightAnimal;
-        Animal *animal = dynamic_cast<Animal *>(getItemByName(name));
-        animal->setWeight(weightAnimal);
-        peternakan->setItem(slot, animal);
+        Animal *animal = (Animal *)(getItemByName(name));
+        try {
+            animal->setWeight(weightAnimal);
+            peternakan->setItem(slot, animal);
+        }
+        catch (...)
+        {
+            cout << "Error saat membaca berat hewan." << endl;
+        }
     }
 
     stockman->setPeternakan(*peternakan);
@@ -214,9 +220,11 @@ void StateManager::saveState() {
             }
         }
 
-        if (auto* temp = dynamic_cast<Farmer*>(player)) {
+        if (player->GetType() == 2) {
+            Farmer* temp = (Farmer*)(player);
             saveLadang(file, temp);
-        } else if (auto* temp = dynamic_cast<Stockman*>(player)) {
+        } else if (player->GetType() == 3) {
+            Stockman* temp = (Stockman*)(player);
             savePeternakan(file, temp);
         }
     }
@@ -236,7 +244,8 @@ void StateManager::saveLadang(ofstream& file, Farmer* temp) {
     for (int j = 0; j < temp->getLadang().getRow(); j++) {
         for (int k = 0; k < temp->getLadang().getCol(); k++) {
             if (temp->getLadang()(j, k) != nullptr) {
-                file << idxToSlot(j, k) << " " << temp->getLadang()(j, k)->getNama() << " " << dynamic_cast<Plant*>(temp->getLadang()(j, k))->getAge() << "\n";
+                Plant* plant = (Plant*)(temp->getLadang()(j, k));
+                file << idxToSlot(j, k) << " " << temp->getLadang()(j, k)->getNama() << " " << plant->getAge() << "\n";
             }
         }
     }
@@ -248,7 +257,8 @@ void StateManager::savePeternakan(ofstream& file, Stockman* temp) {
     for (int j = 0; j < temp->getPeternakan().getRow(); j++) {
         for (int k = 0; k < temp->getPeternakan().getCol(); k++) {
             if (temp->getPeternakan()(j, k) != nullptr) {
-                file << idxToSlot(j, k) << " " << temp->getPeternakan()(j, k)->getNama() << " " << dynamic_cast<Animal*>(temp->getPeternakan()(j, k))->getWeight() << "\n";
+                Animal* animal = (Animal*)(temp->getPeternakan()(j, k));
+                file << idxToSlot(j, k) << " " << temp->getPeternakan()(j, k)->getNama() << " " << animal->getWeight() << "\n";
             }
         }
     }

@@ -95,6 +95,13 @@ class Ladang : public Container {
 
         void addAge();
 
+        /**
+         * @brief Mencetak header dari ladang
+         * @param os
+         * @return
+         */
+        static bool isReadyToHarvest(Item* item) ;
+
     private:
 
         std::set<Item*> harvestable;
@@ -106,13 +113,6 @@ class Ladang : public Container {
          * @return
          */
         std::ostream& printRow(std::ostream& os, int i) const;
-
-        /**
-         * @brief Mencetak header dari ladang
-         * @param os
-         * @return
-         */
-        static bool isReadyToHarvest(Item* item) ;
 };
 
 #endif

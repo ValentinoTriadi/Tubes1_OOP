@@ -16,8 +16,6 @@ void GameManager::StartNewGame()
     {
         this->AddUser(i);
     }
-
-    
 }
 
 void GameManager::ReadConfig()
@@ -49,7 +47,7 @@ void GameManager::ContinueGame()
     {
         muat();
     }
-    catch (BackToMenuState& e)
+    catch (BackToMenuState &e)
     {
         throw;
     }
@@ -102,14 +100,14 @@ void GameManager::StartGameValidation()
             {
                 ContinueGame();
             }
-            catch (BackToMenuState& e)
+            catch (BackToMenuState &e)
             {
                 cout << e.what() << endl;
                 StartGameValidation();
             }
         }
     }
-    catch (InputException& e)
+    catch (InputException &e)
     {
         cout << e.what() << endl;
         StartGameValidation();
@@ -142,13 +140,15 @@ void GameManager::nextTurn()
     addAge();
 }
 
-void GameManager::addAge() {
-    for (auto &player: _listPlayer) {
+void GameManager::addAge()
+{
+    for (auto &player : _listPlayer)
+    {
         // If the player is a farmer, add the plant age
-        if (player->GetType() == 2) {
-            // TODO : Add plant age
-            // auto *farmer = dynamic_cast<Farmer *>(player);
-            // farmer->addPlantAge();
+        if (player->GetType() == 2)
+        {
+            Farmer *farmer = (Farmer *)player;
+            farmer->addPlantAge();
         }
     }
 }
@@ -189,58 +189,71 @@ void GameManager::MenuSelection(int type)
 
 void GameManager::RunStockmanSelection(int input)
 {
-    try {
-        // ! IF ELSE BUAT NGE CASTING KE STOCKMAN HARUSNYA DISINI
-        // TODO : dynamic casting
-        // auto *stockman = dynamic_cast<Stockman *>(_currentPlayer)
-        // if casting gagal throw PeopleException();
+    try
+    {
+        // Casting ke Stockman
+        Stockman *stockman = (Stockman *)_currentPlayer;
         switch (input)
         {
-            case 1:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
-                // TODO : Print peternakan
-                // stockman->cetakPeternakan();
-                break;
-            case 2:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 3:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
-                // TODO : Ternak
-                // stockman->ternak();
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
-                // TODO : Memberi Pangan
-                // stockman->memberiPangan();
-                break;
-            case 6:
-                _currentPlayer->membeli();
-                break;
-            case 7:
-                _currentPlayer->menjual();
-                break;
-            case 8:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI STOCKMAN
-                // TODO : Panen
-                // stockman->panen();
-                break;
-            case 9:
-                muat();
-                break;
-            case 10:
-                simpan();
-                break;
-            case 11:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            try
+            {
+                stockman->cetakPeternakan();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 2:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 3:
+            stockman->ternak();
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            try
+            {
+                stockman->memberiPangan();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 6:
+            _currentPlayer->membeli();
+            break;
+        case 7:
+            _currentPlayer->menjual();
+            break;
+        case 8:
+            try
+            {
+                stockman->panen();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 9:
+            muat();
+            break;
+        case 10:
+            simpan();
+            break;
+        case 11:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -248,52 +261,60 @@ void GameManager::RunStockmanSelection(int input)
 
 void GameManager::RunMayorSelection(int input)
 {
-    try{
-        // ! IF ELSE BUAT NGE CASTING KE MAYOR HARUSNYA DISINI
-        // TODO : dynamic casting
-        // auto *mayor = dynamic_cast<Mayor *>(_currentPlayer)
-        // if casting gagal throw PeopleException();
-
+    try
+    {
+        Mayor *mayor = (Mayor *)_currentPlayer;
         switch (input)
         {
-            case 1:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 2:
-                Mayor::TagihPajak(&_listPlayer);
-                break;
-            case 3:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI MAYOR
-                // TODO : Bangun
-                // mayor->bangun();
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                _currentPlayer->membeli();
-                break;
-            case 6:
-                _currentPlayer->menjual();
-                break;
-            case 7:
-                simpan();
-                break;
-            case 8:
-                muat();
-                break;
-            case 9:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI MAYOR
-                // TODO : Tambah Pemain
-                // mayor->tambahPemain(&_listPlayer);
-                break;
-            case 10:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            Mayor::TagihPajak(&_listPlayer);
+            break;
+        case 3:
+            try
+            {
+                mayor->bangun();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            simpan();
+            break;
+        case 8:
+            muat();
+            break;
+        case 9:
+            try
+            {
+                mayor->tambahPemain(&_listPlayer);
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 10:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -301,50 +322,64 @@ void GameManager::RunMayorSelection(int input)
 
 void GameManager::RunFarmerSelection(int input)
 {
-    try {
-        // ! IF ELSE BUAT NGE CASTING KE FARMER HARUSNYA DISINI
-        // TODO : dynamic casting
-        // auto *farmer = dynamic_cast<Farmer *>(_currentPlayer)
-        // if casting gagal throw PeopleException();
+    try
+    {
+        Farmer *farmer = (Farmer *)_currentPlayer;
         switch (input)
         {
-            case 1:
-                _currentPlayer->cetakPenyimpanan();
-                break;
-            case 2:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
-                // TODO : Cetak Ladang
-                // farmer->cetakLadang();
-                break;
-            case 3:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
-                // TODO : Tanam
-                // farmer->tanam();
-                break;
-            case 4:
-                _currentPlayer->makan();
-                break;
-            case 5:
-                _currentPlayer->membeli();
-                break;
-            case 6:
-                _currentPlayer->menjual();
-                break;
-            case 7:
-                // ! INI HARUSNYA GAUSAH DIKASIH IF ELSE KARNA UDH PASTI FARMER
-                // TODO : Panen
-                // farmer->panen();
-                break;
-            case 8:
-                simpan();
-                break;
-            case 9:
-                nextTurn();
-                break;
-            default:
-                throw RunException();
+        case 1:
+            _currentPlayer->cetakPenyimpanan();
+            break;
+        case 2:
+            try
+            {
+                farmer->cetakLadang();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 3:
+            try
+            {
+                farmer->tanam();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 4:
+            _currentPlayer->makan();
+            break;
+        case 5:
+            _currentPlayer->membeli();
+            break;
+        case 6:
+            _currentPlayer->menjual();
+            break;
+        case 7:
+            try
+            {
+                farmer->panen();
+            }
+            catch (...)
+            {
+                throw PeopleException();
+            }
+            break;
+        case 8:
+            simpan();
+            break;
+        case 9:
+            nextTurn();
+            break;
+        default:
+            throw RunException();
         }
-    } catch (GameException &e)
+    }
+    catch (GameException &e)
     {
         cout << e.what() << endl;
     }
@@ -363,7 +398,8 @@ void GameManager::Run()
     }
 }
 
-void GameManager::ShowCurrentPlayerInfo(){
+void GameManager::ShowCurrentPlayerInfo()
+{
     cout << "\n\nCurrent Player Info: " << endl;
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
@@ -382,7 +418,8 @@ void GameManager::ShowCurrentPlayerInfo(){
     }
 
     cout << "Money: " << _currentPlayer->GetKeuangan();
-    cout << "\nWeight: " << _currentPlayer->GetWeight() << endl << endl;
+    cout << "\nWeight: " << _currentPlayer->GetWeight() << endl
+         << endl;
 }
 
 void GameManager::muat()

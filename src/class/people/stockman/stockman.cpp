@@ -79,7 +79,6 @@ void Stockman::ternak(){
         }
 
         // Validate slot
-
         if (storage(slotIndex.second, slotIndex.first) == nullptr) {
             throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         } else if (!CheckHewan(storage(slotIndex.second, slotIndex.first)->getCode())) {
@@ -137,8 +136,8 @@ void Stockman::memberiPangan()
             throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
         }
 
-        Animal animal = dynamic_cast<Animal&>(*this->peternakan(petakIndex.second, petakIndex.first));
-        cout << "Kamu memilih " << animal.getNama() << " untuk diberi makan." << endl;
+        Animal* animal = (Animal *)(this->peternakan(petakIndex.second, petakIndex.first));
+        cout << "Kamu memilih " << animal->getNama() << " untuk diberi makan." << endl;
 
         // check inventory ada makanan ga + throw eror kalo gaada
         found = storage.getFoodTotal() > 0;
@@ -171,28 +170,28 @@ void Stockman::memberiPangan()
 
         try {
             // Validasi alokasi produk
-            Product temp = dynamic_cast<Product&>(*storage(slotIndex.second, slotIndex.first));
+            Product* temp = (Product*)(storage(slotIndex.second, slotIndex.first));
 
             // Validasi tipe makanan
-            if (temp.getType() == "PRODUCT_MATERIAL_PLANT"){
+            if (temp->getType() == "PRODUCT_MATERIAL_PLANT"){
                 throw NotException("makanan hewan");
-            } else if (animal.getType() == "HERBIVORE" && temp.getType() != "PRODUCT_FRUIT_PLANT") {
+            } else if (animal->getType() == "HERBIVORE" && temp->getType() != "PRODUCT_FRUIT_PLANT") {
                 throw HewanMakanException("buah");
-            } else if (animal.getType() == "CARNIVORE" && temp.getType() != "PRODUCT_ANIMAL") {
+            } else if (animal->getType() == "CARNIVORE" && temp->getType() != "PRODUCT_ANIMAL") {
                 throw HewanMakanException("daging");
             }
 
             // SUCCESS
             // tambahin berat
-            animal.setWeight(animal.getWeight() + temp.getAddedWeight());
+            animal->setWeight(animal->getWeight() + temp->getAddedWeight());
         } catch (const exception& e) {
             throw NotException("product");
         }
 
-        peternakan.setItem(petakIndex.second, petakIndex.first, &animal);
+        peternakan.setItem(petakIndex.second, petakIndex.first, animal);
         // hapus dari penyimpanan
         storage.deleteItem(slotIndex.second, slotIndex.first);
-        cout << animal.getNama() <<" sudah diberi makan dan beratnya menjadi " << animal.getWeight() << endl;
+        cout << animal->getNama() <<" sudah diberi makan dan beratnya menjadi " << animal->getWeight() << endl;
     } catch (GameException& e) {
         cout << e.what() << endl;
     }
@@ -263,11 +262,11 @@ void Stockman::panen(){
             } else {
                 // Validasi petak bukan hewan yang dipilih
                 try {
-                    Animal animal = dynamic_cast<Animal&>(*peternakan(petakIndex.second, petakIndex.first));
-                    if (animal.getWeight() < animal.getHarvestLimit()){
+                    Animal* animal = (Animal*)(peternakan(petakIndex.second, petakIndex.first));
+                    if (!Peternakan::isReadyToHarvest(animal)){
                         throw NotReadyHarvestedException("Hewan");
                     }
-                    if (animal.getCode() != codeAnimal) {
+                    if (animal->getCode() != codeAnimal) {
                         throw NotException("hewan");
                     }
                 } catch (const exception& e) {
