@@ -23,15 +23,16 @@ public:
      * Membangun bangunan baru menggunakan barang-barang yang ada di storage
      * Jika barang tidak cukup, maka bangunan tidak akan terbangun
      * Validasi bangunan melalui recipe yang ada di config
+     * @param multiplier multiplier dari harga bangunan
      */
-    void bangun();
+    void bangun(float);
 
     /*
      * Menambahkan pemain baru
      */
     void tambahPemain(roundRobin<People *> *listPlayer);
 
-    void PrintBuildingRecipe();
+    static void PrintBuildingRecipe();
 
     string getNameByCode(const string &) const;
 

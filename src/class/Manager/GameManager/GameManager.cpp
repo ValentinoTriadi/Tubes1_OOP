@@ -224,6 +224,10 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->cetakPenyimpanan();
             break;
         case 3:
+            if (getCurrentSeason() == 4) {
+                cout << "Musim dingin! Ternakmu Sedang berhibernasi! Tidak jadi ternak\n" << endl;
+                break;
+            }
             stockman->ternak();
             break;
         case 4:
@@ -275,7 +279,12 @@ void GameManager::RunMayorSelection(int input)
             Mayor::TagihPajak(&_listPlayer, getCurrentSeason());
             break;
         case 3:
-            mayor->bangun();
+            if (getCurrentSeason() == 4) {
+                cout << "Musim dingin! Kuli meminta kenaikan harga!\n" << endl;
+                mayor->bangun(1.25);
+                break;
+            }
+            mayor->bangun(1);
             break;
         case 4:
             _currentPlayer->makan();
@@ -323,6 +332,10 @@ void GameManager::RunFarmerSelection(int input)
             farmer->cetakLadang();
             break;
         case 3:
+            if (getCurrentSeason() == 4) {
+                cout << "Tangan mu kedinginan! Kau tidak jadi menanam\n" << endl;
+                break;
+            }
             farmer->tanam();
             break;
         case 4:

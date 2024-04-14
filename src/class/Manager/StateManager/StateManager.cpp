@@ -1,4 +1,5 @@
 #include "StateManager.hpp"
+#include <filesystem>
 
 vector<People *> StateManager::_listPlayer;
 
@@ -196,7 +197,17 @@ void StateManager::loadFromFile(){
 
 void StateManager::saveState() {
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
-    ofstream file("save/" + InputManager::_inputData<string>);
+    string userInput = InputManager::_inputData<string>;
+    string path = "save/" + userInput;
+    ofstream file(path);
+
+    filesystem::path pathObj(userInput);
+    string directory = "save/" + pathObj.parent_path().string();
+
+    // Create the directory if it doesn't exist
+    if (!filesystem::exists(directory)) {
+        filesystem::create_directories(directory);
+    }
 
     vector<People*> _listPlayer = StateManager::_listPlayer;
 

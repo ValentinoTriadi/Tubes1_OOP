@@ -24,7 +24,7 @@ void Mayor::PrintBuildingRecipe()
     }
 }
 
-void Mayor::bangun()
+void Mayor::bangun(float multiplier)
 {
     // Check if the player has any slot left
     if (storage.getCellKosong()){
@@ -47,10 +47,11 @@ void Mayor::bangun()
         {
             try
             {
+                int harga = i.getHarga() * multiplier;
                 // Check if the player has enough money
-                if (Keuangan.GetMoney() < i.getHarga())
+                if (Keuangan.GetMoney() < harga)
                 {
-                    kekuranganUang = i.getHarga() - Keuangan.GetMoney();
+                    kekuranganUang = harga - Keuangan.GetMoney();
                 }
 
                 // Check if the player has enough items
@@ -75,7 +76,7 @@ void Mayor::bangun()
                 }
 
                 // Deduct money and items
-                Keuangan.kurangUang(i.getHarga());
+                Keuangan.kurangUang(harga);
                 for (std::pair<const std::string, int> &item : i.getRecipe())
                 {
                     for (int j = 0; j < item.second; j++)
@@ -90,7 +91,7 @@ void Mayor::bangun()
                 }
 
                 // Add the building to the storage
-                storage.setItem(new Building(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getRecipe() ));
+                storage.setItem(new Building(i.getId(), i.getCode(), i.getNama(), harga, i.getRecipe() ));
                 cout << "Bangunan berhasil dibangun!" << endl;
                 return;
             }
