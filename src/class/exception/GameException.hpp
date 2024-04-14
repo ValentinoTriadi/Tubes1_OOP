@@ -73,11 +73,6 @@ public:
     }
 };
 
-class FarmerException : public GameException
-{ // utk farmer tanam
-  // blm
-};
-
 /*
  * EXCEPTION IN CLASS PEOPLE
  */
@@ -117,17 +112,18 @@ public:
     }
 };
 
-
 class FullException : public GameException
 {
 private:
     string message;
+
 public:
     /**
      * @brief Constructor
      * @param string (penyimpanan/ladang/peternakan)
      */
-    FullException(string message){
+    FullException(string message)
+    {
         this->message = std::move(message);
     }
     string what() override
@@ -302,6 +298,7 @@ public:
 
 class NotReadyHarvestedException : public GameException
 {
+private:
     string message;
 
 public:
@@ -336,6 +333,7 @@ public:
  */
 class NotEnoughGuldenOrItemException : public GameException
 {
+private:
     int money = 0;
     const std::map<string, int> &barang{};
 
@@ -350,7 +348,7 @@ public:
         {
             message += to_string(money) + " gulden, ";
         }
-        for (auto &item : barang)
+        for (const std::pair<const std::string, int>  &item : barang)
         {
             message += to_string(item.second) + " " + item.first;
             if (item != *barang.rbegin())
@@ -385,24 +383,34 @@ public:
  * Class Exception untuk Toko
  */
 
-class ItemNotFoundException : public GameException {
+class ItemNotFoundException : public GameException
+{
+private:
     string message;
+
 public:
-    ItemNotFoundException(string message) {
+    ItemNotFoundException(string message)
+    {
         this->message = std::move(message);
     }
-    string what() override {
+    string what() override
+    {
         return "Item " + message + " tidak ditemukan";
     }
 };
 
-class NotEmptyCellException : public GameException {
+class NotEmptyCellException : public GameException
+{
+private:
     string message;
+
 public:
-    NotEmptyCellException(string message) {
+    NotEmptyCellException(string message)
+    {
         this->message = std::move(message);
     }
-    string what() override {
+    string what() override
+    {
         return "Petak " + message + " sudah terisi";
     }
 };

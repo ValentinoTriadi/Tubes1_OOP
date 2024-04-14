@@ -54,7 +54,7 @@ Farmer *StateManager::readFarmer(ifstream &file, string name, int money, int wei
 
         file >> slot >> plantName >> age;
 
-        Plant *plant = (Plant *)(getItemByName(plantName));
+        Plant *plant = dynamic_cast<Plant *>(getItemByName(plantName));
         plant->setAge(age);
         ladang->setItem(slot, plant);
     }
@@ -98,15 +98,9 @@ Stockman *StateManager::readStockman(ifstream &file, string name, int money, int
 
     for (int i = 0; i < countAnimal; i++){
         file >> slot >> name >> weightAnimal;
-        Animal *animal = (Animal *)(getItemByName(name));
-        try {
-            animal->setWeight(weightAnimal);
-            peternakan->setItem(slot, animal);
-        }
-        catch (...)
-        {
-            cout << "Error saat membaca berat hewan." << endl;
-        }
+        Animal *animal = dynamic_cast<Animal *>(getItemByName(name));
+        animal->setWeight(weightAnimal);
+        peternakan->setItem(slot, animal);
     }
 
     stockman->setPeternakan(*peternakan);
@@ -206,7 +200,7 @@ void StateManager::saveState() {
     vector<People*> _listPlayer = StateManager::_listPlayer;
 
     file << _listPlayer.size() << "\n";
-    for (auto* player : _listPlayer) {
+    for (People *player : _listPlayer) {
         string tipe = player->GetType() == 1 ? "Walikota" : player->GetType() == 2 ? "Petani" : "Peternak";
         file << player->GetName() << " " << tipe << " " << player->GetKeuangan() << " " << player->GetWeight() << "\n";
         file << player->getStorage().getRow() * player->getStorage().getCol() - player->getStorage().getCellKosong() << "\n";
@@ -220,17 +214,15 @@ void StateManager::saveState() {
             }
         }
 
-        if (player->GetType() == 2) {
-            Farmer* temp = (Farmer*)(player);
+        if (Farmer* temp = dynamic_cast<Farmer*>(player)) {
             saveLadang(file, temp);
-        } else if (player->GetType() == 3) {
-            Stockman* temp = (Stockman*)(player);
+        } else if (Stockman* temp = dynamic_cast<Stockman*>(player)) {
             savePeternakan(file, temp);
         }
     }
 
     file << _listItemToko.size() << "\n";
-    for (auto & i : _listItemToko) {
+    for (std::pair<Item *const, int> &i : _listItemToko) {
         file << i.first->getNama() << " " << i.second << "\n";
     }
 
@@ -244,8 +236,7 @@ void StateManager::saveLadang(ofstream& file, Farmer* temp) {
     for (int j = 0; j < temp->getLadang().getRow(); j++) {
         for (int k = 0; k < temp->getLadang().getCol(); k++) {
             if (temp->getLadang()(j, k) != nullptr) {
-                Plant* plant = (Plant*)(temp->getLadang()(j, k));
-                file << idxToSlot(j, k) << " " << temp->getLadang()(j, k)->getNama() << " " << plant->getAge() << "\n";
+                file << idxToSlot(j, k) << " " << temp->getLadang()(j, k)->getNama() << " " << dynamic_cast<Plant*>(temp->getLadang()(j, k))->getAge() << "\n";
             }
         }
     }
@@ -257,8 +248,7 @@ void StateManager::savePeternakan(ofstream& file, Stockman* temp) {
     for (int j = 0; j < temp->getPeternakan().getRow(); j++) {
         for (int k = 0; k < temp->getPeternakan().getCol(); k++) {
             if (temp->getPeternakan()(j, k) != nullptr) {
-                Animal* animal = (Animal*)(temp->getPeternakan()(j, k));
-                file << idxToSlot(j, k) << " " << temp->getPeternakan()(j, k)->getNama() << " " << animal->getWeight() << "\n";
+                file << idxToSlot(j, k) << " " << temp->getPeternakan()(j, k)->getNama() << " " << dynamic_cast<Animal*>(temp->getPeternakan()(j, k))->getWeight() << "\n";
             }
         }
     }
@@ -266,7 +256,7 @@ void StateManager::savePeternakan(ofstream& file, Stockman* temp) {
 
 Item *StateManager::getItemByName(const string &name)
 {
-    for (auto &i : GameData::_productConfig)
+    for (Product &i : GameData::_productConfig)
     {
         if ((i.getNama()) == name)
         {
@@ -274,7 +264,7 @@ Item *StateManager::getItemByName(const string &name)
         }
     }
 
-    for (auto &i : GameData::_animalConfig)
+    for (Animal &i : GameData::_animalConfig)
     {
         if ((i.getNama()) == name)
         {
@@ -282,7 +272,7 @@ Item *StateManager::getItemByName(const string &name)
         }
     }
 
-    for (auto &i : GameData::_plantConfig)
+    for (Plant &i : GameData::_plantConfig)
     {
         if ((i.getNama()) == name)
         {
@@ -290,7 +280,7 @@ Item *StateManager::getItemByName(const string &name)
         }
     }
 
-    for (auto &i : GameData::_buildingConfig)
+    for (Building &i : GameData::_buildingConfig)
     {
         if ((i.getNama()) == name)
         {

@@ -59,17 +59,17 @@ void GameManager::AddUser(int type)
     {
         if (type == 1)
         {
-            auto *temp_mayor = new Mayor("Mayor", 40, 40, gameConfig[2], gameConfig[3]);
+            Mayor *temp_mayor = new Mayor("Mayor", 40, 40, gameConfig[2], gameConfig[3]);
             GameManager::_listPlayer.add(temp_mayor);
         }
         else if (type == 2)
         {
-            auto *temp_farmer = new Farmer("Petani1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+            Farmer *temp_farmer = new Farmer("Petani1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
             GameManager::_listPlayer.add(temp_farmer);
         }
         else if (type == 3)
         {
-            auto *temp_stockman = new Stockman("Peternak1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+            Stockman *temp_stockman = new Stockman("Peternak1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
             GameManager::_listPlayer.add(temp_stockman);
         }
         else
@@ -116,7 +116,7 @@ void GameManager::StartGameValidation()
 
 void GameManager::WinCheck()
 {
-    for (auto &player : _listPlayer)
+    for (People *player : _listPlayer)
     {
         if (player->GetKeuangan() >= _moneyToWin && player->GetWeight() >= _weightToWin)
         {
@@ -143,7 +143,7 @@ void GameManager::nextTurn()
 
 void GameManager::addAge()
 {
-    for (auto &player : _listPlayer)
+    for (People *player : _listPlayer)
     {
         // If the player is a farmer, add the plant age
         if (player->GetType() == 2)
@@ -193,18 +193,15 @@ void GameManager::RunStockmanSelection(int input)
     try
     {
         // Casting ke Stockman
-        Stockman *stockman = (Stockman *)_currentPlayer;
+        Stockman *stockman = dynamic_cast<Stockman *>(_currentPlayer);
+        if (stockman == nullptr)
+        {
+            throw PeopleException();
+        }
         switch (input)
         {
         case 1:
-            try
-            {
-                stockman->cetakPeternakan();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            stockman->cetakPeternakan();
             break;
         case 2:
             _currentPlayer->cetakPenyimpanan();
@@ -216,14 +213,7 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->makan();
             break;
         case 5:
-            try
-            {
-                stockman->memberiPangan();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            stockman->memberiPangan();
             break;
         case 6:
             _currentPlayer->membeli();
@@ -232,14 +222,7 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->menjual();
             break;
         case 8:
-            try
-            {
-                stockman->panen();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            stockman->panen();
             break;
         case 9:
             simpan();
@@ -261,7 +244,11 @@ void GameManager::RunMayorSelection(int input)
 {
     try
     {
-        Mayor *mayor = (Mayor *)_currentPlayer;
+        Mayor *mayor = dynamic_cast<Mayor *>(_currentPlayer);
+        if (mayor == nullptr)
+        {
+            throw PeopleException();
+        }
         switch (input)
         {
         case 1:
@@ -271,14 +258,7 @@ void GameManager::RunMayorSelection(int input)
             Mayor::TagihPajak(&_listPlayer);
             break;
         case 3:
-            try
-            {
-                mayor->bangun();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            mayor->bangun();
             break;
         case 4:
             _currentPlayer->makan();
@@ -293,14 +273,7 @@ void GameManager::RunMayorSelection(int input)
             simpan();
             break;
         case 8:
-            try
-            {
-                mayor->tambahPemain(&_listPlayer);
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            mayor->tambahPemain(&_listPlayer);
             break;
         case 9:
             nextTurn();
@@ -319,31 +292,21 @@ void GameManager::RunFarmerSelection(int input)
 {
     try
     {
-        Farmer *farmer = (Farmer *)_currentPlayer;
+        Farmer *farmer = dynamic_cast<Farmer *>(_currentPlayer);
+        if (farmer == nullptr)
+        {
+            throw PeopleException();
+        }
         switch (input)
         {
         case 1:
             _currentPlayer->cetakPenyimpanan();
             break;
         case 2:
-            try
-            {
-                farmer->cetakLadang();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            farmer->cetakLadang();
             break;
         case 3:
-            try
-            {
-                farmer->tanam();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            farmer->tanam();
             break;
         case 4:
             _currentPlayer->makan();
@@ -355,14 +318,7 @@ void GameManager::RunFarmerSelection(int input)
             _currentPlayer->menjual();
             break;
         case 7:
-            try
-            {
-                farmer->panen();
-            }
-            catch (...)
-            {
-                throw PeopleException();
-            }
+            farmer->panen();
             break;
         case 8:
             simpan();

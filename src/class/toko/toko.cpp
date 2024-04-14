@@ -43,7 +43,7 @@ void Toko::addItemsInfinite(Item* item) {
 }
 
 void Toko::removeItems(Item* item) {
-    auto it = listItemToko.find(item);
+    std::map<Item *, int>::iterator it = listItemToko.find(item);
     if (it != listItemToko.end()) {
         if(it->second > 1) {
             it->second--;
@@ -55,7 +55,7 @@ void Toko::removeItems(Item* item) {
 
 Item* Toko::getItemAt(int index) {
     int counter = 1;
-    for(auto & it : listItemToko) {
+    for(std::pair<Item *const, int> &it : listItemToko) {
         if (it.second == 0) {
             continue;
         }
@@ -70,7 +70,7 @@ Item* Toko::getItemAt(int index) {
 
 void Toko::displayToko(){
     int counter = 1;
-    for(auto & it : listItemToko) {
+    for(std::pair<Item *const, int> &it : listItemToko) {
         if (it.second == 0) {
             continue;
         }
@@ -89,19 +89,19 @@ Toko::Toko() {
     listItemToko.clear();
 
     // Add all items to the shop
-    for (auto & it : GameData::_plantConfig) {
+    for (Plant &it : GameData::_plantConfig) {
         addItemsInfinite(new Plant(it));
     }
 
-    for(auto & it : GameData::_buildingConfig) {
+    for(Building &it : GameData::_buildingConfig) {
         initItem(new Building(it), 0);
     }
 
-    for(auto & it : GameData::_animalConfig) {
+    for(Animal &it : GameData::_animalConfig) {
         addItemsInfinite(new Animal(it));
     }
 
-    for(auto & it : GameData::_productConfig) {
+    for(Product &it : GameData::_productConfig) {
         initItem(new Product(it),0);
     }
 }
@@ -115,7 +115,7 @@ void Toko::setListItems(std::map<Item*, int> setlistItemToko) {
 }
 
 void Toko::tambahListItems(std::map<Item*, int> listItemToko) {
-    for (auto & it : listItemToko) {
+    for (std::pair<Item *const, int> &it : listItemToko) {
         if (Toko::listItemToko.find(it.first) != Toko::listItemToko.end()) {
             Toko::listItemToko[it.first] += it.second;
         } else {

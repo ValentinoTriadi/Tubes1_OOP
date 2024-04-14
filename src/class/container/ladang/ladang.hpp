@@ -104,6 +104,7 @@ class Ladang : public Container {
 
     private:
 
+        // Set of all harvestable items in the ladang
         std::set<Item*> harvestable;
 
         /**

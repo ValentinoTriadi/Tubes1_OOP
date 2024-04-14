@@ -6,12 +6,12 @@ void Mayor::PrintBuildingRecipe()
 {
     cout << "Resep bangunan yang ada: \n";
     int i = 1;
-    for (auto &building : GameData::_buildingConfig)
+    for (Building &building : GameData::_buildingConfig)
     {
         cout << "    ";
         cout << i << ". " << building.getNama() << " (";
         cout << building.getHarga() << " gulden, ";
-        for (auto &item : building.getRecipe())
+        for (std::pair<const std::string, int> &item : building.getRecipe())
         {
             cout << item.first << " " << item.second;
             if (item != *building.getRecipe().rbegin())
@@ -41,7 +41,7 @@ void Mayor::bangun()
     map<string, vector<Item *>> itemsPointer = storage.getItemsPointer();
 
     // Check if the choice is valid
-    for (auto &i : GameData::_buildingConfig)
+    for (Building &i : GameData::_buildingConfig)
     {
         if (InputManager::_inputData<string> == i.getNama())
         {
@@ -54,7 +54,7 @@ void Mayor::bangun()
                 }
 
                 // Check if the player has enough items
-                for (auto &item : i.getRecipe())
+                for (std::pair<const std::string, int> &item : i.getRecipe())
                 {
                     // If the item is not in the storage
                     if (itemsPointer.find(item.first) == itemsPointer.end())
@@ -76,7 +76,7 @@ void Mayor::bangun()
 
                 // Deduct money and items
                 Keuangan.kurangUang(i.getHarga());
-                for (auto &item : i.getRecipe())
+                for (std::pair<const std::string, int> &item : i.getRecipe())
                 {
                     for (int j = 0; j < item.second; j++)
                     {
@@ -154,7 +154,7 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
     cout << "Cring cring cring...\n";
     cout << "Pajak sudah dipungut!\n\n";
 
-    for (auto &player : *listPlayer)
+    for (People *&player : *listPlayer)
     {
         if (player->GetType() != 1)
         {
@@ -169,7 +169,7 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
     cout << "Berikut adalah detil dari pemungutan pajak:\n";
 
     sort(playerPajak.rbegin(), playerPajak.rend(),
-         [](const auto &a, const auto &b)
+         [](const std::pair<People *, int> &a, const std::pair<People *, int> &b)
          {
              return a.second == b.second ? a.first->GetName() > b.first->GetName() : a.second > b.second;
          });

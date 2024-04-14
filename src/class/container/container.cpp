@@ -27,7 +27,6 @@ Container::Container(int row, int col)
     // Intialize the items vector with nullptr
     for (int i = 0; i < row; i++)
     {
-
         // Create a temporary vector to store the items
         vector<Item *> temp;
         for (int j = 0; j < col; j++)
@@ -230,9 +229,9 @@ map<string, vector<Item *>> Container::getItemsPointer()
 {
     map<string, vector<Item *>> itemMap;
 
-    for (auto &row : items)
+    for (std::vector<Item *> row : items)
     {
-        for (auto &item : row)
+        for (Item *item : row)
         {
             if (item != nullptr)
             {
@@ -246,9 +245,9 @@ map<string, vector<Item *>> Container::getItemsPointer()
 map<string, int> Container::getFood()
 {
     map<string, int> itemMap;
-    for (auto &row : items)
+    for (std::vector<Item *> row : items)
     {
-        for (auto &item : row)
+        for (Item *item : row)
         {
             // Check if item is not empty and item is a product
             if (item != nullptr && item->getItemType() == 0)
@@ -263,9 +262,9 @@ map<string, int> Container::getFood()
 int Container::getFoodTotal() const
 {
     int total = 0;
-    for (const auto &row : items)
+    for (std::vector<Item *> row : items)
     {
-        for (const auto &item : row)
+        for (Item *item : row)
         {
             // Check if item is not empty and item is a product
             if (item != nullptr && item->getItemType() == 0)
@@ -441,9 +440,9 @@ Container &Container::operator=(const Container &container)
 
 bool Container::isEmpty() const
 {
-    for (auto &row : items)
+    for (const std::vector<Item *> &row : items)
     {
-        for (auto &item : row)
+        for (const Item *item : row)
         {
             if (item != nullptr)
             {
@@ -456,9 +455,9 @@ bool Container::isEmpty() const
 
 bool Container::isAnyAnimal()
 {
-    for (const auto &row : items)
+    for (const std::vector<Item *> &row : items)
     {
-        for (const auto &item : row)
+        for (const Item *item : row)
         {
             // Check if item is not empty and item is an animal
             if (item != nullptr && item->getItemType() == 1)
@@ -472,9 +471,9 @@ bool Container::isAnyAnimal()
 
 bool Container::isAnyPlant()
 {
-    for (const auto &row : items)
+    for (const std::vector<Item *> &row : items)
     {
-        for (const auto &item : row)
+        for (const Item *item : row)
         {
             // Check if item is not empty and item is a plant
             if (item != nullptr && item->getItemType() == 2)

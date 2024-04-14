@@ -126,7 +126,6 @@ map<string, int> Ladang::getHarvest()
         {
             if (items[i][j] != nullptr)
             {
-
                 // Increment the count of the item code if it is ready to harvest
                 if (isReadyToHarvest(items[i][j]))
                     temp[items[i][j]->getCode()]++;
@@ -157,15 +156,10 @@ ostream &operator<<(ostream &os, const Ladang &ladang)
 
 bool Ladang::isReadyToHarvest(Item *item)
 {
-    Plant *plant = (Plant *)item;
+    Plant *plant = dynamic_cast<Plant*>(item);
 
     // Check if the item is ready to be harvested
-    try {
-        bool temp = plant->getAge() >= plant->getHarvestLimit();
-        return temp;
-    } catch (...) {
-        return false;
-    }
+    return plant->getAge() >= plant->getHarvestLimit();
 }
 
 void Ladang::setItem(int i, int j, Item *item)
@@ -202,13 +196,9 @@ void Ladang::deleteItem(string slot)
 
 void Ladang::addAge()
 {
-    for (auto &item : harvestable)
+    for (Item *const item : harvestable)
     {
-        Plant *plant = (Plant *)(item);
-        try {
-            plant->grow();
-        } catch (...) {
-            continue;
-        }
+        Plant *plant = dynamic_cast<Plant*>(item);
+        plant->grow();
     }
 }

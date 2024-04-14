@@ -55,24 +55,13 @@ void People::makan()
             throw FoodEmptyException();
         }
 
-        Product *product = (Product *)(makanan);
-        int temp;
-
-        try
-        {
-            temp = product->getAddedWeight();
-        }
-        catch (...)
-        {
-            throw InvalidFoodTypeException();
-        }
-        
-        if (product == nullptr || temp == 0)
+        Product *product = dynamic_cast<Product *>(makanan);
+        if (product == nullptr || product->getAddedWeight() == 0)
         {
             throw InvalidFoodTypeException();
         }
 
-        Weight += temp;
+        Weight += product->getAddedWeight();
 
         storage.deleteItem(slot.second, slot.first);
         cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
@@ -240,7 +229,7 @@ void People::HitungNonUang()
 {
     int NonUang = Keuangan.GetNonUang();
     map<pair<string, int>, int> item = storage.getItems();
-    for (auto &i : item)
+    for (std::pair<const std::pair<std::string, int>, int> &i : item)
     {
         NonUang += i.second;
     }

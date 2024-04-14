@@ -114,7 +114,7 @@ void GameData::BacaConfigGame() {
 
 void GameData::DisplayConfigProduct() {
     cout << endl << "==================PRODUCT CONFIG==================" << endl;
-    for (const auto & i : _productConfig) {
+    for (const Product &i : _productConfig) {
         i.print();
     }
     cout << endl << "==================PRODUCT CONFIG==================" << endl;
@@ -122,7 +122,7 @@ void GameData::DisplayConfigProduct() {
 
 void GameData::DisplayConfigBuilding() {
     cout << endl << "==================BUILDING CONFIG==================" << endl;
-    for (const auto & i : _buildingConfig) {
+    for (const Building &i : _buildingConfig) {
         i.print();
     }
     cout << endl << "==================BUILDING CONFIG==================" << endl;
@@ -130,7 +130,7 @@ void GameData::DisplayConfigBuilding() {
 
 void GameData::DisplayConfigAnimal() {
     cout << endl << "==================ANIMAL CONFIG==================" << endl;
-    for (const auto & i : _animalConfig) {
+    for (const Animal &i : _animalConfig) {
         i.print();
     }
     cout << endl << "==================ANIMAL CONFIG==================" << endl;
@@ -138,7 +138,7 @@ void GameData::DisplayConfigAnimal() {
 
 void GameData::DisplayConfigPlant() {
     cout << endl << "==================PLANT CONFIG==================" << endl;
-    for (const auto & i : _plantConfig) {
+    for (const Plant &i : _plantConfig) {
         i.print();
     }
     cout << endl << "==================PLANT CONFIG==================" << endl;

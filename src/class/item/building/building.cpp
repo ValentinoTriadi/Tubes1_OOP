@@ -20,7 +20,7 @@ map<string, int> Building::getRecipe() const {
 void Building::print() const {
     Item::print();
     cout << "Recipe: " << endl;
-    for (const auto &[fst, snd] : Recipe) {
-        cout << fst << ": " << snd << endl;
+    for (const std::pair<const std::string, int> &pair : Recipe) {
+        cout << pair.first << ": " << pair.second << endl;
     }
 }

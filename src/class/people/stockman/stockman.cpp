@@ -30,7 +30,7 @@ string Stockman::getNameByCode(const string &code) const
 {
     try
     {
-        for (auto &i : GameData::_animalConfig)
+        for (Animal &i : GameData::_animalConfig)
         {
             if (i.getCode() == code)
             {
@@ -136,7 +136,7 @@ void Stockman::memberiPangan()
             throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
         }
 
-        Animal* animal = (Animal *)(this->peternakan(petakIndex.second, petakIndex.first));
+        Animal* animal = dynamic_cast<Animal *>(this->peternakan(petakIndex.second, petakIndex.first));
         cout << "Kamu memilih " << animal->getNama() << " untuk diberi makan." << endl;
 
         // check inventory ada makanan ga + throw eror kalo gaada
@@ -170,7 +170,7 @@ void Stockman::memberiPangan()
 
         try {
             // Validasi alokasi produk
-            Product* temp = (Product*)(storage(slotIndex.second, slotIndex.first));
+            Product* temp = dynamic_cast<Product*>(storage(slotIndex.second, slotIndex.first));
 
             // Validasi tipe makanan
             if (temp->getType() == "PRODUCT_MATERIAL_PLANT"){
@@ -213,7 +213,7 @@ void Stockman::panen(){
 
         // Cetak hewan yang bisa dipanen
         int i = 0;
-        for (const auto& animal : animals){
+        for (const std::pair<const std::string, int> &animal : animals){
             cout << "  " << ++i << ". " << animal.first << " (" << animal.second << " petak siap panen)" << endl;
         }
 
@@ -227,7 +227,7 @@ void Stockman::panen(){
 
 
         // Ambil hewan yang dipilih
-        auto it = animals.begin();
+        std::map<std::string, int>::iterator it = animals.begin();
         advance(it, nomor - 1);
         string codeAnimal = it->first;
         string namaAnimal = getNameByCode(codeAnimal);
@@ -262,7 +262,7 @@ void Stockman::panen(){
             } else {
                 // Validasi petak bukan hewan yang dipilih
                 try {
-                    Animal* animal = (Animal*)(peternakan(petakIndex.second, petakIndex.first));
+                    Animal* animal = dynamic_cast<Animal*>(peternakan(petakIndex.second, petakIndex.first));
                     if (!Peternakan::isReadyToHarvest(animal)){
                         throw NotReadyHarvestedException("Hewan");
                     }
@@ -298,7 +298,7 @@ void Stockman::panen(){
 
         // Masukkan produk hewan ke storage
         for (int i = 0; i < jumlah; i++) {
-            auto* newProduct = new Product(tempProduct);
+            Product* newProduct = new Product(tempProduct);
             peternakan.deleteItem(tempSlot[i]);
             storage.setItem(newProduct);
         }

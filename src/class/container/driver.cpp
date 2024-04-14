@@ -16,7 +16,7 @@ int main(){
 
     map<pair<string, int>, int> itemMap = container.getItems();
 
-    for (auto & it : itemMap){
+    for (std::pair<const std::pair<std::string, int>, int> & it : itemMap){
         cout << it.first.first << " " << it.first.second << " " << it.second << endl;
     }
 

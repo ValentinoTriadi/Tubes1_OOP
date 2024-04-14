@@ -28,8 +28,8 @@ bool Farmer::CheckTumbuhan(const string &kode)
     if (find_if(
             GameData::_plantConfig.begin(),
             GameData::_plantConfig.end(),
-            [&kode](const Plant &plant) 
-        { return plant.getCode() == kode; }) != GameData::_plantConfig.end())
+            [&kode](const Plant &plant) { return plant.getCode() == kode; }
+        ) != GameData::_plantConfig.end())
         return true;
     return false;
 }
@@ -38,7 +38,7 @@ string Farmer::getNameByCode(const string &code) const
 {
     try
     {
-        for (auto &i : GameData::_plantConfig)
+        for (Plant &i : GameData::_plantConfig)
         {
             if (i.getCode() == code)
             {
@@ -147,28 +147,7 @@ void Farmer::panen()
 {
     try
     {
-        map<string, int> plants;
-        for (int i = 0; i < ladang.getRow(); i++)
-        {
-            for (int j = 0; j < ladang.getCol(); j++)
-            {
-                if (ladang(i, j) != nullptr)
-                {
-                    Plant* plant = (Plant *)(ladang(i, j));
-                    try
-                    {
-                        if (plant->getAge() >= plant->getHarvestLimit())
-                        {
-                            plants[plant->getCode()]++;
-                        }
-                    }
-                    catch (...)
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
+        map<string, int> plants = ladang.getHarvest();
 
         if (plants.empty())
         {
@@ -251,21 +230,8 @@ void Farmer::panen()
                     throw NotReadyHarvestedException("Tumbuhan");
                 }
 
-                Plant *plant = (Plant *)(ladang(petakIndex.second, petakIndex.first));
-                string codeTemp;
-                int ageTemp;
-                try
-                {
-                    codeTemp = plant->getCode();
-                    ageTemp = plant->getAge();
-                }
-                catch (...)
-                {
-                    throw NotException("Tumbuhan");
-                }
-
-                if (codeTemp != codePlant)
-                {
+                Plant& plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
+                if (plant.getCode() != codePlant){
                     throw NotChoosenException("Tumbuhan");
                 }
 

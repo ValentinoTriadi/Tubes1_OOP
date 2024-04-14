@@ -53,9 +53,9 @@ Peternakan &Peternakan::operator=(const Peternakan &peternakan)
 
 bool Peternakan::isAnyHarvestable()
 {
-    for (const auto &row : items)
+    for (const std::vector<Item *> &row : items)
     {
-        for (const auto &item : row)
+        for (Item *const &item : row)
         {
             if (item != nullptr && isReadyToHarvest(item))
             {
@@ -174,18 +174,10 @@ ostream &operator<<(ostream &os, const Peternakan &ladang)
 
 bool Peternakan::isReadyToHarvest(Item *item)
 {
-    Animal *animal = (Animal *)(item);
+    Animal *animal = dynamic_cast<Animal*>(item);
 
     // Check if the animal is ready to be harvested
-    try
-    {
-        bool temp = animal->getWeight() >= animal->getHarvestLimit();
-        return temp;
-    }
-    catch (...)
-    {
-        return false;
-    }
+    return animal->getWeight() >= animal->getHarvestLimit();
 }
 
 map<string, int> Peternakan::getHarvestable()
@@ -197,7 +189,6 @@ map<string, int> Peternakan::getHarvestable()
         {
             if (items[i][j] != nullptr)
             {
-
                 // Increment the count of the item code if it is ready to harvest
                 if (isReadyToHarvest(items[i][j]))
                     animals[items[i][j]->getCode()]++;
