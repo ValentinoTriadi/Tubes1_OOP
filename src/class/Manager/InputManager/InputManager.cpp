@@ -188,6 +188,7 @@ void InputManager::ShowStockmanMenu()
               << "SIMPAN\n";
     std::cout << "10. "
               << "NEXT\n";
+    std::cout << endl;
 }
 
 void InputManager::StockmanMenuInputValidation()

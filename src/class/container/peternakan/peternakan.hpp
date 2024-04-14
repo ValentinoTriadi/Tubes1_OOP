@@ -84,6 +84,14 @@ class   Peternakan : public Container {
 
             bool isAnyEmpty();
 
+            /**
+             * Checks if the given item is ready to be harvested.
+             *
+             * @param item The item to check.
+             * @return True if the item is ready to be harvested, false otherwise.
+             */
+            static bool isReadyToHarvest(Item* item) ;
+
 private:
 
 
@@ -96,13 +104,6 @@ private:
              */
             std::ostream& printRow(std::ostream& os, int i) const;
 
-            /**
-             * Checks if the given item is ready to be harvested.
-             *
-             * @param item The item to check.
-             * @return True if the item is ready to be harvested, false otherwise.
-             */
-            static bool isReadyToHarvest(Item* item) ;
 };
 
 #endif

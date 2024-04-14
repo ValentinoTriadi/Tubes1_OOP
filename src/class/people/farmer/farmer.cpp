@@ -25,8 +25,11 @@ bool Farmer::CheckTumbuhan(const string &kode)
 
     // Optimized version
     // find_if -> find from start to end of vector which meets the lambda function condition
-    if (find_if(GameData::_plantConfig.begin(), GameData::_plantConfig.end(), [&kode](const Plant &plant)
-                { return plant.getCode() == kode; }) != GameData::_plantConfig.end())
+    if (find_if(
+            GameData::_plantConfig.begin(),
+            GameData::_plantConfig.end(),
+            [&kode](const Plant &plant) 
+        { return plant.getCode() == kode; }) != GameData::_plantConfig.end())
         return true;
     return false;
 }
@@ -51,7 +54,8 @@ string Farmer::getNameByCode(const string &code) const
     }
 }
 
-void Farmer::addPlantAge(){
+void Farmer::addPlantAge()
+{
     ladang.addAge();
 }
 
@@ -81,7 +85,7 @@ void Farmer::tanam()
 
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
-        pair <int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
+        pair<int, int> slotIndex = DataConverter::GetSingleRowCol("Slot: ");
 
         // Validasi slot index
         if (slotIndex.second < 0 || slotIndex.second >= storage.getRow() || slotIndex.first < 0 || slotIndex.first >= storage.getCol())
@@ -110,7 +114,7 @@ void Farmer::tanam()
         // Ambil input dari user simpan dalam variable slot
         // Input berformat char int (B10)
 
-        pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
+        pair<int, int> petakIndex = DataConverter::GetSingleRowCol("Petak tanah: ");
 
         // Validasi petak index
         if (petakIndex.second < 0 || petakIndex.second >= ladang.getRow() || petakIndex.first < 0 || petakIndex.first >= ladang.getCol())
@@ -131,15 +135,13 @@ void Farmer::tanam()
         }
 
         cout << "Cangkul, cangkul, cangkul yang dalam~!\n";
-        cout << tanaman->getNama() <<" berhasil ditanam!" << endl;
+        cout << tanaman->getNama() << " berhasil ditanam!" << endl;
     }
     catch (GameException &e)
     {
         std::cout << e.what() << endl;
     }
 }
-
-
 
 void Farmer::panen()
 {
@@ -152,14 +154,22 @@ void Farmer::panen()
             {
                 if (ladang(i, j) != nullptr)
                 {
-                    auto& plant = dynamic_cast<Plant&>(*ladang(i, j));
-                    if (plant.getAge() >= plant.getHarvestLimit())
+                    Plant* plant = (Plant *)(ladang(i, j));
+                    try
                     {
-                        plants[plant.getCode()]++;
+                        if (plant->getAge() >= plant->getHarvestLimit())
+                        {
+                            plants[plant->getCode()]++;
+                        }
+                    }
+                    catch (...)
+                    {
+                        continue;
                     }
                 }
             }
         }
+
         if (plants.empty())
         {
             throw FarmEntityNotFoundException("tumbuhan");
@@ -186,7 +196,7 @@ void Farmer::panen()
         int nomor = InputManager::_inputData<int>;
 
         // Validasi input
-        if (nomor <= 0 || nomor > (int) plants.size())
+        if (nomor <= 0 || nomor > (int)plants.size())
         {
             throw NotValidException("Nomor tumbuhan");
         }
@@ -215,33 +225,54 @@ void Farmer::panen()
         }
 
         // validasi inventory
-        if (storage.getCellKosong() < jumlah){
+        if (storage.getCellKosong() < jumlah)
+        {
             throw FullException("penyimpanan");
         }
 
         vector<string> tempSlot;
         std::cout << "Pilih petak yang ingin dipanen: " << endl;
         // Cetak petak yang bisa dipanen
-        for (int i = 0; i < jumlah; i++) {
-            try {
-                pair <int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i+1)+ ": ");
+        for (int i = 0; i < jumlah; i++)
+        {
+            try
+            {
+                pair<int, int> petakIndex = DataConverter::GetSingleRowCol("Petak ke-" + to_string(i + 1) + ": ");
                 if (petakIndex.second < 0 || petakIndex.second >= ladang.getRow() || petakIndex.first < 0 || petakIndex.first >= ladang.getCol())
                 {
                     throw NotValidException("Petak");
                 }
-                if (ladang(petakIndex.second, petakIndex.first) == nullptr){
+                if (ladang(petakIndex.second, petakIndex.first) == nullptr)
+                {
                     throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
                 }
-                Plant& plant = dynamic_cast<Plant&>(*ladang(petakIndex.second, petakIndex.first));
-                if (plant.getCode() != codePlant){
-                    throw NotChoosenException("Tumbuhan");
-                }
-                if (plant.getAge() < plant.getHarvestLimit())
+                if (!Ladang::isReadyToHarvest(ladang(petakIndex.second, petakIndex.first)))
                 {
                     throw NotReadyHarvestedException("Tumbuhan");
                 }
+
+                Plant *plant = (Plant *)(ladang(petakIndex.second, petakIndex.first));
+                string codeTemp;
+                int ageTemp;
+                try
+                {
+                    codeTemp = plant->getCode();
+                    ageTemp = plant->getAge();
+                }
+                catch (...)
+                {
+                    throw NotException("Tumbuhan");
+                }
+
+                if (codeTemp != codePlant)
+                {
+                    throw NotChoosenException("Tumbuhan");
+                }
+
                 tempSlot.push_back(DataConverter::itos(petakIndex.second, petakIndex.first));
-            } catch (GameException &e) {
+            }
+            catch (GameException &e)
+            {
                 std::cout << e.what() << endl;
                 i--;
             }
@@ -250,7 +281,7 @@ void Farmer::panen()
         // SUCCESS
         // ilangin field + masukin inventory
         int tempProductIndex = -1;
-        for (int i = 0; i < (int) GameData::_productConfig.size(); i++)
+        for (int i = 0; i < (int)GameData::_productConfig.size(); i++)
         {
             if (GameData::_productConfig[i].getType() == "PRODUCT_FRUIT_PLANT" && GameData::_productConfig[i].getOrigin() == namePlant)
             {

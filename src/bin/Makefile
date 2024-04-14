@@ -74,5 +74,3 @@ matrix: ../class/utils/matrix/matrix.cpp
 clean:
 	rm *.o
 	rm main.exe
-
-

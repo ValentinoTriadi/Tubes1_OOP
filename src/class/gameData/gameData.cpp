@@ -20,7 +20,7 @@ GameData::~GameData() = default;
 
 // Method
 void GameData::BacaConfigProduct() {
-    ifstream file("../config/product.txt");
+    ifstream file("config/product.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -33,7 +33,7 @@ void GameData::BacaConfigProduct() {
 }
 
 void GameData::BacaConfigBuilding() {
-    ifstream file("../config/recipe.txt");
+    ifstream file("config/recipe.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -50,7 +50,7 @@ void GameData::BacaConfigBuilding() {
 }
 
 void GameData::BacaConfigAnimal() {
-    ifstream file("../config/animal.txt");
+    ifstream file("config/animal.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -63,7 +63,7 @@ void GameData::BacaConfigAnimal() {
 }
 
 void GameData::BacaConfigPlant() {
-    ifstream file("../config/plant.txt");
+    ifstream file("config/plant.txt");
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
@@ -88,8 +88,7 @@ void GameData::BacaConfigPlant() {
     * 7: besar peternakan m
 */
 void GameData::BacaConfigGame() {
-    cout << "path :" << std::filesystem::current_path() << endl;
-    ifstream file("../config/misc.txt");
+    ifstream file("config/misc.txt");
     string line;
     int temp, temp1;
     
@@ -113,7 +112,7 @@ void GameData::BacaConfigGame() {
     file.close();
 }
 
-void GameData::DisplayConfigProduct() const {
+void GameData::DisplayConfigProduct() {
     cout << endl << "==================PRODUCT CONFIG==================" << endl;
     for (const auto & i : _productConfig) {
         i.print();
@@ -121,7 +120,7 @@ void GameData::DisplayConfigProduct() const {
     cout << endl << "==================PRODUCT CONFIG==================" << endl;
 }
 
-void GameData::DisplayConfigBuilding() const {
+void GameData::DisplayConfigBuilding() {
     cout << endl << "==================BUILDING CONFIG==================" << endl;
     for (const auto & i : _buildingConfig) {
         i.print();
@@ -129,7 +128,7 @@ void GameData::DisplayConfigBuilding() const {
     cout << endl << "==================BUILDING CONFIG==================" << endl;
 }
 
-void GameData::DisplayConfigAnimal() const{
+void GameData::DisplayConfigAnimal() {
     cout << endl << "==================ANIMAL CONFIG==================" << endl;
     for (const auto & i : _animalConfig) {
         i.print();
@@ -137,7 +136,7 @@ void GameData::DisplayConfigAnimal() const{
     cout << endl << "==================ANIMAL CONFIG==================" << endl;
 }
 
-void GameData::DisplayConfigPlant() const {
+void GameData::DisplayConfigPlant() {
     cout << endl << "==================PLANT CONFIG==================" << endl;
     for (const auto & i : _plantConfig) {
         i.print();
@@ -145,7 +144,7 @@ void GameData::DisplayConfigPlant() const {
     cout << endl << "==================PLANT CONFIG==================" << endl;
 }
 
-void GameData::DisplayConfigGame() const {
+void GameData::DisplayConfigGame() {
     cout << endl << "==================GAME CONFIG==================" << endl;
     cout << "Uang: " << _gameConfig[0] << endl;
     cout << "Berat: " << _gameConfig[1] << endl;
