@@ -136,6 +136,7 @@ void GameManager::EndGame()
 void GameManager::nextTurn()
 {
     _listPlayer.next();
+    std::cout << "Giliran dilanjut ke pemain berikutnya." << endl;
     this->_currentPlayer = _listPlayer.top();
     addAge();
 }
@@ -241,12 +242,9 @@ void GameManager::RunStockmanSelection(int input)
             }
             break;
         case 9:
-            muat();
-            break;
-        case 10:
             simpan();
             break;
-        case 11:
+        case 10:
             nextTurn();
             break;
         default:
@@ -295,9 +293,6 @@ void GameManager::RunMayorSelection(int input)
             simpan();
             break;
         case 8:
-            muat();
-            break;
-        case 9:
             try
             {
                 mayor->tambahPemain(&_listPlayer);
@@ -307,7 +302,7 @@ void GameManager::RunMayorSelection(int input)
                 throw PeopleException();
             }
             break;
-        case 10:
+        case 9:
             nextTurn();
             break;
         default:
