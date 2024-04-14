@@ -33,15 +33,15 @@ class GameData {
         static void BacaConfigGame();
 
         /*Tampilkan Config Product ```src/config/product.txt```*/
-        void DisplayConfigProduct() const;
+        static void DisplayConfigProduct();
         /*Tampilkan Config Recipe ```src/config/recipe.txt```*/
-        void DisplayConfigBuilding() const;
+        static void DisplayConfigBuilding();
         /*Tampilkan Config Animal ```src/config/animal.txt```*/
-        void DisplayConfigAnimal() const;
+        static void DisplayConfigAnimal();
         /*Tampilkan Config Plant ```src/config/plant.txt```*/
-        void DisplayConfigPlant() const;
+        static void DisplayConfigPlant();
         /*Tampilkan Config Misc ```src/config/misc.txt```*/
-        void DisplayConfigGame() const;
+        static void DisplayConfigGame();
 
         static vector<Product> _productConfig;
         static vector<Building> _buildingConfig;

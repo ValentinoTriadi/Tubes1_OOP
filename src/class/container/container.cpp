@@ -47,8 +47,8 @@ Container::Container(int row, int col)
  * This destructor is responsible for cleaning up any resources
  * allocated by the Container class.
  */
-Container::~Container() {
-
+Container::~Container()
+{
 }
 
 /**
@@ -122,21 +122,29 @@ int Container::getCellKosong() const
  */
 void Container::setItem(int i, int j, Item *item)
 {
-    try {
-        if (i >= row || j >= col || i < 0 || j < 0) {
+    try
+    {
+        if (i >= row || j >= col || i < 0 || j < 0)
+        {
             throw IndexOutOfBoundException();
         }
 
-        if (items[i][j] == nullptr) {
+        if (items[i][j] == nullptr)
+        {
             items[i][j] = item;
             cellKosong--;
-        } else {
-            throw PetakSudahTerisiException(DataConverter::itos(j,i));
         }
-
-    } catch (IndexOutOfBoundException &e) {
+        else
+        {
+            throw PetakSudahTerisiException(DataConverter::itos(j, i));
+        }
+    }
+    catch (IndexOutOfBoundException &e)
+    {
         cout << e.what() << endl;
-    } catch (PetakSudahTerisiException &e) {
+    }
+    catch (PetakSudahTerisiException &e)
+    {
         cout << e.what() << endl;
     }
 }
@@ -154,7 +162,11 @@ void Container::setItem(Item *item)
     {
         for (int j = 0; j < col; j++)
         {
-            if (items[i][j] == nullptr) { setItem(i, j, item); return;}
+            if (items[i][j] == nullptr)
+            {
+                setItem(i, j, item);
+                return;
+            }
         }
     }
     throw FullException("penyimpanan");
@@ -169,7 +181,7 @@ void Container::deleteItem(int i, int j)
     }
     else
     {
-        throw KosongException("Slot " + DataConverter::itos(j,i));
+        throw KosongException("Slot " + DataConverter::itos(j, i));
     }
 }
 
@@ -186,7 +198,8 @@ void Container::deleteItemByName(string slot)
     {
         for (int j = 0; j < col; j++)
         {
-            if (items[i][j] != nullptr && items[i][j]->getNama() == slot) {
+            if (items[i][j] != nullptr && items[i][j]->getNama() == slot)
+            {
                 deleteItem(i, j);
                 return;
             }
@@ -195,14 +208,16 @@ void Container::deleteItemByName(string slot)
     throw KosongException("Item " + slot);
 }
 
-map<pair<string, int>, int> Container::getItems(){
+map<pair<string, int>, int> Container::getItems()
+{
     map<pair<string, int>, int> itemMap;
 
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < col; j++)
         {
-            if (items[i][j] != nullptr){
+            if (items[i][j] != nullptr)
+            {
                 pair<string, int> item = make_pair(items[i][j]->getCode(), items[i][j]->getHarga());
                 itemMap[item]++;
             }
@@ -211,12 +226,16 @@ map<pair<string, int>, int> Container::getItems(){
     return itemMap;
 }
 
-map<string, vector<Item *>> Container::getItemsPointer() {
+map<string, vector<Item *>> Container::getItemsPointer()
+{
     map<string, vector<Item *>> itemMap;
 
-    for (auto & row : items) {
-        for (auto & item : row) {
-            if (item != nullptr) {
+    for (auto &row : items)
+    {
+        for (auto &item : row)
+        {
+            if (item != nullptr)
+            {
                 itemMap[item->getNama()].push_back(item);
             }
         }
@@ -224,13 +243,16 @@ map<string, vector<Item *>> Container::getItemsPointer() {
     return itemMap;
 }
 
-map<string, int> Container::getFood(){
+map<string, int> Container::getFood()
+{
     map<string, int> itemMap;
-    for (auto & row : items)
+    for (auto &row : items)
     {
-        for (auto & item : row)
+        for (auto &item : row)
         {
-            if (item != nullptr && dynamic_cast<Product*>(item)){
+            // Check if item is not empty and item is a product
+            if (item != nullptr && item->getItemType() == 0)
+            {
                 itemMap[item->getCode()]++;
             }
         }
@@ -238,13 +260,16 @@ map<string, int> Container::getFood(){
     return itemMap;
 }
 
-int Container::getFoodTotal() const{
+int Container::getFoodTotal() const
+{
     int total = 0;
-    for (const auto & row : items)
+    for (const auto &row : items)
     {
-        for (const auto & item : row)
+        for (const auto &item : row)
         {
-            if (item != nullptr && dynamic_cast<Product*>(item)){
+            // Check if item is not empty and item is a product
+            if (item != nullptr && item->getItemType() == 0)
+            {
                 total++;
             }
         }
@@ -371,7 +396,8 @@ ostream &Container::printRow(ostream &os, int row) const
  */
 ostream &operator<<(ostream &os, const Container &container)
 {
-    os << "=================[ Penyimpanan ]==================" << endl << endl;
+    os << "=================[ Penyimpanan ]==================" << endl
+       << endl;
     // print column name
     container.printColumnName(os);
     container.printSeparator(os);
@@ -393,29 +419,34 @@ ostream &operator<<(ostream &os, const Container &container)
  * @param container The Container object to be copied.
  * @return The copied Container object.
  */
-Container& Container::operator=(const Container& container) {
+Container &Container::operator=(const Container &container)
+{
     this->row = container.row;
     this->col = container.col;
     this->cellKosong = container.cellKosong;
-    
-    this->items.clear();
-    this->items.resize(row, vector<Item*>(col, nullptr));
 
-    for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++){
+    this->items.clear();
+    this->items.resize(row, vector<Item *>(col, nullptr));
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
             items[i][j] = container.items[i][j];
         }
     }
-    
+
     return *this;
 }
 
-bool Container::isEmpty() const {
-    for (auto & row : items)
+bool Container::isEmpty() const
+{
+    for (auto &row : items)
     {
-        for (auto & item : row)
+        for (auto &item : row)
         {
-            if (item != nullptr){
+            if (item != nullptr)
+            {
                 return false;
             }
         }
@@ -423,10 +454,15 @@ bool Container::isEmpty() const {
     return true;
 }
 
-bool Container::isAnyAnimal() {
-    for (const auto & row : items) {
-        for (const auto & item : row) {
-            if (item != nullptr && dynamic_cast<Animal*>(item)){
+bool Container::isAnyAnimal()
+{
+    for (const auto &row : items)
+    {
+        for (const auto &item : row)
+        {
+            // Check if item is not empty and item is an animal
+            if (item != nullptr && item->getItemType() == 1)
+            {
                 return true;
             }
         }
@@ -434,10 +470,15 @@ bool Container::isAnyAnimal() {
     return false;
 }
 
-bool Container::isAnyPlant() {
-    for (const auto & row : items) {
-        for (const auto & item : row) {
-            if (item != nullptr && dynamic_cast<Plant*>(item)){
+bool Container::isAnyPlant()
+{
+    for (const auto &row : items)
+    {
+        for (const auto &item : row)
+        {
+            // Check if item is not empty and item is a plant
+            if (item != nullptr && item->getItemType() == 2)
+            {
                 return true;
             }
         }

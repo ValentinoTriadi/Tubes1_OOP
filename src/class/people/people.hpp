@@ -92,6 +92,9 @@ class People{
         /**
          *  @brief Get Type
          *  @return Type
+         * (1) mayor
+         * (2) farmer
+         * (3) stockman
          */
         [[nodiscard]] int GetType() const {return Type;}
 
