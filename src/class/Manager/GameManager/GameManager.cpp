@@ -3,6 +3,7 @@
 using namespace std;
 
 roundRobin<People *> GameManager::_listPlayer;
+roundRobin<int> GameManager::_seasons;
 bool GameManager::_isGameOver = false;
 
 void GameManager::StartNewGame()
@@ -33,7 +34,12 @@ void GameManager::ReadConfig()
     this->_weightToWin = float(gameConfig[1]);
 }
 
-GameManager::GameManager() = default;
+GameManager::GameManager(){
+    _seasons.add(1);
+    _seasons.add(2);
+    _seasons.add(3);
+    _seasons.add(4);
+};
 
 GameManager::~GameManager()
 {
@@ -138,6 +144,10 @@ void GameManager::nextTurn()
     _listPlayer.next();
     std::cout << "Giliran dilanjut ke pemain berikutnya." << endl;
     this->_currentPlayer = _listPlayer.top();
+    // change season
+    if (_currentPlayer->GetType() == 1){
+        _seasons.next();
+    }
     addAge();
 }
 
@@ -148,7 +158,7 @@ void GameManager::addAge()
         // If the player is a farmer, add the plant age
         if (player->GetType() == 2)
         {
-            Farmer *farmer = (Farmer *)player;
+            Farmer *farmer = dynamic_cast<Farmer *>(player);
             farmer->addPlantAge();
         }
     }
@@ -386,3 +396,4 @@ void GameManager::simpan()
     StateManager::_listPlayer = _listPlayer.getBuffer();
     StateManager::saveState();
 }
+
