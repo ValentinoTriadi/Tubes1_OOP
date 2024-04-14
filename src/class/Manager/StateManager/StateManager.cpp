@@ -162,7 +162,7 @@ void StateManager::loadFromFile(){
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
     string filename = InputManager::_inputData<string>;
 
-    ifstream file(filename);
+    ifstream file("save/" + filename);
 
     while (!file.is_open()){
         InputManager::receiveInput("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ");
@@ -201,7 +201,7 @@ void StateManager::loadFromFile(){
 
 void StateManager::saveState() {
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
-    ofstream file(InputManager::_inputData<string>);
+    ofstream file("save/" + InputManager::_inputData<string>);
 
     vector<People*> _listPlayer = StateManager::_listPlayer;
 

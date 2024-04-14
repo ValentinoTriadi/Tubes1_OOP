@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\Bin\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\container\\ladang\\ladang.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\people\\farmer\\farmer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\Manager\\GameManager\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ladang.cpp",
+              "DocumentMoniker": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\container\\ladang\\ladang.cpp",
+              "RelativeDocumentMoniker": "..\\src\\class\\container\\ladang\\ladang.cpp",
+              "ToolTip": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\container\\ladang\\ladang.cpp",
+              "RelativeToolTip": "..\\src\\class\\container\\ladang\\ladang.cpp",
+              "ViewState": "AQIAABkAAAAAAAAAAAAEwCYAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-14T09:47:57.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameManager.cpp",
+              "DocumentMoniker": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\Manager\\GameManager\\GameManager.cpp",
+              "RelativeDocumentMoniker": "..\\src\\class\\Manager\\GameManager\\GameManager.cpp",
+              "ToolTip": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\Manager\\GameManager\\GameManager.cpp",
+              "RelativeToolTip": "..\\src\\class\\Manager\\GameManager\\GameManager.cpp",
+              "ViewState": "AQIAADsAAAAAAAAAAAArwEgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-14T09:47:28.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "farmer.cpp",
+              "DocumentMoniker": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\people\\farmer\\farmer.cpp",
+              "RelativeDocumentMoniker": "..\\src\\class\\people\\farmer\\farmer.cpp",
+              "ToolTip": "C:\\Users\\Ojan\\Documents\\GitHub\\Tubes1_OOP\\src\\class\\people\\farmer\\farmer.cpp",
+              "RelativeToolTip": "..\\src\\class\\people\\farmer\\farmer.cpp",
+              "ViewState": "AQIAADMBAAAAAAAAAAAEwEMBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-14T09:46:34.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "vector",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\vector",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\vector",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\vector",
+              "ViewState": "AQIAAFUIAAAAAAAAAAArwGIIAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-04-14T09:46:11.451Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
