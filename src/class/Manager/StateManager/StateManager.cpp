@@ -1,6 +1,8 @@
 #include "StateManager.hpp"
+#include <filesystem>
 
 vector<People *> StateManager::_listPlayer;
+
 map<Item *, int> StateManager::_listItemToko;
 
 StateManager::StateManager() = default;
@@ -161,7 +163,7 @@ void StateManager::loadFromFile(){
     while (!file.is_open()){
         InputManager::receiveInput("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ");
         filename = InputManager::_inputData<string>;
-        file.open(filename);
+        file.open("save/" + filename);
     }
 
     vector<int> gameConfig = GameData::_gameConfig;
@@ -195,7 +197,18 @@ void StateManager::loadFromFile(){
 
 void StateManager::saveState() {
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
-    ofstream file("save/" + InputManager::_inputData<string>);
+    string userInput = InputManager::_inputData<string>;
+    string path = "save/" + userInput;
+
+    filesystem::path pathObj(userInput);
+    string directory = "save/" + pathObj.parent_path().string();
+
+    // Create the directory if it doesn't exist
+    if (!filesystem::exists(directory)) {
+        filesystem::create_directories(directory);
+    }
+
+    ofstream file(path);
 
     vector<People*> _listPlayer = StateManager::_listPlayer;
 

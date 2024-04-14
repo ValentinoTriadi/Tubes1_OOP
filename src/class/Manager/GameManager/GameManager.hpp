@@ -22,6 +22,9 @@ private:
     static roundRobin<People *> _listPlayer;
     People *_currentPlayer{};
 
+    // Seasons
+    static roundRobin<int> _seasons;
+
     // Game Data
     GameData _gameData;
     Toko _toko;
@@ -124,12 +127,6 @@ public:
     void nextTurn();
 
     /**
-     * Take tax from any player
-     * Usage: ```pungutPajak();```
-     */
-    void pungutPajak();
-
-    /**
      * Getter for _inputChecker
      * Usage: '''GetInputChecker();'''
      */
@@ -162,6 +159,18 @@ public:
     void ShowCurrentPlayerInfo();
 
     static void addAge();
+
+    /**
+     * Get the current season
+     * (1) Spring
+     * (2) Summer
+     * (3) Fall
+     * (4) Winter
+    */
+    static int getCurrentSeason(){
+        return _seasons.top();
+    }
+
 };
 
 #endif

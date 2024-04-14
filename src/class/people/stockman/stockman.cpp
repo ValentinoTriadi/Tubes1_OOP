@@ -113,7 +113,7 @@ void Stockman::ternak(){
     }
 }
 
-void Stockman::memberiPangan()
+void Stockman::memberiPangan(int season)
 {
     try
     {
@@ -183,6 +183,10 @@ void Stockman::memberiPangan()
 
             // SUCCESS
             // tambahin berat
+            // Kalau season = fall, berat tambah 0.5x
+            // Kalau season = spring, berat tambah 2x
+            animal->setWeight(animal->getWeight() + (temp->getAddedWeight() * (season == 3 ? 0.5 : 1) * (season == 1 ? 2 : 1)));
+
             animal->setWeight(animal->getWeight() + temp->getAddedWeight());
         } catch (const exception& e) {
             throw NotException("product");

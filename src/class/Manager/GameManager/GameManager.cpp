@@ -3,6 +3,7 @@
 using namespace std;
 
 roundRobin<People *> GameManager::_listPlayer;
+roundRobin<int> GameManager::_seasons;
 bool GameManager::_isGameOver = false;
 
 void GameManager::StartNewGame()
@@ -33,7 +34,12 @@ void GameManager::ReadConfig()
     this->_weightToWin = float(gameConfig[1]);
 }
 
-GameManager::GameManager() = default;
+GameManager::GameManager(){
+    _seasons.add(1);
+    _seasons.add(2);
+    _seasons.add(3);
+    _seasons.add(4);
+};
 
 GameManager::~GameManager()
 {
@@ -138,7 +144,14 @@ void GameManager::nextTurn()
     _listPlayer.next();
     std::cout << "Giliran dilanjut ke pemain berikutnya." << endl;
     this->_currentPlayer = _listPlayer.top();
-    addAge();
+    // change season
+    if (_currentPlayer->GetType() == 1){
+        _seasons.next();
+    }
+    // Kalau Fall tanaman ga tumbuh
+    if (getCurrentSeason() != 3){
+        addAge();
+    }
 }
 
 void GameManager::addAge()
@@ -148,8 +161,12 @@ void GameManager::addAge()
         // If the player is a farmer, add the plant age
         if (player->GetType() == 2)
         {
-            Farmer *farmer = (Farmer *)player;
+            Farmer *farmer = dynamic_cast<Farmer *>(player);
             farmer->addPlantAge();
+            // Kalau Spring tanaman tumbuh 2x
+            if (getCurrentSeason() == 1){
+                farmer->addPlantAge();
+            }
         }
     }
 }
@@ -207,13 +224,17 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->cetakPenyimpanan();
             break;
         case 3:
+            if (getCurrentSeason() == 4) {
+                cout << "Musim dingin! Ternakmu Sedang berhibernasi! Tidak jadi ternak\n" << endl;
+                break;
+            }
             stockman->ternak();
             break;
         case 4:
             _currentPlayer->makan();
             break;
         case 5:
-            stockman->memberiPangan();
+            stockman->memberiPangan(getCurrentSeason());
             break;
         case 6:
             _currentPlayer->membeli();
@@ -255,10 +276,15 @@ void GameManager::RunMayorSelection(int input)
             _currentPlayer->cetakPenyimpanan();
             break;
         case 2:
-            Mayor::TagihPajak(&_listPlayer);
+            Mayor::TagihPajak(&_listPlayer, getCurrentSeason());
             break;
         case 3:
-            mayor->bangun();
+            if (getCurrentSeason() == 4) {
+                cout << "Musim dingin! Kuli meminta kenaikan harga!\n" << endl;
+                mayor->bangun(1.25);
+                break;
+            }
+            mayor->bangun(1);
             break;
         case 4:
             _currentPlayer->makan();
@@ -306,6 +332,10 @@ void GameManager::RunFarmerSelection(int input)
             farmer->cetakLadang();
             break;
         case 3:
+            if (getCurrentSeason() == 4) {
+                cout << "Tangan mu kedinginan! Kau tidak jadi menanam\n" << endl;
+                break;
+            }
             farmer->tanam();
             break;
         case 4:
@@ -351,7 +381,26 @@ void GameManager::Run()
 
 void GameManager::ShowCurrentPlayerInfo()
 {
-    cout << "\n\nCurrent Player Info: " << endl;
+    cout << "\n\n ===== Current Player Info ===== " << endl;
+    cout << "current Season: ";
+
+    if (getCurrentSeason() == 1)
+    {
+        cout << "Spring" << endl;
+    }
+    else if (getCurrentSeason() == 2)
+    {
+        cout << "Summer" << endl;
+    }
+    else if (getCurrentSeason() == 3)
+    {
+        cout << "Fall" << endl;
+    }
+    else if (getCurrentSeason() == 4)
+    {
+        cout << "Winter" << endl;
+    }
+
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
 
@@ -386,3 +435,4 @@ void GameManager::simpan()
     StateManager::_listPlayer = _listPlayer.getBuffer();
     StateManager::saveState();
 }
+

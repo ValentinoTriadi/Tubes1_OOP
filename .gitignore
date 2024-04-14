@@ -42,3 +42,11 @@
 /src/cmake-build-debug
 src/cmake-build-debug/CMakeFiles/rules.ninja
 /src/CMakeFiles
+/src/.vs
+*.vcxproj
+*.filters
+*.user
+/src/Tubes1_OOP.dir
+/src/x64
+*.sln
+*.pdb

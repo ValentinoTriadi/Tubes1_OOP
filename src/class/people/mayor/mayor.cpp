@@ -24,7 +24,7 @@ void Mayor::PrintBuildingRecipe()
     }
 }
 
-void Mayor::bangun()
+void Mayor::bangun(float multiplier)
 {
     // Check if the player has any slot left
     if (storage.getCellKosong()){
@@ -47,10 +47,11 @@ void Mayor::bangun()
         {
             try
             {
+                int harga = i.getHarga() * multiplier;
                 // Check if the player has enough money
-                if (Keuangan.GetMoney() < i.getHarga())
+                if (Keuangan.GetMoney() < harga)
                 {
-                    kekuranganUang = i.getHarga() - Keuangan.GetMoney();
+                    kekuranganUang = harga - Keuangan.GetMoney();
                 }
 
                 // Check if the player has enough items
@@ -75,7 +76,7 @@ void Mayor::bangun()
                 }
 
                 // Deduct money and items
-                Keuangan.kurangUang(i.getHarga());
+                Keuangan.kurangUang(harga);
                 for (std::pair<const std::string, int> &item : i.getRecipe())
                 {
                     for (int j = 0; j < item.second; j++)
@@ -90,7 +91,7 @@ void Mayor::bangun()
                 }
 
                 // Add the building to the storage
-                storage.setItem(new Building(i.getId(), i.getCode(), i.getNama(), i.getHarga(), i.getRecipe() ));
+                storage.setItem(new Building(i.getId(), i.getCode(), i.getNama(), harga, i.getRecipe() ));
                 cout << "Bangunan berhasil dibangun!" << endl;
                 return;
             }
@@ -146,7 +147,7 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     cout << "Pemain berhasil ditambahkan!" << endl;
 }
 
-void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
+void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
 {
     int totalPajak = 0;
     vector<pair<People *, int>> playerPajak;
@@ -159,7 +160,10 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer)
         if (player->GetType() != 1)
         {
             player->HitungNonUang();
-            int JumlahPajak = min(player->getStatusKeuangan().hitungPajak(), player->GetKeuangan());
+            // Kalau season spring (1), pajak dikurangi 25%
+            // Kalau season fall (3), pajak ditambah 25%
+            int JumlahPajak = player->getStatusKeuangan().hitungPajak() * (season == 1 ? 0.75 : 1) * (season == 3 ? 1.25 : 1);
+            JumlahPajak = min(JumlahPajak, player->GetKeuangan());
             player->getStatusKeuangan().kurangUang(JumlahPajak);
             totalPajak += JumlahPajak;
             playerPajak.emplace_back(player, JumlahPajak);
