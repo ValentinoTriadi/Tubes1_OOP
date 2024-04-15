@@ -93,8 +93,18 @@ void People::membeli()
         {
             throw ItemNotFoundException("");
         }
+        int quantityMax = Toko::getListToko()[itemtobuy];
 
-        InputManager::receiveIntInput("Kuantitas : ");
+        try
+        {
+            InputManager::QuantityValidation(quantityMax, "Kuantitas yang ingin dibeli");
+        }
+        catch (InputException e)
+        {
+            cout << e.what() << endl;
+            return;
+        }
+
         int quantity = InputManager::_inputData<int>;
 
         if (storage.getCellKosong() < quantity)
@@ -162,7 +172,15 @@ void People::menjual()
         cout << "Berikut merupakan penyimpanan Anda" << endl;
         cetakPenyimpanan();
 
-        InputManager::receiveIntInput("Kuantitas barang yang ingin dijual : ");
+        try
+        {
+            InputManager::QuantityValidation(storage.getItems().size(), "Jumlah Barang yang ingin dibeli: ");
+        }
+        catch (InputException e)
+        {
+            std::cout << e.what() << endl;
+            return;
+        }
         int quantity = InputManager::_inputData<int>;
 
         if (quantity > (int)storage.getItems().size())
