@@ -115,19 +115,22 @@ vector<std::pair<int, int>> DataConverter::GetMultipleRowCol(int quantity, const
         try{
             cout << message;
             string input;
-            for (int i = 0; i < quantity; i++)
-            {
-                string temp;
-                cin >> temp;
-                input += temp;
-                if (i != quantity - 1) {
-                    input += " ";
-                }
-            }
+            std::getline(std::cin >> std::ws, input);
             cout << endl;
 
             if (input.length() < 3)
                 throw InputException("Invalid Input: Please input minimum 3 characters.");
+
+            // Remove leading and trailing spaces and comma from input, Erase all spaces
+            string temp = input;
+            temp.erase(0, temp.find_first_not_of(' '));
+            temp.erase(temp.find_last_not_of(' ') + 1);
+            temp.erase(std::remove(temp.begin(), temp.end(), ' '), temp.end());
+            temp.erase(std::remove(temp.begin(), temp.end(), ','), temp.end());
+
+            // Check if the input has the correct length
+            if (temp.length() != 3 * quantity)
+                throw InputException("Invalid Input: Please input " + std::to_string(quantity) + " pairs of [A-Z][0-9][0-9]");
 
             // Regex for input with format A01, A02, A03,..., A0N
             std::regex pattern("([A-Z][0-9]{2},?\\s?)+");

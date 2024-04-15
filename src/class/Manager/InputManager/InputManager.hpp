@@ -80,7 +80,7 @@ public:
      * @param ItemsMaxSize The maximum size of the list items toko
      */
 
-    static void QuantityValidation(int maxQuantity, string messages);
+    static void QuantityValidation(int maxQuantity, const string& messages);
     /**
      * @brief Validate User Input for only accepting Valid Item Quantity to sell. e.g quantity > 0 and quantity < max slot
      */

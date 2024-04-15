@@ -438,10 +438,15 @@ void InputManager::StateManagerLoadStateFromFileInputValidation()
     }
 }
 
-void InputManager::QuantityValidation(int ItemsQuantity, string messages)
+void InputManager::QuantityValidation(int ItemsQuantity, const string& messages)
 {
     receiveIntInput(messages + " : ");
     cout << endl;
+
+    if (ItemsQuantity == -1) {
+        return;
+    }
+
     if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
     {
         string errorMessage = "Kuantitas " + to_string(_inputData<int>) + " tidak valid";

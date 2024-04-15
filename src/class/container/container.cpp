@@ -207,9 +207,9 @@ void Container::deleteItemByName(string slot)
     throw KosongException("Item " + slot);
 }
 
-map<pair<string, int>, int> Container::getItems()
+vector<Item*> Container::getItems()
 {
-    map<pair<string, int>, int> itemMap;
+    vector<Item*> itemList;
 
     for (int i = 0; i < row; i++)
     {
@@ -217,12 +217,11 @@ map<pair<string, int>, int> Container::getItems()
         {
             if (items[i][j] != nullptr)
             {
-                pair<string, int> item = make_pair(items[i][j]->getCode(), items[i][j]->getHarga());
-                itemMap[item]++;
+                itemList.push_back(items[i][j]);
             }
         }
     }
-    return itemMap;
+    return itemList;
 }
 
 map<string, vector<Item *>> Container::getItemsPointer()

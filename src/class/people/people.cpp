@@ -130,6 +130,7 @@ void People::membeli()
                 try
                 {
                     cetakPenyimpanan();
+                    cout << "Masukkan " << quantity << " petak yang ingin Anda isi" << endl;
                     vector<pair<int, int>> petak = DataConverter::GetMultipleRowCol(quantity, "petak : ");
                     int temp = quantity;
                     for (int i = 0; i < temp; i++)
@@ -174,19 +175,15 @@ void People::menjual()
 
         try
         {
-            InputManager::QuantityValidation(storage.getItems().size(), "Jumlah Barang yang ingin dibeli: ");
+            InputManager::QuantityValidation(storage.getItems().size(), "Jumlah Barang yang ingin dijual");
         }
-        catch (InputException e)
+        catch (InputException &e)
         {
             std::cout << e.what() << endl;
             return;
         }
-        int quantity = InputManager::_inputData<int>;
 
-        if (quantity > (int)storage.getItems().size())
-        {
-            throw NotEnoughItemException();
-        }
+        int quantity = InputManager::_inputData<int>;
 
         cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
         for (int i = 0; i < quantity; i++)
@@ -246,10 +243,10 @@ StatusKeuangan People::getStatusKeuangan() const
 void People::HitungNonUang()
 {
     int NonUang = Keuangan.GetNonUang();
-    map<pair<string, int>, int> item = storage.getItems();
-    for (std::pair<const std::pair<std::string, int>, int> &i : item)
+    vector<Item*> item = storage.getItems();
+    for (Item* i : item)
     {
-        NonUang += i.second;
+        NonUang += i->getHarga();
     }
     Keuangan.SetNonUang(NonUang);
 }

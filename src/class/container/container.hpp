@@ -93,7 +93,7 @@ public:
      *         representing the item's code and price, and the value is an integer representing
      *         the quantity of the item.
      */
-    map<pair<string, int>, int> getItems();
+    vector<Item*> getItems();
 
     /**
      * @brief Returns the item at the specified position in the container.
