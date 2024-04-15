@@ -126,24 +126,39 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     pekerjaan = DataConverter::LowerCase(InputManager::_inputData<string>);
 
     string nama;
-    InputManager::receiveInput("Masukkan nama pemain: ");
-    nama = InputManager::_inputData<string>;
+
+    do {
+        InputManager::receiveInput("Masukkan nama pemain: ");
+        nama = InputManager::_inputData<string>;
+
+        for (People *player : *listPlayer)
+        {
+            if (player->GetName() == nama)
+            {
+                cout << "Nama pemain sudah ada." << endl;
+                nama = "";
+                break;
+            }
+        }
+
+    } while (nama.empty());
+
 
     if (pekerjaan == "farmer" || pekerjaan == "petani")
     {
-        listPlayer->add(new Farmer(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
+        listPlayer->add(new Farmer(nama, 40, 90, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
 
     }
     else if (pekerjaan == "stockman" || pekerjaan == "peternak")
     {
-        listPlayer->add(new Stockman(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
+        listPlayer->add(new Stockman(nama, 40, 90, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
     } else
     {
         cout << "Pekerjaan tidak valid." << endl;
         return;
     }
 
-    getStatusKeuangan().kurangUang(50);
+    Keuangan.kurangUang(50);
     cout << "Pemain berhasil ditambahkan!" << endl;
 }
 
