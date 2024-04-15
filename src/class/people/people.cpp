@@ -258,3 +258,11 @@ string People::getNameByCode(const string &code) const
 {
     return name;
 }
+
+void People::KurangiUang(int uang) {
+    Keuangan.kurangUang(uang);
+}
+
+void People::TambahUang(int uang) {
+    Keuangan.tambahUang(uang);
+}

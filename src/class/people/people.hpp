@@ -127,10 +127,19 @@ class People{
         void HitungNonUang();
 
         /**
+         * @brief Kurangi uang
+         */
+        void KurangiUang(int);
+
+        /**
          * @brief get name by code
         */
         virtual string getNameByCode(const string&) const = 0;
 
+        /**
+         * @brief Tambah uang
+         */
+        void TambahUang(int uang);
 };
 
 #endif

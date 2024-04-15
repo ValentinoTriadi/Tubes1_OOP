@@ -276,7 +276,7 @@ void GameManager::RunMayorSelection(int input)
             _currentPlayer->cetakPenyimpanan();
             break;
         case 2:
-            Mayor::TagihPajak(&_listPlayer, getCurrentSeason());
+            mayor->TagihPajak(&_listPlayer, getCurrentSeason());
             break;
         case 3:
             if (getCurrentSeason() == 4) {

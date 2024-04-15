@@ -179,7 +179,7 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
             // Kalau season fall (3), pajak ditambah 25%
             int JumlahPajak = player->getStatusKeuangan().hitungPajak() * (season == 1 ? 0.75 : 1) * (season == 3 ? 1.25 : 1);
             JumlahPajak = min(JumlahPajak, player->GetKeuangan());
-            player->getStatusKeuangan().kurangUang(JumlahPajak);
+            player->KurangiUang(JumlahPajak);
             totalPajak += JumlahPajak;
             playerPajak.emplace_back(player, JumlahPajak);
         }
@@ -198,6 +198,8 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
         string job = playerPajak[i].first->GetType() == 2 ? "Petani" : "Peternak";
         cout << "\t" << i+1 << ". " << playerPajak[i].first->GetName() << " - " << job << ": " << playerPajak[i].second << " gulden\n";
     }
+
+    TambahUang(totalPajak);
 
     cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << endl;
 }

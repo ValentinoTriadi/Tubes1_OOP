@@ -36,7 +36,7 @@ public:
 
     string getNameByCode(const string &) const;
 
-    static void TagihPajak(roundRobin<People *> *listPlayer, int season);
+   void TagihPajak(roundRobin<People *> *listPlayer, int season);
 };
 
 #endif
