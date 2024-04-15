@@ -10,11 +10,20 @@ std::map<Item*, int> Toko::listItemToko;
 map<Item*, int>::iterator it;
 
 void Toko::addItems(Item* item) {
-    if(listItemToko.find(item) != listItemToko.end()) {
-        listItemToko[item]++;
-    } else {
-        listItemToko[item] = 1;
+    // Check if the item is already in the shop dengan pengecekan kode
+    for (std::pair<Item *const, int> &it : listItemToko) {
+        if (it.first->getCode() == item->getCode()) {
+            // Check if the item is infinite
+            if (it.second == -1) {
+                return;
+            }
+            it.second++;
+            return;
+        }
     }
+
+    // If the item is not in the shop, add the item to the shop
+    listItemToko[item] = 1;
 }
 
 void Toko::initItem(Item *item, int quantity) {

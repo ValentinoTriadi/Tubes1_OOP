@@ -27,7 +27,7 @@ void Mayor::PrintBuildingRecipe()
 void Mayor::bangun(float multiplier)
 {
     // Check if the player has any slot left
-    if (storage.getCellKosong()){
+    if (storage.getCellKosong() == 0){
         cout << "Anda tidak memiliki slot kosong untuk bangunan!" << endl;
         return;
     }

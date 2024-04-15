@@ -164,7 +164,7 @@ void Farmer::panen()
         map<string, int>::iterator it;
         int i = 0;
         std::cout << endl
-                  << "Pilih hewan siap panen yang kamu miliki" << endl;
+                  << "Pilih tanaman siap panen yang kamu miliki" << endl;
         for (it = plants.begin(); it != plants.end(); it++)
         {
             i++;
@@ -262,7 +262,7 @@ void Farmer::panen()
         }
         Product tempProduct = GameData::_productConfig[tempProductIndex];
 
-        std::cout << jumlah << " petak hewan " << codePlant << " pada petak ";
+        std::cout << jumlah << " petak Tanaman " << codePlant << " pada petak ";
         for (int i = 0; i < jumlah; i++)
         {
             Product *newProduct = new Product(tempProduct);

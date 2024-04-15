@@ -63,7 +63,7 @@ void Stockman::ternak(){
         // Check adakah hewan di penyimpanam
         found = storage.isAnyAnimal();
         if (!found) {
-            throw NotInException("tumbuhan", "penyimpanan");
+            throw NotInException("Hewan", "penyimpanan");
         }
 
         cout << "Pilih hewan dari penyimpanan" << endl;

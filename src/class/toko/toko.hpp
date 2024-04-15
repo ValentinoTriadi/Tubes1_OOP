@@ -21,7 +21,7 @@ class Toko {
     static void tambahListItems(map<Item *, int> listItemToko);
 
 private:
-        static std::map<Item*, int> listItemToko;
+    static std::map<Item*, int> listItemToko;
 
     static void addItemsInfinite(Item *item);
 
