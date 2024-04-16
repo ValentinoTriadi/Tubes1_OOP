@@ -390,42 +390,60 @@ void GameManager::Run()
 
 void GameManager::ShowCurrentPlayerInfo()
 {
+    // switch (_currentPlayer->GetType())
+    // {
+    //     case 1:
+    //         cout;
+    //         break;
+    //     case 2:
+    //         cout;
+    //         break;
+    //     case 3:
+    //         cout;
+    //         break;
+    //     default:
+    //         break;
+    // }
     cout << "\n\n===== Current Player Info ===== " << endl;
     cout << "Current Season: ";
 
-    if (getCurrentSeason() == 1)
+    switch (getCurrentSeason())
     {
-        cout << "Spring" << endl;
-    }
-    else if (getCurrentSeason() == 2)
-    {
-        cout << "Summer" << endl;
-    }
-    else if (getCurrentSeason() == 3)
-    {
-        cout << "Fall" << endl;
-    }
-    else if (getCurrentSeason() == 4)
-    {
-        cout << "Winter" << endl;
+        case 1:
+            cout << "\e[32m" << "Spring" << endl;
+            break;
+        case 2:
+            cout << "\e[33m" << "Summer" << endl;
+            break;
+        case 3:
+            cout << "\e[31m" << "Fall" << endl;
+            break;
+        case 4:
+            cout << "\e[36m" << "Winter" << endl;
+            break;
+        default:
+            break;
     }
 
+    cout << "\e[0m";
     cout << "Player Name: " << _currentPlayer->GetName();
     cout << "\nOccupation: ";
 
-    if (_currentPlayer->GetType() == 1)
+    switch (_currentPlayer->GetType())
     {
-        cout << "Mayor" << endl;
+        case 1:
+            cout << "\e[35m" << "Mayor" << endl;
+            break;
+        case 2:
+            cout << "\e[32m" << "Farmer" << endl;
+            break;
+        case 3:
+            cout << "\e[34m" << "Stockman" << endl;
+            break;
+        default:
+            break;
     }
-    else if (_currentPlayer->GetType() == 2)
-    {
-        cout << "Farmer" << endl;
-    }
-    else if (_currentPlayer->GetType() == 3)
-    {
-        cout << "Stockman" << endl;
-    }
-
+    cout << "\e[0m";
     cout << "Money: " << _currentPlayer->GetKeuangan();
     cout << "\nWeight: " << _currentPlayer->GetWeight() << endl
          << endl;
