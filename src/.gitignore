@@ -4,4 +4,8 @@
 /CMakeCache.txt
 /Makefile
 /cmake_install.cmake
-/TUBES1_OOP
+/Tubes1_OOP
+bin/Tubes1_OOP
+Tubes1_OOP
+**/Tubes1_OOP
+bin/save
