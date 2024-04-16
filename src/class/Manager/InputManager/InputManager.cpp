@@ -104,6 +104,8 @@ void InputManager::ShowMayorMenu()
     cout << "8. "
          << "TAMBAH_PEMAIN\n";
     cout << "9. "
+         << "INFO_SEASON\n";
+    cout << "10. "
          << "NEXT\n";
     cout << endl;
 }
@@ -149,9 +151,12 @@ void InputManager::MayorMenuInputValidation()
         {
             _inputData<int> = 8;
         }
+        else if (data == "info_season"){
+            _inputData<int> = 9;
+        }
         else if (data == "next")
         {
-            _inputData<int> = 9;
+            _inputData<int> = 10;
         }
         else
         {
@@ -187,6 +192,8 @@ void InputManager::ShowStockmanMenu()
     std::cout << "9. "
               << "SIMPAN\n";
     std::cout << "10. "
+              << "INFO_SEASON\n";
+    std::cout << "11. "
               << "NEXT\n";
     std::cout << endl;
 }
@@ -235,9 +242,13 @@ void InputManager::StockmanMenuInputValidation()
         {
             _inputData<int> = 9;
         }
-        else if (_inputData<string> == "next")
+        else if (_inputData<string> == "info_season")
         {
             _inputData<int> = 10;
+        }
+        else if (_inputData<string> == "next")
+        {
+            _inputData<int> = 11;
         }
         else
         {
@@ -271,6 +282,8 @@ void InputManager::ShowFarmerMenu()
     cout << "8. "
          << "SIMPAN\n";
     cout << "9. "
+         << "INFO_SEASON  \n";
+    cout << "10. "
          << "NEXT  \n";
     cout << endl;
 }
@@ -316,9 +329,13 @@ void InputManager::FarmerMenuInputValidation()
         {
             _inputData<int> = 8;
         }
-        else if (data == "next")
+        else if (data == "info_season")
         {
             _inputData<int> = 9;
+        }
+        else if (data == "next")
+        {
+            _inputData<int> = 10;
         }
         else
         {

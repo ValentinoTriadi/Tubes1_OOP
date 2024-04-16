@@ -206,15 +206,17 @@ void People::menjual(float multiplier)
                         {
                             throw IndexOutOfBoundException();
                         }
-                        Item* itemToSell = storage(petak[i].second, petak[i].
-                        first);
+                        Item* itemToSell = storage(petak[i].second, petak[i].first);
                         
                         if(itemToSell == nullptr){
                             throw InputException("Petak "+ DataConverter::itos(petak[i].second, petak[i].first) + " Kosong");
                         }
 
                         storage.deleteItem(petak[i].second, petak[i].first);
-                        total += (itemToSell->getHarga() * multiplier);
+                        total += itemToSell->getHarga();
+
+                        Toko::addItems(itemToSell);
+
                         quantity--;
                     }
                     break;

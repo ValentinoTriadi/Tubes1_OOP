@@ -171,6 +171,8 @@ public:
         return _seasons.top();
     }
 
+    void infoSeason();
+
 };
 
 #endif
