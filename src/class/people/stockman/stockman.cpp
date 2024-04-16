@@ -229,7 +229,7 @@ void Stockman::panen(){
 
         // Input nomor hewan yang ingin dipanen
         InputManager::receiveIntInput("Nomor hewan yang ingin dipanen: ");
-        int nomor = InputManager::_inputData<int>;
+        int nomor = InputManager::_inputDataInt;
         if (nomor <= 0 || nomor > (int) animals.size())
         {
             throw NotValidException("Nomor hewan");
@@ -245,7 +245,7 @@ void Stockman::panen(){
 
         // Input jumlah petak yang ingin dipanen
         InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
-        int jumlah = InputManager::_inputData<int>;
+        int jumlah = InputManager::_inputDataInt;
 
         if (jumlah <= 0 || jumlah > countPetak){
             throw PetakMelebihiException();

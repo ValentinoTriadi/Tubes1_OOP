@@ -156,13 +156,13 @@ void StateManager::readShop(ifstream &file)
 void StateManager::loadFromFile(){
 
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
-    string filename = InputManager::_inputData<string>;
+    string filename = InputManager::_inputDataString;
 
     ifstream file("save/" + filename);
 
     while (!file.is_open()){
         InputManager::receiveInput("Berkas tidak valid. Silakan masukkan lokasi berkas yang valid: ");
-        filename = InputManager::_inputData<string>;
+        filename = InputManager::_inputDataString;
         file.open("save/" + filename);
     }
 
@@ -197,7 +197,7 @@ void StateManager::loadFromFile(){
 
 void StateManager::saveState() {
     InputManager::receiveInput("Masukkan lokasi berkas state : ");
-    string userInput = InputManager::_inputData<string>;
+    string userInput = InputManager::_inputDataString;
     string path = "save/" + userInput;
 
     filesystem::path pathObj(userInput);

@@ -113,7 +113,7 @@ class Ladang : public Container {
          * @param i
          * @return
          */
-        std::ostream& printRow(std::ostream& os, int i) const;
+        std::ostream& printRow (std::ostream& os, int i) const override;
 };
 
 #endif

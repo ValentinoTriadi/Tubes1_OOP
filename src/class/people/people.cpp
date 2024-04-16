@@ -86,7 +86,7 @@ void People::membeli()
         std::cout << "Slot penyimpanan tersedia: " << storage.getCellKosong() << " petak\n";
 
         InputManager::receiveIntInput("Barang ingin dibeli : ");
-        int buy = InputManager::_inputData<int>;
+        int buy = InputManager::_inputDataInt;
 
         Item *itemtobuy = Toko::getItemAt(buy - 1);
         if (itemtobuy == nullptr)
@@ -109,7 +109,7 @@ void People::membeli()
             return;
         }
 
-        int quantity = InputManager::_inputData<int>;
+        int quantity = InputManager::_inputDataInt;
 
         if (storage.getCellKosong() < quantity)
         {
@@ -189,7 +189,7 @@ void People::menjual(float multiplier)
             return;
         }
 
-        int quantity = InputManager::_inputData<int>;
+        int quantity = InputManager::_inputDataInt;
 
         std::cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
         while(true)
@@ -213,7 +213,7 @@ void People::menjual(float multiplier)
                         }
 
                         storage.deleteItem(petak[i].second, petak[i].first);
-                        total += itemToSell->getHarga();
+                        total += itemToSell->getHarga() * multiplier;
 
                         Toko::addItems(itemToSell);
 

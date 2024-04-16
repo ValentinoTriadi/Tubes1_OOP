@@ -14,8 +14,11 @@ public:
     /**
      * @brief Input Manager Constructor
      */
-    template <typename T>
-    static T _inputData;
+    static int _inputDataInt;
+    static float _inputDataFloat;
+    static string _inputDataString;
+    static bool _inputDataBool;
+
     static ifstream _file_data;
     InputManager();
 

@@ -7,8 +7,10 @@
 InputManager::InputManager() = default;
 ifstream InputManager::_file_data;
 
-template <typename T>
-T InputManager::_inputData;
+int InputManager::_inputDataInt;
+float InputManager::_inputDataFloat;
+string InputManager::_inputDataString;
+bool InputManager::_inputDataBool;
 
 std::vector<std::string> InputManager::yes = {
     "true",
@@ -49,7 +51,7 @@ std::vector<std::string> InputManager::no = {
 void InputManager::receiveInput(const string &message)
 {
     std::cout << message;
-    std::cin >> _inputData<string>;
+    std::cin >> _inputDataString;
     std::cout << "\n";
 }
 
@@ -63,15 +65,15 @@ void InputManager::NewGameInput()
              << endl;
         receiveInput("Pilihan: ");
 
-        string data = DataConverter::LowerCase(_inputData<string>);
+        string data = DataConverter::LowerCase(_inputDataString);
 
         if (data == "new_game")
         {
-            _inputData<int> = 1;
+            _inputDataInt = 1;
         }
         else if (data == "continue")
         {
-            _inputData<int> = 2;
+            _inputDataInt = 2;
         }
         else
         {
@@ -117,46 +119,46 @@ void InputManager::MayorMenuInputValidation()
         ShowMayorMenu();
         receiveInput("> ");
 
-        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-        string data = _inputData<string>;
+        _inputDataString = DataConverter::LowerCase(_inputDataString);
+        string data = _inputDataString;
         if (data == "cetak_penyimpanan")
         {
-            _inputData<int> = 1;
+            _inputDataInt = 1;
         }
         else if (data == "pungut_pajak")
         {
-            _inputData<int> = 2;
+            _inputDataInt = 2;
         }
         else if (data == "bangun")
         {
-            _inputData<int> = 3;
+            _inputDataInt = 3;
         }
         else if (data == "makan")
         {
-            _inputData<int> = 4;
+            _inputDataInt = 4;
         }
         else if (data == "beli")
         {
-            _inputData<int> = 5;
+            _inputDataInt = 5;
         }
         else if (data == "jual")
         {
-            _inputData<int> = 6;
+            _inputDataInt = 6;
         }
         else if (data == "simpan")
         {
-            _inputData<int> = 7;
+            _inputDataInt = 7;
         }
         else if (data == "tambah_pemain")
         {
-            _inputData<int> = 8;
+            _inputDataInt = 8;
         }
         else if (data == "info_season"){
-            _inputData<int> = 9;
+            _inputDataInt = 9;
         }
         else if (data == "next")
         {
-            _inputData<int> = 10;
+            _inputDataInt = 10;
         }
         else
         {
@@ -205,50 +207,50 @@ void InputManager::StockmanMenuInputValidation()
         ShowStockmanMenu();
         receiveInput("> ");
 
-        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-        if (_inputData<string> == "cetak_peternakan")
+        _inputDataString = DataConverter::LowerCase(_inputDataString);
+        if (_inputDataString == "cetak_peternakan")
         {
-            _inputData<int> = 1;
+            _inputDataInt = 1;
         }
-        else if (_inputData<string> == "cetak_penyimpanan")
+        else if (_inputDataString == "cetak_penyimpanan")
         {
-            _inputData<int> = 2;
+            _inputDataInt = 2;
         }
-        else if (_inputData<string> == "ternak")
+        else if (_inputDataString == "ternak")
         {
-            _inputData<int> = 3;
+            _inputDataInt = 3;
         }
-        else if (_inputData<string> == "makan")
+        else if (_inputDataString == "makan")
         {
-            _inputData<int> = 4;
+            _inputDataInt = 4;
         }
-        else if (_inputData<string> == "kasih_makan")
+        else if (_inputDataString == "kasih_makan")
         {
-            _inputData<int> = 5;
+            _inputDataInt = 5;
         }
-        else if (_inputData<string> == "beli")
+        else if (_inputDataString == "beli")
         {
-            _inputData<int> = 6;
+            _inputDataInt = 6;
         }
-        else if (_inputData<string> == "jual")
+        else if (_inputDataString == "jual")
         {
-            _inputData<int> = 7;
+            _inputDataInt = 7;
         }
-        else if (_inputData<string> == "panen")
+        else if (_inputDataString == "panen")
         {
-            _inputData<int> = 8;
+            _inputDataInt = 8;
         }
-        else if (_inputData<string> == "simpan")
+        else if (_inputDataString == "simpan")
         {
-            _inputData<int> = 9;
+            _inputDataInt = 9;
         }
-        else if (_inputData<string> == "info_season")
+        else if (_inputDataString == "info_season")
         {
-            _inputData<int> = 10;
+            _inputDataInt = 10;
         }
-        else if (_inputData<string> == "next")
+        else if (_inputDataString == "next")
         {
-            _inputData<int> = 11;
+            _inputDataInt = 11;
         }
         else
         {
@@ -295,47 +297,47 @@ void InputManager::FarmerMenuInputValidation()
         ShowFarmerMenu();
         receiveInput("> ");
 
-        _inputData<string> = DataConverter::LowerCase(_inputData<string>);
-        string data = _inputData<string>;
+        _inputDataString = DataConverter::LowerCase(_inputDataString);
+        string data = _inputDataString;
         if (data == "cetak_penyimpanan")
         {
-            _inputData<int> = 1;
+            _inputDataInt = 1;
         }
         else if (data == "cetak_ladang")
         {
-            _inputData<int> = 2;
+            _inputDataInt = 2;
         }
-        else if (_inputData<string> == "tanam")
+        else if (_inputDataString == "tanam")
         {
-            _inputData<int> = 3;
+            _inputDataInt = 3;
         }
         else if (data == "makan")
         {
-            _inputData<int> = 4;
+            _inputDataInt = 4;
         }
         else if (data == "beli")
         {
-            _inputData<int> = 5;
+            _inputDataInt = 5;
         }
         else if (data == "jual")
         {
-            _inputData<int> = 6;
+            _inputDataInt = 6;
         }
         else if (data == "panen")
         {
-            _inputData<int> = 7;
+            _inputDataInt = 7;
         }
         else if (data == "simpan")
         {
-            _inputData<int> = 8;
+            _inputDataInt = 8;
         }
         else if (data == "info_season")
         {
-            _inputData<int> = 9;
+            _inputDataInt = 9;
         }
         else if (data == "next")
         {
-            _inputData<int> = 10;
+            _inputDataInt = 10;
         }
         else
         {
@@ -358,12 +360,12 @@ void InputManager::receiveIntInput(const string &message)
         {
             receiveInput(message);
 
-            if (!DataConverter::isNumber(_inputData<string>))
+            if (!DataConverter::isNumber(_inputDataString))
             {
                 throw InputException("Invalid Input: Please input a number");
             }
 
-            _inputData<int> = stoi(_inputData<string>);
+            _inputDataInt = stoi(_inputDataString);
             break;
         }
         catch (InputException &e)
@@ -382,12 +384,12 @@ void InputManager::receiveFloatInput(const string &message)
         {
             receiveInput(message);
 
-            if (!DataConverter::isNumber(_inputData<string>))
+            if (!DataConverter::isNumber(_inputDataString))
             {
                 throw InputException("Invalid Input: Please input a number");
             }
 
-            _inputData<float> = stof(_inputData<string>);
+            _inputDataFloat = stof(_inputDataString);
             break;
         }
         catch (InputException &e)
@@ -405,13 +407,13 @@ bool InputManager::receiveBooleanInput(const string &message)
         {
             receiveInput(message);
 
-            _inputData<string> = DataConverter::LowerCase(_inputData<string>);
+            _inputDataString = DataConverter::LowerCase(_inputDataString);
 
-            if (find(yes.begin(), yes.end(), _inputData<string>) != yes.end())
+            if (find(yes.begin(), yes.end(), _inputDataString) != yes.end())
             {
                 return true;
             }
-            else if (find(no.begin(), no.end(), _inputData<string>) != no.end())
+            else if (find(no.begin(), no.end(), _inputDataString) != no.end())
             {
                 return false;
             }
@@ -430,7 +432,7 @@ void InputManager::StateManagerLoadStateInputValidation()
     {
         try
         {
-            _inputData<bool> = receiveBooleanInput("Masukkan 'y' atau 'n' :");
+            _inputDataBool = receiveBooleanInput("Masukkan 'y' atau 'n' :");
         }
         catch (InputException &e)
         {
@@ -446,9 +448,9 @@ void InputManager::StateManagerLoadStateInputValidation()
 void InputManager::StateManagerLoadStateFromFileInputValidation()
 {
     receiveInput("");
-    _file_data.open(_inputData<string>);
+    _file_data.open(_inputDataString);
 
-    string data_check = DataConverter::LowerCase(_inputData<string>);
+    string data_check = DataConverter::LowerCase(_inputDataString);
     if (!_file_data.is_open())
     {
         throw InputException("File tidak bisa dibuka, Berkas tidak ditemukan !!! ");
@@ -460,17 +462,17 @@ void InputManager::QuantityValidation(int ItemsQuantity, const string& messages)
     receiveIntInput(messages + " : ");
     cout << endl;
 
-    if (ItemsQuantity == -1 && _inputData<int> > 0) {
+    if (ItemsQuantity == -1 && _inputDataInt > 0) {
         return;
     }
-    else if(_inputData<int> <= 0){
-        string errorMessage = "Kuantitas " + to_string(_inputData<int>) + " tidak valid";
+    else if(_inputDataInt <= 0){
+        string errorMessage = "Kuantitas " + to_string(_inputDataInt) + " tidak valid";
         throw InputException(errorMessage);
     }
     else{
-        if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
+        if (_inputDataInt <= 0 || _inputDataInt > ItemsQuantity)
         {
-            string errorMessage = "Kuantitas " + to_string(_inputData<int>) + " tidak valid";
+            string errorMessage = "Kuantitas " + to_string(_inputDataInt) + " tidak valid";
             throw InputException(errorMessage);
         }
     }
