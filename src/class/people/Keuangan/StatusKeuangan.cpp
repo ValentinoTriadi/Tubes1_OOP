@@ -9,6 +9,7 @@ StatusKeuangan::StatusKeuangan(int uang, int type)
 
 int StatusKeuangan::hitungPajak() const{
     int kkp = money + NonUang;
+    kkp -= ktkp;
     if(kkp < ktkp){
         return 0;
     }
@@ -29,11 +30,7 @@ int StatusKeuangan::hitungPajak() const{
 
     int kenaPajak = (kkp * tarif) / 100;
 
-    if (kenaPajak < ktkp) {
-        return 0;
-    }
-
-    return kenaPajak - ktkp ;
+    return kenaPajak;
 }
 
 void StatusKeuangan::tambahUang(int val){
@@ -45,10 +42,6 @@ void StatusKeuangan::kurangUang(int val){
         throw NotEnoughMoneyException();
     }
     money -= val;
-}
-
-void StatusKeuangan::HitungNonUang() {
-
 }
 
 void StatusKeuangan::SetNonUang(int s) {

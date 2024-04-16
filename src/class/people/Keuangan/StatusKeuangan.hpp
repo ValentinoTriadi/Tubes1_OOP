@@ -48,12 +48,6 @@ public:
      */
     [[nodiscard]] int GetNonUang() const{return NonUang;}
 
-    /**
-     * Hitung NonUang
-     * Usage: ```HitungNonUang();```
-     */
-    void HitungNonUang();
-
     void SetNonUang(int);
 };
 

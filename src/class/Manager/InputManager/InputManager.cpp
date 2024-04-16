@@ -80,7 +80,7 @@ void InputManager::NewGameInput()
             throw InputException("Input Invalid: Masukan belum benar");
         }
     }
-    catch (InputException e)
+    catch (InputException &e)
     {
         throw e;
     }

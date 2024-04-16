@@ -97,11 +97,20 @@ To install CMake on Linux or macOS, follow these steps:
     brew install cmake
     ```
 
+3. Windows : (Warning: might not work)
+    - Using Chocolatey
+    ```
+    choco install cmake
+    ```
+    - Download manual 
+    <br>Site : https://cmake.org/download/
+
 Ensure that after installation, CMake is available in your system's PATH so that it can be invoked from the command line. Once CMake is installed, you can proceed to build and run the program
 
 
 ### Installation
 
+#### Linux
 1. Clone the repo
    ```bash
    git clone https://github.com/ValentinoTriadi/Tubes1_OOP
@@ -110,13 +119,39 @@ Ensure that after installation, CMake is available in your system's PATH so that
 2. Build makefile using CMake
     ```bash
     cd src
-    cmake ./CMakeList.txt
+    cmake ./CMakeLists.txt
+    ```
 3. Build binary file
     ```bash
     make
     ```
 4. Run the program
     ```bash
+    cd bin
+    ./Tubes1_OOP
+    ```
+
+#### Windows
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/ValentinoTriadi/Tubes1_OOP
+
+    ```
+
+2. Build makefile using CMake
+    - Windows (Warning: might not work)
+    ```bash
+    cd src
+    cmake -B build -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -S .
+    ```
+3. Build binary file
+    ```bash
+   cmake --build build --config Release
+    ```
+4. Run the program
+    ```bash
+    cd bin
     ./Tubes1_OOP
     ```
 
@@ -171,6 +206,9 @@ Ensure that after installation, CMake is available in your system's PATH so that
 15. Tambah Pemain
     - Roles: Mayor
     - Description: The mayor can add players. Every time a player is added, the mayor needs to provide assistance of 50 gulden. The mayor can only add farmers and ranchers. If there is not enough money, the mayor cannot add players. Player names must be unique.
+16. Info Season
+    - Roles : All Players
+    - Description : The game has a season event where certain season can give a buff or debuff to certain commands. This command only serves to show the current season information. There are 4 season events available such as Summer, Spring, Fall, and Winter. 
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

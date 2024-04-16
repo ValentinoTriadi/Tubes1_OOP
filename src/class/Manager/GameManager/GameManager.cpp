@@ -12,7 +12,7 @@ void GameManager::StartNewGame()
     _toko = Toko();
 
     // Add user to the list player
-    // User default settings 40 gulden, 40 weight
+    // User default settings 50 gulden, 40 weight
     for (int i = 1; i <= 3; i++)
     {
         this->AddUser(i);
@@ -65,17 +65,17 @@ void GameManager::AddUser(int type)
     {
         if (type == 1)
         {
-            Mayor *temp_mayor = new Mayor("Mayor", 40, 40, gameConfig[2], gameConfig[3]);
+            Mayor *temp_mayor = new Mayor("Mayor", 40, 50, gameConfig[2], gameConfig[3]);
             GameManager::_listPlayer.add(temp_mayor);
         }
         else if (type == 2)
         {
-            Farmer *temp_farmer = new Farmer("Petani1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
+            Farmer *temp_farmer = new Farmer("Petani1", 40, 50, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]);
             GameManager::_listPlayer.add(temp_farmer);
         }
         else if (type == 3)
         {
-            Stockman *temp_stockman = new Stockman("Peternak1", 40, 40, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
+            Stockman *temp_stockman = new Stockman("Peternak1", 40, 50, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]);
             GameManager::_listPlayer.add(temp_stockman);
         }
         else
@@ -222,7 +222,7 @@ void GameManager::RunStockmanSelection(int input)
         {
         case 1:
             stockman->cetakPeternakan();
-            
+            stockman->getPeternakan().showAnimal();
             break;
         case 2:
             _currentPlayer->cetakPenyimpanan();
@@ -341,6 +341,7 @@ void GameManager::RunFarmerSelection(int input)
             break;
         case 2:
             farmer->cetakLadang();
+            farmer->getLadang().showPlant();
             break;
         case 3:
             if (getCurrentSeason() == 4) {
