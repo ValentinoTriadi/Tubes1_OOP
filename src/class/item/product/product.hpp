@@ -24,6 +24,11 @@ class Product final : public Item {
         Product(int Id, const string &Code, const string &Name, int Price, string Type, string Origin, int AddedWeight);
 
         /**
+         * Copy Constructor
+        */
+        Product(const Product&);
+
+        /**
          * Destructor
          * !```Don't call this function directly```!
         */

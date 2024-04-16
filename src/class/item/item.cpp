@@ -7,6 +7,7 @@
 // define the constructor
 Item::Item() : Id(0), Price(0), ItemType(0) {}
 Item::Item(int Id, string Code, string Name, int Price, int ItemType) : Id(Id), Code(std::move(Code)), Name(std::move(Name)), Price(Price), ItemType(ItemType) {}
+Item::Item(const Item &I) : Id(I.Id), Code(I.Code), Name(I.Name), Price(I.Price), ItemType(I.ItemType) {}
 
 // define the destructor
 Item::~Item() = default;

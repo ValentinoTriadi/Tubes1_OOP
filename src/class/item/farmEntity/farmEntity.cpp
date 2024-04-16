@@ -6,6 +6,7 @@
 // define the constructor
 FarmEntity::FarmEntity() : HarvestLimit(0) {}
 FarmEntity::FarmEntity(int Id, const string &Code, const string &Name, int Price, string Type, int HarvestLimit, int ItemType) : Item(Id, Code, Name, Price, ItemType), Type(std::move(Type)), HarvestLimit(HarvestLimit) {}
+FarmEntity::FarmEntity(const FarmEntity &FE) : Item(FE), Type(FE.Type), HarvestLimit(FE.HarvestLimit) {}
 
 // define the destructor
 FarmEntity::~FarmEntity() = default;

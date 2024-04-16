@@ -22,6 +22,11 @@ class Building final : public Item {
          */
         Building(int, const string&, const string&, int, const map<string, int>&);
 
+        /**
+         * Copy Constructor
+        */
+        Building(const Building&);
+
         ~Building() override;
 
         [[nodiscard]] map<string, int> getRecipe() const;

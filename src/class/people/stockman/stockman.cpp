@@ -168,37 +168,30 @@ void Stockman::memberiPangan(int season)
             throw NotException("product");
         }
 
-        try {
-            // Validasi alokasi produk
-            Product* temp = dynamic_cast<Product*>(storage(slotIndex.second, slotIndex.first));
+        // Validasi alokasi produk
+        Product* temp = dynamic_cast<Product*>(storage(slotIndex.second, slotIndex.first));
 
-            // Validasi tipe makanan
-            if (temp->getType() == "PRODUCT_MATERIAL_PLANT"){
-                throw NotException("makanan hewan");
-            } else if (animal->getType() == "HERBIVORE" && temp->getType() != "PRODUCT_FRUIT_PLANT") {
-                throw HewanMakanException("buah");
-            } else if (animal->getType() == "CARNIVORE" && temp->getType() != "PRODUCT_ANIMAL") {
-                throw HewanMakanException("daging");
-            }
-
-            // SUCCESS
-            // tambahin berat
-            // Kalau season = fall, berat tambah 0.5x
-            // Kalau season = spring, berat tambah 2x
-
-            if(season == 3){
-                cout << "Musim Fall sedang berjalan, Hewan berat badannya hanya bertambah 50% dari biasanya" << endl;
-            }else if(season == 1){
-                cout << "Musim spring sedang berjalan, Hewan berat badannya bertambah 2 kali lipat" << endl;
-            }
-            animal->setWeight(animal->getWeight() + (temp->getAddedWeight() * (season == 3 ? 0.5 : 1) * (season == 1 ? 2 : 1)));
-
-            animal->setWeight(animal->getWeight() + temp->getAddedWeight());
-        } catch (const exception& e) {
-            throw NotException("product");
+        // Validasi tipe makanan
+        if (temp->getType() == "PRODUCT_MATERIAL_PLANT"){
+            throw NotException("makanan hewan");
+        } else if (animal->getType() == "HERBIVORE" && temp->getType() != "PRODUCT_FRUIT_PLANT") {
+            throw HewanMakanException("buah");
+        } else if (animal->getType() == "CARNIVORE" && temp->getType() != "PRODUCT_ANIMAL") {
+            throw HewanMakanException("daging");
         }
 
-        peternakan.setItem(petakIndex.second, petakIndex.first, animal);
+        // SUCCESS
+        // tambahin berat
+        // Kalau season = fall, berat tambah 0.5x
+        // Kalau season = spring, berat tambah 2x
+
+        if(season == 3){
+            cout << "Musim Fall sedang berjalan, Hewan berat badannya hanya bertambah 50% dari biasanya" << endl;
+        }else if(season == 1){
+            cout << "Musim spring sedang berjalan, Hewan berat badannya bertambah 2 kali lipat" << endl;
+        }
+        animal->setWeight(animal->getWeight() + (temp->getAddedWeight() * (season == 3 ? 0.5 : 1) * (season == 1 ? 2 : 1)));
+
         // hapus dari penyimpanan
         storage.deleteItem(slotIndex.second, slotIndex.first);
         cout << animal->getNama() <<" sudah diberi makan dan beratnya menjadi " << animal->getWeight() << endl;
@@ -268,7 +261,7 @@ void Stockman::panen(){
 
             // Validasi petak kosong
             if (peternakan(petakIndex.second, petakIndex.first) == nullptr){
-                throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
+                throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
             } else {
                 // Validasi petak bukan hewan yang dipilih
                 try {

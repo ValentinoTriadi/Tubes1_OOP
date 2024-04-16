@@ -3,6 +3,7 @@
 // Constructor
 Plant::Plant() : FarmEntity(), Age(0) {}
 Plant::Plant(int Id, const string& Code, const string& Name, int Price, const string& Types, int HarvestLimit, int Age) : FarmEntity(Id, Code, Name, Price, Types, HarvestLimit, 2), Age(Age) {}
+Plant::Plant(const Plant& P) : FarmEntity(P), Age(P.Age) {}
 
 // Destructor
 Plant::~Plant() = default;
