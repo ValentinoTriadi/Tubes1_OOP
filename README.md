@@ -12,10 +12,11 @@
 <br />
 <div align="center">
 
-<h3 align="center">Tugas Besar 1: Kelola Kerajaan Bersama Labpro</h3>
+<h3 align="center">
+IF2210 Pemrograman Berorientasi Objek</h3>
 
   <p align="center">
-    Website Image search using image by color and texture similarity
+    Tugas Besar 1: Kelola Kerajaan Bersama Labpro
     <br />
     <a href="https://github.com/ValentinoTriadi/Tubes1_OOP"><strong>Explore the docs »</strong></a>
     <br />
