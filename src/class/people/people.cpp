@@ -153,6 +153,7 @@ void People::membeli()
                         // create new objek
                         if (itemtobuy->getItemType() == 0){
                             storage.setItem(petak[i].second, petak[i].first, new Product(*dynamic_cast<Product*>(itemtobuy)));
+                            Toko::removeItems(itemtobuy);
                         }
                         else if (itemtobuy->getItemType() == 1){
                             storage.setItem(petak[i].second, petak[i].first, new Animal(*dynamic_cast<Animal*>(itemtobuy)));
@@ -162,8 +163,9 @@ void People::membeli()
                         }
                         else if (itemtobuy->getItemType() == 3){
                             storage.setItem(petak[i].second, petak[i].first, new Building(*dynamic_cast<Building*>(itemtobuy)));
+                            Toko::removeItems(itemtobuy);
                         }
-                        quantity--;
+
                     }
                     std::cout << "Barang berhasil disimpan!" << endl;
                     break;
