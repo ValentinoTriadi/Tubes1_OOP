@@ -25,7 +25,7 @@ public:
      * Validasi bangunan melalui recipe yang ada di config
      * @param multiplier multiplier dari harga bangunan
      */
-    void bangun(float);
+    void bangun();
 
     /*
      * Menambahkan pemain baru

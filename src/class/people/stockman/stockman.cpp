@@ -185,6 +185,12 @@ void Stockman::memberiPangan(int season)
             // tambahin berat
             // Kalau season = fall, berat tambah 0.5x
             // Kalau season = spring, berat tambah 2x
+
+            if(season == 3){
+                cout << "Musim Fall sedang berjalan, Hewan berat badannya hanya bertambah 50% dari biasanya" << endl;
+            }else if(season == 1){
+                cout << "Musim spring sedang berjalan, Hewan berat badannya bertambah 2 kali lipat" << endl;
+            }
             animal->setWeight(animal->getWeight() + (temp->getAddedWeight() * (season == 3 ? 0.5 : 1) * (season == 1 ? 2 : 1)));
 
             animal->setWeight(animal->getWeight() + temp->getAddedWeight());

@@ -74,8 +74,9 @@ class People{
 
         /**
          *  @brief Menjual
+         *  @param Multiplier used for season summer 
          */
-        void menjual();
+        void menjual(float multiplier = 1);
 
         /**
          *  @brief Set container
