@@ -93,17 +93,17 @@ void Farmer::tanam()
             throw NotValidException("Slot");
         }
         // Validasi
-        if (storage(slotIndex.first, slotIndex.second) == nullptr)
+        if (storage(slotIndex.second, slotIndex.first) == nullptr)
         {
-            throw KosongException("Slot" + DataConverter::itos(slotIndex.first, slotIndex.second));
+            throw KosongException("Slot" + DataConverter::itos(slotIndex.second, slotIndex.first));
         }
-        else if (!CheckTumbuhan(storage(slotIndex.first, slotIndex.second)->getCode()))
+        else if (!CheckTumbuhan(storage(slotIndex.second, slotIndex.first)->getCode()))
         {
             throw NotException("tumbuhan");
         }
 
         // Akses item
-        Item *tanaman = storage(slotIndex.first, slotIndex.second);
+        Item *tanaman = storage(slotIndex.second, slotIndex.first);
 
         std::cout << "Kamu memilih " << tanaman->getNama() << endl;
 
@@ -123,15 +123,15 @@ void Farmer::tanam()
         }
 
         // Validasi
-        if (this->ladang(petakIndex.first, petakIndex.second) != nullptr)
+        if (this->ladang(petakIndex.second, petakIndex.first) != nullptr)
         {
-            throw PetakSudahTerisiException(DataConverter::itos(petakIndex.first, petakIndex.second));
+            throw PetakSudahTerisiException(DataConverter::itos(petakIndex.second, petakIndex.first));
         }
         else
         {
             // SUCCESS
-            this->ladang.setItem(petakIndex.first, petakIndex.second, tanaman);
-            this->storage.deleteItem(slotIndex.first, slotIndex.second);
+            this->ladang.setItem(petakIndex.second, petakIndex.first, tanaman);
+            this->storage.deleteItem(slotIndex.second, slotIndex.first);
         }
 
         cout << "Cangkul, cangkul, cangkul yang dalam~!\n";
@@ -223,7 +223,7 @@ void Farmer::panen()
                 }
                 if (ladang(petakIndex.second, petakIndex.first) == nullptr)
                 {
-                    throw KosongException("Petak" + DataConverter::itos(petakIndex.second, petakIndex.first));
+                    throw KosongException("Petak " + DataConverter::itos(petakIndex.second, petakIndex.first));
                 }
                 if (!Ladang::isReadyToHarvest(ladang(petakIndex.second, petakIndex.first)))
                 {
