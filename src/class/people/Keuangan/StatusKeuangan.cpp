@@ -44,10 +44,6 @@ void StatusKeuangan::kurangUang(int val){
     money -= val;
 }
 
-void StatusKeuangan::HitungNonUang() {
-
-}
-
 void StatusKeuangan::SetNonUang(int s) {
     NonUang = s;
 }

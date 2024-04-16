@@ -117,11 +117,19 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
     vector<int> gameConfig = GameData::_gameConfig;
 
     string pekerjaan;
-    InputManager::receiveInput("Masukkan jenis pemain: ");
+
+    cout << "========== Pekerjaan ===========" << endl;
+    cout << "1. Farmer atau Petani"<<endl;
+    cout << "2. Stockman atau Peternak\n"<<endl; 
+    InputManager::receiveInput("Masukkan pekerjaan pemain: ");
     pekerjaan = DataConverter::LowerCase(InputManager::_inputDataString);
 
-    string nama;
+    if (pekerjaan != "farmer" && pekerjaan != "petani" && pekerjaan != "stockman" && pekerjaan != "peternak"){
+        cout << "Anda tidak memiliki pekerjaan yang sesuai!" << endl;
+        return;
+    }
 
+    string nama;
     do {
         InputManager::receiveInput("Masukkan nama pemain: ");
         nama = InputManager::_inputDataString;
@@ -137,24 +145,19 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
         }
 
     } while (nama.empty());
-
-
     if (pekerjaan == "farmer" || pekerjaan == "petani")
     {
-        listPlayer->add(new Farmer(nama, 40, 90, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
+        listPlayer->add(new Farmer(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[4], gameConfig[5]));
 
     }
     else if (pekerjaan == "stockman" || pekerjaan == "peternak")
     {
-        listPlayer->add(new Stockman(nama, 40, 90, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
-    } else
-    {
-        cout << "Pekerjaan tidak valid." << endl;
-        return;
+        listPlayer->add(new Stockman(nama, 40, 50, gameConfig[2], gameConfig[3], gameConfig[6], gameConfig[7]));
     }
 
     Keuangan.kurangUang(50);
-    cout << "Pemain berhasil ditambahkan!" << endl;
+    cout << "\nPemain berhasil ditambahkan!" << endl;
+    cout << "Selamat welcome " << name <<" di kota ini!!" << endl;
 }
 
 void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
