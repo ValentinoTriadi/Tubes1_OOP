@@ -249,7 +249,7 @@ void Farmer::panen()
         int tempProductIndex = -1;
         for (int i = 0; i < (int)GameData::_productConfig.size(); i++)
         {
-            if (GameData::_productConfig[i].getType() == "PRODUCT_FRUIT_PLANT" && GameData::_productConfig[i].getOrigin() == namePlant)
+            if ((GameData::_productConfig[i].getType() == "PRODUCT_FRUIT_PLANT" || GameData::_productConfig[i].getType() == "PRODUCT_MATERIAL_PLANT") && GameData::_productConfig[i].getOrigin() == namePlant)
             {
                 tempProductIndex = i;
                 break;
