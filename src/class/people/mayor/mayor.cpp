@@ -47,7 +47,7 @@ void Mayor::bangun()
         {
             try
             {
-                // Check if the player has enough money
+                // Get Building Price
                 int harga = i.getHarga();
 
                 // Check if the player has enough items
