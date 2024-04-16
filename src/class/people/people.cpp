@@ -213,7 +213,7 @@ void People::menjual(float multiplier)
                         }
 
                         storage.deleteItem(petak[i].second, petak[i].first);
-                        total += itemToSell->getHarga();
+                        total += itemToSell->getHarga() * multiplier;
 
                         Toko::addItems(itemToSell);
 
