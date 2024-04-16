@@ -193,7 +193,6 @@ Project Link: [https://github.com/ValentinoTriadi/Tubes1_OOP](https://github.com
 * [Muhammad Fauzan Azhim](https://github.com/fauzanazz)
 * [Muhammad Davis Adhipramana](https://github.com/Loxenary)
 * [Valentino Chryslie Triadi](https://github.com/ValentinoTriadi)
-*
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
