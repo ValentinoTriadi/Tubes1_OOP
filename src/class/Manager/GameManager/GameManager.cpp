@@ -95,7 +95,7 @@ void GameManager::StartGameValidation()
     {
         InputManager::NewGameInput();
 
-        int data = InputManager::_inputData<int>;
+        int data = InputManager::_inputDataInt;
         if (data == 1)
         {
             StartNewGame();
@@ -187,15 +187,15 @@ void GameManager::MenuSelection(int type)
         {
         case (1):
             InputManager::MayorMenuInputValidation();
-            RunMayorSelection(InputManager::_inputData<int>);
+            RunMayorSelection(InputManager::_inputDataInt);
             break;
         case (2):
             InputManager::FarmerMenuInputValidation();
-            RunFarmerSelection(InputManager::_inputData<int>);
+            RunFarmerSelection(InputManager::_inputDataInt);
             break;
         case (3):
             InputManager::StockmanMenuInputValidation();
-            RunStockmanSelection(InputManager::_inputData<int>);
+            RunStockmanSelection(InputManager::_inputDataInt);
             break;
         default:
             throw MenuException();

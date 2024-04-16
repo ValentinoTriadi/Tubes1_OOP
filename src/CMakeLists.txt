@@ -4,7 +4,8 @@ project(Tubes1_OOP)
 set(CMAKE_CXX_STANDARD 17)
 
 # Add the compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -O2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

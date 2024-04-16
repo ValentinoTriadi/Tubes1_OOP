@@ -44,7 +44,7 @@ void Mayor::bangun()
     // Check if the choice is valid
     for (Building &i : GameData::_buildingConfig)
     {
-        if (InputManager::_inputData<string> == i.getNama())
+        if (InputManager::_inputDataString == i.getNama())
         {
             try
             {
@@ -118,13 +118,13 @@ void Mayor::tambahPemain(roundRobin<People *> *listPlayer) {
 
     string pekerjaan;
     InputManager::receiveInput("Masukkan jenis pemain: ");
-    pekerjaan = DataConverter::LowerCase(InputManager::_inputData<string>);
+    pekerjaan = DataConverter::LowerCase(InputManager::_inputDataString);
 
     string nama;
 
     do {
         InputManager::receiveInput("Masukkan nama pemain: ");
-        nama = InputManager::_inputData<string>;
+        nama = InputManager::_inputDataString;
 
         for (People *player : *listPlayer)
         {

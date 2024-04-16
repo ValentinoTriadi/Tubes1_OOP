@@ -172,7 +172,7 @@ void Farmer::panen()
         }
 
         InputManager::receiveIntInput("Nomor tanaman yang ingin dipanen: ");
-        int nomor = InputManager::_inputData<int>;
+        int nomor = InputManager::_inputDataInt;
 
         // Validasi input
         if (nomor <= 0 || nomor > (int)plants.size())
@@ -191,7 +191,7 @@ void Farmer::panen()
         string namePlant = getNameByCode(codePlant);
 
         InputManager::receiveIntInput("Berapa petak yang ingin dipanen: ");
-        int jumlah = InputManager::_inputData<int>;
+        int jumlah = InputManager::_inputDataInt;
 
         // Validasi input
         if (jumlah <= 0)
