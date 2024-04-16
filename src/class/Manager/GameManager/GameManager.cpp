@@ -249,6 +249,9 @@ void GameManager::RunStockmanSelection(int input)
             simpan();
             break;
         case 10:
+            infoSeason();
+            break;
+        case 11:
             nextTurn();
             break;
         default:
@@ -302,6 +305,9 @@ void GameManager::RunMayorSelection(int input)
             mayor->tambahPemain(&_listPlayer);
             break;
         case 9:
+            infoSeason();
+            break;
+        case 10:
             nextTurn();
             break;
         default:
@@ -354,6 +360,9 @@ void GameManager::RunFarmerSelection(int input)
             simpan();
             break;
         case 9:
+            infoSeason();
+            break;
+        case 10:
             nextTurn();
             break;
         default:
@@ -382,7 +391,7 @@ void GameManager::Run()
 void GameManager::ShowCurrentPlayerInfo()
 {
     cout << "\n\n===== Current Player Info ===== " << endl;
-    cout << "current Season: ";
+    cout << "Current Season: ";
 
     if (getCurrentSeason() == 1)
     {
@@ -436,3 +445,34 @@ void GameManager::simpan()
     StateManager::saveState();
 }
 
+
+void GameManager::infoSeason(){
+    int currSeason = getCurrentSeason();
+    switch (currSeason){
+        case 1:
+            cout << "\e[32m" << "=========================[ Spring ]==========================\n"
+                 << "- Farmer   : Pertumbuhan tumbuhan meningkat menjadi 2x lebih cepat\n"
+                 << "- Mayor    : Pajak yang ditarik turun menjadi 75%\n"
+                 << "- Stockman : Penambahan berat hewan meningkat menjadi 2x lipat\n" << "\e[0m";
+            break;
+        case 2:
+            cout << "\e[33m" << "=========================[ Summer ]==========================\n"
+                 << "- Farmer   : Harga jual produk menjadi 2x lipat\n"
+                 << "- Stockman : Harga jual produk menjadi 2x lipat\n" << "\e[0m";
+            break;
+        case 3:
+            cout << "\e[31m" << "=========================[ Fall ]==========================\n"
+                 << "- Farmer   : Tumbuhan tidak mengalami pertumbuhan\n"
+                 << "- Mayor    : Pajak yang ditarik naik menjadi 125%\n"
+                 << "- Stockman : Penambahan berat hewan menurun menjadi 50%\n" << "\e[0m";
+            break;
+        case 4:
+            cout << "\e[36m" << "=========================[ Winter ]==========================\n"
+                 << "- Farmer   : Tidak bisa menanam\n"
+                 << "- Stockman : Tidak bisa beternak\n" << "\e[0m";
+            break;
+        default:
+            break;
+    }
+
+}
