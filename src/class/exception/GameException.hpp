@@ -395,7 +395,7 @@ public:
     }
     string what() override
     {
-        return "Item " + message + " tidak ditemukan";
+        return "Item" + message + " tidak ditemukan";
     }
 };
 

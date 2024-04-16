@@ -78,9 +78,9 @@ void InputManager::NewGameInput()
             throw InputException("Input Invalid: Masukan belum benar");
         }
     }
-    catch (GameException &e)
+    catch (InputException e)
     {
-        cout << e.what() << endl;
+        throw e;
     }
 }
 
@@ -90,7 +90,7 @@ void InputManager::ShowMayorMenu()
     cout << "1. "
          << "CETAK_PENYIMPANAN\n";
     cout << "2. "
-         << "PUNGUT PAJAK\n";
+         << "PUNGUT_PAJAK\n";
     cout << "3. "
          << "BANGUN\n";
     cout << "4. "
@@ -443,13 +443,19 @@ void InputManager::QuantityValidation(int ItemsQuantity, const string& messages)
     receiveIntInput(messages + " : ");
     cout << endl;
 
-    if (ItemsQuantity == -1) {
+    if (ItemsQuantity == -1 && _inputData<int> > 0) {
         return;
     }
-
-    if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
-    {
+    else if(_inputData<int> <= 0){
         string errorMessage = "Kuantitas " + to_string(_inputData<int>) + " tidak valid";
         throw InputException(errorMessage);
     }
+    else{
+        if (_inputData<int> <= 0 || _inputData<int> > ItemsQuantity)
+        {
+            string errorMessage = "Kuantitas " + to_string(_inputData<int>) + " tidak valid";
+            throw InputException(errorMessage);
+        }
+    }
+
 }

@@ -64,8 +64,6 @@ public:
      */
     static bool receiveBooleanInput(const string &message);
 
-    static void BuyItemsValidation();
-
     /**
      * @brief Validate User Input for StateManager Load State
      */
