@@ -110,26 +110,44 @@ Ensure that after installation, CMake is available in your system's PATH so that
 
 ### Installation
 
+#### Linux
 1. Clone the repo
    ```bash
    git clone https://github.com/ValentinoTriadi/Tubes1_OOP
 
     ```
 2. Build makefile using CMake
-    - Linux or Mac
     ```bash
     cd src
     cmake ./CMakeLists.txt
-    ```
-    - Windows (Warning: might not work)
-    ```bash
-    cd src
-    cmake ./CMakeLists.txt
-    cmake -G "Unix Makefiles"
     ```
 3. Build binary file
     ```bash
     make
+    ```
+4. Run the program
+    ```bash
+    cd bin
+    ./Tubes1_OOP
+    ```
+
+#### Windows
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/ValentinoTriadi/Tubes1_OOP
+
+    ```
+
+2. Build makefile using CMake
+    - Windows (Warning: might not work)
+    ```bash
+    cd src
+    cmake -B build -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -S .
+    ```
+3. Build binary file
+    ```bash
+   cmake --build build --config Release
     ```
 4. Run the program
     ```bash
