@@ -89,8 +89,8 @@ To install CMake on Linux or macOS, follow these steps:
 
 1. Linux (Ubuntu/Debian):
     ```bash
-        sudo apt-get update
-        sudo apt-get install cmake
+    sudo apt-get update
+    sudo apt-get install cmake
     ```
 2. macOS (Homebrew):
     ```bash
