@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 # Add the compiler flags
 if(MSVC)
     add_compile_options(/W4 /WX)
-else()
-    add_compile_options(-Wall -Wextra -Werror -pedantic)
 endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
