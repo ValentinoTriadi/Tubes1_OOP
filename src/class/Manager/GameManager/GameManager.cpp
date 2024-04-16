@@ -151,6 +151,8 @@ void GameManager::nextTurn()
     // Kalau Fall tanaman ga tumbuh
     if (getCurrentSeason() != 3){
         addAge();
+    }else{
+        cout << "Musim Fall Sedang berlangsung, umur tumbuhan tidak akan bertambah!!" << endl;
     }
 }
 
@@ -165,6 +167,7 @@ void GameManager::addAge()
             farmer->addPlantAge();
             // Kalau Spring tanaman tumbuh 2x
             if (getCurrentSeason() == 1){
+                cout << "Musim Spring sedang berjalan, umur tumbuhan bertambah 2" << endl; 
                 farmer->addPlantAge();
             }
         }
@@ -219,13 +222,14 @@ void GameManager::RunStockmanSelection(int input)
         {
         case 1:
             stockman->cetakPeternakan();
+            
             break;
         case 2:
             _currentPlayer->cetakPenyimpanan();
             break;
         case 3:
             if (getCurrentSeason() == 4) {
-                cout << "Musim dingin! Ternakmu Sedang berhibernasi! Tidak jadi ternak\n" << endl;
+                cout << "Musim dingin tiba, Ternakmu Sedang berhibernasi! Tidak bisa ternak\n" << endl;
                 break;
             }
             stockman->ternak();
@@ -240,7 +244,13 @@ void GameManager::RunStockmanSelection(int input)
             _currentPlayer->membeli();
             break;
         case 7:
-            _currentPlayer->menjual();
+            if(getCurrentSeason() == 2){
+                cout << "Musim panas Tiba, Kesempatanmu menjual barang lebih mahal!!" << endl;
+                _currentPlayer->menjual(2);
+            }
+            else{
+                _currentPlayer->menjual();
+            }
             break;
         case 8:
             stockman->panen();
@@ -279,12 +289,7 @@ void GameManager::RunMayorSelection(int input)
             mayor->TagihPajak(&_listPlayer, getCurrentSeason());
             break;
         case 3:
-            if (getCurrentSeason() == 4) {
-                cout << "Musim dingin! Kuli meminta kenaikan harga!\n" << endl;
-                mayor->bangun(1.25);
-                break;
-            }
-            mayor->bangun(1);
+            mayor->bangun();
             break;
         case 4:
             _currentPlayer->makan();
@@ -333,7 +338,7 @@ void GameManager::RunFarmerSelection(int input)
             break;
         case 3:
             if (getCurrentSeason() == 4) {
-                cout << "Tangan mu kedinginan! Kau tidak jadi menanam\n" << endl;
+                cout << "Sedang musim winter, Tangan mu kedinginan! Kau tidak bisa menanam\n" << endl;
                 break;
             }
             farmer->tanam();
@@ -345,7 +350,13 @@ void GameManager::RunFarmerSelection(int input)
             _currentPlayer->membeli();
             break;
         case 6:
-            _currentPlayer->menjual();
+            if(getCurrentSeason() == 2){
+                cout << "Musim panas Tiba, Kesempatanmu menjual barang lebih mahal!!" << endl;
+                _currentPlayer->menjual(2);
+            }
+            else{
+                _currentPlayer->menjual();
+            }
             break;
         case 7:
             farmer->panen();

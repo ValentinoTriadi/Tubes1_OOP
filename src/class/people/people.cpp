@@ -165,7 +165,7 @@ void People::membeli()
     }
 }
 
-void People::menjual()
+void People::menjual(float multiplier)
 {
     int total = 0;
     try
@@ -210,7 +210,7 @@ void People::menjual()
                         }
 
                         storage.deleteItem(petak[i].second, petak[i].first);
-                        total += itemToSell->getHarga();
+                        total += (itemToSell->getHarga() * multiplier);
                         quantity--;
                     }
                     break;
@@ -224,6 +224,9 @@ void People::menjual()
         }
 
         Keuangan.tambahUang(total);
+        if(multiplier > 1){
+            cout << "Karena sedang Musim panas, Harga untuk rakyat meningkat 2 kali lipat" << endl;
+        }
         std::cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total << " gulden!" << endl;
     }
     catch (GameException &e)
