@@ -222,7 +222,7 @@ void GameManager::RunStockmanSelection(int input)
         {
         case 1:
             stockman->cetakPeternakan();
-            
+            stockman->getPeternakan().showAnimal();
             break;
         case 2:
             _currentPlayer->cetakPenyimpanan();
@@ -341,6 +341,7 @@ void GameManager::RunFarmerSelection(int input)
             break;
         case 2:
             farmer->cetakLadang();
+            farmer->getLadang().showPlant();
             break;
         case 3:
             if (getCurrentSeason() == 4) {

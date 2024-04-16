@@ -69,6 +69,9 @@ class Stockman : public People{
         */
         [[nodiscard]] string getNameByCode(const string&) const override;
 
+        /**
+         * @brief mendapatkan gabungan string antara vector 1 dengan char
+        */
         static string join(const vector<string>& vector1, const char *string);
 };
 
