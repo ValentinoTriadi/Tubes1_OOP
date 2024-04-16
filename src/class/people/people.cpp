@@ -93,6 +93,10 @@ void People::membeli()
         {
             throw ItemNotFoundException("");
         }
+        if (itemtobuy->getItemType() == 3 && this->Type == 1){
+            cout << "Kamu tidak bisa membeli bangunan!" << endl;
+            return;
+        }
         int quantityMax = Toko::getListToko()[itemtobuy];
 
         try
