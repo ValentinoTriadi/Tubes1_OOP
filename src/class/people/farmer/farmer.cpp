@@ -14,14 +14,6 @@ void Farmer::cetakLadang() const
 
 bool Farmer::CheckTumbuhan(const string &kode)
 {
-    // bool found = false;
-    // for (auto & i : GameData::_plantConfig) {
-    //     if (i.getCode() == kode) {
-    //         found = true;
-    //         break;
-    //     }
-    // }
-    // return found;
 
     // Optimized version
     // find_if -> find from start to end of vector which meets the lambda function condition
@@ -95,7 +87,7 @@ void Farmer::tanam()
         // Validasi
         if (storage(slotIndex.second, slotIndex.first) == nullptr)
         {
-            throw KosongException("Slot" + DataConverter::itos(slotIndex.second, slotIndex.first));
+            throw KosongException("Slot " + DataConverter::itos(slotIndex.second, slotIndex.first));
         }
         else if (!CheckTumbuhan(storage(slotIndex.second, slotIndex.first)->getCode()))
         {

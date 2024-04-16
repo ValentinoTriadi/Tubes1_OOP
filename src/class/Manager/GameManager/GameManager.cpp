@@ -226,6 +226,7 @@ void GameManager::RunStockmanSelection(int input)
             break;
         case 2:
             _currentPlayer->cetakPenyimpanan();
+            cout << "\nTotal Slot kosong: "<< _currentPlayer->getStorage().getCellKosong() << endl;
             break;
         case 3:
             if (getCurrentSeason() == 4) {
@@ -245,7 +246,6 @@ void GameManager::RunStockmanSelection(int input)
             break;
         case 7:
             if(getCurrentSeason() == 2){
-                cout << "Musim panas Tiba, Kesempatanmu menjual barang lebih mahal!!" << endl;
                 _currentPlayer->menjual(2);
             }
             else{
@@ -287,6 +287,7 @@ void GameManager::RunMayorSelection(int input)
         {
         case 1:
             _currentPlayer->cetakPenyimpanan();
+            cout << "\nTotal Slot kosong: "<< _currentPlayer->getStorage().getCellKosong() << endl;
             break;
         case 2:
             mayor->TagihPajak(&_listPlayer, getCurrentSeason());
@@ -338,6 +339,7 @@ void GameManager::RunFarmerSelection(int input)
         {
         case 1:
             _currentPlayer->cetakPenyimpanan();
+            cout << "\nTotal Slot kosong: "<< _currentPlayer->getStorage().getCellKosong() << endl;
             break;
         case 2:
             farmer->cetakLadang();
@@ -358,7 +360,6 @@ void GameManager::RunFarmerSelection(int input)
             break;
         case 6:
             if(getCurrentSeason() == 2){
-                cout << "Musim panas Tiba, Kesempatanmu menjual barang lebih mahal!!" << endl;
                 _currentPlayer->menjual(2);
             }
             else{
@@ -472,6 +473,7 @@ void GameManager::muat()
 void GameManager::simpan()
 {
     StateManager::_listPlayer = _listPlayer.getBuffer();
+    StateManager::_listItemToko = Toko::getListToko();
     StateManager::saveState();
 }
 
