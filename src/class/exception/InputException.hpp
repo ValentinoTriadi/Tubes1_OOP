@@ -3,7 +3,7 @@
 #include <string>
 #include "GameException.hpp"
 
-class InputException : GameException
+class InputException : public GameException
 {
 private:
     std::string messages;
@@ -11,7 +11,7 @@ private:
 public:
     explicit InputException(const std::string &message) : messages(message){};
 
-    std::string what()
+    std::string what() override
     {
         return messages;
     }

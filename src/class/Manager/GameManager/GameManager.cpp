@@ -113,7 +113,7 @@ void GameManager::StartGameValidation()
             }
         }
     }
-    catch (InputException &e)
+    catch (InputException e)
     {
         cout << e.what() << endl;
         StartGameValidation();
@@ -381,7 +381,7 @@ void GameManager::Run()
 
 void GameManager::ShowCurrentPlayerInfo()
 {
-    cout << "\n\n ===== Current Player Info ===== " << endl;
+    cout << "\n\n===== Current Player Info ===== " << endl;
     cout << "current Season: ";
 
     if (getCurrentSeason() == 1)

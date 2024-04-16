@@ -187,10 +187,10 @@ void Mayor::TagihPajak(roundRobin<People *> *listPlayer, int season)
 
     cout << "Berikut adalah detil dari pemungutan pajak:\n";
 
-    sort(playerPajak.rbegin(), playerPajak.rend(),
+    sort(playerPajak.begin(), playerPajak.end(),
          [](const std::pair<People *, int> &a, const std::pair<People *, int> &b)
          {
-             return a.second == b.second ? a.first->GetName() > b.first->GetName() : a.second > b.second;
+             return a.second == b.second ? a.first->GetName() < b.first->GetName() : a.second > b.second;
          });
 
     for (int i = 0; i < (int) playerPajak.size(); i++)
