@@ -140,7 +140,7 @@ void People::membeli()
                     for (int i = 0; i < temp; i++)
                     {
                         // Validasi petak index
-                        if (petak[i].second < 0 || petak[i].second >= storage.getCol() || petak[i].first >= storage.getRow() || petak[i].first < 0)
+                        if (petak[i].second < 0 || petak[i].second >= storage.getRow() || petak[i].first >= storage.getCol() || petak[i].first < 0)
                         {
                             throw IndexOutOfBoundException();
                         }
@@ -150,7 +150,20 @@ void People::membeli()
                             throw NotEmptyCellException(DataConverter::itos(petak[i].second, petak[i].first));
                         }
 
-                        storage.setItem(petak[i].second, petak[i].first, itemtobuy);
+                        cout << "cekkkkkkkkkkkk" << itemtobuy->getItemType() << endl;
+                        // create new objek
+                        if (itemtobuy->getItemType() == 0){
+                            storage.setItem(petak[i].second, petak[i].first, new Product(*dynamic_cast<Product*>(itemtobuy)));
+                        }
+                        else if (itemtobuy->getItemType() == 1){
+                            storage.setItem(petak[i].second, petak[i].first, new Animal(*dynamic_cast<Animal*>(itemtobuy)));
+                        }
+                        else if (itemtobuy->getItemType() == 2){
+                            storage.setItem(petak[i].second, petak[i].first, new Plant(*dynamic_cast<Plant*>(itemtobuy)));
+                        }
+                        else if (itemtobuy->getItemType() == 3){
+                            storage.setItem(petak[i].second, petak[i].first, new Building(*dynamic_cast<Building*>(itemtobuy)));
+                        }
                         quantity--;
                     }
                     std::cout << "Barang berhasil disimpan!" << endl;

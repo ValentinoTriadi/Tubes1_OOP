@@ -24,12 +24,16 @@ class Item {
         */
         Item(int, string, string, int, int);
         /**
+         * Copy Constructor
+        */
+        Item(const Item&);
+        /**
          * Destructor
          * !```Don't call this function directly```!
         */
-
-
         virtual ~Item();
+
+
         //! GETTER !//
 
         /**

@@ -5,6 +5,7 @@
 // define the constructor
 Building::Building() : Item(), Recipe() {}
 Building::Building(int Id,const string& Code,const string& Name,int Price,const map<string, int>& Recipe) : Item(Id, Code, Name, Price, 3), Recipe(Recipe) {}
+Building::Building(const Building &B) : Item(B), Recipe(B.Recipe) {}
 
 // define the destructor
 Building::~Building() {

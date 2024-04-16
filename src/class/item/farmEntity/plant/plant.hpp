@@ -25,6 +25,10 @@ class Plant final : public FarmEntity {
         */
         Plant(int Id, const string& Code, const string& Name, int Price, const string& Types, int HarvestLimit, int Age);
         /**
+         * Copy Constructor
+        */
+        Plant(const Plant&);
+        /**
          * Destructor
          * !```Don't call this function directly```!
         */

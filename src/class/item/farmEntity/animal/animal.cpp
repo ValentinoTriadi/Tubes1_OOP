@@ -4,6 +4,7 @@
 // Constructor
 Animal::Animal() : FarmEntity(), Weight(0) {}
 Animal::Animal(int Id, const string& Code, const string& Name, int Price, const string& Type, int HarvestLimit, int Weight) : FarmEntity(Id, Code, Name, Price, Type, HarvestLimit, 1), Weight(Weight) {}
+Animal::Animal(const Animal& A) : FarmEntity(A), Weight(A.Weight) {}
 
 // Destructor
 Animal::~Animal() = default;

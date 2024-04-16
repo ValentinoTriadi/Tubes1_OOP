@@ -24,6 +24,10 @@ class FarmEntity : public Item {
         */
         FarmEntity(int, const string &, const string &, int, string , int, int);
         /**
+         * Copy Constructor
+         */
+        FarmEntity(const FarmEntity &);
+        /**
          * Destructor
          *  !```Don't call this function directly```!
         */

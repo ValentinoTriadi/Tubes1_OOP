@@ -135,7 +135,7 @@ vector<std::pair<int, int>> DataConverter::GetMultipleRowCol(int quantity, const
             // Regex for input with format A01, A02, A03,..., A0N
             std::regex pattern("([A-Z][0-9]{2},?\\s?)+");
             if (!std::regex_match(input, pattern))
-                throw InputException("Invalid Input: Please input A-Z and 0-9 with pattern A09, B01,..., C04");
+                throw InputException("Invalid Input: Please input A-Z and 0-9 with pattern A09,B01,...,C04");
 
             vector<std::pair<int, int>> result;
             result.reserve(quantity);

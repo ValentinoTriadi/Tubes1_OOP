@@ -26,6 +26,10 @@ class Animal final : public FarmEntity {
          */
         Animal(int, const string&, const string&, int, const string&, int, int);
         /**
+         * Copy Constructor
+         */
+        Animal(const Animal&);
+        /**
          * Destructor
          * !```Don't call this function directly```!
          */
