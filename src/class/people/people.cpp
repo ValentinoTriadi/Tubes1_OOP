@@ -93,6 +93,10 @@ void People::membeli()
         {
             throw ItemNotFoundException("");
         }
+        if (itemtobuy->getItemType() == 3 && this->Type == 1){
+            cout << "Kamu tidak bisa membeli bangunan!" << endl;
+            return;
+        }
         int quantityMax = Toko::getListToko()[itemtobuy];
 
         try
@@ -202,8 +206,7 @@ void People::menjual()
                         {
                             throw IndexOutOfBoundException();
                         }
-                        Item* itemToSell = storage(petak[i].second, petak[i].
-                        first);
+                        Item* itemToSell = storage(petak[i].second, petak[i].first);
                         
                         if(itemToSell == nullptr){
                             throw InputException("Petak "+ DataConverter::itos(petak[i].second, petak[i].first) + " Kosong");
@@ -211,6 +214,9 @@ void People::menjual()
 
                         storage.deleteItem(petak[i].second, petak[i].first);
                         total += itemToSell->getHarga();
+
+                        Toko::addItems(itemToSell);
+
                         quantity--;
                     }
                     break;
