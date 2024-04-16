@@ -10,7 +10,6 @@ void Mayor::PrintBuildingRecipe()
     {
         cout << "    ";
         cout << i << ". " << building.getNama() << " (";
-        cout << building.getHarga() << " gulden, ";
         for (std::pair<const std::string, int> &item : building.getRecipe())
         {
             cout << item.first << " " << item.second;

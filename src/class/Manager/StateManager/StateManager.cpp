@@ -233,10 +233,19 @@ void StateManager::saveState() {
             savePeternakan(file, temp);
         }
     }
+    int counter = 0;
+    for(std::pair<Item *const, int> &i : _listItemToko){
+        if(i.second > 0){
+            counter++;
+        }
+        
+    }
 
-    file << _listItemToko.size() << "\n";
+    file << counter << "\n";
     for (std::pair<Item *const, int> &i : _listItemToko) {
-        file << i.first->getNama() << " " << i.second << "\n";
+        if(i.second > 0){
+            file << i.first->getNama() << " " << i.second << "\n";
+        }
     }
 
     cout << "State berhasil disimpan.\n";

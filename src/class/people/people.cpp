@@ -149,7 +149,6 @@ void People::membeli()
                         {
                             throw NotEmptyCellException(DataConverter::itos(petak[i].second, petak[i].first));
                         }
-
                         // create new objek
                         if (itemtobuy->getItemType() == 0){
                             storage.setItem(petak[i].second, petak[i].first, new Product(*dynamic_cast<Product*>(itemtobuy)));
