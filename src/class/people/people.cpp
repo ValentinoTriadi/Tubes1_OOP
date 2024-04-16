@@ -164,7 +164,7 @@ void People::membeli()
                             storage.setItem(petak[i].second, petak[i].first, new Building(*dynamic_cast<Building*>(itemtobuy)));
                             Toko::removeItems(itemtobuy);
                         }
-
+                        quantity--;
                     }
                     std::cout << "Barang berhasil disimpan!" << endl;
                     break;
